@@ -1,0 +1,11 @@
+.vscode/
+.idea/
+__pycache__/
+drivers/__pycache__/
+drivers/old_drivers
+instruments/old_instruments
+datafiles/
+old_files/
+slave/
+logger/
+temp/

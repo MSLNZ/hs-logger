@@ -1,0 +1,16 @@
+{
+    "job_name":"test_job",
+    "job_id":1,
+    "job_notes":"comment",
+    "datafile": "test_data.csv",
+    "interval": 30,
+    "time":0,
+    "instruments":{
+        "test_driver":"instruments/test_inst.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "test_driver.read_all"
+    ]
+}

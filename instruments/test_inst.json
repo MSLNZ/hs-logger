@@ -1,0 +1,132 @@
+{
+    "instrument_id": "test_driver",
+    "instrument_name": "test_driver",
+    "driver": "test_driver",
+    "baud_rate":"2400",
+    "w_term": "\r",
+    "r_term": "\r\n",
+    "port": "COM5",
+    "notes": "comment",
+    "operations": {
+        "read_all":{
+            "type": "read",
+            "name": "read all",
+            "id": "read_all",
+            "command": "?SP",
+            "data_type": "string"
+        },
+        "read_ambtemp":{
+            "type": "read",
+            "name": "Ambient Tempreature",
+            "id": "read_ambtemp",
+            "register":3,
+            "data_type": "float"
+        },
+        "read_rh":{
+            "type": "read",
+            "name": "Relitive Humidity",
+            "id": "read_rh",
+            "register":5,
+            "data_type": "int",
+            "scalar": 0.01
+        },
+        "read_pressure":{
+            "type": "read",
+            "name": "Pressure",
+            "id": "read_pressure",
+            "register":6,
+            "data_type": "int"
+        },
+        "read_ppmv":{
+            "type": "read",
+            "name": "Ppmv",
+            "id": "read_ppmv",
+            "register":7,
+            "data_type": "float"
+        },
+        "read_ppmw":{
+            "type": "read",
+            "name": "Ppmw",
+            "id": "read_ppmw",
+            "register":9,
+            "data_type": "float"
+        },
+        "read_gm3":{
+            "type": "read",
+            "name": "g/m3",
+            "id": "read_gm3",
+            "register":11,
+            "data_type": "float"
+        },
+        "read_gkg":{
+            "type": "read",
+            "name": "g/kg",
+            "id": "read_gm3",
+            "register":13,
+            "data_type": "float"
+        },
+        "read_flow":{
+            "type": "read",
+            "name": "Flow Rate",
+            "id": "read_flow",
+            "register":15,
+            "data_type": "uint"
+        },
+        "read_mirror_cond":{
+            "type": "read",
+            "name": "Mirror Condition",
+            "id": "read_mirror_cond",
+            "register":15,
+            "data_type": "int",
+            "scalar": 0.1
+        },
+        "read_hp_drive":{
+            "type": "read",
+            "name": "heat pump Drive",
+            "id": "read_hp_drive",
+            "register":17,
+            "data_type": "uint"
+        },
+        "read_status":{
+            "type": "read",
+            "name": "heat pump Drive",
+            "id": "read_hp_drive",
+            "register":18,
+            "data_type": "bits"
+        },
+        "read_dcc_hold_time":{
+            "type": "read",
+            "name": "DCC period + Hold Time Duration Minutes",
+            "id": "read_dcc_hold_time",
+            "register":19,
+            "data_type": "bcd"
+        },
+        "write_dcc_hold_time":{
+            "type": "write",
+            "name": " Set DCC period + Hold Time Duration Minutes",
+            "id": "write_dcc_hold_time",
+            "register":19,
+            "data_type": "bcd"
+        },
+        "read_measure_time":{
+            "type": "read",
+            "name": "DCC interval Hours + Minutes",
+            "id": "read_measure_time",
+            "register":20,
+            "data_type": "bcd"
+        },
+        "write_measure_time":{
+            "type": "write",
+            "name": "Set DCC interval Hours + Minutes",
+            "id": "write_measure_time",
+            "register":20,
+            "data_type": "bcd"
+        },
+        "write_set_temp":{
+            "type": "write",
+            "name": "set_temp",
+            "id": "write_set_temp",
+            "register":2,
+            "data_type": "int"
+        }}
+}
