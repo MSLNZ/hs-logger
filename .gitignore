@@ -4,7 +4,7 @@ __pycache__/
 drivers/__pycache__/
 drivers/old_drivers
 instruments/old_instruments
-datafiles/
+data_files/
 old_files/
 slave/
 logger/
