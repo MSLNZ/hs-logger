@@ -1,6 +1,8 @@
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 import json
 
+#TODO has not been tested need to test on instrumennt and fix
+
 class generic_driver_pymodbus(ModbusClient):
     def __init__(self,spec):
         spec = json.load(spec)

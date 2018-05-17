@@ -19,12 +19,15 @@ class Logger(Thread):
         self.min_cycle_time = 2
         # store and file setup
         self.results_dict = {}
+        self.store=[]
         self.file_setup()
         #instrument operations and v_timer instrument
         self.instruments = inst_drivers
         self.instruments['time'] = Timer()
         self.operations=[]
         self.setup_operations()
+
+        self.count = 0
 
         self.paused = True
         self.stopped = False
@@ -44,11 +47,13 @@ class Logger(Thread):
 
     def read_loop(self):
         ls_time = time.time()
+        self.results_dict = {}
         for inst, op in self.operations:
-
             self.read_instrument(inst,op)
 
         self.log_to_file()
+        self.store[self.count] = self.results_dict
+        self.count += 1
         cycle_time = time.time()-ls_time
         time.sleep(self.min_cycle_time-cycle_time)
 

@@ -3,6 +3,7 @@ import struct
 import time
 import json
 
+# older version using minimalmodbus use only for reference dose not function correctly
 
 class generic_modbus_rtu(minimalmodbus.Instrument):
 
