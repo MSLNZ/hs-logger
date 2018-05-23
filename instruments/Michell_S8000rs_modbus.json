@@ -1,7 +1,7 @@
 {
     "instrument_id": "S8000RS",
     "instrument_name": "S8000 RS Chilled mirror Hydrometer",
-    "driver":"generic_modbus_rtu",
+    "driver":"generic_modbus_pymodbus",
     "interface": "modbus_rtu",
     "address": 1,
     "port": "COM19",
@@ -39,6 +39,7 @@
             "details":"",
             "id": "read_dewpoint",
             "register":1,
+            "num_reg":2,
             "data_type": "float",
             "unit": ""
         },
@@ -48,6 +49,7 @@
             "details":"",
             "id": "read_ambtemp",
             "register":3,
+            "num_reg":2,
             "data_type": "float",
             "unit": ""
         },
@@ -57,6 +59,7 @@
             "details":"",
             "id": "read_rh",
             "register":5,
+            "num_reg":1,
             "data_type": "int",
             "decimals": 2,
             "unit": ""
@@ -214,6 +217,27 @@
             "register":20,
             "data_type": "int",
             "decimals":1,
+            "unit": ""
+        },
+        "read_sensor_temp_g1":{
+            "type": "read_g1",
+            "name": "Read Semsor Temperature",
+            "details":"",
+            "id": "read_sensor_temp",
+            "register":20,
+            "data_type": "int",
+            "decimals":1,
+            "unit": ""
+        },
+        "read_group_1":{
+            "type": "read_multiple",
+            "name": "Read bulk test",
+            "details":"",
+            "id": "read_group_1",
+            "register":0,
+            "num_reg":120,
+            "data_type": "none",
+            "decimals":0,
             "unit": ""
         }
     }

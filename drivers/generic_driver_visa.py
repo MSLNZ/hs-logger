@@ -5,8 +5,7 @@ import time
 class generic_driver_visa(object):
 
     def __init__(self, spec):
-        #self.spec = json.load(spec)
-        #print(spec)
+
         self.operations = spec['operations']
         port = spec["port"]
         baud = spec["baudrate"]
@@ -26,12 +25,21 @@ class generic_driver_visa(object):
         read instrument 
         """
         operation = self.operations[operation_id]
-        stored = self.store.get('operation_id',(none,0))
-        if time.time() - stored[2]>= self.timeout:
-           result =  stored[1]
+        datatype = operation['data_type']
+        type = operation['type']
+        stored = self.store.get(operation_id,(None,time.time()-(self.timeout+1)))
+        if time.time() - stored[1]< self.timeout:
+           result = stored[0]
+           print("using stored") #testing
         else:
             result = self.instrument.query(operation['command'])
+            if type == 'read_multiple':
+                result = result.split(operation.get("split"))
+                result = [self.convert_to(r,datatype) for r in result]
+            else:
+                result = self.convert_to(result,datatype)
             self.store[operation_id] = (result,time.time())
+
         return result
 
     #todo writing to instruments
@@ -41,11 +49,22 @@ class generic_driver_visa(object):
         """
         return "not working yet"
 
+    def convert_to(self,data,datatype):
+        if datatype == 'int':
+            return int(data)
+        elif datatype == 'float':
+            return float(data)
+        else:
+            return data
 
 #testing
 def main():
     instr = generic_driver_visa(json.load(open('../instruments/LHG3900_visa.json')))
     print (instr.read_instrument('read_default'))
+    print (instr.read_instrument('read_default'))
+    time.sleep(2)
+    print (instr.read_instrument('read_default'))
+
 
 if __name__ == '__main__':
     main()

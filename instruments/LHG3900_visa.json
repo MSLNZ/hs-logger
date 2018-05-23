@@ -15,7 +15,8 @@
             "id": "read_gm3",
             "details":"",
             "command":"?",
-            "data_type": "list",
+            "data_type": "float",
+            "split":",",
             "unit": ""
         },
         "read_dew_point":{
@@ -125,16 +126,6 @@
             "command":"?SP",
             "data_type": "list",
             "unit": ""
-        },
-        "read_setpoints2":{
-            "type": "read_multi",
-            "name": "Setpoints",
-            "id": "read_setpoints",
-            "details":"Returns current system setpoint values",
-            "command":"?SP",
-            "data_type": "list",
-            "unit": ""
         }
-        
     }
 }
