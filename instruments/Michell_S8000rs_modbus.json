@@ -1,7 +1,7 @@
 {
     "instrument_id": "S8000RS",
     "instrument_name": "S8000 RS Chilled mirror Hydrometer",
-    "driver":"generic_modbus_pymodbus",
+    "driver":"generic_driver_pymodbus",
     "interface": "modbus_rtu",
     "address": 1,
     "port": "COM19",
@@ -61,7 +61,9 @@
             "register":5,
             "num_reg":1,
             "data_type": "int",
-            "decimals": 2,
+            "decimal_shift": -2,
+            "transform_eq":"udf.add10(x,c)",
+            "transform_coeff":[10,1],
             "unit": ""
         },
         "read_pressure":{
@@ -70,6 +72,8 @@
             "details":"",
             "id": "read_pressure",
             "register":6,
+            "num_reg":1,
+            "decimal_shift": -1,
             "data_type": "int",
             "unit": ""
         },

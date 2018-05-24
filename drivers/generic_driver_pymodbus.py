@@ -1,4 +1,6 @@
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+from decimal import Decimal
+import decimal
 import json
 import struct
 import time
@@ -17,7 +19,7 @@ class generic_driver_pymodbus(ModbusClient):
         op = self.operations[op_id]
         stored = self.store.get(op_id, (None, time.time() - (self.timeout + 1)))
         if time.time() - stored[1] < self.timeout:
-            data = stored[0]
+            data ,data_trans = stored[0]
         else:
             self.connect()
             converter = self.uint_conversion(op.get('data_type','uint'))
@@ -32,9 +34,23 @@ class generic_driver_pymodbus(ModbusClient):
                     print("Modbus operation {} failed".format(op.get('id','')))
                     return 'error'
             data = converter(rr.registers)
+            data = self.decimals(data,op)
+            data_trans = self.transform(data,op)
             self.close()
-            self.store[op_id] = (data, time.time())
-        return data
+            self.store[op_id] = ((data,data_trans), time.time())
+        return data, data_trans
+
+    def decimals(self,data,operation):
+        d_shift = operation.get('decimal_shift',0)
+        return Decimal(data).scaleb(d_shift)
+
+    def transform(self,data,operation):
+        x = data
+        eq = operation.get("transform_eq",'x')
+        c = operation.get("transform_coeff",None)
+        result = eval(eq)
+        return result
+
 
     def uint_conversion(self, datatype):
         dt = datatype.lower()
@@ -65,8 +81,9 @@ class generic_driver_pymodbus(ModbusClient):
 def main():
     instr = generic_driver_pymodbus(json.load(open('../instruments/Michell_S8000rs_modbus.json')))
 
-    print(instr.read_instrument('read_group_1'))
-
+    print(instr.read_instrument('read_rh'))
+    print(instr.read_instrument('read_dewpoint'))
+    print(instr.read_instrument('read_pressure'))
 
 
 if __name__ == '__main__':

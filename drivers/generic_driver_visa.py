@@ -1,6 +1,7 @@
 import visa
 import json
 import time
+from decimal import Decimal
 
 class generic_driver_visa(object):
 
@@ -29,18 +30,21 @@ class generic_driver_visa(object):
         type = operation['type']
         stored = self.store.get(operation_id,(None,time.time()-(self.timeout+1)))
         if time.time() - stored[1]< self.timeout:
-           result = stored[0]
+           data,data_trans = stored[0]
            print("using stored") #testing
         else:
-            result = self.instrument.query(operation['command'])
+            data = self.instrument.query(operation['command'])
             if type == 'read_multiple':
-                result = result.split(operation.get("split"))
-                result = [self.convert_to(r,datatype) for r in result]
+                data = data.split(operation.get("split"))
+                data = [self.decimals(d,operation) for d in data]
+                data_trans = [self.transform(d, operation) for d in data]
             else:
-                result = self.convert_to(result,datatype)
-            self.store[operation_id] = (result,time.time())
+                data = self.decimals(data,operation)
+                data_trans = self.transform(data, operation)
 
-        return result
+            self.store[operation_id] = ((data,data_trans),time.time())
+
+        return data, data_trans
 
     #todo writing to instruments
     def write_instrument(self,operation_id,values):
@@ -48,6 +52,17 @@ class generic_driver_visa(object):
         write instrument 
         """
         return "not working yet"
+
+    def decimals(self,data,operation):
+        d_shift = operation.get('decimal_shift',0)
+        return Decimal(data).scaleb(d_shift)
+
+    def transform(self,data,operation):
+        x = data
+        eq = operation.get("transform_eq",'x')
+        c = operation.get("transform_coeff",None)
+        result = eval(eq)
+        return result
 
     def convert_to(self,data,datatype):
         if datatype == 'int':
