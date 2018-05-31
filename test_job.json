@@ -1,21 +1,18 @@
 {
-    "job_name":"test_job",
+    "job_name":"LHG3900_job",
     "job_id":1,
     "job_notes":"comment",
-    "datafile_raw": "test_data_raw.csv",
-    "datafile_trans": "test_data_trans.csv",
+    "datafile_raw": "LHG3900_job_data_raw.csv",
+    "datafile_trans": "LHG3900_job_data_trans.csv",
     "interval": 30,
     "time":0,
     "instruments":{
-        "S8000RS":"instruments/Michell_S8000rs_modbus.json",
         "LHG3900":"instruments/LHG3900_visa.json"
     },
     "logged_operations":[
         "time.runtime",
         "time.datetime",
-        "S8000RS.read_rh",
-        "S8000RS.read_dewpoint",
-        "LHG3900.read_rh.g1",
+        "LHG3900.read_rh",
         "LHG3900.read_dew_point"
     ]
 }

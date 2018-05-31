@@ -1,4 +1,4 @@
-
+import random
 
 class test_driver(object):
 
@@ -9,7 +9,8 @@ class test_driver(object):
         """
         read instrument s
         """
-        return op_id
+        v = random.random()
+        return v,v
 
     def write_instrument(self):
         """

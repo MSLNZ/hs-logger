@@ -17,11 +17,11 @@ import wx.xrc
 class ctrl_frame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"msl-hs-logger", pos = wx.DefaultPosition, size = wx.Size( 416,185 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"msl-hs-logger", pos = wx.DefaultPosition, size = wx.Size( 387,174 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
-		wSizer5 = wx.WrapSizer( wx.HORIZONTAL )
+		bSizer9 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		bSizer28 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -44,7 +44,7 @@ class ctrl_frame ( wx.Frame ):
 		bSizer28.Add( self.stop_all, 0, wx.ALL, 5 )
 		
 		
-		wSizer5.Add( bSizer28, 1, wx.EXPAND, 5 )
+		bSizer9.Add( bSizer28, 0, wx.EXPAND, 5 )
 		
 		bSizer29 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -55,13 +55,9 @@ class ctrl_frame ( wx.Frame ):
 		job_listboxChoices = []
 		self.job_listbox = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, job_listboxChoices, 0 )
 		bSizer29.Add( self.job_listbox, 1, wx.ALL|wx.EXPAND, 5 )
-
-
-		self.jobs_listctrl = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_LIST|wx.LC_VIRTUAL )
-		bSizer29.Add( self.jobs_listctrl, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		
-		wSizer5.Add( bSizer29, 0, wx.EXPAND, 5 )
+		bSizer9.Add( bSizer29, 1, wx.EXPAND, 5 )
 		
 		bSizer30 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -76,10 +72,10 @@ class ctrl_frame ( wx.Frame ):
 		bSizer30.Add( self.inst_listbox, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		
-		wSizer5.Add( bSizer30, 0, wx.EXPAND, 5 )
+		bSizer9.Add( bSizer30, 1, wx.EXPAND, 5 )
 		
 		
-		self.SetSizer( wSizer5 )
+		self.SetSizer( bSizer9 )
 		self.Layout()
 		
 		self.Centre( wx.BOTH )
@@ -161,7 +157,7 @@ class exit_dialog ( wx.Dialog ):
 class job_frame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 407,271 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 524,290 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
@@ -193,6 +189,8 @@ class job_frame ( wx.Frame ):
 		self.log_panel.Layout()
 		bSizer61.Fit( self.log_panel )
 		self.job_book.AddPage( self.log_panel, u"log", False )
+		self.plot_1 = wx.Panel( self.job_book, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.job_book.AddPage( self.plot_1, u"Figure 1", False )
 		
 		bSizer59.Add( self.job_book, 1, wx.EXPAND, 5 )
 		
@@ -215,6 +213,12 @@ class job_frame ( wx.Frame ):
 		
 		self.m_menubar2.Append( self.m_menu4, u"File" ) 
 		
+		self.graph_m = wx.Menu()
+		self.add_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"New Graph", wx.EmptyString, wx.ITEM_NORMAL )
+		self.graph_m.Append( self.add_graph_m )
+		
+		self.m_menubar2.Append( self.graph_m, u"Graph" ) 
+		
 		self.SetMenuBar( self.m_menubar2 )
 		
 		
@@ -222,6 +226,10 @@ class job_frame ( wx.Frame ):
 		
 		# Connect Events
 		self.Bind( wx.EVT_CLOSE, self.hide )
+		self.start_b.Bind( wx.EVT_BUTTON, self.start_log )
+		self.pause_b.Bind( wx.EVT_BUTTON, self.pause_log )
+		self.resume_b.Bind( wx.EVT_BUTTON, self.resume_log )
+		self.Bind( wx.EVT_MENU, self.add_graph, id = self.add_graph_m.GetId() )
 	
 	def __del__( self ):
 		pass
@@ -229,6 +237,98 @@ class job_frame ( wx.Frame ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def hide( self, event ):
+		event.Skip()
+	
+	def start_log( self, event ):
+		event.Skip()
+	
+	def pause_log( self, event ):
+		event.Skip()
+	
+	def resume_log( self, event ):
+		event.Skip()
+	
+	def add_graph( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class axes_dialog
+###########################################################################
+
+class axes_dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer19 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.description_text = wx.StaticText( self, wx.ID_ANY, u"Select Graph Axes", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.description_text.Wrap( -1 )
+		bSizer19.Add( self.description_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		bSizer25 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.x_label = wx.StaticText( self, wx.ID_ANY, u"X Axis", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.x_label.Wrap( -1 )
+		bSizer20.Add( self.x_label, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		x_choiceChoices = []
+		self.x_choice = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, x_choiceChoices, 0 )
+		self.x_choice.SetSelection( 0 )
+		bSizer20.Add( self.x_choice, 0, wx.ALL, 5 )
+		
+		
+		bSizer25.Add( bSizer20, 1, 0, 5 )
+		
+		bSizer201 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.y_lable = wx.StaticText( self, wx.ID_ANY, u"Y Axis", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.y_lable.Wrap( -1 )
+		bSizer201.Add( self.y_lable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		y_choiceChoices = []
+		self.y_choice = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, y_choiceChoices, 0 )
+		self.y_choice.SetSelection( 0 )
+		bSizer201.Add( self.y_choice, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		
+		bSizer25.Add( bSizer201, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer19.Add( bSizer25, 1, wx.EXPAND, 5 )
+		
+		bSizer26 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.cancel_b = wx.Button( self, wx.ID_CANCEL, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer26.Add( self.cancel_b, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.confirm_b = wx.Button( self, wx.ID_OK, u"Confirm", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer26.Add( self.confirm_b, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		
+		bSizer19.Add( bSizer26, 1, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		
+		self.SetSizer( bSizer19 )
+		self.Layout()
+		bSizer19.Fit( self )
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.cancel_b.Bind( wx.EVT_BUTTON, self.cancel_dialog )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def cancel_dialog( self, event ):
 		event.Skip()
 	
 

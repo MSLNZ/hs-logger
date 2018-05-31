@@ -5,10 +5,10 @@ from threading import Thread
 
 class Logger(Thread):
 
-    def __init__(self, job_spec, inst_drivers, log_out=sys.stdout):
+    def __init__(self, job_spec, inst_drivers, f_log=sys.stdout):
         Thread.__init__(self)
         self.job = job_spec
-
+        self.f_log = f_log
         #log file name
         t = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         self.out_dir = "data_files\\"
@@ -35,14 +35,14 @@ class Logger(Thread):
         self.stopped = False
 
     def run(self):
-        print("starting")
+        self.logf("starting")
         self.start_time = time.time()
         self.paused = False
         self.mainloop()
 
     def mainloop(self):
         while not self.stopped:
-            while not self.paused:
+            while not self.paused and not self.stopped:
                 self.read_loop()
             time.sleep(1)
         sys.exit(1)
@@ -93,7 +93,7 @@ class Logger(Thread):
                 self.operations.append((inst_id,op_id))
 
     def log_to_file(self):
-        print(self.raw_dict.values())
+        self.logf(self.raw_dict.values())
         datafile = self.out_dir +self.rawfilename
         with open(datafile, "a") as outfile_raw:
             writer = csv.DictWriter(outfile_raw, fieldnames=self.op_names, lineterminator='\n', dialect="excel")
@@ -113,6 +113,8 @@ class Logger(Thread):
     def stop(self):
         self.stopped = True
 
+    def logf(self,text):
+        self.f_log.write(text)
 
 class Timer(object):
     def __init__(self):
