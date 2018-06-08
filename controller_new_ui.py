@@ -2,6 +2,7 @@ import wx
 import json
 import os
 import sys
+import numpy as np
 from ctrl_ui import ctrl_frame, job_frame, axes_dialog
 from logger import Logger
 from job import Job
@@ -67,6 +68,7 @@ class myjobframe(job_frame):
         self.job = job
         self.resume_b.Enable(False)
 
+
     def hide(self,event):
         self.Hide()
 
@@ -102,6 +104,69 @@ class myjobframe(job_frame):
         dlg.Destroy()
         return x,y
 
+    def add_table(self,col,row):
+        # self.m_grid2.CreateGrid(5, 3)
+        d = Data_Table()
+        points = [["Label", "Latest", "Mean", "StDev"]]
+        points.extend([[0 for _ in range(col)] for _ in range(row)])
+        print(points)
+        d.data = points
+        print(d.GetValue(1, 1))
+        self.m_grid2.table = d
+        self.m_grid2.SetTable(d)
+        # Grid
+
+        self.m_grid2.EnableEditing(False)
+        self.m_grid2.EnableGridLines(True)
+        self.m_grid2.EnableDragGridSize(False)
+        self.m_grid2.SetMargins(0, 0)
+
+        # Columns
+        self.m_grid2.SetColSize(0, 120)
+        self.m_grid2.SetColSize(1, 120)
+        self.m_grid2.AutoSizeColumns()
+        self.m_grid2.EnableDragColMove(True)
+        self.m_grid2.EnableDragColSize(False)
+        self.m_grid2.SetColLabelSize(30)
+        self.m_grid2.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+
+        # Rows
+        self.m_grid2.AutoSizeRows()
+        self.m_grid2.EnableDragRowSize(False)
+        self.m_grid2.SetRowLabelSize(40)
+        self.m_grid2.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+
+        # Label Appearance
+
+        # Cell Defaults
+        self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
+
+
+    def update_table(self,event):
+        rows = self.job.spec["logged_operations"]
+
+        data = self.job.logger.store
+
+        points = [["Label","Latest","Mean","StDev"]]
+
+        for r in rows:
+            if r == "time.datetime":
+                pass
+            else:
+                n = np.array([d[1].get(r) for d in data],np.float64)
+
+                mean = np.mean(n)
+                std = np.std(n)
+                points.append([r,n[-1],mean,std])
+
+        self.m_grid2.table.data = points
+        self.m_grid2.AutoSize()
+        self.m_grid2.ForceRefresh()
+
+
+
+
+
 
 
 class Plot(wx.Panel):
@@ -117,11 +182,44 @@ class Plot(wx.Panel):
         sizer.Add(self.toolbar, 0, wx.LEFT | wx.EXPAND)
         self.SetSizer(sizer)
 
-# class Job(object):
-#     def __init__(self,spec,inst_drivers,frame):
-#         self.spec = spec
-#         self.logger = logger
-#         self.frame = frame
+# class DataGrid(wx.grid.Grid):
+#     def __init__(self, parent, size=wx.Size(1000, 500)):
+#         self.parent = parent
+#         wx.grid.Grid.__init__(self, self.parent, -1)
+#         self.table = Data_Table()
+
+
+class Data_Table(wx.grid.GridTableBase):
+    def __init__(self, data=None):
+        wx.grid.GridTableBase.__init__(self)
+
+        self.headerRows = 1
+        self.data = [[0,1,2,3],[0,1,2,3],[0,1,2,3],[0,1,2,3],[0,1,2,3],[0,1,2,3]]
+
+    def GetValue(self, row, col):
+        d = self.data[row+self.headerRows][col]
+        return str(d)
+
+    def GetNumberRows(self):
+        return len(self.data)-self.headerRows
+
+    def GetNumberCols(self):
+        return len(self.data[0])
+
+    def GetColLabelValue(self,col):
+        print(self.data[0])
+        if self.headerRows < 1:
+            return str(col)
+        else:
+            return str(self.data[0][col])
+
+    def IsEmptyCell(self,row,col):
+        return False
+
+    def SetValue(self, row, col, value):
+        pass
+
+
 
 
 class Controller(object):

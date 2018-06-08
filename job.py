@@ -9,6 +9,8 @@ class Job(object):
         self.logger = Logger(spec,inst_drivers,frame_log)
         self.frame = frame
         self.graphs = []
+        self.frame.add_table(4,len(spec["logged_operations"])-1)
+
 
         self.sched = BackgroundScheduler()
         self.sched.add_job(func=self.update_graphs, trigger='interval', seconds=5)

@@ -1,6 +1,7 @@
 import time
 import sys
 import csv
+import numpy as np
 from threading import Thread
 
 class Logger(Thread):
@@ -22,6 +23,14 @@ class Logger(Thread):
         self.raw_dict = {}
         self.trans_dict = {}
         self.store=[]
+
+        a = [n+".raw" for n in self.op_names]
+        a.extend([n+".trans" for n in self.op_names])
+        print(a)
+        self.np_store = np.array([a])
+        print(self.np_store)
+
+
         self.file_setup()
         #instrument operations and v_timer instrument
         self.instruments = inst_drivers
@@ -53,6 +62,10 @@ class Logger(Thread):
         self.trans_dict = {}
         for inst, op in self.operations:
             self.read_instrument(inst,op)
+
+        a = list(self.raw_dict.values())
+        a.extend(list(self.trans_dict.values()))
+        self.np_store = np.append(self.np_store,[a],axis=0)
 
         self.log_to_file()
         self.store.append((self.raw_dict,self.trans_dict))
@@ -102,6 +115,11 @@ class Logger(Thread):
         with open(datafile, "a") as outfile_trans:
             writer = csv.DictWriter(outfile_trans, fieldnames=self.op_names, lineterminator='\n', dialect="excel")
             writer.writerow(self.trans_dict)
+
+    def get_npStore(self):
+        header = self.np_store[0]
+        body = self.np_store[1:]
+        return header , body
 
     def pause(self):
         self.paused = True

@@ -9,6 +9,7 @@
 
 import wx
 import wx.xrc
+import wx.grid
 
 ###########################################################################
 ## Class ctrl_frame
@@ -65,7 +66,7 @@ class ctrl_frame ( wx.Frame ):
 		self.inst_label.Wrap( -1 )
 		bSizer30.Add( self.inst_label, 0, wx.TOP|wx.RIGHT|wx.LEFT, 5 )
 		
-		inst_listboxChoices = [ u"inst1" ]
+		inst_listboxChoices = []
 		self.inst_listbox = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, inst_listboxChoices, 0 )
 		self.inst_listbox.Enable( False )
 		
@@ -157,7 +158,7 @@ class exit_dialog ( wx.Dialog ):
 class job_frame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 524,290 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 524,382 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
@@ -189,8 +190,71 @@ class job_frame ( wx.Frame ):
 		self.log_panel.Layout()
 		bSizer61.Fit( self.log_panel )
 		self.job_book.AddPage( self.log_panel, u"log", False )
-		self.plot_1 = wx.Panel( self.job_book, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.job_book.AddPage( self.plot_1, u"Figure 1", False )
+		self.points = wx.Panel( self.job_book, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer17 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.m_grid2 = wx.grid.Grid( self.points, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		
+		# Grid
+		# self.m_grid2.CreateGrid( 5, 3 )
+		# self.m_grid2.EnableEditing( False )
+		# self.m_grid2.EnableGridLines( True )
+		# self.m_grid2.EnableDragGridSize( False )
+		# self.m_grid2.SetMargins( 0, 0 )
+		#
+		# # Columns
+		# self.m_grid2.SetColSize( 0, 120 )
+		# self.m_grid2.SetColSize( 1, 120 )
+		# self.m_grid2.AutoSizeColumns()
+		# self.m_grid2.EnableDragColMove( True )
+		# self.m_grid2.EnableDragColSize( False )
+		# self.m_grid2.SetColLabelSize( 30 )
+		# self.m_grid2.SetColLabelValue( 0, u"Latest" )
+		# self.m_grid2.SetColLabelValue( 1, u"Mean" )
+		# self.m_grid2.SetColLabelValue( 2, u"StdDev" )
+		# self.m_grid2.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		#
+		# # Rows
+		# self.m_grid2.SetRowSize( 0, 19 )
+		# self.m_grid2.SetRowSize( 1, 19 )
+		# self.m_grid2.SetRowSize( 2, 19 )
+		# self.m_grid2.SetRowSize( 3, 19 )
+		# self.m_grid2.SetRowSize( 4, 41 )
+		# self.m_grid2.AutoSizeRows()
+		# self.m_grid2.EnableDragRowSize( False )
+		# self.m_grid2.SetRowLabelSize( 40 )
+		# self.m_grid2.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		#
+		# # Label Appearance
+		#
+		# # Cell Defaults
+		# self.m_grid2.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		bSizer18.Add( self.m_grid2, 3, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer19 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.points_update = wx.Button( self.points, wx.ID_ANY, u"Update", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.points_update, 0, wx.ALL, 5 )
+		
+		self.m_button17 = wx.Button( self.points, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.m_button17, 0, wx.ALL, 5 )
+		
+		self.m_button16 = wx.Button( self.points, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.m_button16, 0, wx.ALL, 5 )
+		
+		
+		bSizer18.Add( bSizer19, 0, wx.EXPAND, 5 )
+		
+		
+		bSizer17.Add( bSizer18, 1, wx.EXPAND, 5 )
+		
+		
+		self.points.SetSizer( bSizer17 )
+		self.points.Layout()
+		bSizer17.Fit( self.points )
+		self.job_book.AddPage( self.points, u"Points", True )
 		
 		bSizer59.Add( self.job_book, 1, wx.EXPAND, 5 )
 		
@@ -229,6 +293,7 @@ class job_frame ( wx.Frame ):
 		self.start_b.Bind( wx.EVT_BUTTON, self.start_log )
 		self.pause_b.Bind( wx.EVT_BUTTON, self.pause_log )
 		self.resume_b.Bind( wx.EVT_BUTTON, self.resume_log )
+		self.points_update.Bind( wx.EVT_BUTTON, self.update_table )
 		self.Bind( wx.EVT_MENU, self.add_graph, id = self.add_graph_m.GetId() )
 	
 	def __del__( self ):
@@ -248,6 +313,9 @@ class job_frame ( wx.Frame ):
 	def resume_log( self, event ):
 		event.Skip()
 	
+	def update_table( self, event ):
+		event.Skip()
+	
 	def add_graph( self, event ):
 		event.Skip()
 	
@@ -259,15 +327,35 @@ class job_frame ( wx.Frame ):
 class axes_dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 358,184 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
 		bSizer19 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.description_text = wx.StaticText( self, wx.ID_ANY, u"Select Graph Axes", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.description_text.Wrap( -1 )
-		bSizer19.Add( self.description_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		self.m_staticText8 = wx.StaticText( self, wx.ID_ANY, u"New Graph", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText8.Wrap( -1 )
+		bSizer19.Add( self.m_staticText8, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		bSizer15 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer16 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		
+		bSizer16.Add( ( 0, 0), 1, 0, 5 )
+		
+		self.label_name = wx.StaticText( self, wx.ID_ANY, u"Name", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_name.Wrap( -1 )
+		bSizer16.Add( self.label_name, 2, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.lable_text = wx.TextCtrl( self, wx.ID_ANY, u"new_label", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer16.Add( self.lable_text, 4, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		
+		bSizer15.Add( bSizer16, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer19.Add( bSizer15, 0, wx.EXPAND, 5 )
 		
 		bSizer25 = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -280,10 +368,10 @@ class axes_dialog ( wx.Dialog ):
 		x_choiceChoices = []
 		self.x_choice = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, x_choiceChoices, 0 )
 		self.x_choice.SetSelection( 0 )
-		bSizer20.Add( self.x_choice, 0, wx.ALL, 5 )
+		bSizer20.Add( self.x_choice, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		
-		bSizer25.Add( bSizer20, 1, 0, 5 )
+		bSizer25.Add( bSizer20, 1, wx.EXPAND, 5 )
 		
 		bSizer201 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -294,7 +382,7 @@ class axes_dialog ( wx.Dialog ):
 		y_choiceChoices = []
 		self.y_choice = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, y_choiceChoices, 0 )
 		self.y_choice.SetSelection( 0 )
-		bSizer201.Add( self.y_choice, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer201.Add( self.y_choice, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		
 		bSizer25.Add( bSizer201, 1, wx.EXPAND, 5 )
@@ -316,7 +404,6 @@ class axes_dialog ( wx.Dialog ):
 		
 		self.SetSizer( bSizer19 )
 		self.Layout()
-		bSizer19.Fit( self )
 		
 		self.Centre( wx.BOTH )
 		
