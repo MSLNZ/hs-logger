@@ -62,7 +62,7 @@
             "num_reg":1,
             "data_type": "int",
             "decimal_shift": -2,
-            "transform_eq":"udf.add10(x,c)",
+            "transform_eq":"x+c[0]+c[1]",
             "transform_coeff":[10,1],
             "unit": ""
         },

@@ -105,17 +105,14 @@ class myjobframe(job_frame):
         return x,y
 
     def add_table(self,col,row):
-        # self.m_grid2.CreateGrid(5, 3)
         d = Data_Table()
         points = [["Label", "Latest", "Mean", "StDev"]]
         points.extend([[0 for _ in range(col)] for _ in range(row)])
-        print(points)
+
         d.data = points
-        print(d.GetValue(1, 1))
         self.m_grid2.table = d
         self.m_grid2.SetTable(d)
         # Grid
-
         self.m_grid2.EnableEditing(False)
         self.m_grid2.EnableGridLines(True)
         self.m_grid2.EnableDragGridSize(False)
@@ -135,8 +132,6 @@ class myjobframe(job_frame):
         self.m_grid2.EnableDragRowSize(False)
         self.m_grid2.SetRowLabelSize(40)
         self.m_grid2.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
-
-        # Label Appearance
 
         # Cell Defaults
         self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)

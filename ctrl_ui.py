@@ -231,6 +231,7 @@ class job_frame ( wx.Frame ):
 		#
 		# # Cell Defaults
 		# self.m_grid2.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+
 		bSizer18.Add( self.m_grid2, 3, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer19 = wx.BoxSizer( wx.VERTICAL )

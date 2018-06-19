@@ -7,7 +7,7 @@
     "baudrate":2400,
     "write_termination":"\r",
     "read_termination":"\r\n",
-    "notes": "some register addresses may be incorect as modbus refrence in manual appears to have errors will confirm with testing",
+    "notes": "",
     "operations": {
         "read_default":{
             "type": "read_multiple",
@@ -119,13 +119,71 @@
             "unit": ""
         },
         "read_setpoints":{
-            "type": "read_multi",
+            "type": "read_multiple",
             "name": "Setpoints",
             "id": "read_setpoints",
             "details":"Returns current system gsetpoint values",
             "command":"?SP",
             "data_type": "list",
+            "split":",",
             "unit": ""
+        },
+        "action_generate":{
+            "type": "action",
+            "name": "Generate Mode",
+            "id":   "action_generate",
+            "details": "Changes system to generate mode",
+            "command": "GEN"
+        },
+        "action_purge":{
+            "type": "action",
+            "name": "Purge Mode",
+            "id":   "action_purge",
+            "details": "Changes system to purge mode",
+            "command": "PUR"
+        },
+        "action_stop":{
+            "type": "action",
+            "name": "Stop System",
+            "id":   "action_stop",
+            "details": "Stops the System",
+            "command": "STO"
+        },
+        "set_dew_point_setpoint":{
+            "type": "write",
+            "name": "DewPoint Setpoint",
+            "id":   "set_dew_point_setpoint",
+            "command": "DP={}"
+        },
+        "set_flow_rate_setpoint":{
+            "type": "write",
+            "name": "Flow Rate Setpoint",
+            "id":   "set_flow_rate_setpoint",
+            "command": "FL={}"
+        },
+        "set_frost_point_setpoint":{
+            "type": "write",
+            "name": "FrostPoint Setpoint",
+            "id":   "set_frost_point_setpoint",
+            "command": "FP={}"
+        },
+        "set_saturation_pressure_setpoint":{
+            "type": "write",
+            "name": "Saturation Pressure Setpoint",
+            "id":   "set_saturation_pressure_setpoint",
+            "command": "PS={}"
+        },
+        "set_rh_setpoint":{
+            "type": "write",
+            "name": "%RH Setpoint",
+            "id":   "set_rh_setpoint",
+            "command": "RH={}"
+        },
+        "set_saturation_temperature_setpoint":{
+            "type": "write",
+            "name": "Saturation Temperature Setpoint",
+            "id":   "set_saturation_temperature_setpoint",
+            "command": "TS={}"
         }
     }
 }

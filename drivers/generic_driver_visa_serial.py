@@ -31,7 +31,7 @@ class generic_driver_visa_serial(object):
         stored = self.store.get(operation_id,(None,time.time()-(self.timeout+1)))
         if time.time() - stored[1]< self.timeout:
            data,data_trans = stored[0]
-           print("using stored") #testing
+           #print("using stored") #testing
         else:
             data = self.instrument.query(operation['command'])
             if type == 'read_multiple':
@@ -51,7 +51,26 @@ class generic_driver_visa_serial(object):
         """
         write instrument 
         """
-        return "not working yet"
+        #todo: check valid values for sending to instrument
+        op = self.operations[operation_id]
+        command = op.get("command","")
+        print(self.instrument.timeout)
+        command = command.format(*values)
+        print(command)
+
+        response = self.instrument.query(command)
+        #response = self.instrument.read()
+        print(response) #todo check response for errors
+        return response
+
+    def action_instrument(self,operation_id):
+        self.instrument.timeout = 10000
+        op = self.operations[operation_id]
+        command = op.get("command","")
+        response = self.instrument.query(command,delay=1)
+        self.timeout = 2000
+        print(response)  # todo check response for errors
+        return response
 
     def decimals(self,data,operation):
         d_shift = operation.get('decimal_shift',0)
@@ -74,12 +93,14 @@ class generic_driver_visa_serial(object):
 
 #testing
 def main():
-    instr = generic_driver_visa(json.load(open('../instruments/LHG3900_visa.json')))
-    print (instr.read_instrument('read_default'))
-    print (instr.read_instrument('read_default'))
-    time.sleep(2)
-    print (instr.read_instrument('read_default'))
+    instr = generic_driver_visa_serial(json.load(open('../instruments/LHG3900_visa.json')))
+    # print (instr.read_instrument('read_default'))
 
+    # print (instr.action_instrument('action_generate'))
+    print (instr.write_instrument('set_dew_point_setpoint',[5.00]))
+    # time.sleep(2)
+    # print (instr.read_instrument('read_setpoints'))
+    # print (instr.action_instrument('action_stop'))
 
 if __name__ == '__main__':
     main()

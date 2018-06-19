@@ -11,7 +11,6 @@ class Job(object):
         self.graphs = []
         self.frame.add_table(4,len(spec["logged_operations"])-1)
 
-
         self.sched = BackgroundScheduler()
         self.sched.add_job(func=self.update_graphs, trigger='interval', seconds=5)
         self.sched.start()
@@ -52,14 +51,8 @@ class Job(object):
 
     def add_graph(self,plt):
         choices = self.spec.get("logged_operations")
-
         x, y = self.frame.get_axes_dialog(choices)
-        # plt = plt.figca()
         self.graphs.append((plt,(x,y)))
-        # x_val = [d[0].get(x) for d in self.logger.store]
-        # y_val = [d[0].get(y) for d in self.logger.store]
-        # plt.clear()
-        # plt.plot(x_val, y_val)
 
     def update_graphs(self):
         for g in self.graphs:
