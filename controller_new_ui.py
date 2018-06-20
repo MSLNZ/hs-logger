@@ -202,7 +202,6 @@ class Data_Table(wx.grid.GridTableBase):
         return len(self.data[0])
 
     def GetColLabelValue(self,col):
-        print(self.data[0])
         if self.headerRows < 1:
             return str(col)
         else:
@@ -236,7 +235,6 @@ class Controller(object):
             jn = job_spec["job_name"]
             job_instrument_drivers = self.load_instruments(job_spec["instruments"])
             self.update_instruments(job_instrument_drivers)
-            # print(job_instrument_drivers)
             # logger = Logger(job_spec,job_instrument_drivers)
             jframe = myjobframe(None)
             job = Job(job_spec,job_instrument_drivers,jframe)
