@@ -68,8 +68,6 @@ class ctrl_frame ( wx.Frame ):
 		
 		inst_listboxChoices = []
 		self.inst_listbox = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, inst_listboxChoices, 0 )
-		self.inst_listbox.Enable( False )
-		
 		bSizer30.Add( self.inst_listbox, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		
@@ -85,6 +83,7 @@ class ctrl_frame ( wx.Frame ):
 		self.Bind( wx.EVT_CLOSE, self.OnCloseFrame )
 		self.open_job_b.Bind( wx.EVT_BUTTON, self.file_open )
 		self.job_listbox.Bind( wx.EVT_LISTBOX_DCLICK, self.switchToJob )
+		self.inst_listbox.Bind( wx.EVT_LISTBOX_DCLICK, self.switchToInst )
 	
 	def __del__( self ):
 		pass
@@ -98,6 +97,9 @@ class ctrl_frame ( wx.Frame ):
 		event.Skip()
 	
 	def switchToJob( self, event ):
+		event.Skip()
+	
+	def switchToInst( self, event ):
 		event.Skip()
 	
 
@@ -158,7 +160,7 @@ class exit_dialog ( wx.Dialog ):
 class job_frame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 524,382 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 591,382 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
@@ -238,11 +240,11 @@ class job_frame ( wx.Frame ):
 		self.points_update = wx.Button( self.points, wx.ID_ANY, u"Update", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer19.Add( self.points_update, 0, wx.ALL, 5 )
 		
-		self.m_button17 = wx.Button( self.points, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer19.Add( self.m_button17, 0, wx.ALL, 5 )
+		self.last_n = wx.Button( self.points, wx.ID_ANY, u"Last N", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.last_n, 0, wx.ALL, 5 )
 		
-		self.m_button16 = wx.Button( self.points, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer19.Add( self.m_button16, 0, wx.ALL, 5 )
+		self.next_n = wx.Button( self.points, wx.ID_ANY, u"Next N", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.next_n, 0, wx.ALL, 5 )
 		
 		
 		bSizer18.Add( bSizer19, 0, wx.EXPAND, 5 )
@@ -318,6 +320,153 @@ class job_frame ( wx.Frame ):
 	
 	def add_graph( self, event ):
 		event.Skip()
+	
+
+###########################################################################
+## Class inst_pannel
+###########################################################################
+
+class inst_pannel ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<instrument>", pos = wx.DefaultPosition, size = wx.Size( 500,304 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer22 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_splitter1 = wx.SplitterWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SP_3D )
+		self.m_splitter1.Bind( wx.EVT_IDLE, self.m_splitter1OnIdle )
+		
+		self.m_panel8 = wx.Panel( self.m_splitter1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer26 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer35 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer37 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.status_ctrl = wx.TextCtrl( self.m_panel8, wx.ID_ANY, u"Running", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer37.Add( self.status_ctrl, 0, wx.ALL, 5 )
+		
+		self.m_staticText15 = wx.StaticText( self.m_panel8, wx.ID_ANY, u"Status", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText15.Wrap( -1 )
+		bSizer37.Add( self.m_staticText15, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		
+		bSizer35.Add( bSizer37, 1, wx.EXPAND, 5 )
+		
+		bSizer38 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.com_text_ctrl = wx.TextCtrl( self.m_panel8, wx.ID_ANY, u"COM22", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer38.Add( self.com_text_ctrl, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.m_staticText14 = wx.StaticText( self.m_panel8, wx.ID_ANY, u"Com Port", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText14.Wrap( -1 )
+		bSizer38.Add( self.m_staticText14, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.com_port_btn = wx.Button( self.m_panel8, wx.ID_ANY, u"Update", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer38.Add( self.com_port_btn, 0, wx.ALL, 5 )
+		
+		
+		bSizer35.Add( bSizer38, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer26.Add( bSizer35, 0, wx.EXPAND, 5 )
+		
+		self.m_staticline1 = wx.StaticLine( self.m_panel8, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
+		bSizer26.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
+		
+		self.m_staticText9 = wx.StaticText( self.m_panel8, wx.ID_ANY, u"Actions", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText9.Wrap( -1 )
+		bSizer26.Add( self.m_staticText9, 0, wx.ALL, 5 )
+		
+		bSizer47 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		read_op_choiceChoices = []
+		self.read_op_choice = wx.Choice( self.m_panel8, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, read_op_choiceChoices, 0 )
+		self.read_op_choice.SetSelection( 0 )
+		bSizer47.Add( self.read_op_choice, 1, wx.ALL, 5 )
+		
+		self.read_response_ctrl = wx.TextCtrl( self.m_panel8, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer47.Add( self.read_response_ctrl, 1, wx.ALL, 5 )
+		
+		self.read_btn = wx.Button( self.m_panel8, wx.ID_ANY, u"READ", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer47.Add( self.read_btn, 0, wx.ALL, 5 )
+		
+		
+		bSizer26.Add( bSizer47, 0, wx.EXPAND, 5 )
+		
+		bSizer471 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		write_op_choiceChoices = []
+		self.write_op_choice = wx.Choice( self.m_panel8, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, write_op_choiceChoices, 0 )
+		self.write_op_choice.SetSelection( 0 )
+		bSizer471.Add( self.write_op_choice, 1, wx.ALL, 5 )
+		
+		self.write_text_ctrl = wx.TextCtrl( self.m_panel8, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer471.Add( self.write_text_ctrl, 1, wx.ALL, 5 )
+		
+		self.write_btn = wx.Button( self.m_panel8, wx.ID_ANY, u"WRITE", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer471.Add( self.write_btn, 0, wx.ALL, 5 )
+		
+		
+		bSizer26.Add( bSizer471, 0, wx.EXPAND, 5 )
+		
+		bSizer4711 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		action_choiceChoices = [ u"Stop", u"Purge", u"Generate" ]
+		self.action_choice = wx.Choice( self.m_panel8, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, action_choiceChoices, 0 )
+		self.action_choice.SetSelection( 1 )
+		bSizer4711.Add( self.action_choice, 1, wx.ALL, 5 )
+		
+		self.action_btn = wx.Button( self.m_panel8, wx.ID_ANY, u"ACTION", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer4711.Add( self.action_btn, 0, wx.ALL, 5 )
+		
+		
+		bSizer26.Add( bSizer4711, 0, wx.EXPAND, 5 )
+		
+		self.m_staticline2 = wx.StaticLine( self.m_panel8, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
+		bSizer26.Add( self.m_staticline2, 0, wx.EXPAND |wx.ALL, 5 )
+		
+		
+		self.m_panel8.SetSizer( bSizer26 )
+		self.m_panel8.Layout()
+		bSizer26.Fit( self.m_panel8 )
+		self.m_splitter1.Initialize( self.m_panel8 )
+		bSizer22.Add( self.m_splitter1, 1, wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( bSizer22 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.Bind( wx.EVT_CLOSE, self.hide )
+		self.read_btn.Bind( wx.EVT_BUTTON, self.read_op )
+		self.write_btn.Bind( wx.EVT_BUTTON, self.write_op )
+		self.action_btn.Bind( wx.EVT_BUTTON, self.action_op )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def hide( self, event ):
+		event.Skip()
+	
+	def read_op( self, event ):
+		event.Skip()
+	
+	def write_op( self, event ):
+		event.Skip()
+	
+	def action_op( self, event ):
+		event.Skip()
+	
+	def m_splitter1OnIdle( self, event ):
+		self.m_splitter1.SetSashPosition( 0 )
+		self.m_splitter1.Unbind( wx.EVT_IDLE )
 	
 
 ###########################################################################

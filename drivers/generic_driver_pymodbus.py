@@ -9,6 +9,7 @@ import time
 
 class generic_driver_pymodbus(ModbusClient):
     def __init__(self,spec):
+        self.spec = spec
         self.address = spec['address']
         self.operations = spec['operations']
         ModbusClient.__init__(self,method='rtu', port=spec['port'], timeout=1, baudrate=spec['baudrate'])

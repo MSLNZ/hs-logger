@@ -13,6 +13,7 @@ class Job(object):
 
         self.sched = BackgroundScheduler()
         self.sched.add_job(func=self.update_graphs, trigger='interval', seconds=5)
+        self.sched.add_job(func=self.update_table, trigger='interval', seconds=5)
         self.sched.start()
 
 
@@ -48,6 +49,7 @@ class Job(object):
 
     def stop(self):
         self.logger.stop()
+        self.sched.shutdown()
 
     def add_graph(self,plt):
         choices = self.spec.get("logged_operations")
@@ -59,13 +61,15 @@ class Job(object):
             plt = g[0].figure.gca()
             x = g[1][0]
             y = g[1][1]
-            print(x,y)
+            # print(x,y)
             x_val = [d[0].get(x) for d in self.logger.store]
             y_val = [d[0].get(y) for d in self.logger.store]
             plt.clear()
             plt.plot(x_val,y_val)
             g[0].canvas.draw()
 
+    def update_table(self):
+        self.frame.update_table(0)
 
 
 class Text_Log(object):

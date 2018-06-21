@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import numpy as np
-from ctrl_ui import ctrl_frame, job_frame, axes_dialog
+from ctrl_ui import ctrl_frame, job_frame, axes_dialog, inst_pannel
 from logger import Logger
 from job import Job
 
@@ -26,6 +26,16 @@ class Main_Frame(ctrl_frame):
         jframe.Show()
         jframe.Maximize(False)
         jframe.SetFocus()
+
+    def switchToInst(self,event):
+        print(event)
+        inst = event.GetEventObject().GetStringSelection()
+
+        # inst = self.ctrl.instruments.get(inst)
+        iframe = self.ctrl.iframes.get(inst)
+        iframe.Show()
+        iframe.Maximize(False)
+        iframe.SetFocus()
 
     def OnCloseFrame(self, event):
         dialog = wx.MessageDialog(self, message="Are you sure you want to quit?", style=wx.YES_NO,
@@ -136,7 +146,6 @@ class myjobframe(job_frame):
         # Cell Defaults
         self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
 
-
     def update_table(self,event):
         rows = self.job.spec["logged_operations"]
 
@@ -161,6 +170,43 @@ class myjobframe(job_frame):
 
 
 
+class MyInstPannel(inst_pannel):
+    def __init__(self,ctrl, instrument):
+        inst_pannel.__init__(self,None)
+        self.ctrl = ctrl
+        self.inst = instrument
+        self.spec = instrument.spec
+        self.com_text_ctrl = self.spec.get("port")
+        operations = self.spec.get("operations")
+        self.action_choice.Clear()
+        for id,op in operations.items():
+            op_type = op.get("type")
+            if op_type.startswith("read"):
+                self.read_op_choice.Append(op.get("id"))
+            elif op_type.startswith("write"):
+                self.write_op_choice.Append(op.get("id"))
+            elif op_type.startswith("action"):
+                self.action_choice.Append(op.get("id"))
+
+    def read_op(self, event):
+        #todo Problems here sometimes can break main logger
+        op_id = self.read_op_choice.GetStringSelection()
+        raw,trans = self.inst.read_instrument(op_id)
+        self.read_response_ctrl.Clear()
+        self.read_response_ctrl.AppendText(str(trans))
+
+    def write_op(self, event):
+        #todo Problems here sometimes can break main logger
+        op_id = self.write_op_choice.GetStringSelection()
+        text = self.write_text_ctrl.GetValue()
+        self.inst.write_instrument(op_id,[text])
+
+    def action_op(self, event):
+        op_id = self.action_choice.GetStringSelection()
+        self.inst.action_instrument(op_id)
+
+    def hide(self,event):
+        self.Hide()
 
 
 
@@ -220,8 +266,8 @@ class Controller(object):
     def __init__(self):
 
         self.jobs = {}
-        self.instruments = {'a':'v'}
-
+        self.instruments = {}
+        self.iframes = {}
         self.app = wx.App()
         self.frame = Main_Frame(self)
 
@@ -255,6 +301,7 @@ class Controller(object):
     def update_instruments(self,insts):
         self.instruments.update(insts)
         self.frame.update_inst_list(self.instruments.keys())
+        self.iframes = {k:MyInstPannel(self,v) for k,v in self.instruments.items()}
 
 
     def load_instruments(self, inst_spec):

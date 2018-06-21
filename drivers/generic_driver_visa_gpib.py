@@ -6,7 +6,7 @@ from decimal import Decimal
 class generic_driver_visa(object):
 
     def __init__(self, spec):
-
+        self.spec =spec
         self.operations = spec['operations']
         port = spec["port"]
         baud = spec["baudrate"]

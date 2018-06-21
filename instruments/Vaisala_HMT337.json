@@ -21,7 +21,7 @@
             "unit": ""
         },
         "read_sens_t":{
-            "type": "read_other",
+            "type": "read_store",
             "name": "sens temp",
             "id": "read_sens_t",
             "store_id": "read_default",

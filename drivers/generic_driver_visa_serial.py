@@ -2,6 +2,7 @@ import visa
 import json
 import time
 from decimal import Decimal
+from threading import Lock
 import numpy as np
 
 class generic_driver_visa_serial(object):
@@ -21,6 +22,7 @@ class generic_driver_visa_serial(object):
                                            write_termination=w_term,
                                            read_termination=r_term)
         self.instrument.open()
+        self.lock = Lock()
 
     def read_instrument(self,operation_id):
         """
@@ -43,27 +45,30 @@ class generic_driver_visa_serial(object):
                 return data, data_trans
 
             elif type == 'read_multiple':
-                data = self.instrument.query(operation['command'])
-                if echo:
-                    data = self.instrument.read()
-                data = data.split(operation.get("split"))
-                data = [self.decimals(d,operation) for d in data]
-                o_ops = operation.get("operations")
-                if o_ops is not None:
-                    for on in o_ops:
-                        o = self.operations.get(on)
-                        oi = o.get("store_index")
-                        d = data[oi]
-                        dt = self.transform(d,o)
-                        self.store[on] = ((d,dt),time.time())
+                with self.lock:
+                    data = self.instrument.query(operation['command'])
+                    if echo:
+                        data = self.instrument.read()
+                    data = data.split(operation.get("split"))
+                    data = [self.decimals(d,operation) for d in data]
+                    o_ops = operation.get("operations")
+                    if o_ops is not None:
+                        for on in o_ops:
+                            o = self.operations.get(on)
+                            oi = o.get("store_index")
+                            d = data[oi]
+                            dt = self.transform(d,o)
+                            self.store[on] = ((d,dt),time.time())
 
-                data_trans = [self.transform(d, operation) for d in data]
+                    data_trans = [self.transform(d, operation) for d in data]
             else:
-                data = self.instrument.query(operation['command'])
-                if echo:
-                    data = self.instrument.read()
-                data = self.decimals(data,operation)
-                data_trans = self.transform(data, operation)
+                with self.lock:
+                    print(operation['command'])
+                    data = self.instrument.query(operation['command'])
+                    if echo:
+                        data = self.instrument.read()
+                    data = self.decimals(data,operation)
+                    data_trans = self.transform(data, operation)
 
             self.store[operation_id] = ((data,data_trans),time.time())
 
@@ -71,29 +76,30 @@ class generic_driver_visa_serial(object):
 
     #todo writing to instruments
     def write_instrument(self,operation_id,values):
-        """
-        write instrument 
-        """
-        #todo: check valid values for sending to instrument
-        op = self.operations[operation_id]
-        command = op.get("command","")
-        print(self.instrument.timeout)
-        command = command.format(*values)
-        print(command)
+        with self.lock:
+            """
+            write instrument 
+            """
+            #todo: check valid values for sending to instrument
+            op = self.operations[operation_id]
+            command = op.get("command","")
+            print(self.instrument.timeout)
+            command = command.format(*values)
 
-        response = self.instrument.query(command)
-        #response = self.instrument.read()
-        print(response) #todo check response for errors
-        return response
+            response = self.instrument.query(command)
+            #response = self.instrument.read()
+            print(response) #todo check response for errors
+            return response
 
     def action_instrument(self,operation_id):
-        self.instrument.timeout = 10000
-        op = self.operations[operation_id]
-        command = op.get("command","")
-        response = self.instrument.query(command,delay=1)
-        self.timeout = 2000
-        print(response)  # todo check response for errors
-        return response
+        with self.lock:
+            self.instrument.timeout = 10000
+            op = self.operations[operation_id]
+            command = op.get("command","")
+            response = self.instrument.query(command,delay=1)
+            self.timeout = 2000
+            print(response)  # todo check response for errors
+            return response
 
     def decimals(self,data,operation):
         d_shift = operation.get('decimal_shift',0)
