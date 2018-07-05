@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import numpy as np
-from ctrl_ui import ctrl_frame, job_frame, axes_dialog, inst_pannel
+from ctrl_ui import ctrl_frame, job_frame, axes_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
 from logger import Logger
 from job import Job
 
@@ -129,8 +129,8 @@ class myjobframe(job_frame):
         self.m_grid2.SetMargins(0, 0)
 
         # Columns
-        self.m_grid2.SetColSize(0, 120)
-        self.m_grid2.SetColSize(1, 120)
+        # self.m_grid2.SetColSize(0, 120)
+        # self.m_grid2.SetColSize(1, 120)
         self.m_grid2.AutoSizeColumns()
         self.m_grid2.EnableDragColMove(True)
         self.m_grid2.EnableDragColSize(False)
@@ -167,6 +167,73 @@ class myjobframe(job_frame):
         self.m_grid2.AutoSize()
         self.m_grid2.ForceRefresh()
 
+    def add_profile_table(self,data):
+        table = Profile_Table(data)
+        try:
+
+            self.grid_auto_profile.table = table
+            self.grid_auto_profile.SetTable(table)
+        except:
+            print ("error")
+
+
+        self.grid_auto_profile.EnableEditing(True)
+        self.grid_auto_profile.EnableGridLines(True)
+        self.grid_auto_profile.EnableDragGridSize(False)
+        self.grid_auto_profile.SetMargins(0, 0)
+
+        # Columns
+
+        self.grid_auto_profile.AutoSizeColumns()
+        self.grid_auto_profile.EnableDragColMove(True)
+        self.grid_auto_profile.EnableDragColSize(True)
+        self.grid_auto_profile.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+        # # Rows
+        #
+        self.grid_auto_profile.AutoSizeRows()
+        self.grid_auto_profile.EnableDragRowSize(False)
+        self.grid_auto_profile.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+        #
+        self.grid_auto_profile.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
+
+    def get_autoprofile_new_action_dlg(self):
+        dlg = new_action_autoprofile_dlg(self)
+
+        res = dlg.ShowModal()
+        if res == wx.ID_OK:
+            name = dlg.profile_name_ctrl.GetValue()
+            inst = dlg.profile_inst_ctrl.GetValue()
+            op = dlg.profile_operation_ctrl.GetValue()
+        dlg.Destroy()
+        return name, "{}.{}".format(inst,op)
+
+    def new_profile_action(self,event):
+        self.job.new_autoprofile_col()
+
+    def new_point_autoprofile(self, event):
+        self.job.new_point()
+
+    def next_point_autoprofile(self, event):
+        self.job.next_point()
+
+    def reset_autoprofile(self, event):
+        pass
+
+    def load_autoprofile(self, event):
+        dlg = Load_profile_dialog(self)
+
+        res = dlg.ShowModal()
+        if res == wx.ID_OK:
+            file = dlg.profile_filePicker.GetPath()
+
+        dlg.Destroy()
+        print(file)
+        self.job.auto_profile.load_file(file) #todo do better
+
+
+
+    def save_autoprofile(self, event):
+        pass
 
 
 
@@ -205,6 +272,7 @@ class MyInstPannel(inst_pannel):
         op_id = self.action_choice.GetStringSelection()
         self.inst.action_instrument(op_id)
 
+
     def hide(self,event):
         self.Hide()
 
@@ -242,6 +310,7 @@ class Data_Table(wx.grid.GridTableBase):
         return str(d)
 
     def GetNumberRows(self):
+
         return len(self.data)-self.headerRows
 
     def GetNumberCols(self):
@@ -259,6 +328,33 @@ class Data_Table(wx.grid.GridTableBase):
     def SetValue(self, row, col, value):
         pass
 
+class Profile_Table(wx.grid.GridTableBase):
+    def __init__(self, data=None):
+        wx.grid.GridTableBase.__init__(self)
+
+        self.data = data
+
+    def GetValue(self, row, col):
+        name = self.data.get_header()[col]
+        d = self.data.get_value(name,row)
+        print(d)
+        return str(d)
+
+    def GetNumberRows(self):
+        return self.data.points
+
+    def GetNumberCols(self):
+        return len(self.data.get_header())
+
+    def GetColLabelValue(self,col):
+        return self.data.get_header()[col]
+
+    def IsEmptyCell(self,row,col):
+        return False
+
+    def SetValue(self, row, col, value):
+        name = self.data.get_header()[col]
+        self.data.set_value(name,row,value)
 
 
 

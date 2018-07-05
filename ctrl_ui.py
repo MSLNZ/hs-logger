@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 ###########################################################################
 ## Python code generated with wxFormBuilder (version Jan 23 2018)
@@ -247,7 +247,79 @@ class job_frame(wx.Frame):
         self.points.SetSizer(bSizer17)
         self.points.Layout()
         bSizer17.Fit(self.points)
-        self.job_book.AddPage(self.points, u"Points", True)
+        self.job_book.AddPage(self.points, u"Points", False)
+        self.auto_profile = wx.Panel(self.job_book, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
+        bSizer171 = wx.BoxSizer(wx.VERTICAL)
+
+        bSizer181 = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.grid_auto_profile = wx.grid.Grid(self.auto_profile, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+
+        # # Grid
+        # self.grid_auto_profile.CreateGrid(5, 4)
+        # self.grid_auto_profile.EnableEditing(True)
+        # self.grid_auto_profile.EnableGridLines(True)
+        # self.grid_auto_profile.EnableDragGridSize(False)
+        # self.grid_auto_profile.SetMargins(0, 0)
+        #
+        # # Columns
+        # self.grid_auto_profile.AutoSizeColumns()
+        # self.grid_auto_profile.EnableDragColMove(True)
+        # self.grid_auto_profile.EnableDragColSize(False)
+        # self.grid_auto_profile.SetColLabelSize(30)
+        # self.grid_auto_profile.SetColLabelValue(0, u"Point")
+        # self.grid_auto_profile.SetColLabelValue(1, u"Set")
+        # self.grid_auto_profile.SetColLabelValue(2, u"Soak")
+        # self.grid_auto_profile.SetColLabelValue(3, u"Assured Soak")
+        # self.grid_auto_profile.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+        #
+        # # Rows
+        # self.grid_auto_profile.SetRowSize(0, 21)
+        # self.grid_auto_profile.SetRowSize(1, 21)
+        # self.grid_auto_profile.SetRowSize(2, 21)
+        # self.grid_auto_profile.SetRowSize(3, 21)
+        # self.grid_auto_profile.SetRowSize(4, 21)
+        # self.grid_auto_profile.EnableDragRowSize(False)
+        # self.grid_auto_profile.SetRowLabelSize(30)
+        # self.grid_auto_profile.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+        #
+        # # Label Appearance
+        #
+        # # Cell Defaults
+        # self.grid_auto_profile.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
+        bSizer181.Add(self.grid_auto_profile, 1, wx.ALL | wx.EXPAND, 5)
+
+        bSizer191 = wx.BoxSizer(wx.VERTICAL)
+
+        self.points_load = wx.Button(self.auto_profile, wx.ID_ANY, u"Load File", wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer191.Add(self.points_load, 0, wx.ALL, 5)
+
+        self.new_set_btn = wx.Button(self.auto_profile, wx.ID_ANY, u"New Set", wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer191.Add(self.new_set_btn, 0, wx.ALL, 5)
+
+        self.new_point_btn = wx.Button(self.auto_profile, wx.ID_ANY, u"New Point", wx.DefaultPosition, wx.DefaultSize,
+                                       0)
+        bSizer191.Add(self.new_point_btn, 0, wx.ALL, 5)
+
+        self.next_point_btn = wx.Button(self.auto_profile, wx.ID_ANY, u"Next Point", wx.DefaultPosition, wx.DefaultSize,
+                                        0)
+        bSizer191.Add(self.next_point_btn, 0, wx.ALL, 5)
+
+        self.m_button28 = wx.Button(self.auto_profile, wx.ID_ANY, u"Save Text", wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer191.Add(self.m_button28, 0, wx.ALL, 5)
+
+        self.reset_autoprofile_btn = wx.Button(self.auto_profile, wx.ID_ANY, u"Reset", wx.DefaultPosition,
+                                               wx.DefaultSize, 0)
+        bSizer191.Add(self.reset_autoprofile_btn, 0, wx.ALL, 5)
+
+        bSizer181.Add(bSizer191, 0, wx.EXPAND, 5)
+
+        bSizer171.Add(bSizer181, 1, wx.EXPAND, 5)
+
+        self.auto_profile.SetSizer(bSizer171)
+        self.auto_profile.Layout()
+        bSizer171.Fit(self.auto_profile)
+        self.job_book.AddPage(self.auto_profile, u"Profile", True)
 
         bSizer59.Add(self.job_book, 1, wx.EXPAND, 5)
 
@@ -285,6 +357,12 @@ class job_frame(wx.Frame):
         self.pause_b.Bind(wx.EVT_BUTTON, self.pause_log)
         self.resume_b.Bind(wx.EVT_BUTTON, self.resume_log)
         self.points_update.Bind(wx.EVT_BUTTON, self.update_table)
+        self.points_load.Bind(wx.EVT_BUTTON, self.load_autoprofile)
+        self.new_set_btn.Bind(wx.EVT_BUTTON, self.new_profile_action)
+        self.new_point_btn.Bind(wx.EVT_BUTTON, self.new_point_autoprofile)
+        self.next_point_btn.Bind(wx.EVT_BUTTON, self.next_point_autoprofile)
+        self.m_button28.Bind(wx.EVT_BUTTON, self.save_autoprofile)
+        self.reset_autoprofile_btn.Bind(wx.EVT_BUTTON, self.reset_autoprofile)
         self.Bind(wx.EVT_MENU, self.add_graph, id=self.add_graph_m.GetId())
 
     def __del__(self):
@@ -306,8 +384,63 @@ class job_frame(wx.Frame):
     def update_table(self, event):
         event.Skip()
 
+    def load_autoprofile(self, event):
+        event.Skip()
+
+    def new_profile_action(self, event):
+        event.Skip()
+
+    def new_point_autoprofile(self, event):
+        event.Skip()
+
+    def next_point_autoprofile(self, event):
+        event.Skip()
+
+    def save_autoprofile(self, event):
+        event.Skip()
+
+    def reset_autoprofile(self, event):
+        event.Skip()
+
     def add_graph(self, event):
         event.Skip()
+
+
+###########################################################################
+## Class Load_profile_dialog
+###########################################################################
+
+class Load_profile_dialog(wx.Dialog):
+    def __init__(self, parent):
+        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString, pos=wx.DefaultPosition,
+                           size=wx.DefaultSize, style=wx.DEFAULT_DIALOG_STYLE)
+
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
+
+        bSizer36 = wx.BoxSizer(wx.VERTICAL)
+
+        self.profile_filePicker = wx.FilePickerCtrl(self, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.*",
+                                                    wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE)
+        bSizer36.Add(self.profile_filePicker, 1, wx.ALL | wx.EXPAND, 5)
+
+        bSizer37 = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.m_button27 = wx.Button(self, wx.ID_CANCEL, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer37.Add(self.m_button27, 1, wx.ALL, 5)
+
+        self.m_button28 = wx.Button(self, wx.ID_OK, u"Confirm", wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer37.Add(self.m_button28, 1, wx.ALL, 5)
+
+        bSizer36.Add(bSizer37, 1, wx.EXPAND, 5)
+
+        self.SetSizer(bSizer36)
+        self.Layout()
+        bSizer36.Fit(self)
+
+        self.Centre(wx.BOTH)
+
+    def __del__(self):
+        pass
 
 
 ###########################################################################
@@ -393,7 +526,7 @@ class inst_pannel(wx.Frame):
         bSizer471.Add(self.write_op_choice, 1, wx.ALL, 5)
 
         self.write_text_ctrl = wx.TextCtrl(self.m_panel8, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize,
-                                         0)
+                                           0)
         bSizer471.Add(self.write_text_ctrl, 1, wx.ALL, 5)
 
         self.write_btn = wx.Button(self.m_panel8, wx.ID_ANY, u"WRITE", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -537,6 +670,85 @@ class axes_dialog(wx.Dialog):
 
         # Connect Events
         self.cancel_b.Bind(wx.EVT_BUTTON, self.cancel_dialog)
+
+    def __del__(self):
+        pass
+
+    # Virtual event handlers, overide them in your derived class
+    def cancel_dialog(self, event):
+        event.Skip()
+
+
+###########################################################################
+## Class new_action_autoprofile_dlg
+###########################################################################
+
+class new_action_autoprofile_dlg(wx.Dialog):
+    def __init__(self, parent):
+        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString, pos=wx.DefaultPosition,
+                           size=wx.Size(289, 160), style=wx.DEFAULT_DIALOG_STYLE)
+
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
+
+        bSizer34 = wx.BoxSizer(wx.VERTICAL)
+
+        bSizer35 = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.action_name_label = wx.StaticText(self, wx.ID_ANY, u"Name", wx.DefaultPosition, wx.DefaultSize,
+                                               wx.ALIGN_RIGHT)
+        self.action_name_label.Wrap(-1)
+        bSizer35.Add(self.action_name_label, 1, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+
+        self.profile_name_ctrl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer35.Add(self.profile_name_ctrl, 2, wx.ALL, 5)
+
+        bSizer34.Add(bSizer35, 0, wx.EXPAND, 5)
+
+        bSizer351 = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.m_staticText111 = wx.StaticText(self, wx.ID_ANY, u"Instrument", wx.DefaultPosition, wx.DefaultSize,
+                                             wx.ALIGN_RIGHT)
+        self.m_staticText111.Wrap(-1)
+        bSizer351.Add(self.m_staticText111, 1, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+
+        self.profile_inst_ctrl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer351.Add(self.profile_inst_ctrl, 2, wx.ALL, 5)
+
+        bSizer34.Add(bSizer351, 0, wx.EXPAND, 5)
+
+        bSizer352 = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.m_staticText112 = wx.StaticText(self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize,
+                                             wx.ALIGN_RIGHT)
+        self.m_staticText112.Wrap(-1)
+        bSizer352.Add(self.m_staticText112, 1, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+
+        self.profile_operation_ctrl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize,
+                                                  0)
+        bSizer352.Add(self.profile_operation_ctrl, 2, wx.ALL, 5)
+
+        bSizer34.Add(bSizer352, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.EXPAND, 5)
+
+        bSizer41 = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.ocancel_new_profile_action = wx.Button(self, wx.ID_CANCEL, u"Cancel", wx.DefaultPosition, wx.DefaultSize,
+                                                    0)
+        bSizer41.Add(self.ocancel_new_profile_action, 0, wx.ALL, 5)
+
+        bSizer41.Add((20, 0), 0, wx.EXPAND, 5)
+
+        self.ok_new_profile_action = wx.Button(self, wx.ID_OK, u"Confirm", wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer41.Add(self.ok_new_profile_action, 0, wx.ALL, 5)
+
+        bSizer34.Add(bSizer41, 1, wx.ALIGN_CENTER_HORIZONTAL, 5)
+
+        self.SetSizer(bSizer34)
+        self.Layout()
+
+        self.Centre(wx.BOTH)
+
+        # Connect Events
+        self.ocancel_new_profile_action.Bind(wx.EVT_BUTTON, self.cancel_dialog)
 
     def __del__(self):
         pass
