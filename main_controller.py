@@ -59,7 +59,7 @@ class Main_Frame(ctrl_frame):
         print(err)
 
     def file_open(self, event):
-        self.dirname = ''
+        self.dirname = '/job_files'
         dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.FD_OPEN)
         if dlg.ShowModal() == wx.ID_OK:
             self.filename = dlg.GetFilename()
@@ -242,6 +242,7 @@ class myjobframe(job_frame):
 
     def save_points(self, event):
         #TODO #self.job.save_points()
+        pass
 
     def update_points_n(self, event):
         self.job.n = self.n_points_input.GetValue()
