@@ -1,8 +1,9 @@
 import random
 
-class test_driver(object):
+class dummy_driver(object):
 
     def __init__(self,spec):
+        self.spec = spec
         pass
 
     def read_instrument(self,op_id):
@@ -12,9 +13,9 @@ class test_driver(object):
         v = random.random()
         return v,v
 
-    def write_instrument(self):
+    def write_instrument(self,message):
         """
-        read instrument 
+        write instrument
         """
         return "not here"
 

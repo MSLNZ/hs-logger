@@ -1,0 +1,25 @@
+IMPORTANT STUFF STILL TO FIX OR ADD
+
+#GUI and Logger
+- add autoprofile save
+- fix autoprofile doubble click buttons crash
+- add saving last Points and points file
+- add number of points to save
+- add ability to add custom functions to log
+- display log better
+- improve graphs
+- more testing required for instrument pannel (may still crash program or instruments)
+
+
+
+#Drivers and json files
+- Fix differences in json files
+- better define instrument json requirements
+#gpib
+- better support for gpib equipment
+- drivers for HP34970A and HP34420A
+#modbus
+- test modbus on more equipment
+- writing to Modbus
+- modbus over other interfaces (TCP, UDP)
+

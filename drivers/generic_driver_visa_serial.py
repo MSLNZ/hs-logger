@@ -12,11 +12,11 @@ class generic_driver_visa_serial(object):
         self.operations = spec['operations']
         port = spec["port"]
         baud = spec["baudrate"]
-        w_term = spec["write_termination"]
-        r_term = spec["read_termination"]
+        w_term = spec.get("write_termination",'\r')
+        r_term = spec.get("read_termination",'\r\n')
         rm = visa.ResourceManager()
         self.store = {}
-        self.timeout = 2
+        self.timeout = spec.get("store_timeout",0)
         self.instrument = rm.open_resource(port,
                                            baud_rate=baud,
                                            write_termination=w_term,

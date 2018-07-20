@@ -9,7 +9,7 @@ class Job(object):
         self.inst_drivers = inst_drivers
         self.spec = spec
         frame_log = Text_Log(frame.job_disp_log)
-        self.logger = Logger(spec,inst_drivers,frame_log)
+        self.logger = Logger(self,inst_drivers,frame_log)
         self.frame = frame
         self.graphs = []
         self.frame.add_table(4,len(spec["logged_operations"])-1)
@@ -24,6 +24,10 @@ class Job(object):
         self.sched.add_job(func=self.update_autoprofile, trigger='interval', seconds=5)
         self.sched.start()
 
+    def update_cycle(self):
+        self.update_graphs()
+        self.update_table()
+        self.update_autoprofile()
 
     def load_profile(self):
         pass
@@ -62,9 +66,6 @@ class Job(object):
         pass
 
     def last_n(self, n):
-        pass
-
-    def next_profile(self):
         pass
 
     def assured_soak(self):
@@ -118,6 +119,10 @@ class AutoProfile(object):
         self.point_start_time = time.time()
 
     def load_file(self,file_name):
+        grid = self.job.frame.grid_auto_profile
+        rows1 = len(self.profile_header)
+        cols1 = self.points
+
         with open(file_name,"r") as file:
             print("here")
             l1 = file.readline()
@@ -135,7 +140,19 @@ class AutoProfile(object):
                     d1[name][1].append(line[i])
             self.points = len(d1[h1[0]][1])
             self.operations = d1
-            self.grid_refresh()
+
+
+        # bSizer = self.job.frame.bSizer181
+        # self.job.frame.grid_auto_profile.Destroy()
+        # bSizer.Remove(0)
+        # grid = wx.grid.Grid(self.job.frame.auto_profile, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+        # self.job.frame.grid_auto_profile = grid
+        # bSizer.Prepend(grid, 1, wx.ALL | wx.EXPAND, 5)
+        # self.job.frame.auto_profile.Layout()
+        # self.job.frame.add_profile_table(self)
+
+
+        self.grid_refresh()
 
 
     def new_set_op(self,name,inst_op,default=0):
@@ -144,9 +161,9 @@ class AutoProfile(object):
         self.operations[name] = (inst_op,points)
         self.profile_header.append(name)
         grid = self.job.frame.grid_auto_profile
-        msg = wx.grid.GridTableMessage(grid.table,
-                                       wx.grid.GRIDTABLE_NOTIFY_COLS_APPENDED, 1)
-        grid.ProcessTableMessage(msg)
+        # msg = wx.grid.GridTableMessage(grid.table,
+        #                                wx.grid.GRIDTABLE_NOTIFY_COLS_APPENDED, 1)
+        # grid.ProcessTableMessage(msg)
         self.grid_refresh()
 
 
@@ -162,10 +179,10 @@ class AutoProfile(object):
             pts = pts.append(pts[-1])
             op2[name] = (op,pts)
         self.operations = op2
-        grid = self.job.frame.grid_auto_profile
-        msg = wx.grid.GridTableMessage(grid.table,
-                                       wx.grid.GRIDTABLE_NOTIFY_ROWS_APPENDED, 1)
-        grid.ProcessTableMessage(msg)
+        # grid = self.job.frame.grid_auto_profile
+        # msg = wx.grid.GridTableMessage(grid.table,
+        #                                wx.grid.GRIDTABLE_NOTIFY_ROWS_APPENDED, 1)
+        # grid.ProcessTableMessage(msg)
         self.grid_refresh()
 
 
@@ -212,7 +229,7 @@ class AutoProfile(object):
 
     def move_to_point(self,point):
         self.current_point = point
-        self.highlight_row()
+        self.grid_refresh()
         self.point_start_time = time.time()
         actions = []
         for inst_op, vals in self.operations.values():
@@ -230,16 +247,19 @@ class AutoProfile(object):
         grid = self.job.frame.grid_auto_profile
         for col in range(len(self.profile_header)):
             for row in range(self.points):
-                grid.SetCellBackgroundColour(row,col, grid.GetDefaultCellBackgroundColour())
+                grid.SetCellBackgroundColour(row,col, wx.Colour(255,255,255))
         # grid.SetCellBackgroundColour(colour=grid.GetDefaultCellBackgroundColour())
         for col in range(len(self.profile_header)):
-            grid.SetCellBackgroundColour(self.current_point,col, wx.Colour(200,200,200))
-        grid.ForceRefresh()
+            grid.SetCellBackgroundColour(self.current_point,col, wx.Colour(230,235,245))
+         # grid.ForceRefresh()
+
 
     def grid_refresh(self):
+        self.highlight_row()
         grid = self.job.frame.grid_auto_profile
-        # self.job.frame.bSizer18.Layout()
-        grid.AutoSize()
+        # # self.job.frame.bSizer18.Layout()
+        grid.AutoSizeRows()
+        grid.AutoSizeColumns()
         grid.ForceRefresh()
 
 

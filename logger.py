@@ -6,19 +6,20 @@ from threading import Thread
 
 class Logger(Thread):
 
-    def __init__(self, job_spec, inst_drivers, f_log=sys.stdout):
+    def __init__(self, job, inst_drivers, f_log=sys.stdout):
         Thread.__init__(self)
-        self.job = job_spec
+        self.job = job
+        self.job_spec = job.spec
         self.f_log = f_log
         #log file name
         t = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         self.out_dir = "data_files\\"
-        self.rawfilename = "p" + t + self.job["datafile_raw"]
-        self.transfilename = "p" + t + self.job["datafile_trans"]
-        self.op_names = self.job["logged_operations"]
+        self.rawfilename = "p" + t + self.job_spec["datafile_raw"]
+        self.transfilename = "p" + t + self.job_spec["datafile_trans"]
+        self.op_names = self.job_spec["logged_operations"]
 
         #todo load from inst spec
-        self.min_cycle_time = 2
+        self.min_cycle_time = self.job_spec.get("min_interval",30)
         # store and file setup
         self.raw_dict = {}
         self.trans_dict = {}
@@ -53,6 +54,7 @@ class Logger(Thread):
         while not self.stopped:
             while not self.paused and not self.stopped:
                 self.read_loop()
+                self.job.update_cycle()
             time.sleep(1)
         sys.exit(1)
 
@@ -84,26 +86,24 @@ class Logger(Thread):
     def file_setup(self):
         datafile = self.out_dir + self.rawfilename
         with open(datafile, "w+") as outfile:
-            for k, v in self.job.items():
+            for k, v in self.job_spec.items():
                 if k not in ["instruments", "logged_operations"]:
                     outfile.write(k + ": " + str(v) + "\n")
-            writer = csv.writer(outfile, self.job["logged_operations"], lineterminator='\n')
+            writer = csv.writer(outfile, self.job_spec["logged_operations"], lineterminator='\n')
             writer.writerow(self.op_names)
         datafile = self.out_dir + self.transfilename
         with open(datafile, "w+") as outfile:
-            for k, v in self.job.items():
+            for k, v in self.job_spec.items():
                 if k not in ["instruments", "logged_operations"]:
                     outfile.write(k + ": " + str(v) + "\n")
-            writer = csv.writer(outfile, self.job["logged_operations"], lineterminator='\n')
+            writer = csv.writer(outfile, self.job_spec["logged_operations"], lineterminator='\n')
             writer.writerow(self.op_names)
 
     def setup_operations(self):
         for operation in self.op_names:
             inst_id,op_id = operation.split('.')
-            if inst_id != "time":
-                self.operations.append((inst_id,op_id))
-            else:
-                self.operations.append((inst_id,op_id))
+            self.operations.append((inst_id,op_id))
+
 
     def log_to_file(self):
         self.logf(self.raw_dict.values())

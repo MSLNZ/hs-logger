@@ -1,14 +1,15 @@
 {
-    "job_name":"LHG3900_job",
+    "job_name":"LHG3900_HMT337_job",
     "job_id":2,
     "job_notes":"comment",
     "datafile_raw": "LHG3900_job_data_raw.csv",
     "datafile_trans": "LHG3900_job_data_trans.csv",
-    "interval": 30,
+    "min_interval": 30,
     "time":0,
     "instruments":{
         "LHG3900":"instruments/LHG3900_visa.json",
         "HMT337":"instruments/Vaisala_HMT337.json"
+
     },
     "logged_operations":[
         "time.runtime",
@@ -18,5 +19,6 @@
         "HMT337.read_rh",
         "HMT337.read_sens_t",
         "HMT337.read_tx"
+
     ]
 }

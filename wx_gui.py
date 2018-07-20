@@ -158,6 +158,7 @@ class job_frame(wx.Frame):
                           size=wx.Size(591, 382), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
+        self.SetForegroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))
 
         bSizer59 = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -175,6 +176,9 @@ class job_frame(wx.Frame):
         bSizer59.Add(bSizer60, 0, wx.EXPAND, 5)
 
         self.job_book = wx.Notebook(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.job_book.SetForegroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))
+        self.job_book.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))
+
         self.log_panel = wx.Panel(self.job_book, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         bSizer61 = wx.BoxSizer(wx.VERTICAL)
 
@@ -249,16 +253,20 @@ class job_frame(wx.Frame):
         bSizer17.Fit(self.points)
         self.job_book.AddPage(self.points, u"Points", False)
         self.auto_profile = wx.Panel(self.job_book, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
+        self.auto_profile.SetForegroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))
+        self.auto_profile.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))
+
         bSizer171 = wx.BoxSizer(wx.VERTICAL)
 
         bSizer181 = wx.BoxSizer(wx.HORIZONTAL)
 
         self.grid_auto_profile = wx.grid.Grid(self.auto_profile, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
-
+        #
         # # Grid
-        # self.grid_auto_profile.CreateGrid(5, 4)
+        # self.grid_auto_profile.CreateGrid(50, 20)
         # self.grid_auto_profile.EnableEditing(True)
         # self.grid_auto_profile.EnableGridLines(True)
+        # self.grid_auto_profile.SetGridLineColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_ACTIVEBORDER))
         # self.grid_auto_profile.EnableDragGridSize(False)
         # self.grid_auto_profile.SetMargins(0, 0)
         #
@@ -286,6 +294,7 @@ class job_frame(wx.Frame):
         # # Label Appearance
         #
         # # Cell Defaults
+
         # self.grid_auto_profile.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
         bSizer181.Add(self.grid_auto_profile, 1, wx.ALL | wx.EXPAND, 5)
 

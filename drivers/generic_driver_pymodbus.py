@@ -6,6 +6,7 @@ import struct
 import time
 
 #TODO has not been tested need to test on instrumennt and fix
+#TODO add writing to modbus
 
 class generic_driver_pymodbus(ModbusClient):
     def __init__(self,spec):
@@ -14,7 +15,7 @@ class generic_driver_pymodbus(ModbusClient):
         self.operations = spec['operations']
         ModbusClient.__init__(self,method='rtu', port=spec['port'], timeout=1, baudrate=spec['baudrate'])
         self.store = {}
-        self.timeout = 2
+        self.timeout = spec.get("store_timeout", 0)
 
     def read_instrument(self,op_id):
         op = self.operations[op_id]

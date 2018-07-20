@@ -1,7 +1,7 @@
 {
     "instrument_id": "HMT333_101",
     "instrument_name": "Vaisala HMT333",
-    "driver":"Vaisala_HMT330_visa",
+    "driver":"generic_driver_visa_serial",
     "interface": "visa",            
     "port": "COM22",
     "baudrate":19200,

@@ -3,49 +3,35 @@ import json
 import time
 from decimal import Decimal
 
-class generic_driver_visa(object):
+class generic_driver_visa_gpib(object):
 
-    def __init__(self, spec):
-        self.spec =spec
-        self.operations = spec['operations']
-        port = spec["port"]
-        baud = spec["baudrate"]
-        w_term = spec["write_termination"]
-        r_term = spec["read_termination"]
+    def __init__(self,address):
+        # self.spec =spec
+        # self.operations = spec['operations']
+        #self.operations =[ ]
+        # port = spec["port"]
+        # baud = spec["baudrate"]
+        # w_term = spec["write_termination"]
+        # r_term = spec["read_termination"]
         rm = visa.ResourceManager()
-        self.store = {}
-        self.timeout = 2
-        self.instrument = rm.open_resource(port,
-                                           baud_rate=baud,
-                                           write_termination=w_term,
-                                           read_termination=r_term)
-        self.instrument.open()
+        # self.store = {}
+        # self.timeout = 2
+        self.instrument = rm.open_resource(address)
+        #self.instrument.open() is needed?
 
-    def read_instrument(self,operation_id):
+    def read_instrument(self,command):
         """
         read instrument 
         """
-        operation = self.operations[operation_id]
-        datatype = operation['data_type']
-        type = operation['type']
-        stored = self.store.get(operation_id,(None,time.time()-(self.timeout+1)))
-        if time.time() - stored[1]< self.timeout:
-           data,data_trans = stored[0]
-           print("using stored") #testing
-        else:
-            data = self.instrument.query(operation['command'])
-            if type == 'read_multiple':
-                data = data.split(operation.get("split"))
-                data = [self.decimals(d,operation) for d in data]
-                data_trans = [self.transform(d, operation) for d in data]
-            else:
-                data = self.decimals(data,operation)
-                data_trans = self.transform(data, operation)
-
-            self.store[operation_id] = ((data,data_trans),time.time())
+        return self.instrument.q
 
         return data, data_trans
 
+    def query(self,request):
+        return self.instrument.query(request)
+
+    def write(self):
+        pass
     #todo writing to instruments
     def write_instrument(self,operation_id,values):
         """
@@ -72,14 +58,14 @@ class generic_driver_visa(object):
         else:
             return data
 
-#testing
-def main():
-    instr = generic_driver_visa(json.load(open('../instruments/LHG3900_visa.json')))
-    print (instr.read_instrument('read_default'))
-    print (instr.read_instrument('read_default'))
-    time.sleep(2)
-    print (instr.read_instrument('read_default'))
-
-
-if __name__ == '__main__':
-    main()
+# #testing
+# def main():
+#     instr = generic_driver_visa(json.load(open('../instruments/LHG3900_visa.json')))
+#     print (instr.read_instrument('read_default'))
+#     print (instr.read_instrument('read_default'))
+#     time.sleep(2)
+#     print (instr.read_instrument('read_default'))
+#
+#
+# if __name__ == '__main__':
+#     main()

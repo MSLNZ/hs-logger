@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import numpy as np
-from ctrl_ui import ctrl_frame, job_frame, axes_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
+from wx_gui import ctrl_frame, job_frame, axes_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
 from logger import Logger
 from job import Job
 
@@ -108,7 +108,7 @@ class myjobframe(job_frame):
         dlg.y_choice.AppendItems(choices)
         dlg.x_choice.AppendItems(choices)
         res = dlg.ShowModal()
-        if res ==wx.ID_OK:
+        if res == wx.ID_OK:
             x = dlg.x_choice.GetStringSelection()
             y = dlg.y_choice.GetStringSelection()
         dlg.Destroy()
@@ -144,6 +144,8 @@ class myjobframe(job_frame):
         self.m_grid2.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
 
         # Cell Defaults
+        self.grid_auto_profile.SetGridLineColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_ACTIVEBORDER))
+        self.grid_auto_profile.SetDefaultCellBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_ACTIVEBORDER))
         self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
 
     def update_table(self,event):
@@ -198,12 +200,16 @@ class myjobframe(job_frame):
 
     def get_autoprofile_new_action_dlg(self):
         dlg = new_action_autoprofile_dlg(self)
-
+        name = "none"
         res = dlg.ShowModal()
+        print(dlg)
+        print(res)
         if res == wx.ID_OK:
+            print ("OK")
             name = dlg.profile_name_ctrl.GetValue()
             inst = dlg.profile_inst_ctrl.GetValue()
             op = dlg.profile_operation_ctrl.GetValue()
+            print("name")
         dlg.Destroy()
         return name, "{}.{}".format(inst,op)
 
@@ -335,26 +341,46 @@ class Profile_Table(wx.grid.GridTableBase):
         self.data = data
 
     def GetValue(self, row, col):
-        name = self.data.get_header()[col]
-        d = self.data.get_value(name,row)
-        print(d)
+        h = self.data.get_header()
+        if col >= len(h):
+            return " "
+        elif row >= self.data.points:
+            return " "
+        else:
+            name = h[col]
+            d = self.data.get_value(name, row)
         return str(d)
 
     def GetNumberRows(self):
-        return self.data.points
+        return 100
 
     def GetNumberCols(self):
-        return len(self.data.get_header())
+        return 40
 
     def GetColLabelValue(self,col):
-        return self.data.get_header()[col]
+        h = self.data.get_header()
+        if col >= len(h):
+            return "_"
+        else:
+            return h[col]
 
     def IsEmptyCell(self,row,col):
+        # h = self.data.get_header()
+        # if col >= len(h):
+        #     return True
+        # elif row >= self.data.points:
+        #     return True
         return False
 
     def SetValue(self, row, col, value):
-        name = self.data.get_header()[col]
-        self.data.set_value(name,row,value)
+        h = self.data.get_header()
+        if col >= len(h):
+            pass
+        elif row >= self.data.points:
+            pass
+        else:
+            name = h[col]
+            self.data.set_value(name,row,value)
 
 
 
