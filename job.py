@@ -1,7 +1,7 @@
 from logger import Logger
 import wx
 import time
-from apscheduler.schedulers.background import BackgroundScheduler
+# from apscheduler.schedulers.background import BackgroundScheduler
 
 class Job(object):
     def __init__(self,spec,inst_drivers,frame):
@@ -15,14 +15,15 @@ class Job(object):
         self.frame.add_table(4,len(spec["logged_operations"])-1)
         self.auto_profile = AutoProfile(self)
         self.frame.add_profile_table(self.auto_profile)
+        self.n = 0
 
 
 
-        self.sched = BackgroundScheduler()
-        self.sched.add_job(func=self.update_graphs, trigger='interval', seconds=5)
-        self.sched.add_job(func=self.update_table, trigger='interval', seconds=5)
-        self.sched.add_job(func=self.update_autoprofile, trigger='interval', seconds=5)
-        self.sched.start()
+        # self.sched = BackgroundScheduler()
+        # self.sched.add_job(func=self.update_graphs, trigger='interval', seconds=5)
+        # self.sched.add_job(func=self.update_table, trigger='interval', seconds=5)
+        # self.sched.add_job(func=self.update_autoprofile, trigger='interval', seconds=5)
+        # self.sched.start()
 
     def update_cycle(self):
         self.update_graphs()
@@ -82,7 +83,8 @@ class Job(object):
 
     def stop(self):
         self.logger.stop()
-        self.sched.shutdown()
+        self.frame.Destroy()
+        # self.sched.shutdown()
 
     def add_graph(self,plt):
         choices = self.spec.get("logged_operations")

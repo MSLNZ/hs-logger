@@ -197,40 +197,40 @@ class job_frame(wx.Frame):
 
         self.m_grid2 = wx.grid.Grid(self.points, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
 
-        # # Grid
-        # self.m_grid2.CreateGrid(5, 3)
-        # self.m_grid2.EnableEditing(False)
-        # self.m_grid2.EnableGridLines(True)
-        # self.m_grid2.EnableDragGridSize(False)
-        # self.m_grid2.SetMargins(0, 0)
-        #
-        # # Columns
-        # self.m_grid2.SetColSize(0, 120)
-        # self.m_grid2.SetColSize(1, 120)
-        # self.m_grid2.AutoSizeColumns()
-        # self.m_grid2.EnableDragColMove(True)
-        # self.m_grid2.EnableDragColSize(False)
-        # self.m_grid2.SetColLabelSize(30)
-        # self.m_grid2.SetColLabelValue(0, u"Latest")
-        # self.m_grid2.SetColLabelValue(1, u"Mean")
-        # self.m_grid2.SetColLabelValue(2, u"StdDev")
-        # self.m_grid2.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
-        #
-        # # Rows
-        # self.m_grid2.SetRowSize(0, 19)
-        # self.m_grid2.SetRowSize(1, 19)
-        # self.m_grid2.SetRowSize(2, 19)
-        # self.m_grid2.SetRowSize(3, 19)
-        # self.m_grid2.SetRowSize(4, 41)
-        # self.m_grid2.AutoSizeRows()
-        # self.m_grid2.EnableDragRowSize(False)
-        # self.m_grid2.SetRowLabelSize(40)
-        # self.m_grid2.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
-        #
-        # # Label Appearance
-        #
-        # # Cell Defaults
-        # self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
+        # Grid
+        self.m_grid2.CreateGrid(5, 3)
+        self.m_grid2.EnableEditing(False)
+        self.m_grid2.EnableGridLines(True)
+        self.m_grid2.EnableDragGridSize(False)
+        self.m_grid2.SetMargins(0, 0)
+
+        # Columns
+        self.m_grid2.SetColSize(0, 120)
+        self.m_grid2.SetColSize(1, 120)
+        self.m_grid2.AutoSizeColumns()
+        self.m_grid2.EnableDragColMove(True)
+        self.m_grid2.EnableDragColSize(False)
+        self.m_grid2.SetColLabelSize(30)
+        self.m_grid2.SetColLabelValue(0, u"Latest")
+        self.m_grid2.SetColLabelValue(1, u"Mean")
+        self.m_grid2.SetColLabelValue(2, u"StdDev")
+        self.m_grid2.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+
+        # Rows
+        self.m_grid2.SetRowSize(0, 19)
+        self.m_grid2.SetRowSize(1, 19)
+        self.m_grid2.SetRowSize(2, 19)
+        self.m_grid2.SetRowSize(3, 19)
+        self.m_grid2.SetRowSize(4, 41)
+        self.m_grid2.AutoSizeRows()
+        self.m_grid2.EnableDragRowSize(False)
+        self.m_grid2.SetRowLabelSize(40)
+        self.m_grid2.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+
+        # Label Appearance
+
+        # Cell Defaults
+        self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
         bSizer18.Add(self.m_grid2, 3, wx.ALL | wx.EXPAND, 5)
 
         bSizer19 = wx.BoxSizer(wx.VERTICAL)
@@ -239,10 +239,29 @@ class job_frame(wx.Frame):
         bSizer19.Add(self.points_update, 0, wx.ALL, 5)
 
         self.last_n = wx.Button(self.points, wx.ID_ANY, u"Last N", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.last_n.Enable(False)
+
         bSizer19.Add(self.last_n, 0, wx.ALL, 5)
 
         self.next_n = wx.Button(self.points, wx.ID_ANY, u"Next N", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.next_n.Enable(False)
+
         bSizer19.Add(self.next_n, 0, wx.ALL, 5)
+
+        bSizer39 = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.m_staticText14 = wx.StaticText(self.points, wx.ID_ANY, u"N =", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_staticText14.Wrap(-1)
+        bSizer39.Add(self.m_staticText14, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+
+        self.n_points_input = wx.TextCtrl(self.points, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(40, -1),
+                                          0)
+        bSizer39.Add(self.n_points_input, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 5)
+
+        bSizer19.Add(bSizer39, 0, wx.ALIGN_CENTER_HORIZONTAL, 5)
+
+        self.save_btn = wx.Button(self.points, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0)
+        bSizer19.Add(self.save_btn, 0, wx.ALL, 5)
 
         bSizer18.Add(bSizer19, 0, wx.EXPAND, 5)
 
@@ -251,7 +270,7 @@ class job_frame(wx.Frame):
         self.points.SetSizer(bSizer17)
         self.points.Layout()
         bSizer17.Fit(self.points)
-        self.job_book.AddPage(self.points, u"Points", False)
+        self.job_book.AddPage(self.points, u"Points", True)
         self.auto_profile = wx.Panel(self.job_book, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         self.auto_profile.SetForegroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))
         self.auto_profile.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))
@@ -261,41 +280,41 @@ class job_frame(wx.Frame):
         bSizer181 = wx.BoxSizer(wx.HORIZONTAL)
 
         self.grid_auto_profile = wx.grid.Grid(self.auto_profile, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
-        #
-        # # Grid
-        # self.grid_auto_profile.CreateGrid(50, 20)
-        # self.grid_auto_profile.EnableEditing(True)
-        # self.grid_auto_profile.EnableGridLines(True)
-        # self.grid_auto_profile.SetGridLineColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_ACTIVEBORDER))
-        # self.grid_auto_profile.EnableDragGridSize(False)
-        # self.grid_auto_profile.SetMargins(0, 0)
-        #
-        # # Columns
-        # self.grid_auto_profile.AutoSizeColumns()
-        # self.grid_auto_profile.EnableDragColMove(True)
-        # self.grid_auto_profile.EnableDragColSize(False)
-        # self.grid_auto_profile.SetColLabelSize(30)
-        # self.grid_auto_profile.SetColLabelValue(0, u"Point")
-        # self.grid_auto_profile.SetColLabelValue(1, u"Set")
-        # self.grid_auto_profile.SetColLabelValue(2, u"Soak")
-        # self.grid_auto_profile.SetColLabelValue(3, u"Assured Soak")
-        # self.grid_auto_profile.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
-        #
-        # # Rows
-        # self.grid_auto_profile.SetRowSize(0, 21)
-        # self.grid_auto_profile.SetRowSize(1, 21)
-        # self.grid_auto_profile.SetRowSize(2, 21)
-        # self.grid_auto_profile.SetRowSize(3, 21)
-        # self.grid_auto_profile.SetRowSize(4, 21)
-        # self.grid_auto_profile.EnableDragRowSize(False)
-        # self.grid_auto_profile.SetRowLabelSize(30)
-        # self.grid_auto_profile.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
-        #
-        # # Label Appearance
-        #
-        # # Cell Defaults
 
-        # self.grid_auto_profile.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
+        # Grid
+        self.grid_auto_profile.CreateGrid(50, 20)
+        self.grid_auto_profile.EnableEditing(True)
+        self.grid_auto_profile.EnableGridLines(True)
+        self.grid_auto_profile.SetGridLineColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_ACTIVEBORDER))
+        self.grid_auto_profile.EnableDragGridSize(False)
+        self.grid_auto_profile.SetMargins(0, 0)
+
+        # Columns
+        self.grid_auto_profile.AutoSizeColumns()
+        self.grid_auto_profile.EnableDragColMove(True)
+        self.grid_auto_profile.EnableDragColSize(False)
+        self.grid_auto_profile.SetColLabelSize(30)
+        self.grid_auto_profile.SetColLabelValue(0, u"Point")
+        self.grid_auto_profile.SetColLabelValue(1, u"Set")
+        self.grid_auto_profile.SetColLabelValue(2, u"Soak")
+        self.grid_auto_profile.SetColLabelValue(3, u"Assured Soak")
+        self.grid_auto_profile.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+
+        # Rows
+        self.grid_auto_profile.SetRowSize(0, 21)
+        self.grid_auto_profile.SetRowSize(1, 21)
+        self.grid_auto_profile.SetRowSize(2, 21)
+        self.grid_auto_profile.SetRowSize(3, 21)
+        self.grid_auto_profile.SetRowSize(4, 21)
+        self.grid_auto_profile.EnableDragRowSize(False)
+        self.grid_auto_profile.SetRowLabelSize(30)
+        self.grid_auto_profile.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+
+        # Label Appearance
+
+        # Cell Defaults
+        self.grid_auto_profile.SetDefaultCellBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_ACTIVEBORDER))
+        self.grid_auto_profile.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
         bSizer181.Add(self.grid_auto_profile, 1, wx.ALL | wx.EXPAND, 5)
 
         bSizer191 = wx.BoxSizer(wx.VERTICAL)
@@ -328,7 +347,7 @@ class job_frame(wx.Frame):
         self.auto_profile.SetSizer(bSizer171)
         self.auto_profile.Layout()
         bSizer171.Fit(self.auto_profile)
-        self.job_book.AddPage(self.auto_profile, u"Profile", True)
+        self.job_book.AddPage(self.auto_profile, u"Profile", False)
 
         bSizer59.Add(self.job_book, 1, wx.EXPAND, 5)
 
@@ -366,6 +385,8 @@ class job_frame(wx.Frame):
         self.pause_b.Bind(wx.EVT_BUTTON, self.pause_log)
         self.resume_b.Bind(wx.EVT_BUTTON, self.resume_log)
         self.points_update.Bind(wx.EVT_BUTTON, self.update_table)
+        self.n_points_input.Bind(wx.EVT_TEXT_ENTER, self.update_points_n)
+        self.save_btn.Bind(wx.EVT_BUTTON, self.save_points)
         self.points_load.Bind(wx.EVT_BUTTON, self.load_autoprofile)
         self.new_set_btn.Bind(wx.EVT_BUTTON, self.new_profile_action)
         self.new_point_btn.Bind(wx.EVT_BUTTON, self.new_point_autoprofile)
@@ -391,6 +412,12 @@ class job_frame(wx.Frame):
         event.Skip()
 
     def update_table(self, event):
+        event.Skip()
+
+    def update_points_n(self, event):
+        event.Skip()
+
+    def save_points(self, event):
         event.Skip()
 
     def load_autoprofile(self, event):

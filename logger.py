@@ -54,7 +54,8 @@ class Logger(Thread):
         while not self.stopped:
             while not self.paused and not self.stopped:
                 self.read_loop()
-                self.job.update_cycle()
+
+
             time.sleep(1)
         sys.exit(1)
 
@@ -72,9 +73,10 @@ class Logger(Thread):
         self.log_to_file()
         self.store.append((self.raw_dict,self.trans_dict))
         self.count += 1
+        self.job.update_cycle()
         cycle_time = time.time()-ls_time
         ttnc = self.min_cycle_time-cycle_time
-        if ttnc > 0:
+        if ttnc > 0 and not self.stopped:
             time.sleep(ttnc)
 
     def read_instrument(self,inst_id,operation_id):
@@ -130,6 +132,7 @@ class Logger(Thread):
 
     def stop(self):
         self.stopped = True
+
 
     def logf(self,text):
         self.f_log.write(text)

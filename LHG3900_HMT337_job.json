@@ -4,6 +4,7 @@
     "job_notes":"comment",
     "datafile_raw": "LHG3900_job_data_raw.csv",
     "datafile_trans": "LHG3900_job_data_trans.csv",
+    "points_file" : "LHG3900_points.csv",
     "min_interval": 30,
     "time":0,
     "instruments":{

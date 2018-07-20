@@ -236,12 +236,15 @@ class myjobframe(job_frame):
         print(file)
         self.job.auto_profile.load_file(file) #todo do better
 
-
-
     def save_autoprofile(self, event):
+        #TODO
         pass
 
+    def save_points(self, event):
+        #TODO #self.job.save_points()
 
+    def update_points_n(self, event):
+        self.job.n = self.n_points_input.GetValue()
 
 class MyInstPannel(inst_pannel):
     def __init__(self,ctrl, instrument):
@@ -457,6 +460,9 @@ class Controller(object):
     def shutdown(self):
         for job in self.jobs.values():
             job.stop()
+        for inst in self.iframes.values():
+            inst.Destroy()
+        sys.exit(0)
 
 def main():
     ctrl = Controller()

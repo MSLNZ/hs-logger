@@ -1,5 +1,7 @@
 IMPORTANT STUFF STILL TO FIX OR ADD
 
+#add tests and documentation
+
 #GUI and Logger
 - add autoprofile save
 - fix autoprofile doubble click buttons crash
@@ -9,8 +11,6 @@ IMPORTANT STUFF STILL TO FIX OR ADD
 - display log better
 - improve graphs
 - more testing required for instrument pannel (may still crash program or instruments)
-
-
 
 #Drivers and json files
 - Fix differences in json files
@@ -23,3 +23,4 @@ IMPORTANT STUFF STILL TO FIX OR ADD
 - writing to Modbus
 - modbus over other interfaces (TCP, UDP)
 
+#split backend and GUI logger
