@@ -16,7 +16,7 @@ class generic_driver_visa_serial(object):
         r_term = spec.get("read_termination",'\r\n')
         rm = visa.ResourceManager()
         self.store = {}
-        self.timeout = spec.get("store_timeout",0)
+        self.timeout = spec.get("store_timeout",2)
         self.instrument = rm.open_resource(port,
                                            baud_rate=baud,
                                            write_termination=w_term,
@@ -41,11 +41,15 @@ class generic_driver_visa_serial(object):
             if type == 'read_store':
                 self.read_instrument(operation.get("store_id"))
                 stored = self.store.get(operation_id)
+                if time.time() - stored[1] > self.timeout:
+                    print ('store not updating')
+                    return (-1,-1)
                 data, data_trans = stored[0]
                 return data, data_trans
 
             elif type == 'read_multiple':
                 with self.lock:
+                    print("locK")
                     data = self.instrument.query(operation['command'])
                     if echo:
                         data = self.instrument.read()
@@ -61,8 +65,10 @@ class generic_driver_visa_serial(object):
                             self.store[on] = ((d,dt),time.time())
 
                     data_trans = [self.transform(d, operation) for d in data]
+                print('unlocK')
             else:
                 with self.lock:
+                    print("lock")
                     print(operation['command'])
                     data = self.instrument.query(operation['command'])
                     if echo:
@@ -70,6 +76,7 @@ class generic_driver_visa_serial(object):
                     data = self.decimals(data,operation)
                     data_trans = self.transform(data, operation)
 
+                print('unlock')
             self.store[operation_id] = ((data,data_trans),time.time())
 
         return data, data_trans

@@ -1,10 +1,10 @@
 {
     "instrument_name": "Vaisala HMP7",
     "instrument_id": "Vaisala_HMP7",
-    "driver":"Vaisala_HMP7_modbus_driver",
+    "driver":"generic_driver_pymodbus",
     "interface": "modbus_rtu",            
     "address": 240,
-    "port": "COM14",
+    "port": "COM13",
     "baudrate":19200,
     "parity":"None",
     "databits":8,
@@ -18,6 +18,7 @@
             "details":"",
             "id": "read_signed_int_test",
             "register":7936,
+            "num_reg":1,
             "data_type": "float",
             "unit": "expect -12345"
         },
@@ -27,6 +28,7 @@
             "details":"",
             "id": "read_float_test",
             "register":7937,
+            "num_reg":2,
             "data_type": "float",
             "unit": "expect -12345"
         },
@@ -36,6 +38,7 @@
             "details":"",
             "id": "read_string_test",
             "register":7939,
+            "num_reg":1,
             "data_type": "string",
             "unit": "expect -12345"
         },
@@ -45,6 +48,8 @@
             "details":"",
             "id": "read_rh",
             "register":0,
+            "num_reg":2,
+            "decimal_shift": 0,
             "data_type": "float",
             "unit": "%RH"
         },
@@ -54,6 +59,7 @@
             "details":"",
             "id": "read_temp",
             "register":2,
+            "num_reg":2,
             "data_type": "float",
             "unit": "°C"
         },
@@ -63,6 +69,7 @@
             "details":"",
             "id": "read_dew_point_temp",
             "register":6,
+            "num_reg":2,
             "data_type": "float",
             "unit": "°C"
         },
@@ -72,6 +79,7 @@
             "details":"",
             "id": "read_dew_frost_point_temp",
             "register":8,
+            "num_reg":2,
             "data_type": "float",
             "unit": "°C"
         },
@@ -81,6 +89,7 @@
             "details":"",
             "id": "read_dew_frost_point_temp_1atm",
             "register":10,
+            "num_reg":2,
             "data_type": "float",
             "unit": "°C"
         },
@@ -90,6 +99,7 @@
             "details":"",
             "id": "read_dew_point_temp_1atm",
             "register":12,
+            "num_reg":2,
             "data_type": "float",
             "unit": "°C"
         },
@@ -99,6 +109,7 @@
             "details":"",
             "id": "read_abs_humidity",
             "register":14,
+            "num_reg":2,
             "data_type": "float",
             "unit": "g/m^3"
         },
@@ -108,6 +119,7 @@
             "details":"",
             "id": "read_mixing_ratio",
             "register":16,
+            "num_reg":2,
             "data_type": "float",
             "unit": "g/kg"
         },
@@ -117,6 +129,7 @@
             "details":"",
             "id": "read_wetbulb_temp",
             "register":18,
+            "num_reg":2,
             "data_type": "float",
             "unit": "°C"
         },
@@ -126,6 +139,7 @@
             "details":"",
             "id": "read_water_vapor_concentration",
             "register":20,
+            "num_reg":2,
             "data_type": "float",
             "unit": "ppmv"
         },
@@ -135,6 +149,7 @@
             "details":"",
             "id": "read_water_vapor_pressure",
             "register":22,
+            "num_reg":2,
             "data_type": "float",
             "unit": "hPa"
         },
@@ -144,6 +159,7 @@
             "details":"",
             "id": "read_water_vapor_saturation_pressure",
             "register":24,
+            "num_reg":2,
             "data_type": "float",
             "unit": "hPa"
         },
@@ -153,6 +169,7 @@
             "details":"",
             "id": "read_enthalpy",
             "register":26,
+            "num_reg":2,
             "data_type": "float",
             "unit": "kJ/kg"
         },
@@ -162,6 +179,7 @@
             "details":"",
             "id": "read_abs_humidity_at_ntp",
             "register":32,
+            "num_reg":2,
             "data_type": "float",
             "unit": "g/m^3"
         },
@@ -171,6 +189,7 @@
             "details":"",
             "id": "read_water_vapor_mass_fraction",
             "register":64,
+            "num_reg":2,
             "data_type": "float",
             "unit": "ppmw"
         }

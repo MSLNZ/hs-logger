@@ -11,7 +11,7 @@
     "operations": {
         "read_default":{
             "type": "read_multiple",
-            "name": "g/kg",
+            "name": "",
             "id": "read_gm3",
             "details":"",
             "command":"?",

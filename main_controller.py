@@ -258,7 +258,9 @@ class MyInstPannel(inst_pannel):
         self.action_choice.Clear()
         for id,op in operations.items():
             op_type = op.get("type")
-            if op_type.startswith("read"):
+            if op_type is None:
+                pass
+            elif op_type.startswith("read"):
                 self.read_op_choice.Append(op.get("id"))
             elif op_type.startswith("write"):
                 self.write_op_choice.Append(op.get("id"))

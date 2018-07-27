@@ -1,0 +1,23 @@
+{
+    "job_name":"HG2500_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "datafile_raw": "HG2500_job_data_raw.csv",
+    "datafile_trans": "HG2500_job_data_trans.csv",
+    "points_file" : "HG2500_points.csv",
+    "min_interval": 20,
+    "time":0,
+    "instruments":{
+        "LHG3900":"instruments/HG2500_visa.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_sat_pres",
+        "HG2500.read_chamber_press",
+        "HG2500.read_sat_temp",
+        "HG2500.read_chamber_temp",
+        "HG2500.read_flowrate"
+        ]
+}

@@ -1,6 +1,6 @@
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from decimal import Decimal
-import decimal
+import numpy as np
 import json
 import struct
 import time
@@ -13,25 +13,28 @@ class generic_driver_pymodbus(ModbusClient):
         self.spec = spec
         self.address = spec['address']
         self.operations = spec['operations']
-        ModbusClient.__init__(self,method='rtu', port=spec['port'], timeout=1, baudrate=spec['baudrate'])
+        ModbusClient.__init__(self,method='rtu', port=spec['port'],stopbits=2, baudrate=spec['baudrate'])
         self.store = {}
-        self.timeout = spec.get("store_timeout", 0)
+        self.timeout1 = spec.get("store_timeout", 0)
 
     def read_instrument(self,op_id):
         op = self.operations[op_id]
-        stored = self.store.get(op_id, (None, time.time() - (self.timeout + 1)))
-        if time.time() - stored[1] < self.timeout:
+        stored = self.store.get(op_id, (None, time.time() - (self.timeout1 + 1)))
+        if time.time() - stored[1] < self.timeout1:
             data ,data_trans = stored[0]
         else:
-            self.connect()
+            print(self.connect())
             converter = self.uint_conversion(op.get('data_type','uint'))
-            rr = self.read_holding_registers(op['register'], op['num_reg'], unit=self.address)
+            print(op['register'])
+            print(op['num_reg'])
+            rr = self.read_holding_registers(op['register'], count=op['num_reg'], unit=self.address)
+            print(rr.isError())
             retry = 0
             while rr.isError():
                 retry += 1
                 print("modbus error retying {}".format(retry))
                 rr = self.read_holding_registers(op['register'], op['num_reg'], unit=self.address)
-                time.sleep(.2)
+                time.sleep(2)
                 if retry >= 10:
                     print("Modbus operation {} failed".format(op.get('id','')))
                     return 'error'
@@ -44,7 +47,9 @@ class generic_driver_pymodbus(ModbusClient):
 
     def decimals(self,data,operation):
         d_shift = operation.get('decimal_shift',0)
-        return Decimal(data).scaleb(d_shift)
+        d =  Decimal(data).scaleb(d_shift)
+        f = np.float64(d)
+        return f
 
     def transform(self,data,operation):
         x = data
@@ -66,7 +71,7 @@ class generic_driver_pymodbus(ModbusClient):
             return self.to_uint
 
     def uint_to_float(self, data):
-        mp = struct.pack('!HH', data[0], data[1])
+        mp = struct.pack('!HH', data[1], data[0])
         return struct.unpack('!f', mp)[0]
 
     def uint_to_int(self, data):
@@ -81,11 +86,11 @@ class generic_driver_pymodbus(ModbusClient):
 
 #testing
 def main():
-    instr = generic_driver_pymodbus(json.load(open('../instruments/Michell_S8000rs_modbus.json')))
+    instr = generic_driver_pymodbus(json.load(open('../instruments/Vaisala_HMP7_modbus.json')))
 
     print(instr.read_instrument('read_rh'))
-    print(instr.read_instrument('read_dewpoint'))
-    print(instr.read_instrument('read_pressure'))
+    # print(instr.read_instrument('read_dewpoint'))
+    # print(instr.read_instrument('read_pressure'))
 
 
 if __name__ == '__main__':
