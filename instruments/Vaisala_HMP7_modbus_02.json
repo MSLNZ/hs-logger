@@ -1,10 +1,10 @@
 {
     "instrument_name": "Vaisala HMP7",
-    "instrument_id": "Vaisala_HMP7",
+    "instrument_id": "Vaisala_HMP7_02",
     "driver":"generic_driver_pymodbus",
     "interface": "modbus_rtu",            
     "address": 240,
-    "port": "COM16",
+    "port": "COM14",
     "baudrate":19200,
     "parity":"None",
     "databits":8,

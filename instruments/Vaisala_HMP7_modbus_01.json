@@ -1,6 +1,6 @@
 {
     "instrument_name": "Vaisala HMP7",
-    "instrument_id": "Vaisala_HMP7",
+    "instrument_id": "Vaisala_HMP7_01",
     "driver":"generic_driver_pymodbus",
     "interface": "modbus_rtu",            
     "address": 240,

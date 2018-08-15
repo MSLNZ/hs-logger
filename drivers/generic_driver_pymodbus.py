@@ -23,12 +23,12 @@ class generic_driver_pymodbus(ModbusClient):
         if time.time() - stored[1] < self.timeout1:
             data ,data_trans = stored[0]
         else:
-            print(self.connect())
+            # print(self.connect())
             converter = self.uint_conversion(op.get('data_type','uint'))
-            print(op['register'])
-            print(op['num_reg'])
+            # print(op['register'])
+            # print(op['num_reg'])
             rr = self.read_holding_registers(op['register'], count=op['num_reg'], unit=self.address)
-            print(rr.isError())
+            # print(rr.isError())
             retry = 0
             while rr.isError():
                 retry += 1
@@ -86,11 +86,11 @@ class generic_driver_pymodbus(ModbusClient):
 
 #testing
 def main():
-    instr = generic_driver_pymodbus(json.load(open('../instruments/Vaisala_HMP7_modbus.json')))
+    instr = generic_driver_pymodbus(json.load(open('../instruments/Vaisala_HMP7_modbus_02.json')))
 
     print(instr.read_instrument('read_rh'))
-    # print(instr.read_instrument('read_dewpoint'))
-    # print(instr.read_instrument('read_pressure'))
+    print(instr.read_instrument('read_dew_point_temp'))
+
 
 
 if __name__ == '__main__':
