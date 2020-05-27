@@ -479,11 +479,11 @@ class Load_profile_dialog(wx.Dialog):
         pass
 
 
-###########################################################################
-## Class inst_pannel
-###########################################################################
+"""
+Class inst_panel
+"""
 
-class inst_pannel(wx.Frame):
+class inst_panel(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=u"<instrument>", pos=wx.DefaultPosition,
                           size=wx.Size(500, 304), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)

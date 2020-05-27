@@ -10,7 +10,7 @@ IMPORTANT STUFF STILL TO FIX OR ADD
 - add ability to add custom functions to log
 - display log better
 - improve graphs
-- more testing required for instrument pannel (may still crash program or instruments)
+- more testing required for instrument panel (may still crash program or instruments)
 
 #Drivers and json files
 - Fix differences in json files

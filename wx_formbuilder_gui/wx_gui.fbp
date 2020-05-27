@@ -3860,7 +3860,7 @@
             <property name="id">wxID_ANY</property>
             <property name="maximum_size"></property>
             <property name="minimum_size"></property>
-            <property name="name">inst_pannel</property>
+            <property name="name">inst_panel</property>
             <property name="pos"></property>
             <property name="size">500,304</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>

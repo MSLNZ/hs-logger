@@ -1,0 +1,20 @@
+{
+    "job_name":"HMP73_test_job",
+    "job_id":4,
+    "job_notes":"comment",
+    "datafile_raw": "HMP7_3_test_job_raw.csv",
+    "datafile_trans": "HMP7_3_test_job_trans.csv",
+    "min_interval": 5,
+    "time":0,
+    "instruments":{
+        "Vaisala_HMP7_03":"instruments/Vaisala_HMP7_modbus_03.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "Vaisala_HMP7_03.read_temp",
+        "Vaisala_HMP7_03.read_rh",
+        "Vaisala_HMP7_03.read_dew_point_temp"
+    ]
+
+}

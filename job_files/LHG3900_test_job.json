@@ -8,19 +8,15 @@
     "min_interval": 30,
     "time":0,
     "instruments":{
-        "LHG3900":"instruments/LHG3900_visa.json",
-        "HMP7_03":"instruments/Vaisala_HMP7_modbus_03.json"
+        "LHG3900":"instruments/LHG3900_visa.json"
 
     },
     "logged_operations":[
         "time.runtime",
         "time.datetime",
-        "LHG3900.read_setpoints"
+        "LHG3900.read_setpoints",
         "LHG3900.read_rh",
-        "LHG3900.read_dew_point",
-        "HMP7_03.read_rh",
-        "HMP7_03.read_temp",
-        "HMP7_03.read_dew_frost_point_temp"
+        "LHG3900.read_dew_point"
 
     ]
 }

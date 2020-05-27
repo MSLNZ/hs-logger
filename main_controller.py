@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import numpy as np
-from wx_gui import ctrl_frame, job_frame, axes_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
+from wx_gui import ctrl_frame, job_frame, axes_dialog, inst_panel, new_action_autoprofile_dlg, Load_profile_dialog
 from logger import Logger
 from job import Job
 
@@ -11,6 +11,15 @@ import matplotlib as mpl
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
 from matplotlib.backends.backend_wxagg import NavigationToolbar2WxAgg as NavigationToolbar
 
+## added by JLS 26/04/2020 to trace GUI crashes (exJB)
+import traceback
+def excepthook(exctype, value, tb):
+    print('===== This is my custom exception handler =====\n')
+    print(''.join(traceback.format_exception(exctype, value, tb)))
+    print('===============================================')
+
+sys.excepthook = excepthook
+## finish
 
 class Main_Frame(ctrl_frame):
     def __init__(self,control):
@@ -71,7 +80,9 @@ class Main_Frame(ctrl_frame):
         self.inst_listbox.Clear()
         self.inst_listbox.InsertItems(list(insts),0)
 
+    """
 
+    """
 class myjobframe(job_frame):
     def __init__(self,job):
         job_frame.__init__(self,None)
@@ -96,6 +107,11 @@ class myjobframe(job_frame):
         self.start_b.Enable(False)
         self.job.start()
 
+    """
+    Add graph to Job window
+    ToDO: Title, add traces, add funtionality as per bottom menu, add legend
+    """
+
     def add_graph(self,event):
         book = self.job_book
         plt = Plot(book)
@@ -113,6 +129,12 @@ class myjobframe(job_frame):
             y = dlg.y_choice.GetStringSelection()
         dlg.Destroy()
         return x,y
+
+    """
+    ADD Stats table with row for each instrument/measurement read
+    ToDO:  Activate Log "last N" & "Next N" buttons and stats window (N) input.
+           Install and enable (elsewhere) transformed and raw selection/display.
+   """
 
     def add_table(self,col,row):
         d = Data_Table()
@@ -148,6 +170,9 @@ class myjobframe(job_frame):
         self.grid_auto_profile.SetDefaultCellBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_ACTIVEBORDER))
         self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
 
+    """
+    UPDATE TABLE
+    """
     def update_table(self,event):
         rows = self.job.spec["logged_operations"]
 
@@ -168,6 +193,11 @@ class myjobframe(job_frame):
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()
         self.m_grid2.ForceRefresh()
+
+    """
+    ADD AUTOPROFILE TABLE
+
+    """
 
     def add_profile_table(self,data):
         table = Profile_Table(data)
@@ -197,7 +227,9 @@ class myjobframe(job_frame):
         self.grid_auto_profile.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
         #
         self.grid_auto_profile.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
-
+    """
+    Get a new autoprofile
+    """
     def get_autoprofile_new_action_dlg(self):
         dlg = new_action_autoprofile_dlg(self)
         name = "none"
@@ -247,9 +279,17 @@ class myjobframe(job_frame):
     def update_points_n(self, event):
         self.job.n = self.n_points_input.GetValue()
 
-class MyInstPannel(inst_pannel):
+
+
+"""
+CREATE the instrument panel for a particular instrument: This allows interrogation
+and control of all instruments according to their read/write characteristics
+Problems here with read and writes can break the logger.
+Maybe specifically to do with Modbus.
+"""
+class MyInstPanel(inst_panel):
     def __init__(self,ctrl, instrument):
-        inst_pannel.__init__(self,None)
+        inst_panel.__init__(self,None)
         self.ctrl = ctrl
         self.inst = instrument
         self.spec = instrument.spec
@@ -429,7 +469,7 @@ class Controller(object):
     def update_instruments(self,insts):
         self.instruments.update(insts)
         self.frame.update_inst_list(self.instruments.keys())
-        self.iframes = {k:MyInstPannel(self,v) for k,v in self.instruments.items()}
+        self.iframes = {k:MyInstPanel(self,v) for k,v in self.instruments.items()}
 
 
     def load_instruments(self, inst_spec):
@@ -443,7 +483,7 @@ class Controller(object):
                         instrument = json.load(open(instrument))
 
                     except (OSError, ValueError):
-                        sys.stderr.write("Error Loading Insturment: {}".format(inst_id))
+                        sys.stderr.write("Error Loading Instrument: {}".format(inst_id))
                         sys.exit(1)
                 inst_id = instrument["instrument_id"]
                 driver_name = instrument["driver"]

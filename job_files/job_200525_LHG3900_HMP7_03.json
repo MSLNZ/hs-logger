@@ -15,7 +15,7 @@
     "logged_operations":[
         "time.runtime",
         "time.datetime",
-        "LHG3900.read_setpoints"
+        "LHG3900.read_setpoints",
         "LHG3900.read_rh",
         "LHG3900.read_dew_point",
         "HMP7_03.read_rh",

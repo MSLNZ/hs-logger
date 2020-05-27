@@ -4,7 +4,7 @@
     "driver":"generic_driver_pymodbus",
     "interface": "modbus_rtu",            
     "address": 240,
-    "port": "COM13",
+    "port": "COM7",
     "baudrate":19200,
     "parity":"None",
     "databits":8,
