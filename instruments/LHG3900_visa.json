@@ -3,7 +3,7 @@
     "instrument_name": "Thunder Scientific 3900 Low Humidity Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM24",
+    "port": "COM22",
     "baudrate":2400,
     "write_termination":"\r",
     "read_termination":"\r\n",
@@ -49,7 +49,7 @@
         "read_supply_pressure":{
             "type": "read",
             "name": "Supply Pressure",
-            "id": "read_supply_pressure",
+            "id": "read_supply_press",
             "details":"Returns current value of actual Supply Pressure",
             "command":"?PG",
             "data_type": "float",
@@ -57,8 +57,8 @@
         },
         "read_saturation_pressure":{
             "type": "read",
-            "name": "Saturation Pressure",
-            "id": "read_saturation_pressure",
+            "name": "Saturation Press",
+            "id": "read_sat_press",
             "details":"Returns current value of actual Saturation Pressure",
             "command":"?PS",
             "data_type": "float",
@@ -66,8 +66,8 @@
         },
         "read_saturation_temp":{
             "type": "read",
-            "name": "saturation_temp",
-            "id": "read_saturation_temp",
+            "name": "sat_temp",
+            "id": "read_sat_temp",
             "details":"Returns current value of actual Saturation temperature",
             "command":"?TS",
             "data_type": "float",
@@ -84,8 +84,8 @@
         },
         "read_test_pressure":{
             "type": "read",
-            "name": "Test Pressure",
-            "id": "read_test_pressure",
+            "name": "Test Press",
+            "id": "read_test_press",
             "details":"Returns current value of actual Test Pressure",
             "command":"?PT",
             "data_type": "float",
@@ -129,49 +129,7 @@
             "unit": ""
         },
         "action_generate":{
-            "type": "action",
-            "name": "Generate Mode",
-            "id":   "action_generate",
-            "details": "Changes system to generate mode",
-            "command": "GEN"
-        },
-        "action_purge":{
-            "type": "action",
-            "name": "Purge Mode",
-            "id":   "action_purge",
-            "details": "Changes system to purge mode",
-            "command": "PUR"
-        },
-        "action_stop":{
-            "type": "action",
-            "name": "Stop System",
-            "id":   "action_stop",
-            "details": "Stops the System",
-            "command": "STO"
-        },
-        "set_dew_point_setpoint":{
-            "type": "write",
-            "name": "DewPoint Setpoint",
-            "id":   "set_dew_point_setpoint",
-            "command": "DP={}"
-        },
-        "set_flow_rate_setpoint":{
-            "type": "write",
-            "name": "Flow Rate Setpoint",
-            "id":   "set_flow_rate_setpoint",
-            "command": "FL={}"
-        },
-        "set_frost_point_setpoint":{
-            "type": "write",
-            "name": "FrostPoint Setpoint",
-            "id":   "set_frost_point_setpoint",
-            "command": "FP={}"
-        },
-        "set_saturation_pressure_setpoint":{
-            "type": "write",
-            "name": "Saturation Pressure Setpoint",
-            "id":   "set_saturation_pressure_setpoint",
-            "command": "PS={}"
+                "command": "PS={}"
         },
         "set_rh_setpoint":{
             "type": "write",
@@ -179,10 +137,10 @@
             "id":   "set_rh_setpoint",
             "command": "RH={}"
         },
-        "set_saturation_temperature_setpoint":{
+        "set_saturation_temp_setpt":{
             "type": "write",
             "name": "Saturation Temperature Setpoint",
-            "id":   "set_saturation_temperature_setpoint",
+            "id":   "set_sat_temp_setpt",
             "command": "TS={}"
         }
     }

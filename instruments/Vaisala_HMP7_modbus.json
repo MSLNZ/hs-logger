@@ -10,7 +10,7 @@
     "databits":8,
     "stopbits":2,
     "flowcontrol":"None",
-    "notes": "some register addresses may be incorect as modbus refrence in manual appears to have errors will confirm with testing",
+    "notes": "some register addresses may be incorect as modbus reference in manual appears to have errors will confirm with testing",
     "operations": {
         "read_signed_int_test":{
             "type": "read",

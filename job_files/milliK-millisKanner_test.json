@@ -1,0 +1,23 @@
+{
+    "job_name":"milliK-millisKanner_testjob",
+    "job_id":2,
+    "job_notes":"comment",
+    "datafile_raw": "test_job_data_raw.csv",
+    "datafile_trans": "test_job_data_trans.csv",
+    "points_file" : "test_points.csv",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "milliK":"instruments/milliK-millisKanner.json"
+    },
+    "logged_operations":[
+        "milliK.read_channel_10",
+        "milliK.read_channel_11",
+        "milliK.read_channel_12",
+        "milliK.read_channel_13",
+        "milliK.read_channel_14",
+        "milliK.read_channel_15",
+        "milliK.read_channel_16",
+        "milliK.read_channel_17"
+    ]
+}

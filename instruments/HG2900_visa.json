@@ -1,0 +1,327 @@
+{
+    "instrument_id": "HG2900",
+    "instrument_name": "Thunder Scientific 2900 Humidity Generator",
+    "driver":"generic_driver_visa_serial",
+    "interface": "visa",            
+    "port": "COM4",
+    "baudrate":57600,
+    "write_termination":"\r\n",
+    "read_termination":"\n",
+    "notes": "",
+    "operations": {
+        "read_default":{
+            "type": "read_multiple",
+            "name": "Actuals",
+            "id": "read_default",
+            "details":"",
+            "command":"get actuals",
+            "operations":["read_rh", "read_fp", "read_dp", "read_ppmv","read_ppmw", "read_ps", "read_pc", "read_ts", "read_tc", "read_q", "read_tcab", "read_texp", "read_tps", "read_pg", "read_wl"],
+            "data_type": "list",
+            "split":",",
+            "unit": ""
+        },
+        "read_rh":{
+            "type": "read_store",
+            "name": "%rh",
+            "id": "read_rh",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_fp":{
+            "type": "read_store",
+            "name": "Frost point",
+            "id": "read_fp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_dp":{
+            "type": "read_store",
+            "name": "Dew point",
+            "id": "read_dp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_ppmv":{
+            "type": "read_store",
+            "name": "PPMv",
+            "id": "read_ppmv",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_ppmw":{
+            "type": "read_store",
+            "name": "PPMw",
+            "id": "read_ppmw",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_ps":{
+            "type": "read_store",
+            "name": "Saturation pressure",
+            "id": "read_ps",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_pc":{
+            "type": "read_store",
+            "name": "Chamber pressure",
+            "id": "read_pc",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_ts":{
+            "type": "read_store",
+            "name": "Saturation temperature",
+            "id": "read_ts",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_tc":{
+            "type": "read_store",
+            "name": "Chamber temperature",
+            "id": "read_tc",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 8,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_q":{
+            "type": "read_store",
+            "name": "Mass flow rate",
+            "id": "read_q",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 9,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_tcab":{
+            "type": "read_store",
+            "name": "Cabinet temperature",
+            "id": "read_tcab",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 10,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_texp":{
+            "type": "read_store",
+            "name": "Expansion valve temperature",
+            "id": "read_texp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 11,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_tps":{
+            "type": "read_store",
+            "name": "Pre-saturator temperature",
+            "id": "read_tps",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 12,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_pg":{
+            "type": "read_store",
+            "name": "Supply pressure",
+            "id": "read_pg",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 13,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_wl":{
+            "type": "read_store",
+            "name": "Water reservoir level",
+            "id": "read_wl",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 14,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_setpoints":{
+            "type": "read_multiple",
+            "name": "Setpoints",
+            "id": "read_setpoints",
+            "details":"Returns current system gsetpoint values",
+            "command":"get setpoints",
+            "operations":["read_rh_sp", "read_fp_sp", "read_dp_sp", "read_ppmv_sp","read_ppmw_sp", "read_ps_sp", "read_ts_sp", "read_q_sp"],
+            "data_type": "list",
+            "split":",",
+            "unit": ""
+        },
+        "read_rh_sp":{
+            "type": "read_store",
+            "name": "%rh",
+            "id": "read_rh_sp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_fp_sp":{
+            "type": "read_store",
+            "name": "Frost point",
+            "id": "read_fp_sp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_dp_sp":{
+            "type": "read_store",
+            "name": "Dew point",
+            "id": "read_dp_sp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_ppmv_sp":{
+            "type": "read_store",
+            "name": "PPMv",
+            "id": "read_ppmv_sp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_ppmw_sp":{
+            "type": "read_store",
+            "name": "PPMw",
+            "id": "read_ppmw_sp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_ps_sp":{
+            "type": "read_store",
+            "name": "Saturation pressure",
+            "id": "read_ps_sp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_ts_sp":{
+            "type": "read_store",
+            "name": "Saturation temperature",
+            "id": "read_ts_sp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_q_sp":{
+            "type": "read_store",
+            "name": "Mass flow rate",
+            "id": "read_q_sp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": ""
+        },
+        "action_generate":{
+            "type": "action",
+            "name": "Generate Mode",
+            "id":   "action_generate",
+            "details": "Start the System",
+            "command": "generate"
+        },
+        "action_shutdown":{
+            "type": "action",
+            "name": "Shutdown System",
+            "id":   "action_shutdown",
+            "details": "Stops the System",
+            "command": "shutdown"
+        },
+        "set_rh":{
+            "type": "write",
+            "name": "RH Setpoint",
+            "id":   "set_rh",
+            "command": "set %rh {}"
+        },
+        "set_fp":{
+            "type": "write",
+            "name": "FP Setpoint",
+            "id":   "set_fp",
+            "command": "set frost point {}"
+        },
+        "set_dp":{
+            "type": "write",
+            "name": "DP Setpoint",
+            "id":   "set_dp",
+            "command": "set frost point {}"
+        },
+        "set_ppmv":{
+            "type": "write",
+            "name": "PPMv Setpoint",
+            "id":   "set_ppmv",
+            "command": "set ppmv {}"
+        },
+        "set_ppmw":{
+            "type": "write",
+            "name": "PPMw Setpoint",
+            "id":   "set_ppmw",
+            "command": "set ppmw {}"
+        },
+        "set_ps":{
+            "type": "write",
+            "name": "Ps Setpoint",
+            "id":   "set_ps",
+            "command": "set saturation pressure {}"
+        },
+        "set_ts":{
+            "type": "write",
+            "name": "Ts Setpoint",
+            "id":   "set_ts",
+            "command": "set saturation temperature {}"
+        },
+        "set_q":{
+            "type": "write",
+            "name": "Q Setpoint",
+            "id":   "set_q",
+            "command": "set mass flow rate {}"
+        }
+    }
+}

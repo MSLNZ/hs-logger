@@ -4,6 +4,7 @@ import csv
 import numpy as np
 from threading import Thread
 
+
 class Logger(Thread):
 
     def __init__(self, job, inst_drivers, f_log=sys.stdout):
@@ -11,19 +12,20 @@ class Logger(Thread):
         self.job = job
         self.job_spec = job.spec
         self.f_log = f_log
-        #log file name
+        # log file name
         t = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         self.out_dir = "data_files\\"
         self.rawfilename = "p" + t + self.job_spec["datafile_raw"]
         self.transfilename = "p" + t + self.job_spec["datafile_trans"]
         self.op_names = self.job_spec["logged_operations"]
 
-        #todo load from inst spec
-        self.min_cycle_time = self.job_spec.get("min_interval",30)
+        # todo load from inst spec
+        # self.min_cycle_time = self.job_spec.get("min_interval", 30)
+        self.min_cycle_time = 60*(self.job_spec.get("min_interval", 1))
         # store and file setup
         self.raw_dict = {}
         self.trans_dict = {}
-        self.store=[]
+        self.store = []
 
         a = [n+".raw" for n in self.op_names]
         a.extend([n+".trans" for n in self.op_names])
@@ -31,12 +33,11 @@ class Logger(Thread):
         self.np_store = np.array([a])
         print(self.np_store)
 
-
         self.file_setup()
-        #instrument operations and v_timer instrument
+        # instrument operations and v_timer instrument
         self.instruments = inst_drivers
         self.instruments['time'] = Timer()
-        self.operations=[]
+        self.operations = []
         self.setup_operations()
 
         self.count = 0
@@ -55,7 +56,6 @@ class Logger(Thread):
             while not self.paused and not self.stopped:
                 self.read_loop()
 
-
             time.sleep(1)
         sys.exit(1)
 
@@ -64,14 +64,14 @@ class Logger(Thread):
         self.raw_dict = {}
         self.trans_dict = {}
         for inst, op in self.operations:
-            self.read_instrument(inst,op)
+            self.read_instrument(inst, op)
 
         a = list(self.raw_dict.values())
         a.extend(list(self.trans_dict.values()))
-        self.np_store = np.append(self.np_store,[a],axis=0)
+        self.np_store = np.append(self.np_store, [a], axis=0)
 
         self.log_to_file()
-        self.store.append((self.raw_dict,self.trans_dict))
+        self.store.append((self.raw_dict, self.trans_dict))
         self.count += 1
         self.job.update_cycle()
         cycle_time = time.time()-ls_time
@@ -79,7 +79,7 @@ class Logger(Thread):
         if ttnc > 0 and not self.stopped:
             time.sleep(ttnc)
 
-    def read_instrument(self,inst_id,operation_id):
+    def read_instrument(self, inst_id, operation_id):
         inst = self.instruments.get(inst_id)
         result = inst.read_instrument(operation_id)
         self.raw_dict["{}.{}".format(inst_id, operation_id)] = result[0]
@@ -103,13 +103,12 @@ class Logger(Thread):
 
     def setup_operations(self):
         for operation in self.op_names:
-            inst_id,op_id = operation.split('.')
-            self.operations.append((inst_id,op_id))
-
+            inst_id, op_id = operation.split('.')
+            self.operations.append((inst_id, op_id))
 
     def log_to_file(self):
         self.logf(self.raw_dict.values())
-        datafile = self.out_dir +self.rawfilename
+        datafile = self.out_dir + self.rawfilename
         with open(datafile, "a") as outfile_raw:
             writer = csv.DictWriter(outfile_raw, fieldnames=self.op_names, lineterminator='\n', dialect="excel")
             writer.writerow(self.raw_dict)
@@ -121,7 +120,7 @@ class Logger(Thread):
     def get_npStore(self):
         header = self.np_store[0]
         body = self.np_store[1:]
-        return header , body
+        return header, body
 
     def pause(self):
         self.paused = True
@@ -133,18 +132,18 @@ class Logger(Thread):
     def stop(self):
         self.stopped = True
 
-
-    def logf(self,text):
+    def logf(self, text):
         self.f_log.write(text)
+
 
 class Timer(object):
     def __init__(self):
-        self.start_time= time.time()
+        self.start_time = time.time()
 
-    def read_instrument(self,operation_id):
-        op = getattr(self,operation_id)
+    def read_instrument(self, operation_id):
+        op = getattr(self, operation_id)
         t = op()
-        return t,t
+        return t, t
 
     def reset_time(self):
         self.start_time = time.time()
@@ -158,6 +157,7 @@ class Timer(object):
 
 def main():
     pass
+
 
 if __name__ == '__main__':
     main()

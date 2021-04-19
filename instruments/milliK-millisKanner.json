@@ -1,0 +1,133 @@
+{
+    "instrument_id": "milliK",
+    "instrument_name": "Isotech milliK with attached millisKanner",
+    "driver":"generic_driver_visa_serial",
+    "interface": "visa",            
+    "port": "COM4",
+    "baudrate":9600,
+    "write_termination":"\r",
+    "read_termination":"\r",
+    "notes": "",
+    "operations": {
+        "read_channel":{
+            "type": "read",
+            "name": "Read Channel",
+            "id": "read_channel",
+            "details":"",
+            "command":"READ?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_channel_10":{
+            "type": "read",
+            "name": "Read Channel 10",
+            "id": "read_channel_10",
+            "details":"",
+            "command":"SENS:CHAN 10\rREAD?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_channel_11":{
+            "type": "read",
+            "name": "Read Channel 11",
+            "id": "read_channel_11",
+            "details":"",
+            "command":"SENS:CHAN 11\rREAD?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_channel_12":{
+            "type": "read",
+            "name": "Read Channel 12",
+            "id": "read_channel_12",
+            "details":"",
+            "command":"SENS:CHAN 12\rREAD?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_channel_13":{
+            "type": "read",
+            "name": "Read Channel 13",
+            "id": "read_channel_13",
+            "details":"",
+            "command":"SENS:CHAN 13\rREAD?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_channel_14":{
+            "type": "read",
+            "name": "Read Channel 14",
+            "id": "read_channel_14",
+            "details":"",
+            "command":"SENS:CHAN 14\rREAD?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_channel_15":{
+            "type": "read",
+            "name": "Read Channel 15",
+            "id": "read_channel_15",
+            "details":"",
+            "command":"SENS:CHAN 15\rREAD?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_channel_16":{
+            "type": "read",
+            "name": "Read Channel 16",
+            "id": "read_channel_16",
+            "details":"",
+            "command":"SENS:CHAN 16\rREAD?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "read_channel_17":{
+            "type": "read",
+            "name": "Read Channel 17",
+            "id": "read_channel_17",
+            "details":"",
+            "command":"SENS:CHAN 17\rREAD?",
+            "data_type": "float",
+            "unit": ""
+        },
+        "action_read_resistance":{
+            "type": "action",
+            "name": "Read Resistance",
+            "id":   "action_read_resistance",
+            "details": "Sets the device to read resistance",
+            "command": "SENS:FUNC RES"
+        },
+        "action_current_normal":{
+            "type": "action",
+            "name": "Current Normal",
+            "id":   "action_current_normal",
+            "details": "Sets the read current to 1 A",
+            "command": "SENS:CURR NORM"
+        },
+        "action_current_sqrt2":{
+            "type": "action",
+            "name": "Current Sqrt(2)",
+            "id":   "action_current_sqrt2",
+            "details": "Sets the read current to sqrt(2) A",
+            "command": "SENS:CURR ROOT2"
+        },
+        "set_resistance_range":{
+            "type": "write",
+            "name": "Set Resistance Range",
+            "id":   "set_resistance_range",
+            "command": "SENS:RES:RANG {}"
+        },
+        "set_wires":{
+            "type": "write",
+            "name": "Set Wires",
+            "id":   "set_wires",
+            "command": "SENS:WIR {}"
+        },
+        "set_channel":{
+            "type": "write",
+            "name": "Set Channel",
+            "id":   "set_channel",
+            "command": "SENS:CHAN {}"
+        }
+    }
+}

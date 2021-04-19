@@ -1,0 +1,20 @@
+{
+    "job_name":"S8000__airlabCal_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "datafile_raw": "S8000_job_data_raw.csv",
+    "datafile_trans": "S8000_job_data_trans.csv",
+    "points_file" : "S8000_points.csv",
+    "min_interval": 30,
+    "time":0,
+    "instruments":{
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow"
+    ]
+}

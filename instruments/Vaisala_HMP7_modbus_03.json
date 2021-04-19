@@ -4,13 +4,13 @@
     "driver":"generic_driver_pymodbus",
     "interface": "modbus_rtu",            
     "address": 240,
-    "port": "COM13",
+    "port": "COM8",
     "baudrate":19200,
     "parity":"None",
     "databits":8,
     "stopbits":2,
     "flowcontrol":"None",
-    "notes": "some register addresses may be incorect as modbus refrence in manual appears to have errors will confirm with testing",
+    "notes": "some register addresses may be incorrect as modbus reference in manual appears to have errors will confirm with testing",
     "operations": {
         "read_signed_int_test":{
             "type": "read",
@@ -55,7 +55,7 @@
         },
         "read_temp":{
             "type": "read",
-            "name": "Tempreature",
+            "name": "Temperature",
             "details":"",
             "id": "read_temp",
             "register":2,

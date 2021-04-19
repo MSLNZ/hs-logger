@@ -1,5 +1,5 @@
 {
-    "job_name":"LHG3900_HMT337_job",
+    "job_name":"LHG3900_job",
     "job_id":2,
     "job_notes":"comment",
     "datafile_raw": "LHG3900_job_data_raw.csv",
@@ -8,18 +8,14 @@
     "min_interval": 30,
     "time":0,
     "instruments":{
-        "LHG3900":"instruments/LHG3900_visa.json",
-        "S8000":"instruments/Michell_S8000rs_modbus.json"
-
+        "LHG3900":"instruments/LHG3900_visa.json"
     },
     "logged_operations":[
         "time.runtime",
         "time.datetime",
-        "LHG3900.read_rh",
-        "LHG3900.read_dew_point",
-        "HMT337.read_rh",
-        "HMT337.read_sens_t",
-        "HMT337.read_tx"
-
+        "LHG3900.read_frost_point",
+        "LHG3900.read_saturation_temp",
+        "LHG3900.read_saturation_pressure",
+        "LHG3900.read_flow_rate"
     ]
 }

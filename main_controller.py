@@ -6,6 +6,7 @@ import numpy as np
 from wx_gui import ctrl_frame, job_frame, axes_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
 from logger import Logger
 from job import Job
+import fqs
 
 import matplotlib as mpl
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
@@ -13,11 +14,11 @@ from matplotlib.backends.backend_wxagg import NavigationToolbar2WxAgg as Navigat
 
 
 class Main_Frame(ctrl_frame):
-    def __init__(self,control):
-        ctrl_frame.__init__(self,None)
+    def __init__(self, control):
+        ctrl_frame.__init__(self, None)
         self.ctrl = control
 
-    def switchToJob(self,event):
+    def switchToJob(self, event):
         print(event)
         job = event.GetEventObject().GetStringSelection()
         print(job)
@@ -27,7 +28,7 @@ class Main_Frame(ctrl_frame):
         jframe.Maximize(False)
         jframe.SetFocus()
 
-    def switchToInst(self,event):
+    def switchToInst(self, event):
         print(event)
         inst = event.GetEventObject().GetStringSelection()
 
@@ -42,7 +43,7 @@ class Main_Frame(ctrl_frame):
                                   pos=wx.DefaultPosition)
         response = dialog.ShowModal()
 
-        if (response == wx.ID_YES):
+        if response == wx.ID_YES:
             self.OnExitApp(event)
         else:
             event.StopPropagation()
@@ -52,10 +53,10 @@ class Main_Frame(ctrl_frame):
         self.ctrl.shutdown()
         self.ctrl.app.ExitMainLoop()
 
-    def cb (self,event):
+    def cb(self, event):
         pass
 
-    def err (self,err):
+    def err(self, err):
         print(err)
 
     def file_open(self, event):
@@ -64,46 +65,45 @@ class Main_Frame(ctrl_frame):
         if dlg.ShowModal() == wx.ID_OK:
             self.filename = dlg.GetFilename()
             self.dirname = dlg.GetDirectory()
-            self.ctrl.open_job_file(self.dirname, self.filename,self.cb,self.err)
+            self.ctrl.open_job_file(self.dirname, self.filename, self.cb, self.err)
         dlg.Destroy()
 
     def update_inst_list(self, insts):
         self.inst_listbox.Clear()
-        self.inst_listbox.InsertItems(list(insts),0)
+        self.inst_listbox.InsertItems(list(insts), 0)
 
 
 class myjobframe(job_frame):
-    def __init__(self,job):
-        job_frame.__init__(self,None)
+    def __init__(self, job):
+        job_frame.__init__(self, None)
         self.job = job
         self.resume_b.Enable(False)
 
-
-    def hide(self,event):
+    def hide(self, event):
         self.Hide()
 
-    def pause_log( self, event ):
+    def pause_log(self, event):
         self.job.pause()
         self.pause_b.Enable(False)
         self.resume_b.Enable(True)
 
-    def resume_log( self, event ):
+    def resume_log(self, event):
         self.job.resume()
         self.pause_b.Enable(True)
         self.resume_b.Enable(False)
 
-    def start_log( self, event ):
+    def start_log(self, event):
         self.start_b.Enable(False)
         self.job.start()
 
-    def add_graph(self,event):
+    def add_graph(self, event):
         book = self.job_book
         plt = Plot(book)
-        book.AddPage(plt,'figure')
+        book.AddPage(plt, 'figure')
         self.Layout()
         self.job.add_graph(plt)
 
-    def get_axes_dialog(self,choices):
+    def get_axes_dialog(self, choices):
         dlg = axes_dialog(self)
         dlg.y_choice.AppendItems(choices)
         dlg.x_choice.AppendItems(choices)
@@ -112,9 +112,9 @@ class myjobframe(job_frame):
             x = dlg.x_choice.GetStringSelection()
             y = dlg.y_choice.GetStringSelection()
         dlg.Destroy()
-        return x,y
+        return x, y
 
-    def add_table(self,col,row):
+    def add_table(self, col, row):
         d = Data_Table()
         points = [["Label", "Latest", "Mean", "StDev"]]
         points.extend([[0 for _ in range(col)] for _ in range(row)])
@@ -148,36 +148,48 @@ class myjobframe(job_frame):
         self.grid_auto_profile.SetDefaultCellBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_ACTIVEBORDER))
         self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
 
-    def update_table(self,event):
+    def update_table(self, event):
         rows = self.job.spec["logged_operations"]
 
         data = self.job.logger.store
 
-        points = [["Label","Latest","Mean","StDev"]]
+        points = [["Label", "Latest", "Mean", "StDev"]]
+
+        # Temp calibration list for testing
+        cal = [0.004, -0.0000006, 0, 100]
 
         for r in rows:
             if r == "time.datetime":
                 pass
             else:
-                n = np.array([d[1].get(r) for d in data],np.float64)
-
-                mean = np.mean(n)
-                std = np.std(n)
-                points.append([r,n[-1],mean,std])
+                values = np.array([d[1].get(r) for d in data], np.float64)
+                try:
+                    n = int(self.n_points_input.GetValue())
+                except ValueError:
+                    n = 10
+                # fulltransformed = fqs.single_quadratic(cal[1], cal[0], (1 - (values[-1] / cal[3])))  # Todo make this
+                # change calibration for different measurements
+                # transformed = float(fulltransformed[0])
+                if n < len(values):
+                    mean = np.mean(values[-n:])
+                    std = np.std(values[-n:])
+                else:
+                    mean = np.mean(values)
+                    std = np.std(values)
+                points.append([r, values[-1], mean, std])
 
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()
         self.m_grid2.ForceRefresh()
 
-    def add_profile_table(self,data):
+    def add_profile_table(self, data):
         table = Profile_Table(data)
         try:
 
             self.grid_auto_profile.table = table
             self.grid_auto_profile.SetTable(table)
         except:
-            print ("error")
-
+            print("error")
 
         self.grid_auto_profile.EnableEditing(True)
         self.grid_auto_profile.EnableGridLines(True)
@@ -205,15 +217,15 @@ class myjobframe(job_frame):
         print(dlg)
         print(res)
         if res == wx.ID_OK:
-            print ("OK")
+            print("OK")
             name = dlg.profile_name_ctrl.GetValue()
             inst = dlg.profile_inst_ctrl.GetValue()
             op = dlg.profile_operation_ctrl.GetValue()
             print("name")
         dlg.Destroy()
-        return name, "{}.{}".format(inst,op)
+        return name, "{}.{}".format(inst, op)
 
-    def new_profile_action(self,event):
+    def new_profile_action(self, event):
         self.job.new_autoprofile_col()
 
     def new_point_autoprofile(self, event):
@@ -234,29 +246,30 @@ class myjobframe(job_frame):
 
         dlg.Destroy()
         print(file)
-        self.job.auto_profile.load_file(file) #todo do better
+        self.job.auto_profile.load_file(file)  # todo do better
 
     def save_autoprofile(self, event):
-        #TODO
+        # TODO
         pass
 
     def save_points(self, event):
-        #TODO #self.job.save_points()
+        # TODO #self.job.save_points()
         pass
 
     def update_points_n(self, event):
         self.job.n = self.n_points_input.GetValue()
 
+
 class MyInstPannel(inst_pannel):
-    def __init__(self,ctrl, instrument):
-        inst_pannel.__init__(self,None)
+    def __init__(self, ctrl, instrument):
+        inst_pannel.__init__(self, None)
         self.ctrl = ctrl
         self.inst = instrument
         self.spec = instrument.spec
         self.com_text_ctrl = self.spec.get("port")
         operations = self.spec.get("operations")
         self.action_choice.Clear()
-        for id,op in operations.items():
+        for id, op in operations.items():
             op_type = op.get("type")
             if op_type is None:
                 pass
@@ -268,29 +281,27 @@ class MyInstPannel(inst_pannel):
                 self.action_choice.Append(op.get("id"))
 
     def read_op(self, event):
-        #todo Problems here sometimes can break main logger
+        # todo Problems here sometimes can break main logger
         op_id = self.read_op_choice.GetStringSelection()
-        raw,trans = self.inst.read_instrument(op_id)
+        raw, trans = self.inst.read_instrument(op_id)
         self.read_response_ctrl.Clear()
         self.read_response_ctrl.AppendText(str(trans))
 
     def write_op(self, event):
-        #todo Problems here sometimes can break main logger
+        # todo Problems here sometimes can break main logger
         op_id = self.write_op_choice.GetStringSelection()
         text = self.write_text_ctrl.GetValue()
-        self.inst.write_instrument(op_id,[text])
+        self.inst.write_instrument(op_id, [text])
 
     def action_op(self, event):
         op_id = self.action_choice.GetStringSelection()
         self.inst.action_instrument(op_id)
 
-
-    def hide(self,event):
+    def hide(self, event):
         self.Hide()
 
 
-
-class Plot(wx.Panel):
+class Plot(wx. Panel):
     def __init__(self, parent, id=-1, dpi=None, **kwargs):
         wx.Panel.__init__(self, parent, id=id, **kwargs)
         self.figure = mpl.figure.Figure(dpi=dpi, figsize=(2, 2))
@@ -315,7 +326,7 @@ class Data_Table(wx.grid.GridTableBase):
         wx.grid.GridTableBase.__init__(self)
 
         self.headerRows = 1
-        self.data = [[0,1,2,3],[0,1,2,3],[0,1,2,3],[0,1,2,3],[0,1,2,3],[0,1,2,3]]
+        self.data = [[0, 1, 2, 3], [0, 1, 2, 3], [0, 1, 2, 3], [0, 1, 2, 3], [0, 1, 2, 3], [0, 1, 2, 3]]
 
     def GetValue(self, row, col):
         d = self.data[row+self.headerRows][col]
@@ -328,17 +339,18 @@ class Data_Table(wx.grid.GridTableBase):
     def GetNumberCols(self):
         return len(self.data[0])
 
-    def GetColLabelValue(self,col):
+    def GetColLabelValue(self, col):
         if self.headerRows < 1:
             return str(col)
         else:
             return str(self.data[0][col])
 
-    def IsEmptyCell(self,row,col):
+    def IsEmptyCell(self, row, col):
         return False
 
     def SetValue(self, row, col, value):
         pass
+
 
 class Profile_Table(wx.grid.GridTableBase):
     def __init__(self, data=None):
@@ -363,14 +375,14 @@ class Profile_Table(wx.grid.GridTableBase):
     def GetNumberCols(self):
         return 40
 
-    def GetColLabelValue(self,col):
+    def GetColLabelValue(self, col):
         h = self.data.get_header()
         if col >= len(h):
             return "_"
         else:
             return h[col]
 
-    def IsEmptyCell(self,row,col):
+    def IsEmptyCell(self, row, col):
         # h = self.data.get_header()
         # if col >= len(h):
         #     return True
@@ -386,8 +398,7 @@ class Profile_Table(wx.grid.GridTableBase):
             pass
         else:
             name = h[col]
-            self.data.set_value(name,row,value)
-
+            self.data.set_value(name, row, value)
 
 
 class Controller(object):
@@ -411,10 +422,10 @@ class Controller(object):
             self.update_instruments(job_instrument_drivers)
             # logger = Logger(job_spec,job_instrument_drivers)
             jframe = myjobframe(None)
-            job = Job(job_spec,job_instrument_drivers,jframe)
+            job = Job(job_spec, job_instrument_drivers, jframe)
             jframe.job = job
             self.jobs[jn] = job
-            self.frame.job_listbox.InsertItems([jn],0)
+            self.frame.job_listbox.InsertItems([jn], 0)
             cb(True)
 
         except ValueError as e:
@@ -426,11 +437,10 @@ class Controller(object):
         finally:
             f.close()
 
-    def update_instruments(self,insts):
+    def update_instruments(self, insts):
         self.instruments.update(insts)
         self.frame.update_inst_list(self.instruments.keys())
-        self.iframes = {k:MyInstPannel(self,v) for k,v in self.instruments.items()}
-
+        self.iframes = {k: MyInstPannel(self, v) for k, v in self.instruments.items()}
 
     def load_instruments(self, inst_spec):
         instruments = {}
@@ -466,6 +476,7 @@ class Controller(object):
         for inst in self.iframes.values():
             inst.Destroy()
         sys.exit(0)
+
 
 def main():
     ctrl = Controller()

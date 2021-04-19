@@ -21,6 +21,7 @@
             "id": "read_address",
             "register":0,
             "data_type": "uint",
+            "num_reg":1,
             "unit": ""
         },
         "write_address":{
@@ -84,6 +85,7 @@
             "id": "read_ppmv",
             "register":7,
             "data_type": "float",
+            "num_reg":2,
             "unit": ""
         },
         "read_ppmw":{
@@ -93,6 +95,7 @@
             "id": "read_ppmw",
             "register":9,
             "data_type": "float",
+            "num_reg":2,
             "unit": ""
         },
         "read_gm3":{
@@ -102,7 +105,8 @@
             "details":"",
             "register":11,
             "data_type": "float",
-            "unit": ""
+            "unit": "",
+            "num_reg":2
         },
         "read_gkg":{
             "type": "read",
@@ -111,6 +115,7 @@
             "details":"",
             "register":13,
             "data_type": "float",
+            "num_reg":2,
             "unit": ""
         },
         "read_flow":{
@@ -120,7 +125,8 @@
             "id": "read_flow",
             "register":15,
             "data_type": "uint",
-            "unit": ""
+            "unit": "",
+            "num_reg":1
         },
         "read_mirror_cond":{
             "type": "read",
@@ -129,6 +135,7 @@
             "id": "read_mirror_cond",
             "register":16,
             "data_type": "int",
+            "num_reg":1,
             "decimals": 1,
             "unit": ""
         },
@@ -221,7 +228,8 @@
             "register":20,
             "data_type": "int",
             "decimals":1,
-            "unit": ""
+            "unit": "",
+            "num_reg":1
         },
         "read_sensor_temp_g1":{
             "type": "read_g1",

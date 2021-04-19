@@ -8,11 +8,12 @@
     "min_interval": 20,
     "time":0,
     "instruments":{
-        "LHG3900":"instruments/HG2500_visa.json"
+        "HG2500":"instruments/HG2500_visa.json"
     },
     "logged_operations":[
         "time.runtime",
         "time.datetime",
+        "HG2500.read_rh_pc",
         "HG2500.read_rh_pctc",
         "HG2500.read_sat_pres",
         "HG2500.read_chamber_press",
