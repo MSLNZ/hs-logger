@@ -15,7 +15,6 @@ class generic_driver_visa_serial(object):
         baud = spec["baudrate"]
         w_term = spec.get("write_termination", '\r')
         r_term = spec.get("read_termination", '\r\n')
-        print(port, " ", baud, " ", w_term, " ", r_term)
         rm = visa.ResourceManager()
         self.store = {}
         self.timeout = spec.get("store_timeout", 2)
@@ -25,6 +24,21 @@ class generic_driver_visa_serial(object):
                                            read_termination=r_term)
         self.instrument.open()
         self.lock = Lock()
+        # print("Specifications are:")
+        # print(port)
+        # print(baud)
+        # if w_term == "\r":
+        #     print("CR")
+        # elif w_term == "\n":
+        #     print("LF")
+        # else:
+        #     print("Other new line")
+        # if r_term == "\r":
+        #     print("CR")
+        # elif r_term == "\n":
+        #     print("LF")
+        # else:
+        #     print("Other new line")
 
     def read_instrument(self, operation_id):
         """
@@ -55,44 +69,11 @@ class generic_driver_visa_serial(object):
                     # if echo:
                     #     data = self.instrument.read()
                     self.instrument.write(operation['command'])
-                    data = ""
+                    data = self.instrument.read()
                     try:
                         while True:
-                            if data == "":
-                                data = self.instrument.read()
-                            else:
-                                data = data + "," + self.instrument.read()
+                            data = data + "," + self.instrument.read()
                     except visa.errors.VisaIOError:
-                        pass
-                    data = data.split(operation.get("split"))
-                    data = [self.decimals(d, operation) for d in data]
-                    o_ops = operation.get("operations")
-                    if o_ops is not None:
-                        for on in o_ops:
-                            o = self.operations.get(on)
-                            oi = o.get("store_index")
-                            d = data[oi]
-                            dt = self.transform(d, o)
-                            self.store[on] = ((d, dt), time.time())
-
-                    data_trans = [self.transform(d, operation) for d in data]
-                print('unlocK')
-            elif type == 'read':
-                with self.lock:
-                    print("locK")
-                    # data = self.instrument.query(operation['command'])
-                    # if echo:
-                    #     data = self.instrument.read()
-                    self.instrument.write(operation['command'])
-                    data = ""
-                    try:
-                        while True:
-                            if data == "":
-                                data = self.instrument.read()
-                            else:
-                                data = data + "," + self.instrument.read()
-                    except visa.errors.VisaIOError:
-                        print("end")
                         pass
                     data = data.split(operation.get("split"))
                     data = [self.decimals(d, operation) for d in data]
@@ -127,7 +108,6 @@ class generic_driver_visa_serial(object):
 
         return data, data_trans
 
-    # todo writing to instruments
     def write_instrument(self, operation_id, values):
         with self.lock:
             """
@@ -136,33 +116,46 @@ class generic_driver_visa_serial(object):
             # todo: check valid values for sending to instrument
             op = self.operations[operation_id]
             command = op.get("command", "")
-            print(self.instrument.timeout)
             command = command.format(*values)
 
             # response = self.instrument.query(command)
             response = ""
             self.instrument.write(command)
             try:
-                response = self.instrument.read()
+                while True:
+                    if response == "":
+                        response = self.instrument.read()
+                    else:
+                        response = response + ", " + self.instrument.read()
             except visa.errors.VisaIOError:
                 pass
-            print(response)  # todo check response for errors
+            if response != "":
+                print(response)
+            else:
+                print("Write completed")
             return response
 
     def action_instrument(self, operation_id):
         with self.lock:
-            self.instrument.timeout = 10000
+            # self.instrument.timeout = 10000
             op = self.operations[operation_id]
             command = op.get("command", "")
             # response = self.instrument.query(command,delay=1)
             response = ""
             self.instrument.write(command)
             try:
-                response = self.instrument.read()
+                while True:
+                    if response == "":
+                        response = self.instrument.read()
+                    else:
+                        response = response + ", " + self.instrument.read()
             except visa.errors.VisaIOError:
                 pass
-            self.timeout = 2000
-            print(response)  # todo check response for errors
+            # self.timeout = 2000
+            if response != "":
+                print(response)
+            else:
+                print("Action completed")
             return response
 
     def decimals(self, data, operation):

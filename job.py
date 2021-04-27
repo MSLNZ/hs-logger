@@ -113,7 +113,7 @@ class AutoProfile(object):
         self.job = job
         self.profile_header = ["Points", "Soak", "Assured"]
         self.points = 3  # Todo reduce to 1
-        self.points_list = [n for n in range(self.points)]
+        self.points_list = [1 + n for n in range(self.points)]
         self.soak = [50 for _ in range(self.points)]
         self.assured = [1 for _ in range(self.points)]
         self.operations = {}  # format "Name":(inst_op,[points])
@@ -232,6 +232,7 @@ class AutoProfile(object):
         self.point_start_time = time.time()
 
     def next_point(self):
+        self.job.logger.point_to_file()
         if self.points == self.current_point+1:
             self.move_to_point(0)
         else:

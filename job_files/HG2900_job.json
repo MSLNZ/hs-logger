@@ -4,8 +4,9 @@
     "job_notes":"comment",
     "datafile_raw": "HG2900_job_data_raw.csv",
     "datafile_trans": "HG2900_job_data_trans.csv",
-    "points_file" : "HG2900_points.csv",
-    "min_interval": 1,
+    "points_file_raw" : "HG2900_points.csv",
+    "points_file_trans" : "HG2900_points.csv",
+    "min_interval": 20,
     "time":0,
     "instruments":{
         "HG2900":"instruments/HG2900_visa.json"

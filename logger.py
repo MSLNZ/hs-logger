@@ -15,13 +15,16 @@ class Logger(Thread):
         # log file name
         t = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         self.out_dir = "data_files\\"
-        self.rawfilename = "p" + t + self.job_spec["datafile_raw"]
-        self.transfilename = "p" + t + self.job_spec["datafile_trans"]
+        self.rawfilename = "p" + t + "_" + self.job_spec["datafile_raw"]
+        self.transfilename = "p" + t + "_" + self.job_spec["datafile_trans"]
+        self.rawpointsname = "p" + t + "_" + self.job_spec["points_file_raw"]
+        self.transpointsname = "p" + t + "_" + self.job_spec["points_file_trans"]
         self.op_names = self.job_spec["logged_operations"]
+        self.datanum = 0
+        self.pointsnum = 0
 
         # todo load from inst spec
-        # self.min_cycle_time = self.job_spec.get("min_interval", 30)
-        self.min_cycle_time = 60*(self.job_spec.get("min_interval", 1))
+        self.min_cycle_time = self.job_spec.get("min_interval", 30)
         # store and file setup
         self.raw_dict = {}
         self.trans_dict = {}
@@ -29,9 +32,7 @@ class Logger(Thread):
 
         a = [n+".raw" for n in self.op_names]
         a.extend([n+".trans" for n in self.op_names])
-        print(a)
         self.np_store = np.array([a])
-        print(self.np_store)
 
         self.file_setup()
         # instrument operations and v_timer instrument
@@ -86,20 +87,23 @@ class Logger(Thread):
         self.trans_dict["{}.{}".format(inst_id, operation_id)] = result[1]
 
     def file_setup(self):
-        datafile = self.out_dir + self.rawfilename
-        with open(datafile, "w+") as outfile:
-            for k, v in self.job_spec.items():
-                if k not in ["instruments", "logged_operations"]:
-                    outfile.write(k + ": " + str(v) + "\n")
-            writer = csv.writer(outfile, self.job_spec["logged_operations"], lineterminator='\n')
-            writer.writerow(self.op_names)
-        datafile = self.out_dir + self.transfilename
-        with open(datafile, "w+") as outfile:
-            for k, v in self.job_spec.items():
-                if k not in ["instruments", "logged_operations"]:
-                    outfile.write(k + ": " + str(v) + "\n")
-            writer = csv.writer(outfile, self.job_spec["logged_operations"], lineterminator='\n')
-            writer.writerow(self.op_names)
+        datafiles = [self.out_dir + self.rawfilename,
+                     self.out_dir + self.transfilename,
+                     self.out_dir + self.rawpointsname,
+                     self.out_dir + self.transpointsname]
+        titles = self.job_spec["logged_operations"].copy()
+        titles.insert(0, 'no.')
+        for datafile in datafiles:
+            with open(datafile, "w+") as outfile:
+                for k, v in self.job_spec.items():
+                    # if k not in ["instruments", "logged_operations"]:
+                    #     outfile.write(k + ": " + str(v) + "\n")
+                    if k == "job_name":
+                        outfile.write(str(v) + "\n")
+                    elif k == "job_notes":
+                        outfile.write(str(v) + "\n")
+                writer = csv.writer(outfile, titles, lineterminator='\n')
+                writer.writerow(titles)
 
     def setup_operations(self):
         for operation in self.op_names:
@@ -108,14 +112,36 @@ class Logger(Thread):
 
     def log_to_file(self):
         self.logf(self.raw_dict.values())
-        datafile = self.out_dir + self.rawfilename
-        with open(datafile, "a") as outfile_raw:
-            writer = csv.DictWriter(outfile_raw, fieldnames=self.op_names, lineterminator='\n', dialect="excel")
-            writer.writerow(self.raw_dict)
-        datafile = self.out_dir + self.transfilename
-        with open(datafile, "a") as outfile_trans:
-            writer = csv.DictWriter(outfile_trans, fieldnames=self.op_names, lineterminator='\n', dialect="excel")
-            writer.writerow(self.trans_dict)
+        titles = self.op_names.copy()  # Add the no. column title
+        titles.insert(0, 'no.')
+        self.datanum = self.datanum + 1  # Increment the data number
+        dataline = self.raw_dict.copy()  # Add the no. column data
+        dataline['no.'] = self.datanum
+        with open(self.out_dir + self.rawfilename, "a") as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
+            writer.writerow(dataline)
+        dataline = self.trans_dict.copy()
+        dataline['no.'] = self.datanum
+        with open(self.out_dir + self.transfilename, "a") as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
+            writer.writerow(dataline)
+
+    def point_to_file(self):
+        # replace op_names with the means and standard deviations
+        self.logf(self.raw_dict.values())
+        titles = self.op_names.copy()  # Add the no. column title
+        titles.insert(0, 'no.')
+        self.pointsnum = self.pointsnum + 1  # Increment the data number
+        dataline = self.raw_dict.copy()  # Add the no. column data
+        dataline['no.'] = self.pointsnum
+        with open(self.out_dir + self.rawpointsname, "a") as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
+            writer.writerow(dataline)
+        dataline = self.trans_dict.copy()
+        dataline['no.'] = self.pointsnum
+        with open(self.out_dir + self.transpointsname, "a") as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
+            writer.writerow(dataline)
 
     def get_npStore(self):
         header = self.np_store[0]

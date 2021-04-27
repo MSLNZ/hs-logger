@@ -1,142 +1,140 @@
-# pyvisa stuff
+pyvisa stuff
 import pyvisa as visa
 import time
 
-# # xlwings stuff
-# import xlwings as xw
-# import datetime
-# import fqs
-#
-# # pyvisa stuff
-# rm = visa.ResourceManager()
-# print(rm.list_resources())
-# microk = rm.open_resource('GPIB0::13::INSTR')
-# microk.read_termination = '\n'
-# microk.write_termination = '\n'
-# microk.query("*IDN?")
-# millik = rm.open_resource('ASRL3::INSTR')
-# millik.read_termination = '\r'
-# millik.write_termination = '\r'
-# try:
-#     while True:
-#         print(millik.read())
-# except visa.errors.VisaIOError:
-#     print('Stop')
-# millik.query("*IDN?")
-#
-# # xlwings stuff
-# wb = xw.Book()
-# ws = wb.sheets["Sheet1"]
-# ws.name = "DATA"
-# ws.range(1, 1).value = 'Real time bridge values'
-# i = 0
-# j = 0
-# while j < 10:
-#     ws.range(1, j + 3).value = "microK {}".format(j+10)
-#     j = j + 1
-# while j < 18:
-#     ws.range(1, j + 3).value = "milliK {}".format(j)
-#     j = j + 1
-# # Create chart
-# rtg = xw.Chart()
-# rtg.left = 1000
-# rtg.name = 'Real Time Window'
-# rtg.set_source_data(ws.range('DATA!B1:T50'))
-# rtg.chart_type = 'line'
-# rtg.api[1].SetElement(2)
-# rtg.api[1].ChartTitle.Text = '' + ws.range(1, 1).value
-# ws.shapes.api('Real Time Window').Line.Visible = 0
-# # Cell B1 is used as a break in this code if set to a value less than 0 (tests user input for interrupts)
-# ws.range(1, 2).value = 1
-#
-# # Calibration time
-# cal = [[] for i in range(18)]
-# cal[0] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[1] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[2] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[3] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[4] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[5] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[6] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[7] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[8] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[9] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
-# cal[10] = [0.00390519, -0.0000005971, -0.000000000005647, 100.00595]
-# cal[11] = [0.0039114, -0.0000005973, -0.000000000004735, 99.98977]
-# cal[12] = [0.00391217, -0.0000005923, -0.000000000001664, 100.0464142]
-# cal[13] = [0.00391103, -0.0000005943, -0.00000000000357, 100.0509641]
-# cal[14] = [0.00391133, -0.0000005939, -0.000000000002152, 100.057144]
-# cal[15] = [0.00391155, -0.0000005942, -0.000000000006686, 99.99020015]
-# cal[16] = [0.00391152, -0.0000005942, -0.000000000006979, 100.0187247]
-# cal[17] = [0.00391335, -0.0000005945, -0.000000000006121, 100.04548]
-#
-# # Both together: Gather 100 points for each microK and milliK channel
-# while i < 100:
-#     j = 0
-#     # Date and time are the same for each channel, even though each channel takes a few seconds to query
-#     now = datetime.datetime.now()
-#     ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
-#     ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
-#     while j < 10:
-#         if ws.range(1, 2).value < 0:
-#             break
-#         res = microk.query("MEAS:FRES{}:REF204? 100,1".format(j+10))
-#         ws.range(i + 2, j + 3).value = "=" + res
-#         if ws.range(i + 2, j + 3).value < cal[j][3]:
-#             temps = fqs.single_quartic(cal[j][2], -100 * cal[j][2], cal[j][1], cal[j][0], (1 - (ws.range(i + 2, j + 3).value / cal[j][3])))
-#             temp = temps[2].real
-#         else:
-#             temps = fqs.single_quadratic(cal[j][1], cal[j][0], (1 - (ws.range(i + 2, j + 3).value / cal[j][3])))
-#             temp = temps[0].real
-#         ws.range(i + 2, j + 3).value = temp
-#         j = j + 1
-#     while j < 18:
-#         if ws.range(1, 2).value < 0:
-#             break
-#         res = millik.query("MEAS:RES{}? 100,NORM,4".format(j))
-#         ws.range(i + 2, j + 3).value = "=" + res
-#         if ws.range(i + 2, j + 3).value < cal[j][3]:
-#             temps = fqs.single_quartic(cal[j][2], -100 * cal[j][2], cal[j][1], cal[j][0], (1 - (ws.range(i + 2, j + 3).value / cal[j][3])))
-#             temp = temps[2].real
-#         else:
-#             temps = fqs.single_quadratic(cal[j][1], cal[j][0], (1 - (ws.range(i + 2, j + 3).value / cal[j][3])))
-#             temp = temps[0].real
-#         ws.range(i + 2, j + 3).value = temp
-#         j = j + 1
-#     rtg.set_source_data(ws.range('DATA!B1:T{}'.format(i + 2)))
-#     if ws.range(1, 2).value < 0:
-#         break
-#     i = i + 1
-#
-# # "Bart Simpson" check
-# ws.range(1, 1).value = microk.query("*IDN?")
-# i = 0
-# ws.range(1, 3).value = "Current 1 A"
-# ws.range(1, 4).value = "Current sqrt(2) A"
-# ws.range(1, 5).value = "Current 0 A"
-# while i < 100:
-#     now = datetime.datetime.now()
-#     ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
-#     ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
-#     temp = microk.query("MEAS:FRES1:REF204? 100,1")
-#     ws.range(i + 2, 3).value = "=" + temp
-#     i = i + 1
-# while i < 200:
-#     now = datetime.datetime.now()
-#     ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
-#     ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
-#     temp = microk.query("MEAS:FRES1:REF204? 100,{}".format(math.sqrt(2)))
-#     ws.range(i + 2, 4).value = "=" + temp
-#     i = i + 1
-# while i < 300:
-#     now = datetime.datetime.now()
-#     ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
-#     ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
-#     temp = microk.query("MEAS:FRES1:REF204? 100,1")
-#     ws.range(i + 2, 3).value = "=" + temp
-#     i = i + 1
-# now = datetime.datetime.now()
-# ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
-# ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
-# # Formula for 0 current is To = 2Tl - Th for Th = sqrt(2) * Tl
-# ws.range(i + 2, 5).value = "=average(C2:C101)-average(D102:D201)+average(C202:C301)"
+# xlwings stuff
+import xlwings as xw
+import datetime
+import fqs
+# pyvisa stuff
+rm = visa.ResourceManager()
+print(rm.list_resources())
+microk = rm.open_resource('GPIB0::13::INSTR')
+microk.read_termination = '\n'
+microk.write_termination = '\n'
+microk.query("*IDN?")
+millik = rm.open_resource('ASRL3::INSTR')
+millik.read_termination = '\r'
+millik.write_termination = '\r'
+try:
+    while True:
+        print(millik.read())
+except visa.errors.VisaIOError:
+    print('Stop')
+millik.query("*IDN?")
+# xlwings stuff
+wb = xw.Book()
+ws = wb.sheets["Sheet1"]
+ws.name = "DATA"
+ws.range(1, 1).value = 'Real time bridge values'
+i = 0
+j = 0
+while j < 10:
+    ws.range(1, j + 3).value = "microK {}".format(j+10)
+    j = j + 1
+while j < 18:
+    ws.range(1, j + 3).value = "milliK {}".format(j)
+    j = j + 1
+# Create chart
+rtg = xw.Chart()
+rtg.left = 1000
+rtg.name = 'Real Time Window'
+rtg.set_source_data(ws.range('DATA!B1:T50'))
+rtg.chart_type = 'line'
+rtg.api[1].SetElement(2)
+rtg.api[1].ChartTitle.Text = '' + ws.range(1, 1).value
+ws.shapes.api('Real Time Window').Line.Visible = 0
+# Cell B1 is used as a break in this code if set to a value less than 0 (tests user input for interrupts)
+ws.range(1, 2).value = 1
+
+# Calibration time
+cal = [[] for i in range(18)]
+cal[0] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[1] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[2] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[3] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[4] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[5] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[6] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[7] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[8] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[9] = [0.00391531, -0.000000597, -0.000000000004848, 99.99167]
+cal[10] = [0.00390519, -0.0000005971, -0.000000000005647, 100.00595]
+cal[11] = [0.0039114, -0.0000005973, -0.000000000004735, 99.98977]
+cal[12] = [0.00391217, -0.0000005923, -0.000000000001664, 100.0464142]
+cal[13] = [0.00391103, -0.0000005943, -0.00000000000357, 100.0509641]
+cal[14] = [0.00391133, -0.0000005939, -0.000000000002152, 100.057144]
+cal[15] = [0.00391155, -0.0000005942, -0.000000000006686, 99.99020015]
+cal[16] = [0.00391152, -0.0000005942, -0.000000000006979, 100.0187247]
+cal[17] = [0.00391335, -0.0000005945, -0.000000000006121, 100.04548]
+
+# Both together: Gather 100 points for each microK and milliK channel
+while i < 100:
+    j = 0
+    # Date and time are the same for each channel, even though each channel takes a few seconds to query
+    now = datetime.datetime.now()
+    ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
+    ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
+    while j < 10:
+        if ws.range(1, 2).value < 0:
+            break
+        res = microk.query("MEAS:FRES{}:REF204? 100,1".format(j+10))
+        ws.range(i + 2, j + 3).value = "=" + res
+        if ws.range(i + 2, j + 3).value < cal[j][3]:
+            temps = fqs.single_quartic(cal[j][2], -100 * cal[j][2], cal[j][1], cal[j][0], (1 - (ws.range(i + 2, j + 3).value / cal[j][3])))
+            temp = temps[2].real
+        else:
+            temps = fqs.single_quadratic(cal[j][1], cal[j][0], (1 - (ws.range(i + 2, j + 3).value / cal[j][3])))
+            temp = temps[0].real
+        ws.range(i + 2, j + 3).value = temp
+        j = j + 1
+    while j < 18:
+        if ws.range(1, 2).value < 0:
+            break
+        res = millik.query("MEAS:RES{}? 100,NORM,4".format(j))
+        ws.range(i + 2, j + 3).value = "=" + res
+        if ws.range(i + 2, j + 3).value < cal[j][3]:
+            temps = fqs.single_quartic(cal[j][2], -100 * cal[j][2], cal[j][1], cal[j][0], (1 - (ws.range(i + 2, j + 3).value / cal[j][3])))
+            temp = temps[2].real
+        else:
+            temps = fqs.single_quadratic(cal[j][1], cal[j][0], (1 - (ws.range(i + 2, j + 3).value / cal[j][3])))
+            temp = temps[0].real
+        ws.range(i + 2, j + 3).value = temp
+        j = j + 1
+    rtg.set_source_data(ws.range('DATA!B1:T{}'.format(i + 2)))
+    if ws.range(1, 2).value < 0:
+        break
+    i = i + 1
+
+# "Bart Simpson" check
+ws.range(1, 1).value = microk.query("*IDN?")
+i = 0
+ws.range(1, 3).value = "Current 1 A"
+ws.range(1, 4).value = "Current sqrt(2) A"
+ws.range(1, 5).value = "Current 0 A"
+while i < 100:
+    now = datetime.datetime.now()
+    ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
+    ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
+    temp = microk.query("MEAS:FRES1:REF204? 100,1")
+    ws.range(i + 2, 3).value = "=" + temp
+    i = i + 1
+while i < 200:
+    now = datetime.datetime.now()
+    ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
+    ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
+    temp = microk.query("MEAS:FRES1:REF204? 100,{}".format(math.sqrt(2)))
+    ws.range(i + 2, 4).value = "=" + temp
+    i = i + 1
+while i < 300:
+    now = datetime.datetime.now()
+    ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
+    ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
+    temp = microk.query("MEAS:FRES1:REF204? 100,1")
+    ws.range(i + 2, 3).value = "=" + temp
+    i = i + 1
+now = datetime.datetime.now()
+ws.range(i + 2, 1).value = now.strftime("=DATE(%Y,%m,%d)")
+ws.range(i + 2, 2).value = now.strftime("=TIME(%H,%M,%S)")
+# Formula for 0 current is To = 2Tl - Th for Th = sqrt(2) * Tl
+ws.range(i + 2, 5).value = "=average(C2:C101)-average(D102:D201)+average(C202:C301)"
