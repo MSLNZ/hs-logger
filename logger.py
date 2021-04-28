@@ -20,8 +20,13 @@ class Logger(Thread):
         self.rawpointsname = "p" + t + "_" + self.job_spec["points_file_raw"]
         self.transpointsname = "p" + t + "_" + self.job_spec["points_file_trans"]
         self.op_names = self.job_spec["logged_operations"]
+
+        # Ben's variables
         self.datanum = 0
         self.pointsnum = 0
+        self.window = 0
+        self.means = {}
+        self.stds = {}
 
         # todo load from inst spec
         self.min_cycle_time = self.job_spec.get("min_interval", 30)
@@ -87,13 +92,11 @@ class Logger(Thread):
         self.trans_dict["{}.{}".format(inst_id, operation_id)] = result[1]
 
     def file_setup(self):
-        datafiles = [self.out_dir + self.rawfilename,
-                     self.out_dir + self.transfilename,
-                     self.out_dir + self.rawpointsname,
-                     self.out_dir + self.transpointsname]
+        datafiles1 = [self.out_dir + self.rawfilename,
+                     self.out_dir + self.transfilename]
         titles = self.job_spec["logged_operations"].copy()
         titles.insert(0, 'no.')
-        for datafile in datafiles:
+        for datafile in datafiles1:
             with open(datafile, "w+") as outfile:
                 for k, v in self.job_spec.items():
                     # if k not in ["instruments", "logged_operations"]:
@@ -104,6 +107,31 @@ class Logger(Thread):
                         outfile.write(str(v) + "\n")
                 writer = csv.writer(outfile, titles, lineterminator='\n')
                 writer.writerow(titles)
+
+        datafiles2 = [self.out_dir + self.rawpointsname,
+                     self.out_dir + self.transpointsname]
+        titlesp = []
+        for title in titles:
+            if title == "no." or title == "time.datetime":
+                titlesp.append(title)
+            else:
+                titlesp.append("m{}".format(title))
+        for title in titles:
+            if title == "no." or title == "time.datetime":
+                pass
+            else:
+                titlesp.append("s{}".format(title))
+        titlesp.append('window')
+        for datafile in datafiles2:
+            with open(datafile, "w+") as outfile:
+                for k, v in self.job_spec.items():
+                    if k == "job_name":
+                        outfile.write(str(v) + "\n")
+                    elif k == "job_notes":
+                        outfile.write(str(v) + "\n")
+                writer = csv.writer(outfile, 'excel', lineterminator='\n')
+                writer.writerow(titlesp)
+
 
     def setup_operations(self):
         for operation in self.op_names:
@@ -129,19 +157,37 @@ class Logger(Thread):
     def point_to_file(self):
         # replace op_names with the means and standard deviations
         self.logf(self.raw_dict.values())
-        titles = self.op_names.copy()  # Add the no. column title
-        titles.insert(0, 'no.')
+
+        titles = self.op_names.copy()
+        titlesp = []
+        for title in titles:
+            if title == "no." or title == "time.datetime":
+                titlesp.append(title)
+            else:
+                titlesp.append("m{}".format(title))
+        for title in titles:
+            if title == "no." or title == "time.datetime":
+                pass
+            else:
+                titlesp.append("s{}".format(title))
+        titlesp.append('window')
+        titlesp.insert(0, 'no.')
         self.pointsnum = self.pointsnum + 1  # Increment the data number
         dataline = self.raw_dict.copy()  # Add the no. column data
+        dataline.update(self.means)
+        dataline.update(self.stds)
         dataline['no.'] = self.pointsnum
+        dataline['window'] = self.window
+        dataline2 = {title: dataline[title] for title in titlesp}
+
         with open(self.out_dir + self.rawpointsname, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
-            writer.writerow(dataline)
-        dataline = self.trans_dict.copy()
-        dataline['no.'] = self.pointsnum
-        with open(self.out_dir + self.transpointsname, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
-            writer.writerow(dataline)
+            writer = csv.DictWriter(outfile, fieldnames=titlesp, lineterminator='\n', dialect="excel")
+            writer.writerow(dataline2)
+        # dataline = update(self.means)  # Trans data
+        # dataline.update(self.stds)
+        # with open(self.out_dir + self.transpointsname, "a") as outfile:
+        #     writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
+        #     writer.writerow(dataline)
 
     def get_npStore(self):
         header = self.np_store[0]

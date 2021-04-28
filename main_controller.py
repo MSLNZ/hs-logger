@@ -164,9 +164,9 @@ class myjobframe(job_frame):
             else:
                 values = np.array([d[1].get(r) for d in data], np.float64)
                 try:
-                    n = int(self.n_points_input.GetValue())
+                    self.job.logger.window = int(self.n_points_input.GetValue())
                 except ValueError:
-                    n = 10
+                    self.job.logger.window = 10
                 fulltransformed = fqs.single_quartic(cal[2], -100 * cal[2], cal[1], cal[0], (1 - (values[-1] / cal[3])))
                 # Todo make this change calibration for different measurements
                 transformed = float("inf")
@@ -175,13 +175,15 @@ class myjobframe(job_frame):
                         if abs(j) < transformed:
                             transformed = np.real(j)
                 print(transformed)
-                if n < len(values):
-                    mean = np.mean(values[-n:])
-                    std = np.std(values[-n:])
+                if self.job.logger.window < len(values):
+                    mean = np.mean(values[-self.job.logger.window:])
+                    std = np.std(values[-self.job.logger.window:])
                 else:
                     mean = np.mean(values)
                     std = np.std(values)
                 points.append([r, values[-1], mean, std])
+                self.job.logger.means["{}".format("m" + r)] = mean
+                self.job.logger.stds["{}".format("s" + r)] = std
 
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()
