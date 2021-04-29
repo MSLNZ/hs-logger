@@ -25,8 +25,10 @@ class Logger(Thread):
         self.datanum = 0
         self.pointsnum = 0
         self.window = 0
-        self.means = {}
-        self.stds = {}
+        self.rmeans = {}
+        self.rstds = {}
+        self.tmeans = {}
+        self.tstds = {}
 
         # todo load from inst spec
         self.min_cycle_time = self.job_spec.get("min_interval", 30)
@@ -112,12 +114,12 @@ class Logger(Thread):
                      self.out_dir + self.transpointsname]
         titlesp = []
         for title in titles:
-            if title == "no." or title == "time.datetime":
+            if title == "no." or title == "time.datetime" or title == "time.runtime":
                 titlesp.append(title)
             else:
                 titlesp.append("m{}".format(title))
         for title in titles:
-            if title == "no." or title == "time.datetime":
+            if title == "no." or title == "time.datetime" or title == "time.runtime":
                 pass
             else:
                 titlesp.append("s{}".format(title))
@@ -155,18 +157,15 @@ class Logger(Thread):
             writer.writerow(dataline)
 
     def point_to_file(self):
-        # replace op_names with the means and standard deviations
-        self.logf(self.raw_dict.values())
-
         titles = self.op_names.copy()
         titlesp = []
         for title in titles:
-            if title == "no." or title == "time.datetime":
+            if title == "no." or title == "time.datetime" or title == "time.runtime":
                 titlesp.append(title)
             else:
                 titlesp.append("m{}".format(title))
         for title in titles:
-            if title == "no." or title == "time.datetime":
+            if title == "no." or title == "time.datetime" or title == "time.runtime":
                 pass
             else:
                 titlesp.append("s{}".format(title))
@@ -174,8 +173,8 @@ class Logger(Thread):
         titlesp.insert(0, 'no.')
         self.pointsnum = self.pointsnum + 1  # Increment the data number
         dataline = self.raw_dict.copy()  # Add the no. column data
-        dataline.update(self.means)
-        dataline.update(self.stds)
+        dataline.update(self.rmeans)
+        dataline.update(self.rstds)
         dataline['no.'] = self.pointsnum
         dataline['window'] = self.window
         dataline2 = {title: dataline[title] for title in titlesp}
@@ -183,11 +182,16 @@ class Logger(Thread):
         with open(self.out_dir + self.rawpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=titlesp, lineterminator='\n', dialect="excel")
             writer.writerow(dataline2)
-        # dataline = update(self.means)  # Trans data
-        # dataline.update(self.stds)
-        # with open(self.out_dir + self.transpointsname, "a") as outfile:
-        #     writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
-        #     writer.writerow(dataline)
+
+        dataline = self.trans_dict.copy()
+        dataline.update(self.tmeans)
+        dataline.update(self.tstds)
+        dataline['no.'] = self.pointsnum
+        dataline['window'] = self.window
+        dataline2 = {title: dataline[title] for title in titlesp}
+        with open(self.out_dir + self.transpointsname, "a") as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=titlesp, lineterminator='\n', dialect="excel")
+            writer.writerow(dataline2)
 
     def get_npStore(self):
         header = self.np_store[0]

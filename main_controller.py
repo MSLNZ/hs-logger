@@ -162,28 +162,38 @@ class myjobframe(job_frame):
             if r == "time.datetime":
                 pass
             else:
-                values = np.array([d[1].get(r) for d in data], np.float64)
+                raw = np.array([d[0].get(r) for d in data], np.float64)
+                trans = np.array([d[1].get(r) for d in data], np.float64)
                 try:
                     self.job.logger.window = int(self.n_points_input.GetValue())
                 except ValueError:
                     self.job.logger.window = 10
-                fulltransformed = fqs.single_quartic(cal[2], -100 * cal[2], cal[1], cal[0], (1 - (values[-1] / cal[3])))
-                # Todo make this change calibration for different measurements
-                transformed = float("inf")
-                for j in fulltransformed:
-                    if np.imag(j) == 0:
-                        if abs(j) < transformed:
-                            transformed = np.real(j)
-                print(transformed)
-                if self.job.logger.window < len(values):
-                    mean = np.mean(values[-self.job.logger.window:])
-                    std = np.std(values[-self.job.logger.window:])
+                # fulltransformed = fqs.single_quartic(cal[2], -100 * cal[2], cal[1], cal[0], (1 - (values[-1] / cal[3])))
+                # # Todo make this change calibration for different measurements
+                # transformed = float("inf")
+                # for j in fulltransformed:
+                #     if np.imag(j) == 0:
+                #         if abs(j) < transformed:
+                #             transformed = np.real(j)
+                if self.job.logger.window < len(raw):
+                    rmean = np.mean(raw[-self.job.logger.window:])
+                    rstd = np.std(raw[-self.job.logger.window:])
+                    tmean = np.mean(trans[-self.job.logger.window:])
+                    tstd = np.std(trans[-self.job.logger.window:])
                 else:
-                    mean = np.mean(values)
-                    std = np.std(values)
-                points.append([r, values[-1], mean, std])
-                self.job.logger.means["{}".format("m" + r)] = mean
-                self.job.logger.stds["{}".format("s" + r)] = std
+                    rmean = np.mean(raw)
+                    rstd = np.std(raw)
+                    tmean = np.mean(trans)
+                    tstd = np.std(trans)
+                istrans = 0
+                if istrans == 1:
+                    points.append([r, trans[-1], tmean, tstd])
+                else:
+                    points.append([r, raw[-1], rmean, rstd])
+                self.job.logger.rmeans["{}".format("m" + r)] = rmean
+                self.job.logger.rstds["{}".format("s" + r)] = rstd
+                self.job.logger.tmeans["{}".format("m" + r)] = tmean
+                self.job.logger.tstds["{}".format("s" + r)] = tstd
 
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()

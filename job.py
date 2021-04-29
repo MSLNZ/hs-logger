@@ -249,7 +249,6 @@ class AutoProfile(object):
         print(actions)
 
     def update(self):
-        print(self.current_point)
         t1 = self.point_start_time+60*float(self.soak[self.current_point])
         if time.time() > t1:
             self.next_point()
@@ -265,7 +264,6 @@ class AutoProfile(object):
         # grid.ForceRefresh()
 
     def grid_refresh(self):
-        print('grid_refresh')
         self.highlight_row()
         grid = self.job.frame.grid_auto_profile
         # self.job.frame.bSizer18.Layout()

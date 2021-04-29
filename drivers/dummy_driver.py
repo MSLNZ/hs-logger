@@ -1,19 +1,21 @@
 import random
 
+
 class dummy_driver(object):
 
-    def __init__(self,spec):
+    def __init__(self, spec):
         self.spec = spec
         pass
 
-    def read_instrument(self,op_id):
+    def read_instrument(self, op_id):
         """
         read instrument s
         """
         v = random.random()
-        return v,v
+        w = -v
+        return v, w
 
-    def write_instrument(self,message):
+    def write_instrument(self, message):
         """
         write instrument
         """
@@ -22,7 +24,6 @@ class dummy_driver(object):
 
 def main():
     pass
-    
 
 
 if __name__ == '__main__':
