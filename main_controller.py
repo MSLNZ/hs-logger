@@ -155,9 +155,6 @@ class myjobframe(job_frame):
 
         points = [["Label", "Latest", "Mean", "StDev"]]
 
-        # Temp calibration list for testing
-        cal = [0.004, -0.0000006, -0.000000000001, 100]
-
         for r in rows:
             if r == "time.datetime":
                 pass
@@ -168,13 +165,6 @@ class myjobframe(job_frame):
                     self.job.logger.window = int(self.n_points_input.GetValue())
                 except ValueError:
                     self.job.logger.window = 10
-                # fulltransformed = fqs.single_quartic(cal[2], -100 * cal[2], cal[1], cal[0], (1 - (values[-1] / cal[3])))
-                # # Todo make this change calibration for different measurements
-                # transformed = float("inf")
-                # for j in fulltransformed:
-                #     if np.imag(j) == 0:
-                #         if abs(j) < transformed:
-                #             transformed = np.real(j)
                 if self.job.logger.window < len(raw):
                     rmean = np.mean(raw[-self.job.logger.window:])
                     rstd = np.std(raw[-self.job.logger.window:])

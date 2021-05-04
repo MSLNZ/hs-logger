@@ -19,6 +19,7 @@ class Logger(Thread):
         self.transfilename = "p" + t + "_" + self.job_spec["datafile_trans"]
         self.rawpointsname = "p" + t + "_" + self.job_spec["points_file_raw"]
         self.transpointsname = "p" + t + "_" + self.job_spec["points_file_trans"]
+        self.sensorname = "s" + t + "_" + self.job_spec["sensor_file"]
         self.op_names = self.job_spec["logged_operations"]
 
         # Ben's variables
@@ -41,11 +42,12 @@ class Logger(Thread):
         a.extend([n+".trans" for n in self.op_names])
         self.np_store = np.array([a])
 
-        self.file_setup()
+        # self.file_setup()
         # instrument operations and v_timer instrument
         self.instruments = inst_drivers
         self.instruments['time'] = Timer()
         self.operations = []
+        self.file_setup()
         self.setup_operations()
 
         self.count = 0
@@ -107,7 +109,7 @@ class Logger(Thread):
                         outfile.write(str(v) + "\n")
                     elif k == "job_notes":
                         outfile.write(str(v) + "\n")
-                writer = csv.writer(outfile, titles, lineterminator='\n')
+                writer = csv.writer(outfile, titles, lineterminator='\n', delimiter='\t')
                 writer.writerow(titles)
 
         datafiles2 = [self.out_dir + self.rawpointsname,
@@ -131,9 +133,34 @@ class Logger(Thread):
                         outfile.write(str(v) + "\n")
                     elif k == "job_notes":
                         outfile.write(str(v) + "\n")
-                writer = csv.writer(outfile, 'excel', lineterminator='\n')
+                writer = csv.writer(outfile, 'excel', lineterminator='\n', delimiter='\t')
                 writer.writerow(titlesp)
 
+        # Create "sensor file"
+        titles = ['Device', 'ChannelList', 'ID', 'Name', 'Description', 'A', 'B', 'C', 'R(0)/D', 'Date', 'ReportNo']
+        info = {}
+        sensorfile = self.out_dir + self.sensorname
+        with open(sensorfile, "w+") as outfile:
+            outfile.write(self.sensorname + "\n")
+            outfile.write(self.job_spec["job_notes"] + "\n")
+            writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
+            writer.writerow(titles)
+            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', delimiter='\t')
+            for op in self.job_spec["logged_operations"]:
+                inst_id, op_id = op.split('.')
+                if inst_id != "time":
+                    info['Device'] = inst_id
+                    info['ChannelList'] = self.instruments.get(inst_id).spec["operations"][op_id]["id"]
+                    info['ID'] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
+                    info['Name'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][0]
+                    info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id]["details"]
+                    info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
+                    info['B'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][2]
+                    info['C'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][3]
+                    info['R(0)/D'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][4]
+                    info['Date'] = ""  # Todo get the date and report numbers
+                    info['ReportNo'] = ""
+                    writer.writerow(info)
 
     def setup_operations(self):
         for operation in self.op_names:
@@ -148,12 +175,12 @@ class Logger(Thread):
         dataline = self.raw_dict.copy()  # Add the no. column data
         dataline['no.'] = self.datanum
         with open(self.out_dir + self.rawfilename, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
+            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline)
         dataline = self.trans_dict.copy()
         dataline['no.'] = self.datanum
         with open(self.out_dir + self.transfilename, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel")
+            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline)
 
     def point_to_file(self):
@@ -178,9 +205,8 @@ class Logger(Thread):
         dataline['no.'] = self.pointsnum
         dataline['window'] = self.window
         dataline2 = {title: dataline[title] for title in titlesp}
-
         with open(self.out_dir + self.rawpointsname, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=titlesp, lineterminator='\n', dialect="excel")
+            writer = csv.DictWriter(outfile, fieldnames=titlesp, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline2)
 
         dataline = self.trans_dict.copy()
@@ -190,7 +216,7 @@ class Logger(Thread):
         dataline['window'] = self.window
         dataline2 = {title: dataline[title] for title in titlesp}
         with open(self.out_dir + self.transpointsname, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=titlesp, lineterminator='\n', dialect="excel")
+            writer = csv.DictWriter(outfile, fieldnames=titlesp, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline2)
 
     def get_npStore(self):

@@ -8,6 +8,11 @@
     "port": "COM5",
     "notes": "comment",
     "operations": {
-
+        "read_test":{
+            "name": "Dummy read",
+            "id": "read_test",
+            "details":"Generates a random value between 0 and 1.",
+            "transform_eq":["D",0,-1,0,0]
+        }
     }
 }
