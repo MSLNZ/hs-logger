@@ -210,6 +210,7 @@ class Logger(Thread):
     def point_to_file(self):
         titles = self.op_names.copy()
         titles.insert(0, 'no.')
+        # Get names from titles
         names = titles.copy()
         i = 0
         while i < len(titles):
