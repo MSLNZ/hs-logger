@@ -149,7 +149,16 @@ class myjobframe(job_frame):
         self.m_grid2.SetDefaultCellAlignment(wx.ALIGN_LEFT, wx.ALIGN_TOP)
 
     def update_table(self, event):
-        rows = self.job.spec["logged_operations"]
+        # rows = self.job.spec["logged_operations"]
+        # Code to ensure the names are what is printed on the table.
+        operations = self.job.spec["logged_operations"]
+        rows = {}
+        for op in operations:
+            inst_id, op_id = op.split('.')
+            if inst_id != "time":
+                rows[op] = self.job.logger.instruments.get(inst_id).spec["operations"][op_id]["name"]
+            else:
+                rows[op] = op_id
 
         data = self.job.logger.store
 
@@ -177,13 +186,13 @@ class myjobframe(job_frame):
                     tstd = np.std(trans)
                 istrans = 0
                 if istrans == 1:
-                    points.append([r, trans[-1], tmean, tstd])
+                    points.append([rows[r], trans[-1], tmean, tstd])
                 else:
-                    points.append([r, raw[-1], rmean, rstd])
-                self.job.logger.rmeans["{}".format("m" + r)] = rmean
-                self.job.logger.rstds["{}".format("s" + r)] = rstd
-                self.job.logger.tmeans["{}".format("m" + r)] = tmean
-                self.job.logger.tstds["{}".format("s" + r)] = tstd
+                    points.append([rows[r], raw[-1], rmean, rstd])
+                self.job.logger.rmeans["{}".format("m" + rows[r])] = rmean
+                self.job.logger.rstds["{}".format("s" + rows[r])] = rstd
+                self.job.logger.tmeans["{}".format("m" + rows[r])] = tmean
+                self.job.logger.tstds["{}".format("s" + rows[r])] = tstd
 
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()
