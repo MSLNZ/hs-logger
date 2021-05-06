@@ -163,27 +163,44 @@ class myjobframe(job_frame):
         data = self.job.logger.store
 
         points = [["Label", "Latest", "Mean", "StDev"]]
+        try:
+            self.job.logger.window = int(self.n_points_input.GetValue())
+        except ValueError:
+            self.job.logger.window = 10
 
         for r in rows:
             if r == "time.datetime":
-                pass
+                raw = np.array([d[0].get(r) for d in data])
+                trans = np.array([d[1].get(r) for d in data])
+                rsource = {}
+                tsource = {}
+                if self.job.logger.window < len(raw):
+                    rsource = raw[-self.job.logger.window:]
+                    tsource = trans[-self.job.logger.window:]
+                else:
+                    rsource = raw
+                    tsource = trans
+                self.job.logger.rsources["{}".format(rows[r])] = rsource
+                self.job.logger.tsources["{}".format(rows[r])] = tsource
             else:
                 raw = np.array([d[0].get(r) for d in data], np.float64)
                 trans = np.array([d[1].get(r) for d in data], np.float64)
-                try:
-                    self.job.logger.window = int(self.n_points_input.GetValue())
-                except ValueError:
-                    self.job.logger.window = 10
+                rsource = {}
+                tsource = {}
                 if self.job.logger.window < len(raw):
                     rmean = np.mean(raw[-self.job.logger.window:])
                     rstd = np.std(raw[-self.job.logger.window:])
+                    rsource = raw[-self.job.logger.window:]
                     tmean = np.mean(trans[-self.job.logger.window:])
                     tstd = np.std(trans[-self.job.logger.window:])
+                    tsource = trans[-self.job.logger.window:]
                 else:
                     rmean = np.mean(raw)
                     rstd = np.std(raw)
+                    rsource = raw
                     tmean = np.mean(trans)
                     tstd = np.std(trans)
+                    tsource = trans
                 istrans = 0
                 if istrans == 1:
                     points.append([rows[r], trans[-1], tmean, tstd])
@@ -191,8 +208,10 @@ class myjobframe(job_frame):
                     points.append([rows[r], raw[-1], rmean, rstd])
                 self.job.logger.rmeans["{}".format("m" + rows[r])] = rmean
                 self.job.logger.rstds["{}".format("s" + rows[r])] = rstd
+                self.job.logger.rsources["{}".format(rows[r])] = rsource
                 self.job.logger.tmeans["{}".format("m" + rows[r])] = tmean
                 self.job.logger.tstds["{}".format("s" + rows[r])] = tstd
+                self.job.logger.tsources["{}".format(rows[r])] = tsource
 
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()

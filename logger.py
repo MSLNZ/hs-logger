@@ -19,6 +19,8 @@ class Logger(Thread):
         self.transfilename = "p" + t + "_" + self.job_spec["datafile_trans"]
         self.rawpointsname = "p" + t + "_" + self.job_spec["points_file_raw"]
         self.transpointsname = "p" + t + "_" + self.job_spec["points_file_trans"]
+        self.rawsourcename = "p" + t + "_" + self.job_spec["source_file_raw"]
+        self.transsourcename = "p" + t + "_" + self.job_spec["source_file_trans"]
         self.sensorname = "s" + t + "_" + self.job_spec["sensor_file"]
         self.op_names = self.job_spec["logged_operations"]
 
@@ -28,8 +30,10 @@ class Logger(Thread):
         self.window = 0
         self.rmeans = {}
         self.rstds = {}
+        self.rsources = {}
         self.tmeans = {}
         self.tstds = {}
+        self.tsources = {}
 
         # todo load from inst spec
         self.min_cycle_time = self.job_spec.get("min_interval", 30)
@@ -97,7 +101,9 @@ class Logger(Thread):
 
     def file_setup(self):
         datafiles1 = [self.out_dir + self.rawfilename,
-                     self.out_dir + self.transfilename]
+                      self.out_dir + self.transfilename,
+                      self.out_dir + self.rawsourcename,
+                      self.out_dir + self.transsourcename]
         titles = self.job_spec["logged_operations"].copy()
         titles.insert(0, 'no.')
 
@@ -126,7 +132,7 @@ class Logger(Thread):
                 writer.writerow(names)
 
         datafiles2 = [self.out_dir + self.rawpointsname,
-                     self.out_dir + self.transpointsname]
+                      self.out_dir + self.transpointsname]
         namesp = []
         for name in names:
             if name == "no." or name == "datetime" or name == "runtime":
@@ -242,12 +248,17 @@ class Logger(Thread):
         dataline['datetime'] = dataline.pop('time.datetime')
         dataline['runtime'] = dataline.pop('time.runtime')
         dataline['window'] = self.window
-        print(dataline)
-        print(namesp)
         dataline2 = {name: dataline[name] for name in namesp}
         with open(self.out_dir + self.rawpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline2)
+
+        self.rsources["no."] = [self.pointsnum for i in range(len(self.rsources["datetime"]))]
+        with open(self.out_dir + self.rawsourcename, "a") as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=names, lineterminator='\n', dialect="excel", delimiter='\t')
+            rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
+            for i in range(len(self.rsources["datetime"])):
+                writer.writerow(rows[i])
 
         dataline = self.trans_dict.copy()
         dataline.update(self.tmeans)
@@ -260,6 +271,13 @@ class Logger(Thread):
         with open(self.out_dir + self.transpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline2)
+
+        self.tsources["no."] = [self.pointsnum for i in range(len(self.tsources["datetime"]))]
+        with open(self.out_dir + self.transsourcename, "a") as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=names, lineterminator='\n', dialect="excel", delimiter='\t')
+            rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
+            for i in range(len(self.tsources["datetime"])):
+                writer.writerow(rows[i])
 
     def get_npStore(self):
         header = self.np_store[0]

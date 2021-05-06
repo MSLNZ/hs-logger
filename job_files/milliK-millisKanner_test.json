@@ -1,16 +1,20 @@
 {
-    "job_name":"milliK-millisKanner_testjob",
-    "job_id":2,
-    "job_notes":"comment",
-    "datafile_raw": "test_job_data_raw.csv",
-    "datafile_trans": "test_job_data_trans.csv",
-    "points_file" : "test_points.csv",
+    "job_name": "milliK-millisKanner_testjob",
+    "job_id": 2,
+    "job_notes": "comment",
+    "datafile_raw": "mK_data_raw.dat",
+    "datafile_trans": "mK_data_trans.dat",
+    "points_file_raw": "mK_points_raw.dat",
+    "points_file_trans": "mK_points_trans.dat",
+    "source_file_raw": "mK_source_raw.dat",
+    "source_file_trans": "mK_source_trans.dat",
+    "sensor_file": "mK_sensor_file.dat",
     "min_interval": 20,
-    "time":0,
-    "instruments":{
-        "milliK":"instruments/milliK-millisKanner.json"
+    "time": 0,
+    "instruments": {
+        "milliK": "instruments/milliK-millisKanner.json"
     },
-    "logged_operations":[
+    "logged_operations": [
         "time.runtime",
         "time.datetime",
         "milliK.read_10",
