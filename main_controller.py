@@ -6,7 +6,6 @@ import numpy as np
 from wx_gui import ctrl_frame, job_frame, axes_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
 from logger import Logger
 from job import Job
-import fqs
 
 import matplotlib as mpl
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas

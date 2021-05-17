@@ -3,8 +3,9 @@ import time
 import numpy as np
 import json
 
+
 class F250Bridge_K705Scanner(object):
-    def __init__(self,spec):
+    def __init__(self, spec):
 
         self.spec = spec
         rm = visa.ResourceManager()
@@ -14,7 +15,7 @@ class F250Bridge_K705Scanner(object):
         self.active_channel = 13
         self.bridge.read_termination = '\r\n'
 
-    def read_instrument(self,op_id):
+    def read_instrument(self, op_id):
         op = self.spec["operations"][op_id]
         channel = op["channel"]
         prt = op["bridge_prt"]
@@ -24,12 +25,14 @@ class F250Bridge_K705Scanner(object):
 
         print(val)
         val = val[1:-1]
-        val  = f = np.float64(val)
+        if val.startswith("E"):
+            val = float("Inf")
+        else:
+            val = f = np.float64(val)
         val_trans = val  # TODO add transform equation
-        return val,val_trans
+        return val, val_trans
 
-
-    def read_channel(self,channel):
+    def read_channel(self, channel):
         self.switch_scanner_channel(channel)
         time.sleep(0.5)
         i = 0
@@ -43,11 +46,11 @@ class F250Bridge_K705Scanner(object):
     def read(self):
         return self.bridge.read()
 
-    def write(self,arg):
+    def write(self, arg):
         self.bridge.write(arg)
 
-    def switch_scanner_channel(self,channel):
-        assert channel in range(11, 20)
+    def switch_scanner_channel(self, channel):
+        assert channel in range(11, 21)
         self.open_all_channels()
         # self.scanner.write("N{}X".format(self.active_channel))
         # SCANNER WAIT TIME NEEDED
@@ -56,8 +59,6 @@ class F250Bridge_K705Scanner(object):
         self.scanner.write("C{}X".format(channel))
         time.sleep(4)
         self.active_channel = channel
-
-
 
     def open_all_channels(self):
         self.scanner.write("RX")
@@ -68,22 +69,21 @@ class F250Bridge_K705Scanner(object):
     def unit_ohms(self):
         self.bridge.write('U3')
 
-    def close_channel(self,channel):
-        self.write("N{}X".format((channel)))
+    def close_channel(self, channel):
+        self.write("N{}X".format(channel))
 
     def read_scanner_channel(self):
         return self.scanner.query("G0")
 
-    def switch_bridge_prt(self,prt):
+    def switch_bridge_prt(self, prt):
         # assert prt in ['A','B','C','D','I','J','K','L']
         self.bridge.write("M{}".format(prt))
+
 
 def main():
     inst = F250Bridge_K705Scanner(json.load(open('../instruments/F250Bridge_K705Scanner.json')))
     print(inst.read_instrument('read_tx_something'))
 
+
 if __name__ == '__main__':
     main()
-
-
-

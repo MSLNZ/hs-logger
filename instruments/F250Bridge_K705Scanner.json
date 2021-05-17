@@ -10,17 +10,95 @@
     "read_termination":"\n",
     "notes": "",
     "operations":{
-            "read_tx_something": {
+            "read_tx11": {
+                "name":"Read Channel 11",
                 "type":"read",
-                "id":"read_tx_something",
-                "channel": 11,
-                "bridge_prt":"A"
+                "id":"read_tx11",
+                "channel":11,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
             },
-            "read_tx_something2": {
+            "read_tx12": {
+                "name":"Read Channel 12",
                 "type":"read",
-                "id":"read_tx_something2",
+                "id":"read_tx12",
                 "channel": 12,
-                "bridge_prt":"A"
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
+            },
+            "read_tx13": {
+                "name":"Read Channel 13",
+                "type":"read",
+                "id":"read_tx13",
+                "channel": 13,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
+            },
+            "read_tx14": {
+                "name":"Read Channel 14",
+                "type":"read",
+                "id":"read_tx14",
+                "channel": 14,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
+            },
+            "read_tx15": {
+                "name":"Read Channel 15",
+                "type":"read",
+                "id":"read_tx15",
+                "channel": 15,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
+            },
+            "read_tx16": {
+                "name":"Read Channel 16",
+                "type":"read",
+                "id":"read_tx16",
+                "channel": 16,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
+            },
+            "read_tx17": {
+                "name":"Read Channel 17",
+                "type":"read",
+                "id":"read_tx17",
+                "channel": 17,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
+            },
+            "read_tx18": {
+                "name":"Read Channel 18",
+                "type":"read",
+                "id":"read_tx18",
+                "channel": 18,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
+            },
+            "read_tx19": {
+                "name":"Read Channel 19",
+                "type":"read",
+                "id":"read_tx19",
+                "channel": 19,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
+            },
+            "read_tx20": {
+                "name":"Read Channel 20",
+                "type":"read",
+                "id":"read_tx20",
+                "channel": 20,
+                "bridge_prt":"A",
+                "transform_eq":["T", 0.004, -0.0000006, -0.000000000005, 100],
+                "details":""
             }
     }
 }

@@ -4,7 +4,6 @@ import time
 from decimal import Decimal
 from threading import Lock
 import numpy as np
-import fqs
 import math
 
 
@@ -25,22 +24,8 @@ class generic_driver_visa_serial(object):
                                            write_termination=w_term,
                                            read_termination=r_term)
         self.instrument.open()
+        self.instrument.timeout = None  # Todo test this
         self.lock = Lock()
-        # print("Specifications are:")
-        # print(port)
-        # print(baud)
-        # if w_term == "\r":
-        #     print("CR")
-        # elif w_term == "\n":
-        #     print("LF")
-        # else:
-        #     print("Other new line")
-        # if r_term == "\r":
-        #     print("CR")
-        # elif r_term == "\n":
-        #     print("LF")
-        # else:
-        #     print("Other new line")
 
     def read_instrument(self, operation_id):
         """
@@ -101,6 +86,7 @@ class generic_driver_visa_serial(object):
                     try:
                         while True:
                             data = self.instrument.read()
+                            print(data)
                     except visa.errors.VisaIOError:
                         pass
                     data = []
@@ -170,27 +156,19 @@ class generic_driver_visa_serial(object):
         x = data
         eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
         if eq[0] == 'T':  # Callendar-Van Dusen equation
-            if eq[3] == 0 or x >= eq[4]:  # No C value provided or required
-                if eq[2] == 0:  # No B value provided
-                    if eq[1] == 0:  # No A value provided: equation can't be solved
-                        print("Invalid Callendar–Van Dusen equation: No input variable")
-                        raise ValueError
-                    else:
-                        fulltransformed = (1 - (x / eq[4]))/eq[1]
-                else:
-                    fulltransformed = fqs.single_quadratic(eq[2], eq[1], (1 - (x / eq[4])))
-            else:
-                fulltransformed = fqs.single_quartic(eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4])))
+            fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
             transformed = float("inf")  # Create a maximum value
             print(fulltransformed)  # Todo check this works
             for j in fulltransformed:
                 if np.imag(j) == 0:
                     if abs(j) < transformed:
                         transformed = np.real(j)
+                    elif abs(j) == transformed and j > transformed:
+                        transformed = np.real(j)
             if math.isinf(transformed):
-                print("Invalid Callendar–Van Dusen equation: All solutions are complex for")
+                print("Invalid Callendar–Van Dusen equation: No real solutions for")
                 print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
-                raise ValueError
+                transformed = float("NaN")
         elif eq[0] == 'V' or eq[0] == 'P':
             transformed = eq[1] + eq[2]*x + eq[3]*x**2 + eq[4]*x**3
         else:

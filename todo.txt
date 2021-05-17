@@ -4,9 +4,6 @@ IMPORTANT STUFF STILL TO FIX OR ADD
 
 #GUI and Logger
 - add autoprofile save
-- fix autoprofile double click buttons crash
-- add saving last Points and points file
-- add number of points to save
 - add ability to add custom functions to log
 - display log better
 - improve graphs
