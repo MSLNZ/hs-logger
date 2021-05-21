@@ -1,0 +1,23 @@
+{
+    "instrument_id": "HP34420A_HP34970A",
+    "instrument_name": "HP34420A and HP34970A",
+    "driver":"HP34420A_HP34970A",
+    "interface": "GPIB",
+    "port_bridge": "GPIB0::22::INSTR",
+    "port_scanner": "GPIB0::1::INSTR",
+    "baudrate":9600,
+    "write_termination":"\r",
+    "read_termination":"\r\n",
+    "notes": "",
+    "operations":{
+        "read_px101": {
+            "name": "Read Channel 101",
+            "id":"read_px101",
+            "channel": 101,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 0, -1, 0, 0],
+            "details": ""
+        }
+    }
+}

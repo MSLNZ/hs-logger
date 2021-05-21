@@ -1,0 +1,22 @@
+{
+    "job_name":"HP34420A_HP34970A_Job",
+    "job_id":1,
+    "job_notes":"comment",
+    "datafile_raw": "HP34420A_HP34970A_data_raw.dat",
+    "datafile_trans": "HP34420A_HP34970A_data_trans.dat",
+    "points_file_raw": "HP34420A_HP34970A_points_raw.dat",
+    "points_file_trans": "HP34420A_HP34970A_points_trans.dat",
+    "source_file_raw": "HP34420A_HP34970A_source_raw.dat",
+    "source_file_trans": "HP34420A_HP34970A_source_trans.dat",
+    "sensor_file": "HP34420A_HP34970A_sensor_file.dat",
+    "min_interval": 10,
+    "time":0,
+    "instruments":{
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HP34420A_HP34970A.read_px101"
+    ]
+}
