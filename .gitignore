@@ -1,12 +1,3 @@
-.vscode/
-.idea/
-__pycache__/
-drivers/__pycache__/
-drivers/old_drivers
-instruments/old_instruments
-data_files/
-old_files/
-slave/
-logger/
-temp/
-UI_TEST/
+build/
+dist/
+hs-logger/data_files/*
