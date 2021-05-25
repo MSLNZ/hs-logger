@@ -161,7 +161,6 @@ class generic_driver_visa_serial(object):
             else:
                 fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
                 transformed = float("inf")  # Create a maximum value
-                print(fulltransformed)  # Todo check this works
                 for j in fulltransformed:
                     if np.imag(j) == 0:
                         if abs(j) < transformed:

@@ -1,0 +1,2 @@
+include hs-logger/instruments/*.json
+include hs-logger/job_files/*.json

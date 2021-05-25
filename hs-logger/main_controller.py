@@ -200,8 +200,8 @@ class myjobframe(job_frame):
                     tmean = np.mean(trans)
                     tstd = np.std(trans)
                     tsource = trans
-                istrans = 1
-                if istrans == 1:
+                istrans = True
+                if istrans:
                     points.append([rows[r], trans[-1], tmean, tstd])
                 else:
                     points.append([rows[r], raw[-1], rmean, rstd])

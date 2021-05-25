@@ -28,6 +28,7 @@ class Logger(Thread):
         self.datanum = 0
         self.pointsnum = 0
         self.window = 0
+        self.comment = "No comment"
         self.rmeans = {}
         self.rstds = {}
         self.rsources = {}
@@ -145,6 +146,7 @@ class Logger(Thread):
             else:
                 namesp.append("s{}".format(name))
         namesp.append('window')
+        namesp.append('comment')
         for datafile in datafiles2:
             with open(datafile, "w+") as outfile:
                 for k, v in self.job_spec.items():
@@ -240,6 +242,7 @@ class Logger(Thread):
             else:
                 namesp.append("s{}".format(name))
         namesp.append('window')
+        namesp.append('comment')
         self.pointsnum = self.pointsnum + 1  # Increment the data number
         dataline = self.raw_dict.copy()  # Add the no. column data
         dataline.update(self.rmeans)
@@ -248,6 +251,7 @@ class Logger(Thread):
         dataline['datetime'] = dataline.pop('time.datetime')
         dataline['runtime'] = dataline.pop('time.runtime')
         dataline['window'] = self.window
+        dataline['comment'] = self.comment
         dataline2 = {name: dataline[name] for name in namesp}
         with open(self.out_dir + self.rawpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
@@ -267,6 +271,7 @@ class Logger(Thread):
         dataline['datetime'] = dataline.pop('time.datetime')
         dataline['runtime'] = dataline.pop('time.runtime')
         dataline['window'] = self.window
+        dataline['comment'] = self.comment
         dataline2 = {title: dataline[title] for title in namesp}
         with open(self.out_dir + self.transpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')

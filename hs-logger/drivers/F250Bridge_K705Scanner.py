@@ -23,7 +23,6 @@ class F250Bridge_K705Scanner(object):
 
         val = self.read_channel(channel)
 
-        print(val)
         val = val[1:-1]
         if val.startswith("E"):
             val = float("Inf")
@@ -41,7 +40,6 @@ class F250Bridge_K705Scanner(object):
             else:
                 fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
                 transformed = float("inf")  # Create a maximum value
-                print(fulltransformed)  # Todo check this works
                 for j in fulltransformed:
                     if np.imag(j) == 0:
                         if abs(j) < transformed:
