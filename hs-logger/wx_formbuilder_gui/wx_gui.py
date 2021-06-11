@@ -160,7 +160,7 @@ class exit_dialog ( wx.Dialog ):
 class job_frame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 591,382 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 1077,512 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -256,9 +256,9 @@ class job_frame ( wx.Frame ):
 		
 		bSizer39 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.m_staticText14 = wx.StaticText( self.points, wx.ID_ANY, u"N =", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText14.Wrap( -1 )
-		bSizer39.Add( self.m_staticText14, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		self.n_points_text = wx.StaticText( self.points, wx.ID_ANY, u"N =", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.n_points_text.Wrap( -1 )
+		bSizer39.Add( self.n_points_text, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		self.n_points_input = wx.TextCtrl( self.points, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 40,-1 ), 0 )
 		bSizer39.Add( self.n_points_input, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -269,11 +269,27 @@ class job_frame ( wx.Frame ):
 		self.save_btn = wx.Button( self.points, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer19.Add( self.save_btn, 0, wx.ALL, 5 )
 		
+		self.transformed = wx.CheckBox( self.points, wx.ID_ANY, u"Transformed", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.transformed.SetValue(True) 
+		bSizer19.Add( self.transformed, 0, wx.ALL, 5 )
+		
 		
 		bSizer18.Add( bSizer19, 0, wx.EXPAND, 5 )
 		
 		
 		bSizer17.Add( bSizer18, 1, wx.EXPAND, 5 )
+		
+		bSizer39 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.comment_text = wx.StaticText( self.points, wx.ID_ANY, u"Comment", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.comment_text.Wrap( -1 )
+		bSizer39.Add( self.comment_text, 0, wx.ALL, 5 )
+		
+		self.comment_input = wx.TextCtrl( self.points, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer39.Add( self.comment_input, 0, wx.ALL, 5 )
+		
+		
+		bSizer17.Add( bSizer39, 1, wx.EXPAND, 5 )
 		
 		
 		self.points.SetSizer( bSizer17 )
@@ -396,8 +412,9 @@ class job_frame ( wx.Frame ):
 		self.pause_b.Bind( wx.EVT_BUTTON, self.pause_log )
 		self.resume_b.Bind( wx.EVT_BUTTON, self.resume_log )
 		self.points_update.Bind( wx.EVT_BUTTON, self.update_table )
-		self.n_points_input.Bind( wx.EVT_TEXT_ENTER, self.update_points_n )
+		self.n_points_input.Bind( wx.EVT_TEXT, self.update_table )
 		self.save_btn.Bind( wx.EVT_BUTTON, self.save_points )
+		self.transformed.Bind( wx.EVT_CHECKBOX, self.update_table )
 		self.points_load.Bind( wx.EVT_BUTTON, self.load_autoprofile )
 		self.new_set_btn.Bind( wx.EVT_BUTTON, self.new_profile_action )
 		self.new_point_btn.Bind( wx.EVT_BUTTON, self.new_point_autoprofile )
@@ -426,11 +443,10 @@ class job_frame ( wx.Frame ):
 	def update_table( self, event ):
 		event.Skip()
 	
-	def update_points_n( self, event ):
-		event.Skip()
 	
 	def save_points( self, event ):
 		event.Skip()
+	
 	
 	def load_autoprofile( self, event ):
 		event.Skip()
@@ -499,7 +515,7 @@ class Load_profile_dialog ( wx.Dialog ):
 class inst_pannel ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<instrument>", pos = wx.DefaultPosition, size = wx.Size( 500,304 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<instrument>", pos = wx.DefaultPosition, size = wx.Size( 515,377 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		

@@ -200,8 +200,7 @@ class myjobframe(job_frame):
                     tmean = np.mean(trans)
                     tstd = np.std(trans)
                     tsource = trans
-                istrans = True
-                if istrans:
+                if self.transformed.GetValue():
                     points.append([rows[r], trans[-1], tmean, tstd])
                 else:
                     points.append([rows[r], raw[-1], rmean, rstd])
@@ -211,6 +210,7 @@ class myjobframe(job_frame):
                 self.job.logger.tmeans["{}".format("m" + rows[r])] = tmean
                 self.job.logger.tstds["{}".format("s" + rows[r])] = tstd
                 self.job.logger.tsources["{}".format(rows[r])] = tsource
+                self.job.logger.comment = self.comment_input.GetValue()
 
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()

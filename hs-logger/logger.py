@@ -28,7 +28,7 @@ class Logger(Thread):
         self.datanum = 0
         self.pointsnum = 0
         self.window = 0
-        self.comment = "No comment"
+        self.comment = ""
         self.rmeans = {}
         self.rstds = {}
         self.rsources = {}
