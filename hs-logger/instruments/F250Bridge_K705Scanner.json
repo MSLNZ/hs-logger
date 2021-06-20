@@ -11,7 +11,7 @@
     "notes": "",
     "operations":{
             "read_tx11": {
-                "name":"Read Channel 11",
+                "name":"Ts2500#1 SIL010 c11",
                 "type":"read",
                 "id":"read_tx11",
                 "channel":11,
@@ -20,7 +20,7 @@
                 "details":""
             },
             "read_tx12": {
-                "name":"Read Channel 12",
+                "name":"Tc SIL019 c12",
                 "type":"read",
                 "id":"read_tx12",
                 "channel": 12,
@@ -29,7 +29,7 @@
                 "details":""
             },
             "read_tx13": {
-                "name":"Read Channel 13",
+                "name":"Tc SIL057 c13",
                 "type":"read",
                 "id":"read_tx13",
                 "channel": 13,
@@ -38,7 +38,7 @@
                 "details":""
             },
             "read_tx14": {
-                "name":"Read Channel 14",
+                "name":"Tc SIL058 c14",
                 "type":"read",
                 "id":"read_tx14",
                 "channel": 14,
@@ -47,7 +47,7 @@
                 "details":""
             },
             "read_tx15": {
-                "name":"Read Channel 15",
+                "name":"Tc SIL020 c15",
                 "type":"read",
                 "id":"read_tx15",
                 "channel": 15,
@@ -65,7 +65,7 @@
                 "details":""
             },
             "read_tx17": {
-                "name":"Read Channel 17",
+                "name":"Tc SIL012 c17",
                 "type":"read",
                 "id":"read_tx17",
                 "channel": 17,
@@ -74,7 +74,7 @@
                 "details":""
             },
             "read_tx18": {
-                "name":"Read Channel 18",
+                "name":"Tc3900 SIL033 c18",
                 "type":"read",
                 "id":"read_tx18",
                 "channel": 18,
@@ -83,7 +83,7 @@
                 "details":""
             },
             "read_tx19": {
-                "name":"Read Channel 19",
+                "name":"Ts2500#2 SIL035 c19",
                 "type":"read",
                 "id":"read_tx19",
                 "channel": 19,
@@ -92,7 +92,7 @@
                 "details":""
             },
             "read_tx20": {
-                "name":"Read Channel 20",
+                "name":"Tamb SIL039 c20",
                 "type":"read",
                 "id":"read_tx20",
                 "channel": 20,

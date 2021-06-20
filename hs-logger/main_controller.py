@@ -160,6 +160,9 @@ class myjobframe(job_frame):
                 rows[op] = op_id
 
         data = self.job.logger.store
+        references = {"r1": {"A": "F250Bridge_K705Scanner.read_tx11", "B": "F250Bridge_K705Scanner.read_tx12", "C": "F250Bridge_K705Scanner.read_tx13", "D": "F250Bridge_K705Scanner.read_tx14", "T": "T"},
+                      "r2": {"A": "HP34420A_HP34970A.read_px116", "B": "HP34420A_HP34970A.read_px118", "C": "HP34420A_HP34970A.read_px119", "D": "HP34420A_HP34970A.read_px120", "T": "P"},
+                      "r3": {"A": "HG2500.read_rh_pctc", "B": "HG2500.read_sat_pres", "C": "HG2500.read_sat_temp", "D": "HG2500.read_flowrate", "T": "HG"}}
 
         points = [["Label", "Latest", "Mean", "StDev"]]
         try:
@@ -184,8 +187,6 @@ class myjobframe(job_frame):
             else:
                 raw = np.array([d[0].get(r) for d in data], np.float64)
                 trans = np.array([d[1].get(r) for d in data], np.float64)
-                rsource = {}
-                tsource = {}
                 if self.job.logger.window < len(raw):
                     rmean = np.mean(raw[-self.job.logger.window:])
                     rstd = np.std(raw[-self.job.logger.window:])
@@ -210,8 +211,36 @@ class myjobframe(job_frame):
                 self.job.logger.tmeans["{}".format("m" + rows[r])] = tmean
                 self.job.logger.tstds["{}".format("s" + rows[r])] = tstd
                 self.job.logger.tsources["{}".format(rows[r])] = tsource
-                self.job.logger.comment = self.comment_input.GetValue()
 
+        # # Todo add references here
+        # self.job.logger.storeref.append({})
+        # for ref in references:
+        #     datum = {}
+        #     for comp in references[ref]:
+        #         if comp == "T":
+        #             eq = "{}: {}".format(comp, references[ref][comp])
+        #         else:
+        #             if references[ref][comp] in data[0][0]:
+        #                 datum[comp] = data[-1][1].get(references[ref][comp])
+        #             else:
+        #                 raise ValueError  # Todo make this do something useful.
+        #     value = datum["A"] + datum["B"] + datum["C"] + datum["D"]
+        #     self.job.logger.storeref[-1][ref] = value
+        #     refdata = self.job.logger.storeref[-1][ref]
+        #     if self.job.logger.window < len(raw):
+        #         fmean = np.mean(refdata[-self.job.logger.window:])
+        #         fstd = np.std(refdata[-self.job.logger.window:])
+        #         fsource = refdata[-self.job.logger.window:]
+        #     else:
+        #         fmean = np.mean(refdata)
+        #         fstd = np.std(refdata)
+        #         fsource = refdata
+        #     self.job.logger.fmeans["{}".format("m" + ref)] = fmean
+        #     self.job.logger.fstds["{}".format("s" + ref)] = fstd
+        #     self.job.logger.fsources["{}".format(ref)] = fsource
+        #     points.append([ref, value, fmean, fstd])
+
+        self.job.logger.comment = self.comment_input.GetValue()
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()
         self.m_grid2.ForceRefresh()
