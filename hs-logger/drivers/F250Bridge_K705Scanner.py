@@ -68,6 +68,7 @@ class F250Bridge_K705Scanner(object):
             if i > 5:
                 break
             time.sleep(0.5)
+        # self.close_channel(channel)  #Todo test this.
         return self.read()
 
     def read(self):

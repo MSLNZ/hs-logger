@@ -42,6 +42,7 @@ class Logger(Thread):
         self.raw_dict = {}
         self.trans_dict = {}
         self.store = []
+        self.storeref = []
 
         a = [n+".raw" for n in self.op_names]
         a.extend([n+".trans" for n in self.op_names])
@@ -80,7 +81,6 @@ class Logger(Thread):
         self.trans_dict = {}
         for inst, op in self.operations:
             self.read_instrument(inst, op)
-
         a = list(self.raw_dict.values())
         a.extend(list(self.trans_dict.values()))
         self.np_store = np.append(self.np_store, [a], axis=0)

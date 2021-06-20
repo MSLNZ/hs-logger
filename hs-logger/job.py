@@ -13,7 +13,7 @@ class Job(object):
         self.logger = Logger(self, inst_drivers, frame_log)
         self.frame = frame
         self.graphs = []
-        self.frame.add_table(4, len(spec["logged_operations"])-1)
+        self.frame.add_table(4, len(spec["logged_operations"])-1)  # Todo move to elsewhere
         self.auto_profile = AutoProfile(self)
         self.frame.add_profile_table(self.auto_profile)
         self.n = 0

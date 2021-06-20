@@ -24,7 +24,7 @@ class generic_driver_visa_serial(object):
                                            write_termination=w_term,
                                            read_termination=r_term)
         self.instrument.open()
-        self.instrument.timeout = None  # Todo test this
+        self.instrument.timeout = 2000
         self.lock = Lock()
 
     def read_instrument(self, operation_id):
@@ -38,9 +38,7 @@ class generic_driver_visa_serial(object):
         stored = self.store.get(operation_id, (None, time.time()-(self.timeout+1)))
         if time.time() - stored[1] < self.timeout:
             data, data_trans = stored[0]
-            # print("using stored")  # testing
         else:
-            # data = self.instrument.query(operation['command'])
             if type == 'read_store':
                 self.read_instrument(operation.get("store_id"))
                 stored = self.store.get(operation_id)
@@ -51,10 +49,7 @@ class generic_driver_visa_serial(object):
                 return data, data_trans
             elif type == 'read_multiple':
                 with self.lock:
-                    print("locK")
-                    # data = self.instrument.query(operation['command'])
-                    # if echo:
-                    #     data = self.instrument.read()
+                    # print("locK")
                     self.instrument.write(operation['command'])
                     data = self.instrument.read()
                     try:
@@ -74,14 +69,11 @@ class generic_driver_visa_serial(object):
                             self.store[on] = ((d, dt), time.time())
 
                     data_trans = [self.transform(d, operation) for d in data]
-                print('unlocK')
+                # print('unlocK')
             else:
                 with self.lock:
-                    print("lock")
+                    # print("lock")
                     print(operation['command'])
-                    # data = self.instrument.query(operation['command'])
-                    # if echo:
-                    #     data = self.instrument.read()
                     self.instrument.write(operation['command'])
                     try:
                         while True:
@@ -91,7 +83,7 @@ class generic_driver_visa_serial(object):
                         pass
                     data = []
                     data_trans = []
-                print('unlock')
+                # print('unlock')
             self.store[operation_id] = ((data, data_trans), time.time())
 
         return data, data_trans
@@ -125,7 +117,7 @@ class generic_driver_visa_serial(object):
 
     def action_instrument(self, operation_id):
         with self.lock:
-            # self.instrument.timeout = 10000
+            self.instrument.timeout = 10000
             op = self.operations[operation_id]
             command = op.get("command", "")
             # response = self.instrument.query(command,delay=1)
@@ -139,7 +131,7 @@ class generic_driver_visa_serial(object):
                         response = response + ", " + self.instrument.read()
             except visa.errors.VisaIOError:
                 pass
-            # self.timeout = 2000
+            self.timeout = 2000
             if response != "":
                 print(response)
             else:

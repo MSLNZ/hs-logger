@@ -160,7 +160,7 @@ class exit_dialog ( wx.Dialog ):
 class job_frame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 1077,512 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"<job_name>", pos = wx.DefaultPosition, size = wx.Size( 1077,645 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -177,6 +177,14 @@ class job_frame ( wx.Frame ):
 		
 		self.resume_b = wx.Button( self, wx.ID_ANY, u"Resume", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer60.Add( self.resume_b, 0, wx.ALL, 5 )
+		
+		self.reading_text = wx.StaticText( self, wx.ID_ANY, u"Reading:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.reading_text.Wrap( -1 )
+		bSizer60.Add( self.reading_text, 0, wx.ALL, 5 )
+		
+		self.current_reading = wx.StaticText( self, wx.ID_ANY, u"-", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.current_reading.Wrap( -1 )
+		bSizer60.Add( self.current_reading, 0, wx.ALL, 5 )
 		
 		
 		bSizer59.Add( bSizer60, 0, wx.EXPAND, 5 )
@@ -273,23 +281,18 @@ class job_frame ( wx.Frame ):
 		self.transformed.SetValue(True) 
 		bSizer19.Add( self.transformed, 0, wx.ALL, 5 )
 		
+		self.comment_text = wx.StaticText( self.points, wx.ID_ANY, u"Comment", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.comment_text.Wrap( -1 )
+		bSizer19.Add( self.comment_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		self.comment_input = wx.TextCtrl( self.points, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.comment_input, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
 		
 		bSizer18.Add( bSizer19, 0, wx.EXPAND, 5 )
 		
 		
 		bSizer17.Add( bSizer18, 1, wx.EXPAND, 5 )
-		
-		bSizer39 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.comment_text = wx.StaticText( self.points, wx.ID_ANY, u"Comment", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.comment_text.Wrap( -1 )
-		bSizer39.Add( self.comment_text, 0, wx.ALL, 5 )
-		
-		self.comment_input = wx.TextCtrl( self.points, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer39.Add( self.comment_input, 0, wx.ALL, 5 )
-		
-		
-		bSizer17.Add( bSizer39, 1, wx.EXPAND, 5 )
 		
 		
 		self.points.SetSizer( bSizer17 )
@@ -662,7 +665,7 @@ class inst_pannel ( wx.Frame ):
 class axes_dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 358,184 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 369,243 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		

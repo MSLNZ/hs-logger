@@ -13,7 +13,8 @@
     "time":0,
     "instruments":{
         "F250Bridge_K705Scanner":"instruments/F250Bridge_K705Scanner.json",
-        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json"
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "HG2500":"instruments/HG2500_visa.json"
     },
     "logged_operations":[
         "time.runtime",
@@ -30,6 +31,13 @@
         "HP34420A_HP34970A.read_px116",
         "HP34420A_HP34970A.read_px118",
         "HP34420A_HP34970A.read_px119",
-        "HP34420A_HP34970A.read_px120"
+        "HP34420A_HP34970A.read_px120",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_sat_pres",
+        "HG2500.read_chamber_press",
+        "HG2500.read_sat_temp",
+        "HG2500.read_chamber_temp",
+        "HG2500.read_flowrate"
     ]
 }
