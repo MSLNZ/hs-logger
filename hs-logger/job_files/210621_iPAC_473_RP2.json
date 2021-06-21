@@ -37,6 +37,7 @@
         "F250Bridge_K705Scanner.read_tx12",
         "F250Bridge_K705Scanner.read_tx13",
         "F250Bridge_K705Scanner.read_tx14",
+        "F250Bridge_K705Scanner.read_tx15",
         "F250Bridge_K705Scanner.read_tx17",
         "MSL473_SHX.read_Tx",
         "DUT473_RP2.read_Tx",

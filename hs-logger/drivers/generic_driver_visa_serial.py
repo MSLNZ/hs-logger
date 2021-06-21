@@ -70,6 +70,18 @@ class generic_driver_visa_serial(object):
 
                     data_trans = [self.transform(d, operation) for d in data]
                 # print('unlocK')
+            elif type == 'read_single':
+                with self.lock:
+                    # print("locK")
+                    self.instrument.write(operation['command'])
+                    data = 0
+                    try:
+                        while True:
+                            data = float(self.instrument.read())
+                    except visa.errors.VisaIOError:
+                        pass
+                    data_trans = self.transform(data, operation)
+                # print('unlocK')
             else:
                 with self.lock:
                     # print("lock")

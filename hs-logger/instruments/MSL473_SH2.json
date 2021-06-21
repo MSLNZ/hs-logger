@@ -3,8 +3,8 @@
     "instrument_name": "MSL473_SH2",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",
-    "port": "COM5",
-    "baudrate": 2400,
+    "port": "COM8",
+    "baudrate": 9600,
     "write_termination": "\r",
     "read_termination": "\r\n",
     "echo": true,
@@ -75,7 +75,7 @@
             "name": "P MSL473_SH2",
             "id": "read_P",
             "command": "_P?",
-            "transform_eq":["V",0,1,0,0],
+            "transform_eq":["P",2.478E-3,9.9893E-6,0,0],
             "data_type": "float",
             "unit": "Pa",
             "details": " "
@@ -98,7 +98,7 @@
             "transform_eq":["V",0,1,0,0],
             "data_type": "float",
             "unit": "SLPM",
-            "details": "Standard litres per minute"
+            "details": "standard litres per minute"
         },
         "read_Th": {
             "type": "read_single",
@@ -107,7 +107,8 @@
             "command": "Th?",
             "transform_eq":["V",0,1,0,0],
             "data_type": "float",
-            "unit": "deg C"
+            "unit": "deg C",
+            "details": "head temperature"
         },
         "read_Stable": {
             "type": "read_single",
@@ -117,7 +118,7 @@
             "transform_eq":["V",0,1,0,0],
             "data_type": "float",
             "unit": "",
-            "details": "Is stable?"
+            "details": "is stable?"
         }
     }
 }
