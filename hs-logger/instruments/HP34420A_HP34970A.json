@@ -164,7 +164,7 @@
             "details": ""
         },
         "read_px118": {
-            "name": "Read Channel 118",
+            "name": "PsDruck#1 0-20 h118",
             "id":"read_px118",
             "channel": 118,
             "hp420A_ch": 1,
@@ -173,7 +173,7 @@
             "details": ""
         },
         "read_px119": {
-            "name": "Read Channel 119",
+            "name": "PoDruck#2 0-3b h119",
             "id":"read_px119",
             "channel": 119,
             "hp420A_ch": 1,
@@ -182,7 +182,7 @@
             "details": ""
         },
         "read_px120": {
-            "name": "Read Channel 120",
+            "name": "PoDruck#3 0-3b h120",
             "id":"read_px120",
             "channel": 120,
             "hp420A_ch": 1,
