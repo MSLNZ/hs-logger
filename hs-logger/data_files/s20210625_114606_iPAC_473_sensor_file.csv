@@ -1,0 +1,32 @@
+s20210625_114606_iPAC_473_sensor_file.csv
+comment
+Device	ChannelList	ID	Name	Description	A	B	C	R(0)/D	Date	ReportNo
+HG2500	read_rh_pctc	RH @PcTc	V		0	1	0	0		
+HG2500	read_sat_pres	saturation pressure	V		0	1	0	0		
+HG2500	read_chamber_press	chamber pressure	V		0	1	0	0		
+HG2500	read_sat_temp	saturation pressure	V		0	1	0	0		
+HG2500	read_chamber_temp	chamber pressure	V		0	1	0	0		
+HG2500	read_flowrate	flow rate	V		0	1	0	0		
+F250Bridge_K705Scanner	read_tx11	Ts2500#1 SIL010 c11	T		0.00391	-6.04e-07	-4.59e-12	100.184547		
+F250Bridge_K705Scanner	read_tx19	Ts2500#2 SIL035 c19	T		0.00390971	-6.128e-07	-1.97e-12	100.0880834		
+HP34420A_HP34970A	read_px118	PsDruck#1 0-20 h118	P		0.00256	2.00245	0.000598	0		
+HP34420A_HP34970A	read_px119	PoDruck#2 0-3b h119	P		-0.007375	0.354549	0.00062	0		
+HP34420A_HP34970A	read_px120	PoDruck#3 0-3b h120	P		-0.001267	0.347863	0.000407	0		
+MSL473_SH2	read_P	P MSL473_SH2	P	 	0.002478	9.9893e-06	0	0		
+F250Bridge_K705Scanner	read_tx12	Tc SIL019 c12	T		0.00393	-6.42e-07	-7.29e-11	99.96977551		
+F250Bridge_K705Scanner	read_tx13	Tc SIL057 c13	T		0.00391214	-5.965e-07	-4.904e-12	99.98841519		
+F250Bridge_K705Scanner	read_tx14	Tc SIL058 c14	T		0.0039036	-5.698e-07	-4.48e-12	100.000505		
+F250Bridge_K705Scanner	read_tx15	Tc SIL020 c15	T		0.00391	-5.96e-07	-2.94e-11	100.0224146		
+F250Bridge_K705Scanner	read_tx17	Tc SIL012 c17	T		0.00391	-5.99e-07	-6.39e-11	100.0150747		
+MSL473_SHX	read_Tx	Tx MSL473_SHX	V	define where placed	0	1	0	0		
+DUT473_RP2	read_Tx	Tx DUT473_RP2	V	define where placed	0	1	0	0		
+MSL473_SH2	read_DP	DP MSL473_SH2	V	DP is calculated if Tm=FP	0	1	0	0		
+DUT473_RP2	read_DP	DP DUT473_RP2	V	DP is calculated if Tm=FP	0	1	0	0		
+MSL473_SH2	read_FP	FP MSL473_SH2	V	FP is calculated if Tm=DP	0	1	0	0		
+DUT473_RP2	read_FP	FP DUT473_RP2	V	FP is calculated if Tm=DP	0	1	0	0		
+MSL473_SH2	read_Tm	Tm MSL473_SH2	V	Tm is measured mirror temperature	0	1	0	0		
+DUT473_RP2	read_Tm	Tm DUT473_RP2	V	Tm is measured mirror temperature	0	1	0	0		
+DUT473_RP2	read_RH	RH DUT473_RP2	V	RH calc ex DP & assumes sat. at Tx over ice	0	1	0	0		
+MSL473_SHX	read_Th	Th MSL473_SHX	V	head temperature	0	1	0	0		
+DUT473_RP2	read_Th	Th DUT473_RP2	V	head temperature	0	1	0	0		
+F250Bridge_K705Scanner	read_tx20	Tamb SIL039 c20	T		0.00391246	-5.96e-07	-6.775e-12	99.97356		

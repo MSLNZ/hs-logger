@@ -1,0 +1,27 @@
+{
+    "job_name":"HMP7_test_job",
+    "job_id":1,
+    "job_notes":"comment",
+    "datafile_raw": "HMP7_test_job_raw.csv",
+    "datafile_trans": "HMP7_test_job_trans.csv",
+    "interval": 30,
+    "time":0,
+    "instruments":{
+        "Vaisala_HMP7_01":"instruments/Vaisala_HMP7_modbus_01.json",
+        "Vaisala_HMP7_02":"instruments/Vaisala_HMP7_modbus_02.json",
+        "Vaisala_HMP7_03":"instruments/Vaisala_HMP7_modbus_03.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "Vaisala_HMP7_01.read_temp",
+        "Vaisala_HMP7_01.read_rh",
+        "Vaisala_HMP7_01.read_dew_point_temp",
+        "Vaisala_HMP7_02.read_temp",
+        "Vaisala_HMP7_02.read_rh",
+        "Vaisala_HMP7_02.read_dew_point_temp",
+        "Vaisala_HMP7_03.read_temp",
+        "Vaisala_HMP7_03.read_rh",
+        "Vaisala_HMP7_03.read_dew_point_temp"
+    ]
+}

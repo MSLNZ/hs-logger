@@ -1,0 +1,180 @@
+{
+    "instrument_id": "milliK",
+    "instrument_name": "Isotech milliK with attached millisKanner",
+    "driver": "generic_driver_visa_serial",
+    "interface": "visa",            
+    "port": "COM4",
+    "baudrate":9600,
+    "write_termination": "\r",
+    "read_termination": "\r",
+    "notes": "",
+    "operations": {
+        "read_default": {
+            "type": "read_multiple",
+            "name": "All channels",
+            "id": "read_default",
+            "details": "",
+            "command": "SENS:CHAN 10\nREAD?\nSENS:CHAN 11\nREAD?\nSENS:CHAN 13\nREAD?\nSENS:CHAN 13\nREAD?\nSENS:CHAN 14\nREAD?\nSENS:CHAN 15\nREAD?\nSENS:CHAN 16\nREAD?\nSENS:CHAN 17\nREAD?\n",
+            "operations": ["read_10", "read_11", "read_12", "read_13", "read_14", "read_15", "read_16", "read_17"],
+            "data_type": "list",
+            "split": ",",
+            "unit": ""
+        },
+        "read_test": {
+            "type": "read_multiple",
+            "name": "Read a channel",
+            "id": "read_test",
+            "details": "",
+            "command": "MEAS:RES10? 100,NORM,4",
+            "operations": ["read_0"],
+            "data_type": "list",
+            "split": ",",
+            "unit": ""
+        },
+        "read_1": {
+            "type": "read_store",
+            "name": "Channel 1",
+            "id": "read_1",
+            "details": "",
+            "store_id": "read_test",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "read_10": {
+            "type": "read_store",
+            "name": "Channel 10",
+            "id": "read_10",
+            "details": "",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "read_11": {
+            "type": "read_store",
+            "name": "Channel 11",
+            "id": "read_11",
+            "details": "",
+            "store_id": "read_default",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "read_12": {
+            "type": "read_store",
+            "name": "Channel 12",
+            "id": "read_12",
+            "details": "",
+            "store_id": "read_default",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "read_13": {
+            "type": "read_store",
+            "name": "Channel 13",
+            "id": "read_13",
+            "details": "",
+            "store_id": "read_default",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "read_14": {
+            "type": "read_store",
+            "name": "Channel 14",
+            "id": "read_14",
+            "details": "",
+            "store_id": "read_default",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "read_15": {
+            "type": "read_store",
+            "name": "Channel 15",
+            "id": "read_15",
+            "details": "",
+            "store_id": "read_default",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "read_16": {
+            "type": "read_store",
+            "name": "Channel 16",
+            "id": "read_16",
+            "details": "",
+            "store_id": "read_default",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "read_17": {
+            "type": "read_store",
+            "name": "Channel 17",
+            "id": "read_17",
+            "details": "",
+            "store_id": "read_default",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+        },
+        "action_temp_setup": {
+            "type": "action",
+            "name": "Temporary Setup",
+            "id": "action_temp_setup",
+            "details": "Sets the device up to read resistance (TEMPORARY)",
+            "command": "SENS:FUNC RES\nSENS:CURR NORM\nSENS:RES:RANG 200\nSENS:WIR 4"
+        },
+        "action_read_resistance": {
+            "type": "action",
+            "name": "Read Resistance",
+            "id": "action_read_resistance",
+            "details": "Sets the device to read resistance",
+            "command": "SENS:FUNC RES"
+        },
+        "action_current_normal": {
+            "type": "action",
+            "name": "Current Normal",
+            "id": "action_current_normal",
+            "details": "Sets the read current to 1 A",
+            "command": "SENS:CURR NORM"
+        },
+        "action_current_sqrt2": {
+            "type": "action",
+            "name": "Current Sqrt(2)",
+            "id": "action_current_sqrt2",
+            "details": "Sets the read current to sqrt(2) A",
+            "command": "SENS:CURR ROOT2"
+        },
+        "set_resistance_range": {
+            "type": "write",
+            "name": "Set Resistance Range",
+            "id": "set_resistance_range",
+            "command": "SENS:RES:RANG {}"
+        },
+        "set_wires": {
+            "type": "write",
+            "name": "Set Wires",
+            "id": "set_wires",
+            "command": "SENS:WIR {}"
+        },
+        "set_channel": {
+            "type": "write",
+            "name": "Set Channel",
+            "id": "set_channel",
+            "command": "SENS:CHAN {}"
+        }
+    }
+}
