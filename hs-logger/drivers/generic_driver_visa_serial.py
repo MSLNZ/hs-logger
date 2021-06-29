@@ -16,6 +16,7 @@ class generic_driver_visa_serial(object):
         baud = spec["baudrate"]
         w_term = spec.get("write_termination", '\r')
         r_term = spec.get("read_termination", '\r\n')
+        doOpen = spec.get("doOpen", True)
         rm = visa.ResourceManager()
         self.store = {}
         self.timeout = spec.get("store_timeout", 2)
@@ -23,7 +24,8 @@ class generic_driver_visa_serial(object):
                                            baud_rate=baud,
                                            write_termination=w_term,
                                            read_termination=r_term)
-        self.instrument.open()
+        if doOpen:
+            self.instrument.open()
         self.instrument.timeout = 2000
         self.lock = Lock()
 

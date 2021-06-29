@@ -3,139 +3,102 @@
     "instrument_name": "Isotech milliK with attached millisKanner",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM4",
+    "port": "ASRL12::INSTR",
     "baudrate":9600,
     "write_termination": "\r",
     "read_termination": "\r",
     "notes": "",
+    "doOpen": false,
     "operations": {
-        "read_default": {
-            "type": "read_multiple",
-            "name": "All channels",
-            "id": "read_default",
-            "details": "",
-            "command": "SENS:CHAN 10\nREAD?\nSENS:CHAN 11\nREAD?\nSENS:CHAN 13\nREAD?\nSENS:CHAN 13\nREAD?\nSENS:CHAN 14\nREAD?\nSENS:CHAN 15\nREAD?\nSENS:CHAN 16\nREAD?\nSENS:CHAN 17\nREAD?\n",
-            "operations": ["read_10", "read_11", "read_12", "read_13", "read_14", "read_15", "read_16", "read_17"],
-            "data_type": "list",
-            "split": ",",
-            "unit": ""
-        },
-        "read_test": {
-            "type": "read_multiple",
-            "name": "Read a channel",
-            "id": "read_test",
-            "details": "",
-            "command": "MEAS:RES10? 100,NORM,4",
-            "operations": ["read_0"],
-            "data_type": "list",
-            "split": ",",
-            "unit": ""
-        },
         "read_1": {
-            "type": "read_store",
-            "name": "Channel 1",
+            "type": "read_single",
+            "name": "read channel 1",
             "id": "read_1",
             "details": "",
-            "store_id": "read_test",
-            "store_index": 0,
             "data_type": "float",
             "unit": "",
+            "command": "MEAS:RES1? 100,NORM,4",
             "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
         },
         "read_10": {
-            "type": "read_store",
-            "name": "Channel 10",
+            "type": "read_single",
+            "name": "SIL046",
             "id": "read_10",
             "details": "",
-            "store_id": "read_default",
-            "store_index": 0,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+            "command": "MEAS:RES10? 100,NORM,4",
+            "transform_eq": ["T", 3.90519e-3, -5.971e-7, -5.647e-12, 100.0066]
         },
         "read_11": {
-            "type": "read_store",
-            "name": "Channel 11",
+            "type": "read_single",
+            "name": "SIL047",
             "id": "read_11",
             "details": "",
-            "store_id": "read_default",
-            "store_index": 1,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+            "command": "MEAS:RES11? 100,NORM,4",
+            "transform_eq": ["T", 3.91140e-3, -5.973e-7, -4.735e-12, 99.9904]
         },
         "read_12": {
-            "type": "read_store",
-            "name": "Channel 12",
+            "type": "read_single",
+            "name": "SIL049",
             "id": "read_12",
             "details": "",
-            "store_id": "read_default",
-            "store_index": 2,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+            "command": "MEAS:RES12? 100,NORM,4",
+            "transform_eq": ["T", 3.91217e-3, -5.923e-7, -1.664e-12, 100.0516]
         },
         "read_13": {
-            "type": "read_store",
-            "name": "Channel 13",
+            "type": "read_single",
+            "name": "SIL050",
             "id": "read_13",
             "details": "",
-            "store_id": "read_default",
-            "store_index": 3,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+            "command": "MEAS:RES13? 100,NORM,4",
+            "transform_eq": ["T", 3.91103e-3, -5.943e-7, -3.57e-12, 100.0539]
         },
         "read_14": {
-            "type": "read_store",
-            "name": "Channel 14",
+            "type": "read_single",
+            "name": "SIL051",
             "id": "read_14",
             "details": "",
-            "store_id": "read_default",
-            "store_index": 4,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+            "command": "MEAS:RES14? 100,NORM,4",
+            "transform_eq": ["T", 3.91133e-3, -5.939e-7, -2.152e-12, 100.0597]
         },
         "read_15": {
-            "type": "read_store",
-            "name": "Channel 15",
+            "type": "read_single",
+            "name": "SIL053",
             "id": "read_15",
             "details": "",
-            "store_id": "read_default",
-            "store_index": 5,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+            "command": "MEAS:RES15? 100,NORM,4",
+            "transform_eq": ["T", 3.91155e-3, -5.942e-7, -6.686e-12, 99.9893]
         },
         "read_16": {
-            "type": "read_store",
-            "name": "Channel 16",
+            "type": "read_single",
+            "name": "SIL054",
             "id": "read_16",
             "details": "",
-            "store_id": "read_default",
-            "store_index": 6,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
+            "command": "MEAS:RES16? 100,NORM,4",
+            "transform_eq": ["T", 3.91152e-3, -5.942e-7, -6.979e-12, 100.0206]
         },
         "read_17": {
-            "type": "read_store",
-            "name": "Channel 17",
+            "type": "read_single",
+            "name": "SIL055",
             "id": "read_17",
             "details": "",
-            "store_id": "read_default",
-            "store_index": 7,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["T", 0.004, -0.0000006, -0.000000000005, 100]
-        },
-        "action_temp_setup": {
-            "type": "action",
-            "name": "Temporary Setup",
-            "id": "action_temp_setup",
-            "details": "Sets the device up to read resistance (TEMPORARY)",
-            "command": "SENS:FUNC RES\nSENS:CURR NORM\nSENS:RES:RANG 200\nSENS:WIR 4"
+            "command": "MEAS:RES17? 100,NORM,4",
+            "transform_eq": ["T", 3.91335e-3, -5.945e-7, -6.121e-12, 100.0470]
         },
         "action_read_resistance": {
             "type": "action",
