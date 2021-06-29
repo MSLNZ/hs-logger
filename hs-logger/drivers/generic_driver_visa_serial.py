@@ -23,8 +23,14 @@ class generic_driver_visa_serial(object):
                                            baud_rate=baud,
                                            write_termination=w_term,
                                            read_termination=r_term)
-        self.instrument.open()
+        # self.instrument.open()  # Todo test if anything needs this
         self.instrument.timeout = 2000
+        try:
+            while True:
+                data = self.instrument.read()
+                print(data)
+        except visa.errors.VisaIOError:
+            pass
         self.lock = Lock()
 
     def read_instrument(self, operation_id):
