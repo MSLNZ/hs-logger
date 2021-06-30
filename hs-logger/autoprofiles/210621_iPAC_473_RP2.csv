@@ -1,6 +1,6 @@
 ﻿Points,Soak,Assured,t,rH,Q
 ,,,HG2500.set_saturation_temperature_setpoint,HG2500.set_rh_pctc_setpoint,HG2500.set_flow_rate_setpoint
-1,40,1,21,10,15
+1,180,1,21,10,15
 2,50,1,21,31.25,15
 3,50,1,21,52.5,15
 4,50,1,21,73.75,15

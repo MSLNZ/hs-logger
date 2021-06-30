@@ -26,6 +26,9 @@ class F250Bridge_K705Scanner(object):
         val = val[1:-1]
         if val.startswith("E"):
             val = float("Inf")
+        elif val.startswith("A"):
+            val = val.replace("A", "")
+            val = f = np.float64(val)
         else:
             val = f = np.float64(val)
         val_trans = self.transform(val, op)
