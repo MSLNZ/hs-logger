@@ -74,10 +74,10 @@
             "type": "read_single",
             "name": "P MSL473_SHX",
             "id": "read_P",
-            "command": "_P?",
+            "command": "P?",
             "transform_eq":["P",0,1,0,0],
             "data_type": "float",
-            "unit": "Pa",
+            "unit": "b",
             "details": " "
         },
         "read_VP": {

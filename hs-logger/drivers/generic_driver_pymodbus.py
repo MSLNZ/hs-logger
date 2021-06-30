@@ -4,6 +4,7 @@ import numpy as np
 import json
 import struct
 import time
+import math
 
 #TODO has not been tested need to test on instrumennt and fix
 #TODO add writing to modbus
@@ -53,10 +54,34 @@ class generic_driver_pymodbus(ModbusClient):
 
     def transform(self,data,operation):
         x = data
-        eq = operation.get("transform_eq",'x')
-        c = operation.get("transform_coeff",None)
-        result = eval(eq)
-        return result
+        # eq = operation.get("transform_eq",'x')
+        # c = operation.get("transform_coeff",None)
+        # result = eval(eq)
+        # return result
+
+        eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
+        if eq[0] == 'T':  # Callendar-Van Dusen equation
+            if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
+                transformed = float("NaN")
+            else:
+                fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
+                transformed = float("inf")  # Create a maximum value
+                for j in fulltransformed:
+                    if np.imag(j) == 0:
+                        if abs(j) < transformed:
+                            transformed = np.real(j)
+                        elif abs(j) == transformed and j > transformed:
+                            transformed = np.real(j)
+                if math.isinf(transformed):
+                    print("Invalid Callendar–Van Dusen equation: No real solutions for")
+                    print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
+                    transformed = float("NaN")
+        elif eq[0] == 'V' or eq[0] == 'P':
+            transformed = eq[1] + eq[2] * x + eq[3] * x ** 2 + eq[4] * x ** 3
+        else:
+            print("Transform form not recognised: {}".format(eq[0]))
+            raise ValueError
+        return transformed
 
 
     def uint_conversion(self, datatype):

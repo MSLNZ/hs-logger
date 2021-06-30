@@ -4,7 +4,11 @@
     "job_notes":"comment",
     "datafile_raw": "S8000_job_data_raw.csv",
     "datafile_trans": "S8000_job_data_trans.csv",
-    "points_file" : "S8000_points.csv",
+    "points_file_raw": "S8000_job_points_raw.dat",
+    "points_file_trans": "S8000_job_points_trans.dat",
+    "source_file_raw": "S8000_job_source_raw.dat",
+    "source_file_trans": "S8000_job_source_trans.dat",
+    "sensor_file": "S8000_job_sensor_file.dat",
     "min_interval": 30,
     "time":0,
     "instruments":{

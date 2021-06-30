@@ -197,7 +197,7 @@
             "channel": 119,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", -7.375E-3, 3.54549E-1, 6.2E-4, 0],
+            "transform_eq": ["P", -7.375E-3, 3.54549E-1, -6.2E-4, 0],
             "details": ""
         },
         "read_px120": {

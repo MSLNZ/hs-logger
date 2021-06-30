@@ -21,8 +21,7 @@
             "id": "read_address",
             "register":0,
             "data_type": "uint",
-            "num_reg":1,
-            "unit": ""
+            "num_reg":1
         },
         "write_address":{
             "type": "write",
@@ -42,7 +41,8 @@
             "register":1,
             "num_reg":2,
             "data_type": "float",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_ambtemp":{
             "type": "read",
@@ -52,7 +52,8 @@
             "register":3,
             "num_reg":2,
             "data_type": "float",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_rh":{
             "type": "read",
@@ -63,9 +64,8 @@
             "num_reg":1,
             "data_type": "int",
             "decimal_shift": -2,
-            "transform_eq":"x+c[0]+c[1]",
-            "transform_coeff":[10,1],
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_pressure":{
             "type": "read",
@@ -76,7 +76,8 @@
             "num_reg":1,
             "decimal_shift": -1,
             "data_type": "int",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_ppmv":{
             "type": "read",
@@ -86,7 +87,8 @@
             "register":7,
             "data_type": "float",
             "num_reg":2,
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_ppmw":{
             "type": "read",
@@ -96,7 +98,8 @@
             "register":9,
             "data_type": "float",
             "num_reg":2,
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_gm3":{
             "type": "read",
@@ -106,7 +109,8 @@
             "register":11,
             "data_type": "float",
             "unit": "",
-            "num_reg":2
+            "num_reg":2,
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_gkg":{
             "type": "read",
@@ -116,7 +120,8 @@
             "register":13,
             "data_type": "float",
             "num_reg":2,
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_flow":{
             "type": "read",
@@ -126,7 +131,8 @@
             "register":15,
             "data_type": "uint",
             "unit": "",
-            "num_reg":1
+            "num_reg":1,
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_mirror_cond":{
             "type": "read",
@@ -137,7 +143,8 @@
             "data_type": "int",
             "num_reg":1,
             "decimals": 1,
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_hp_drive":{
             "type": "read",
@@ -146,7 +153,8 @@
             "id": "read_hp_drive",
             "register":17,
             "data_type": "uint",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_status":{
             "type": "read",
@@ -155,7 +163,8 @@
             "id": "read_hp_drive",
             "register":18,
             "data_type": "bits",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_dcc_hold_time":{
             "type": "read",
@@ -164,7 +173,8 @@
             "id": "read_dcc_hold_time",
             "register":19,
             "data_type": "bcd",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "write_dcc_hold_time":{
             "type": "write",
@@ -182,7 +192,8 @@
             "id": "read_measure_time",
             "register":20,
             "data_type": "bcd",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_phase_time_hrs":{
             "type": "read",
@@ -191,7 +202,8 @@
             "id": "read_phase_time_hrs",
             "register":21,
             "data_type": "uint",
-            "unit": "hrs"
+            "unit": "hrs",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_phase_time_min_sec":{
             "type": "read",
@@ -200,7 +212,8 @@
             "id": "read_phase_time_min_sec",
             "register":22,
             "data_type": "bcd",
-            "unit": "min,sec"
+            "unit": "min,sec",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "write_measure_time":{
             "type": "write",
@@ -229,7 +242,8 @@
             "data_type": "int",
             "decimals":1,
             "unit": "",
-            "num_reg":1
+            "num_reg":1,
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_sensor_temp_g1":{
             "type": "read_g1",
@@ -239,7 +253,8 @@
             "register":20,
             "data_type": "int",
             "decimals":1,
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_group_1":{
             "type": "read_multiple",
@@ -250,7 +265,8 @@
             "num_reg":120,
             "data_type": "none",
             "decimals":0,
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         }
     }
 }

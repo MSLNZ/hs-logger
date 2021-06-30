@@ -16,7 +16,7 @@
                 "id":"read_tx11",
                 "channel":11,
                 "bridge_prt":"A",
-                "transform_eq":["T", 3.91E-3,-6.04E-7,-4.59E-12,100.184547],
+                "transform_eq":["T", 3.91E-3,-6.04E-7,-4.59E-12,100.0184547],
                 "details":""
             },
             "read_tx12": {
