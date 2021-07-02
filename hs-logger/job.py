@@ -119,7 +119,7 @@ class AutoProfile(object):
         self.operations = {}  # format "Name":(inst_op,[points])
 
         self.current_point = 0
-        self.point_start_time = time.time()
+        self.point_start_time = time.time()  # Todo set this at start of run
 
     def load_file(self, file_name):
         grid = self.job.frame.grid_auto_profile

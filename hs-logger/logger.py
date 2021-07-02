@@ -101,10 +101,10 @@ class Logger(Thread):
         self.trans_dict["{}.{}".format(inst_id, operation_id)] = result[1]
 
     def file_setup(self):
-        datafiles1 = [self.out_dir + self.rawfilename,
-                      self.out_dir + self.transfilename,
-                      self.out_dir + self.rawsourcename,
-                      self.out_dir + self.transsourcename]
+        datafiles1 = [self.rawfilename,
+                      self.transfilename,
+                      self.rawsourcename,
+                      self.transsourcename]
         titles = self.job_spec["logged_operations"].copy()
         titles.insert(0, 'no.')
 
@@ -121,19 +121,19 @@ class Logger(Thread):
             i = i+1
 
         for datafile in datafiles1:
-            with open(datafile, "w+") as outfile:
+            with open(self.out_dir + datafile, "w+") as outfile:
                 for k, v in self.job_spec.items():
                     # if k not in ["instruments", "logged_operations"]:
                     #     outfile.write(k + ": " + str(v) + "\n")
                     if k == "job_name":
-                        outfile.write(str(v) + "\n")
+                        outfile.write(datafile + "\n")
                     elif k == "job_notes":
                         outfile.write(str(v) + "\n")
                 writer = csv.writer(outfile, names, lineterminator='\n', delimiter='\t')
                 writer.writerow(names)
 
-        datafiles2 = [self.out_dir + self.rawpointsname,
-                      self.out_dir + self.transpointsname]
+        datafiles2 = [self.rawpointsname,
+                      self.transpointsname]
         namesp = []
         for name in names:
             if name == "no." or name == "datetime" or name == "runtime":
@@ -148,10 +148,10 @@ class Logger(Thread):
         namesp.append('window')
         namesp.append('comment')
         for datafile in datafiles2:
-            with open(datafile, "w+") as outfile:
+            with open(self.out_dir + datafile, "w+") as outfile:
                 for k, v in self.job_spec.items():
                     if k == "job_name":
-                        outfile.write(str(v) + "\n")
+                        outfile.write(datafile + "\n")
                     elif k == "job_notes":
                         outfile.write(str(v) + "\n")
                 writer = csv.writer(outfile, 'excel', lineterminator='\n', delimiter='\t')

@@ -1,6 +1,7 @@
 import pyvisa as visa
 import numpy as np
 import json
+import time
 
 
 class HP34420A_HP34970A(object):
@@ -54,7 +55,7 @@ class HP34420A_HP34970A(object):
 
     def configure_nlpc(self, nplc):
         assert nplc in [0.02, 0.2, 1, 2, 10, 20, 100, 200, 'MIN', 'MAX']
-        self.write("VOLT:NPLC {}".format(nplc))
+        self.hp420A.write("VOLT:NPLC {}".format(nplc))
 
     def read(self):
         return self.hp420A.query("READ?")
@@ -63,14 +64,13 @@ class HP34420A_HP34970A(object):
         self.hp420A.write(arg)
 
     def switch_scanner_channel(self, channel):
-
         self.hp970a.write("MEAS:VOLT:DC? (@{})".format(channel))
         val = self.hp970a.read()
 
 
 def main():
     inst = HP34420A_HP34970A(json.load(open('../instruments/HP34420A_HP34970A.json')))
-    print(inst.read_instrument('read_px_something'))
+    print(inst.read_instrument('read_px120'))
 
 
 if __name__ == '__main__':

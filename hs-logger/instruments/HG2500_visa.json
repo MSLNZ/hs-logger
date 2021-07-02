@@ -3,7 +3,7 @@
     "instrument_name": "Thunder Scientific 2500 Humidity Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM7",
+    "port": "COM6",
     "baudrate":2400,
     "write_termination":"\r",
     "read_termination":"\r\n",
@@ -18,7 +18,8 @@
             "operations":["read_rh_pc", "read_rh_pctc","read_sat_temp", "read_chamber_temp", "read_sat_press", "read_chamber_press", "read_flowrate", "read_status"],
             "data_type": "list",
             "split":",",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_rh_pc":{
             "type": "read_store",
@@ -51,7 +52,7 @@
             "store_index": 2,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["V", 0, 0.0689476, 0, 0]
         },
         "read_chamber_press":{
             "type": "read_store",
@@ -62,7 +63,7 @@
             "store_index": 3,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["V", 0, 0.0689476, 0, 0]
         },
         "read_sat_temp":{
             "type": "read_store",
@@ -185,12 +186,14 @@
             "transform_eq": ["V", 0, 1, 0, 0]
         },
         "action_run":{
+            "type": "action",
             "name": "Run Mode",
             "id":   "action_run",
             "details": "Start the System",
             "command": "RUN"
         },
         "action_stop":{
+            "type": "action",
             "name": "Stop System",
             "id":   "action_stop",
             "details": "Stops the System",

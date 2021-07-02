@@ -53,6 +53,8 @@ class generic_driver_visa_serial(object):
                 with self.lock:
                     # print("locK")
                     self.instrument.write(operation['command'])
+                    if echo:
+                        print(self.instrument.read())
                     data = self.instrument.read()
                     try:
                         while True:
@@ -60,7 +62,11 @@ class generic_driver_visa_serial(object):
                     except visa.errors.VisaIOError:
                         pass
                     data = data.split(operation.get("split"))
-                    data = [self.decimals(d, operation) for d in data]
+                    for i, d in enumerate(data):
+                        if self.isfloat(d):
+                            data[i] = self.decimals(d, operation)
+                        else:
+                            pass
                     o_ops = operation.get("operations")
                     if o_ops is not None:
                         for on in o_ops:
@@ -79,9 +85,10 @@ class generic_driver_visa_serial(object):
                     data = 0
                     try:
                         while True:
-                            data = float(self.instrument.read())
+                            data = self.instrument.read()
                     except visa.errors.VisaIOError:
                         pass
+                    data = float(data)
                     data_trans = self.transform(data, operation)
                 # print('unlocK')
             else:
@@ -126,7 +133,7 @@ class generic_driver_visa_serial(object):
             if response != "":
                 print(response)
             else:
-                print("Write completed")
+                print("No response")
             return response
 
     def action_instrument(self, operation_id):
@@ -149,7 +156,7 @@ class generic_driver_visa_serial(object):
             if response != "":
                 print(response)
             else:
-                print("Action completed")
+                print("No response")
             return response
 
     def decimals(self, data, operation):
@@ -161,27 +168,33 @@ class generic_driver_visa_serial(object):
     def transform(self, data, operation):
         x = data
         eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
-        if eq[0] == 'T':  # Callendar-Van Dusen equation
-            if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
-                transformed = float("NaN")
-            else:
-                fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
-                transformed = float("inf")  # Create a maximum value
-                for j in fulltransformed:
-                    if np.imag(j) == 0:
-                        if abs(j) < transformed:
-                            transformed = np.real(j)
-                        elif abs(j) == transformed and j > transformed:
-                            transformed = np.real(j)
-                if math.isinf(transformed):
-                    print("Invalid Callendar–Van Dusen equation: No real solutions for")
-                    print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
+        if self.isfloat(data):  # Check that the data can be transformed
+            if eq[0] == 'T':  # Callendar-Van Dusen equation
+                if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
+                    print("{} with transform {} is out of range.".format(x,eq))
                     transformed = float("NaN")
-        elif eq[0] == 'V' or eq[0] == 'P':
-            transformed = eq[1] + eq[2]*x + eq[3]*x**2 + eq[4]*x**3
+                else:
+                    fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
+                    transformed = float("inf")  # Create a maximum value
+                    for j in fulltransformed:
+                        if np.imag(j) == 0:  # Remove imaginary roots
+                            if abs(j) < transformed:
+                                transformed = np.real(j)  # Find most reasonable real root
+                            elif abs(j) == transformed and j > transformed:
+                                transformed = np.real(j)  # If the roots are same magnitude, give positive root
+                    if math.isinf(transformed):
+                        print("Invalid Callendar–Van Dusen equation: No real solutions for")
+                        print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
+                        transformed = float("NaN")
+            elif eq[0] == 'V' or eq[0] == 'P':
+                transformed = eq[1] + eq[2]*x + eq[3]*x**2 + eq[4]*x**3  # V and P both use cubic equations. P is
+                # listed purely for record keeping purposes
+            else:
+                print("Transform form not recognised: {}".format(eq[0]))
+                transformed = float("NaN")
         else:
-            print("Transform form not recognised: {}".format(eq[0]))
-            raise ValueError
+            print("{} can't be transformed.".format(x))
+            transformed = float("NaN")  # The data can't be transformed
         # c = operation.get("transform_coeff", None)
         # transformed = eval(eq)
         return transformed
@@ -194,17 +207,19 @@ class generic_driver_visa_serial(object):
         else:
             return data
 
+    def isfloat(self, data):
+        try:
+            float(data)  # Checks if the string can be made into a float.
+            return True
+        except ValueError:
+            return False
+
 
 # testing
 def main():
     instr = generic_driver_visa_serial(json.load(open('../instruments/Vaisala_HMT337.json')))
     print(instr.read_instrument('read_default'))
     print(instr.read_instrument('read_rh'))
-    # print (instr.action_instrument('action_generate'))
-    # print (instr.write_instrument('set_dew_point_setpoint',[5.00]))
-    # time.sleep(2)
-    # print (instr.read_instrument('read_setpoints'))
-    # print (instr.action_instrument('action_stop'))
 
 
 if __name__ == '__main__':

@@ -32,6 +32,7 @@ class F250Bridge_K705Scanner(object):
         else:
             val = f = np.float64(val)
         val_trans = self.transform(val, op)
+        self.open_all_channels()
         return val, val_trans
 
     def transform(self, data, operation):
@@ -63,15 +64,17 @@ class F250Bridge_K705Scanner(object):
         return transformed
 
     def read_channel(self, channel):
-        self.switch_scanner_channel(channel)
-        time.sleep(0.5)
+        if channel != self.active_channel:
+            self.switch_scanner_channel(channel)
+        else:
+            time.sleep(5)
+        time.sleep(1.5)
         i = 0
         while self.bridge.read_stb() != 65:
             i += 1
             if i > 5:
                 break
             time.sleep(0.5)
-        # self.close_channel(channel)  #Todo test this.
         return self.read()
 
     def read(self):
@@ -85,9 +88,10 @@ class F250Bridge_K705Scanner(object):
         self.open_all_channels()
         # self.scanner.write("N{}X".format(self.active_channel))
         # SCANNER WAIT TIME NEEDED
+        time.sleep(1)
 
-        self.scanner.write("B{}X".format(channel))
         self.scanner.write("C{}X".format(channel))
+        self.scanner.write("B{}X".format(channel))
         time.sleep(4)
         self.active_channel = channel
 
@@ -100,7 +104,7 @@ class F250Bridge_K705Scanner(object):
     def unit_ohms(self):
         self.bridge.write('U3')
 
-    def close_channel(self, channel):
+    def open_channel(self, channel):
         self.write("N{}X".format(channel))
 
     def read_scanner_channel(self):

@@ -187,6 +187,11 @@ class myjobframe(job_frame):
             else:
                 raw = np.array([d[0].get(r) for d in data], np.float64)
                 trans = np.array([d[1].get(r) for d in data], np.float64)
+                if r == "time.runtime":
+                    # Make the time in minutes.
+                    for i, x in enumerate(raw):
+                        raw[i] = x/60
+                        trans[i] = x / 60
                 if self.job.logger.window < len(raw):
                     rmean = np.mean(raw[-self.job.logger.window:])
                     rstd = np.std(raw[-self.job.logger.window:])
