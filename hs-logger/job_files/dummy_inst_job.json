@@ -18,5 +18,10 @@
         "time.runtime",
         "time.datetime",
         "dummy_inst.read_test"
-    ]
+    ],
+    "details": {
+        "dummy_inst": {
+            "read_test": "Test details"
+        }
+    }
 }

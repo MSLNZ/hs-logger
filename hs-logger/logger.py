@@ -167,6 +167,8 @@ class Logger(Thread):
             writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
             writer.writerow(titles)
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', delimiter='\t')
+            print(self.job)
+            print(self.job_spec)
             for op in self.job_spec["logged_operations"]:
                 inst_id, op_id = op.split('.')
                 if inst_id != "time":
@@ -174,13 +176,15 @@ class Logger(Thread):
                     info['ChannelList'] = self.instruments.get(inst_id).spec["operations"][op_id]["id"]
                     info['ID'] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
                     info['Name'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][0]
-                    info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id]["details"]
+                    info['Description'] = self.job_spec.get(["details"][inst_id][op_id], "No details")
                     info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
                     info['B'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][2]
                     info['C'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][3]
                     info['R(0)/D'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][4]
-                    info['Date'] = ""  # Todo get the date and report numbers
-                    info['ReportNo'] = ""
+                    info['Date'] = self.instruments.get(inst_id).spec["operations"][op_id].get("check_date",
+                                                                                               "No last check")
+                    info['ReportNo'] = self.instruments.get(inst_id).spec["operations"][op_id].get("rep_num",
+                                                                                                   "No report")
                     writer.writerow(info)
 
     def setup_operations(self):
