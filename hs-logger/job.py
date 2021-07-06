@@ -87,22 +87,26 @@ class Job(object):
         self.frame.Destroy()
         # self.sched.shutdown()
 
-    def add_graph(self, plt):
+    def add_graph(self, plt):  # Adds the graph to the list of graphs
         choices = self.spec.get("logged_operations")
-        x, y = self.frame.get_axes_dialog(choices)
+        name, x, y = self.frame.get_axes_dialog(choices)
         self.graphs.append((plt, (x, y)))
+        return name
 
-    def update_graphs(self):
-        for g in self.graphs:
-            plt = g[0].figure.gca()
-            x = g[1][0]
-            y = g[1][1]
-            # print(x,y)
-            x_val = [d[0].get(x) for d in self.logger.store]
-            y_val = [d[0].get(y) for d in self.logger.store]
-            plt.clear()
-            plt.plot(x_val, y_val)
-            g[0].canvas.draw()
+    def update_graphs(self):  # Updates the data depicted in the graphs
+        for g in self.graphs:  # g in form of [graph object, [x, y]]
+            for i in range(len(g)):
+                if i == 0:
+                    plt = g[0].figure.gca()
+                    plt.clear()
+                else:
+                    x = g[i][0]
+                    y = g[i][1]
+                    # print(x,y)
+                    x_val = [d[1].get(x) for d in self.logger.store]
+                    y_val = [d[1].get(y) for d in self.logger.store]
+                    plt.plot(x_val, y_val)
+                    g[0].canvas.draw()
 
     def update_table(self):
         self.frame.update_table(0)

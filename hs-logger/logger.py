@@ -25,16 +25,16 @@ class Logger(Thread):
         self.op_names = self.job_spec["logged_operations"]
 
         # Ben's variables
-        self.datanum = 0
-        self.pointsnum = 0
-        self.window = 0
+        self.datanum = 0  # This value increases each time a line of data is recorded
+        self.pointsnum = 0  # This value increases each time a new point is recorded
+        self.window = 0  # This is the number of data points averaged to make one "Point"
         self.comment = ""
-        self.rmeans = {}
-        self.rstds = {}
-        self.rsources = {}
-        self.tmeans = {}
-        self.tstds = {}
-        self.tsources = {}
+        self.rmeans = {}  # This is the last mean values for each sensor in raw form
+        self.rstds = {}  # This is the last standard deviation values for each sensor in raw form
+        self.rsources = {}  # This is the source data for the above
+        self.tmeans = {}  # This is the last mean values for each sensor in transformed form
+        self.tstds = {}  # This is the last standard deviation values for each sensor in transformed form
+        self.tsources = {}  # This is the source data for the above
 
         # todo load from inst spec
         self.min_cycle_time = self.job_spec.get("min_interval", 30)
@@ -176,7 +176,7 @@ class Logger(Thread):
                     info['ChannelList'] = self.instruments.get(inst_id).spec["operations"][op_id]["id"]
                     info['ID'] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
                     info['Name'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][0]
-                    info['Description'] = self.job_spec.get(["details"][inst_id][op_id], "No details")
+                    info['Description'] = self.job_spec.get("details", "No details")[inst_id][op_id]
                     info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
                     info['B'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][2]
                     info['C'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][3]

@@ -98,9 +98,9 @@ class myjobframe(job_frame):
     def add_graph(self, event):
         book = self.job_book
         plt = Plot(book)
-        book.AddPage(plt, 'figure')
         self.Layout()
-        self.job.add_graph(plt)
+        name = self.job.add_graph(plt)
+        book.AddPage(plt, name)
 
     def get_axes_dialog(self, choices):
         dlg = axes_dialog(self)
@@ -108,10 +108,12 @@ class myjobframe(job_frame):
         dlg.x_choice.AppendItems(choices)
         res = dlg.ShowModal()
         if res == wx.ID_OK:
+            name = dlg.label_text.GetValue()
             x = dlg.x_choice.GetStringSelection()
             y = dlg.y_choice.GetStringSelection()
         dlg.Destroy()
-        return x, y
+        # Todo fix cancel error
+        return name, x, y
 
     def add_table(self, col, row):
         d = Data_Table()

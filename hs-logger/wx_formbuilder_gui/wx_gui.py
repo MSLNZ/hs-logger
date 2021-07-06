@@ -665,7 +665,7 @@ class inst_pannel ( wx.Frame ):
 class axes_dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 369,243 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 367,243 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
@@ -686,8 +686,8 @@ class axes_dialog ( wx.Dialog ):
 		self.label_name.Wrap( -1 )
 		bSizer16.Add( self.label_name, 2, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		self.lable_text = wx.TextCtrl( self, wx.ID_ANY, u"new_label", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer16.Add( self.lable_text, 4, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		self.label_text = wx.TextCtrl( self, wx.ID_ANY, u"new_label", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer16.Add( self.label_text, 4, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		
 		bSizer15.Add( bSizer16, 1, wx.EXPAND, 5 )
