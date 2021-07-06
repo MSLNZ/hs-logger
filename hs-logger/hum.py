@@ -8,8 +8,9 @@ JLS 7/07/2021
  READY TO RUN IN PYCHARM
 -----------------------------------
 """
-#from GTC import *  # when in lib
-#import implicit as im
+# from GTC import *  # when in lib
+# import implicit as im
+
 
 def vp(ts, df):
     """
@@ -28,7 +29,7 @@ def vp(ts, df):
     :param df: indicates phase df=1 for dew, df=0  for frost
     :return: vapour pressure of phase given by df
     """
-    if ts > 0.01 or df == 1:  #Use Wagner and Pruss (1993)
+    if ts > 0.01 or df == 1:  # Use Wagner and Pruss (1993)
         a1 = -7.85951783
         a2 = 1.84408259
         a3 = -11.7866497
@@ -41,10 +42,11 @@ def vp(ts, df):
         return pc * exp(Tc / (ts + 273.15) * (
                 a1 * torr + a2 * torr ** 1.5 + a3 * torr ** 3 + a4 * torr ** 3.5 + a5 * torr ** 4 + a6 * torr ** 7.5))
     else:
-        #'IAPWS Sept 2008 "Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance"
-        #checked 23/03/2010: error in a1 picked up: should be  -21.2144006, not  -21.21446 as was transcribed!
+        # 'IAPWS Sept 2008 "Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary
+        # Water Substance" checked 23/03/2010: error in a1 picked up: should be  -21.2144006, not  -21.21446 as was
+        # transcribed!
         theta = (ts + 273.15) / 273.16
-        Pt = 611.657 #WTP pressure in Pa
+        Pt = 611.657  # WTP pressure in Pa
         a1 = -21.2144006
         a2 = 27.3203819
         a3 = -6.1059813
@@ -52,6 +54,7 @@ def vp(ts, df):
         b2 = 1.20666667
         b3 = 1.70333333
         return Pt * exp(1 / theta * (a1 * theta ** b1 + a2 * theta ** b2 + a3 * theta ** b3))
+
 
 def ef(ts, p, df):
     """
@@ -64,7 +67,7 @@ def ef(ts, p, df):
     :return: water vapour enhancement factor (unitless)
     """
 
-    if df == 0 and ts < 0:    #frost
+    if df == 0 and ts < 0:    # frost
         a1 = 0.000364449
         a2 = 0.0000293631
         a3 = 0.000000488635
@@ -74,7 +77,7 @@ def ef(ts, p, df):
         b3 = -0.000174771
         b4 = 0.00000246721
 
-    elif df == 1 and ts<0:     #supercooled dew
+    elif df == 1 and ts < 0:  # supercooled dew
         a1 = 0.000362183
         a2 = 0.0000260553
         a3 = 0.000000386501
@@ -83,7 +86,7 @@ def ef(ts, p, df):
         b2 = 0.0639725
         b3 = -0.000263416
         b4 = 0.00000167254
-    else:                     #dew
+    else:  # dew
         a1 = 0.000353624
         a2 = 0.0000293228
         a3 = 0.000000261474
@@ -99,12 +102,13 @@ def ef(ts, p, df):
     if ts < -100:
         temp = "Error: Temperature < -100C"
     elif ts > 200:
-        temp =  "Error: Temperature > 200C"
+        temp = "Error: Temperature > 200C"
     elif svp >= p:
-        temp =  1.0  #note ef= 1 if svp=P'
+        temp = 1.0  # note ef= 1 if svp=P'
     else:
-        temp =  exp(alpha * (1 - svp / p) + beta * (p / svp - 1))
+        temp = exp(alpha * (1 - svp / p) + beta * (p / svp - 1))
     return temp
+
 
 def inversemagnus(vp,df):
     """
@@ -114,7 +118,7 @@ def inversemagnus(vp,df):
     :return: approximate dew/frost point deg C
     """
     a0 = 611.2
-    if vp < 611.2 and df==1:
+    if vp < 611.2 and df == 1:
         a1 = 22.46
         a2 = 272.46
     else:
@@ -122,7 +126,8 @@ def inversemagnus(vp,df):
         a2 = 243.12
     return a2 * log(vp / a0) / (a1 - log(vp / a0))
 
-def td_ex_vp(vp1,df):
+
+def td_ex_vp(vp1, df):
     """
     Finds dew point from pure phase water vapour pressure using  Inversemagnus() function
     to give a first approximation and then uses an iterative method to find the inverse of the Vapour pressure equation
@@ -141,6 +146,7 @@ def td_ex_vp(vp1,df):
         tdi = del_vp / dedt(tdi, df) + tdi
     return tdi
 
+
 def td_ex_pv(pvo, po, df):
     """
     calculate dewpoint from partial pressure Pv and total pressure Po
@@ -156,16 +162,12 @@ def td_ex_pv(pvo, po, df):
     ct = 0
     while abs(diff) > tol and ct < 20:
         ct=ct+1
-        edi = pvo/ef(tdi, po, df) #recalculate ed from Pv and new fd
-        td = td_ex_vp(edi, df) #recalculate td from new ed
+        edi = pvo/ef(tdi, po, df)  # recalculate ed from Pv and new fd
+        td = td_ex_vp(edi, df)  # recalculate td from new ed
         pvi = ef(td, po, df) * vp(td, df)
         diff = pvi - pvo
         tdi = td
     return tdi
-
-
-
-
 
 
 def dedt(ts, df):
@@ -186,9 +188,9 @@ def dedt(ts, df):
     """
 
     t = 273.15 + ts
-    if df == 0 and ts < 0: #If frost desired ok only if ts<0
+    if df == 0 and ts < 0:  # If frost desired ok only if ts<0
         theta = (ts + 273.15) / 273.16
-        Pt = 611.657 #Pa
+        Pt = 611.657  # Pa
         a1 = -21.2144006
         a2 = 27.3203819
         a3 = -6.1059813
@@ -196,7 +198,7 @@ def dedt(ts, df):
         b2 = 1.20666667
         b3 = 1.70333333
         dvpdt = vp(ts, df) * ((b1 - 1) * a1 * theta ** (b1 - 2) + (b2 - 1) * a2 * theta ** (b2 - 2) + (b3 - 1) * a3 * theta ** (b3 - 2)) / 273.16
-    else: #use derivative of Wagner Pruss
+    else:  # use derivative of Wagner Pruss
         a1 = -7.85951783
         a2 = 1.84408259
         a3 = -11.7866497
@@ -218,6 +220,7 @@ def dedt(ts, df):
         dvpdt = dvpdx * dxdtorr * dtorrdt
     return dvpdt
 
+
 def pv(td1,p1,df1):
     """
     returns the vapour partial pressure for given dew-frost point at pressure
@@ -228,12 +231,13 @@ def pv(td1,p1,df1):
     """
     return vp(td1, df1)*ef(td1, p1, df1)
 
+
 # transformations
-def td2_ex_td1(td1,p1,p2,df1,df2):
+def td2_ex_td1(td1, p1, p2, df1, df2):
     """
     returns the dew or frost point temperature under condition 2,
-    from the dew/frost point unde condition 2 assuming
-    assuming there has been noo condensation r evaporation
+    from the dew/frost point under condition 2 assuming
+    assuming there has been no condensation or evaporation
     :param td1: known dew/frost point (deg C) under condition 1
     :param p1:  pressure (Pa) under condition 1
     :param p2:  pressure (Pa) under condition 2
@@ -241,9 +245,10 @@ def td2_ex_td1(td1,p1,p2,df1,df2):
     :param df2: phase of desired dew/frost point under condition 2
     :return: dew/frost point under condition 2
     """
-    return td_ex_pv(pv(td1,p1,df1)*p2/p1,p2,df2)
+    return td_ex_pv(pv(td1, p1, df1)*p2/p1, p2, df2)
 
-def h2_ex_td1(td1,p1,Pp2,t2,df1,df2):  #df2 determines whether satVP calc over ice or water
+
+def h2_ex_td1(td1, p1, Pp2, t2, df1, df2):  # df2 determines whether satVP calc over ice or water
     """
     returns the relative humidity under condition 2, from the dew/frost point under condition 1
     assuming there has been noo condensation or evaporation
@@ -256,9 +261,10 @@ def h2_ex_td1(td1,p1,Pp2,t2,df1,df2):  #df2 determines whether satVP calc over i
     :param df2: phase of reference saturation vapour pressure under condition 2
     :return: h2, the relative humidity (%rh) under condition 2 calc wrt dew/frost (df2=1/0)
     """
-    return pv(td1,p1,df1)/pv(t2,p2,df2)*p2/p1*100
+    return pv(td1, p1, df1)/pv(t2, p2, df2)*p2/p1*100
 
-def td2_ex_h1(h1,p1,p2,t1,df1,df2):
+
+def td2_ex_h1(h1, p1, p2, t1, df1, df2):
     """
     returns the dew/frost point under condition 2, from RH under condition 1
     assuming there has been noo condensation r evaporation
@@ -270,9 +276,10 @@ def td2_ex_h1(h1,p1,p2,t1,df1,df2):
     :param df2: phase of dew/frost point under condition 2
     :return: dew/frost point under condition 2
     """
-    return td_ex_pv(h1/100*pv(t1,p1,df1),p2,df2)
+    return td_ex_pv(h1/100*pv(t1, p1, df1), p2, df2)
 
-def h2_ex_h1(h1,p1,p2,t1,t2,df1,df2):
+
+def h2_ex_h1(h1, p1, p2, t1, t2, df1, df2):
     """
     returns RH under condition 2, from RH under condition 1
     assuming there has been noo condensation r evaporation
@@ -285,32 +292,33 @@ def h2_ex_h1(h1,p1,p2,t1,t2,df1,df2):
     :param df2: phase of reference saturation vapour pressure under condition 2
     :return:h2 RH (%rh) under condition 2 calc from RH under condition 1
     """
-    return h1/100*pv(t1,p1,df1)/pv(t2,p2,df2)*p2/p1*100
+    return h1/100*pv(t1, p1, df1)/pv(t2, p2, df2)*p2/p1*100
 
-df1=0
-df2=0
+
+df1 = 0
+df2 = 0
 td1 = 0
 pd1 = 10e5
 pd2 = 1e5
-p1=pd1
-p2=pd2
-t1=0
-t2=0
-h1=75
-print("df1=",df1,
-    " df2=",df2,
-    " td1=", td1,
-    " pd1=",pd1,
-    " pd2=",pd2,
-    " p1=",p1,
-    " p2=",p2,
-    " t1=",t1,
-    " t2=",t2,
-    " h1=",h1
-    )
+p1 = pd1
+p2 = pd2
+t1 = 0
+t2 = 0
+h1 = 75
+print("df1=", df1,
+      " df2=", df2,
+      " td1=", td1,
+      " pd1=", pd1,
+      " pd2=", pd2,
+      " p1=", p1,
+      " p2=", p2,
+      " t1=", t1,
+      " t2=", t2,
+      " h1=", h1
+      )
 
-print("td2_ex_td1 = ",td2_ex_td1(td1,pd1,pd2,df1,df2)," C")
-print("h2_ex_td1 = ",h2_ex_td1(td1,pd1,pd2,t2,df1,df2)," %rh")
+print("td2_ex_td1 = ", td2_ex_td1(td1, pd1, pd2, df1, df2), " C")
+print("h2_ex_td1 = ", h2_ex_td1(td1, pd1, pd2, t2, df1, df2), " %rh")
 
-print("td2_ex_h1 = ",td2_ex_h1(h1,p1,pd2,t1,df1,df2)," %rh")
-print("h2_ex_h1 = ",h2_ex_h1(h1,p1,p2,t1,t2,df1,df2)," %rh")
+print("td2_ex_h1 = ", td2_ex_h1(h1, p1, pd2, t1, df1, df2), " C")
+print("h2_ex_h1 = ", h2_ex_h1(h1, p1, p2, t1, t2, df1, df2), " %rh")

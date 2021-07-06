@@ -176,7 +176,11 @@ class Logger(Thread):
                     info['ChannelList'] = self.instruments.get(inst_id).spec["operations"][op_id]["id"]
                     info['ID'] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
                     info['Name'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][0]
-                    info['Description'] = self.job_spec.get("details", "No details")[inst_id][op_id]
+                    hasDet = self.job_spec.get("details", "noDet")
+                    if hasDet == "noDet":
+                        info['Description'] = "No details"
+                    else:
+                        info['Description'] = hasDet[inst_id][op_id]
                     info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
                     info['B'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][2]
                     info['C'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][3]
