@@ -178,7 +178,7 @@ class Logger(Thread):
                     info['Name'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][0]
                     hasDet = self.job_spec.get("details", "noDet")
                     if hasDet == "noDet":
-                        info['Description'] = "No details"
+                        info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id]["details"]
                     else:
                         info['Description'] = hasDet[inst_id][op_id]
                     info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
