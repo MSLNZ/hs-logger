@@ -6,6 +6,7 @@ import numpy as np
 from wx_gui import ctrl_frame, job_frame, axes_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
 from logger import Logger
 from job import Job
+import refcalc
 
 import matplotlib as mpl
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
@@ -161,10 +162,7 @@ class myjobframe(job_frame):
             else:
                 rows[op] = op_id
 
-        data = self.job.logger.store
-        references = {"r1": {"A": "F250Bridge_K705Scanner.read_tx11", "B": "F250Bridge_K705Scanner.read_tx12", "C": "F250Bridge_K705Scanner.read_tx13", "D": "F250Bridge_K705Scanner.read_tx14", "T": "T"},
-                      "r2": {"A": "HP34420A_HP34970A.read_px116", "B": "HP34420A_HP34970A.read_px118", "C": "HP34420A_HP34970A.read_px119", "D": "HP34420A_HP34970A.read_px120", "T": "P"},
-                      "r3": {"A": "HG2500.read_rh_pctc", "B": "HG2500.read_sat_pres", "C": "HG2500.read_sat_temp", "D": "HG2500.read_flowrate", "T": "HG"}}
+        data = self.job.logger.store.copy()
 
         points = [["Label", "Latest", "Mean", "StDev"]]
         try:
@@ -219,33 +217,58 @@ class myjobframe(job_frame):
                 self.job.logger.tstds["{}".format("s" + rows[r])] = tstd
                 self.job.logger.tsources["{}".format(rows[r])] = tsource
 
-        # # Todo add references here
-        # self.job.logger.storeref.append({})
-        # for ref in references:
-        #     datum = {}
-        #     for comp in references[ref]:
-        #         if comp == "T":
-        #             eq = "{}: {}".format(comp, references[ref][comp])
-        #         else:
-        #             if references[ref][comp] in data[0][0]:
-        #                 datum[comp] = data[-1][1].get(references[ref][comp])
-        #             else:
-        #                 raise ValueError  # Todo make this do something useful.
-        #     value = datum["A"] + datum["B"] + datum["C"] + datum["D"]
-        #     self.job.logger.storeref[-1][ref] = value
-        #     refdata = self.job.logger.storeref[-1][ref]
-        #     if self.job.logger.window < len(raw):
-        #         fmean = np.mean(refdata[-self.job.logger.window:])
-        #         fstd = np.std(refdata[-self.job.logger.window:])
-        #         fsource = refdata[-self.job.logger.window:]
-        #     else:
-        #         fmean = np.mean(refdata)
-        #         fstd = np.std(refdata)
-        #         fsource = refdata
-        #     self.job.logger.fmeans["{}".format("m" + ref)] = fmean
-        #     self.job.logger.fstds["{}".format("s" + ref)] = fstd
-        #     self.job.logger.fsources["{}".format(ref)] = fsource
-        #     points.append([ref, value, fmean, fstd])
+        references = self.job.spec["references"]
+        self.job.logger.ref_dict = {}
+        for ref in references:
+            title = "reference.{}".format(ref)
+            datum = {}
+            for comp in references[ref]:
+                if comp == "type":
+                    eq = "{}: {}".format(comp, references[ref][comp])
+                else:
+                    if references[ref][comp] in data[0][0]:
+                        datum[comp] = data[-1][1].get(references[ref][comp])
+                    else:
+                        print("Operation not found.")
+                        raise ValueError
+            h1 = datum.get("h1", 1)
+            p1 = datum.get("p1", 1)
+            p2 = datum.get("p2", 1)
+            t1 = datum.get("t1", 1)
+            t2 = datum.get("t2", 1)
+            df1 = datum.get("df1", 1)
+            df2 = datum.get("df2", 1)
+            if references[ref]["type"] == "dd":
+                value = refcalc.td2_ex_td1(t1, p1, p2, df1, df2)
+            elif references[ref]["type"] == "dh":
+                value = refcalc.h2_ex_td1(t1, p1, p2, t2, df1, df2)
+            elif references[ref]["type"] == "hd":
+                value = refcalc.td2_ex_h1(h1, p1, p2, t1, df1, df2)
+            elif references[ref]["type"] == "hh":
+                value = refcalc.h2_ex_h1(h1, p1, p2, t1, t2, df1, df2)
+            else:
+                print("Invalid reference type.")
+                raise ValueError()
+            self.job.logger.ref_dict[title] = value
+        self.job.logger.storeref.append(self.job.logger.ref_dict)  # Todo this is adding the references...
+        data = self.job.logger.storeref.copy()
+        for ref in references:
+            refdata = np.array([d.get(title) for d in data])
+            if self.job.logger.window < len(raw):
+                mean = np.mean(refdata[-self.job.logger.window:])
+                std = np.std(refdata[-self.job.logger.window:])
+                source = refdata[-self.job.logger.window:]
+            else:
+                mean = np.mean(refdata)
+                std = np.std(refdata)
+                source = refdata
+            self.job.logger.rmeans["{}".format("m" + ref)] = mean
+            self.job.logger.rstds["{}".format("s" + ref)] = std
+            self.job.logger.rsources["{}".format(ref)] = source
+            self.job.logger.tmeans["{}".format("m" + ref)] = mean
+            self.job.logger.tstds["{}".format("s" + ref)] = std
+            self.job.logger.tsources["{}".format(ref)] = source
+            points.append([ref, value, mean, std])
 
         self.job.logger.comment = self.comment_input.GetValue()
         self.m_grid2.table.data = points

@@ -248,7 +248,7 @@ def td2_ex_td1(td1, p1, p2, df1, df2):
     return td_ex_pv(pv(td1, p1, df1)*p2/p1, p2, df2)
 
 
-def h2_ex_td1(td1, p1, Pp2, t2, df1, df2):  # df2 determines whether satVP calc over ice or water
+def h2_ex_td1(td1, p1, p2, t2, df1, df2):  # df2 determines whether satVP calc over ice or water
     """
     returns the relative humidity under condition 2, from the dew/frost point under condition 1
     assuming there has been noo condensation or evaporation
@@ -295,30 +295,32 @@ def h2_ex_h1(h1, p1, p2, t1, t2, df1, df2):
     return h1/100*pv(t1, p1, df1)/pv(t2, p2, df2)*p2/p1*100
 
 
-df1 = 0
-df2 = 0
-td1 = 0
-pd1 = 10e5
-pd2 = 1e5
-p1 = pd1
-p2 = pd2
-t1 = 0
-t2 = 0
-h1 = 75
-print("df1=", df1,
-      " df2=", df2,
-      " td1=", td1,
-      " pd1=", pd1,
-      " pd2=", pd2,
-      " p1=", p1,
-      " p2=", p2,
-      " t1=", t1,
-      " t2=", t2,
-      " h1=", h1
-      )
+# testing
+def main():
+    df1 = 0
+    df2 = 0
+    td1 = 0
+    pd1 = 10e5
+    pd2 = 1e5
+    p1 = pd1
+    p2 = pd2
+    t1 = 0
+    t2 = 0
+    h1 = 75
+    print("df1=", df1,
+          " df2=", df2,
+          " td1=", td1,
+          " pd1=", pd1,
+          " pd2=", pd2,
+          " p1=", p1,
+          " p2=", p2,
+          " t1=", t1,
+          " t2=", t2,
+          " h1=", h1
+          )
 
-print("td2_ex_td1 = ", td2_ex_td1(td1, pd1, pd2, df1, df2), " C")
-print("h2_ex_td1 = ", h2_ex_td1(td1, pd1, pd2, t2, df1, df2), " %rh")
+    print("td2_ex_td1 = ", td2_ex_td1(td1, pd1, pd2, df1, df2), " C")
+    print("h2_ex_td1 = ", h2_ex_td1(td1, pd1, pd2, t2, df1, df2), " %rh")
 
-print("td2_ex_h1 = ", td2_ex_h1(h1, p1, pd2, t1, df1, df2), " C")
-print("h2_ex_h1 = ", h2_ex_h1(h1, p1, p2, t1, t2, df1, df2), " %rh")
+    print("td2_ex_h1 = ", td2_ex_h1(h1, p1, pd2, t1, df1, df2), " C")
+    print("h2_ex_h1 = ", h2_ex_h1(h1, p1, p2, t1, t2, df1, df2), " %rh")

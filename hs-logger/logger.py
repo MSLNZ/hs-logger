@@ -25,6 +25,7 @@ class Logger(Thread):
         self.op_names = self.job_spec["logged_operations"]
 
         # Ben's variables
+        self.opref = []
         self.datanum = 0  # This value increases each time a line of data is recorded
         self.pointsnum = 0  # This value increases each time a new point is recorded
         self.window = 0  # This is the number of data points averaged to make one "Point"
@@ -41,6 +42,7 @@ class Logger(Thread):
         # store and file setup
         self.raw_dict = {}
         self.trans_dict = {}
+        self.ref_dict = {}
         self.store = []
         self.storeref = []
 
@@ -85,10 +87,10 @@ class Logger(Thread):
         a.extend(list(self.trans_dict.values()))
         self.np_store = np.append(self.np_store, [a], axis=0)
 
-        self.log_to_file()
         self.store.append((self.raw_dict, self.trans_dict))
         self.count += 1
         self.job.update_cycle()
+        self.log_to_file()
         cycle_time = time.time()-ls_time
         ttnc = self.min_cycle_time-cycle_time
         if ttnc > 0 and not self.stopped:
@@ -101,11 +103,15 @@ class Logger(Thread):
         self.trans_dict["{}.{}".format(inst_id, operation_id)] = result[1]
 
     def file_setup(self):
+        self.opref = self.job_spec["logged_operations"].copy()
+        for ref in self.job_spec["references"].keys():
+            ref = "reference.{}".format(ref)
+            self.opref.append(ref)
         datafiles1 = [self.rawfilename,
                       self.transfilename,
                       self.rawsourcename,
                       self.transsourcename]
-        titles = self.job_spec["logged_operations"].copy()
+        titles = self.opref.copy()
         titles.insert(0, 'no.')
 
         names = titles.copy()
@@ -116,6 +122,8 @@ class Logger(Thread):
                 names[i] = op_id
             elif inst_id == "no":
                 names[i] = "no."
+            elif inst_id == "reference":
+                names[i] = op_id
             else:
                 names[i] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
             i = i+1
@@ -167,11 +175,24 @@ class Logger(Thread):
             writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
             writer.writerow(titles)
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', delimiter='\t')
-            print(self.job)
-            print(self.job_spec)
-            for op in self.job_spec["logged_operations"]:
+            for op in self.opref:
                 inst_id, op_id = op.split('.')
-                if inst_id != "time":
+                if inst_id == "time":
+                    pass
+                elif inst_id == "reference":
+                    info['Device'] = inst_id
+                    info['ChannelList'] = op_id
+                    info['ID'] = self.job_spec["references"][op_id]["type"]
+                    info['Name'] = ""
+                    info['Description'] = self.job_spec["references"][op_id].get("h1", "-")
+                    info['A'] = self.job_spec["references"][op_id].get("p1", "-")
+                    info['B'] = self.job_spec["references"][op_id].get("p2", "-")
+                    info['C'] = self.job_spec["references"][op_id].get("t1", "-")
+                    info['R(0)/D'] = self.job_spec["references"][op_id].get("t2", "-")
+                    info['Date'] = self.job_spec["references"][op_id].get("df1", "-")
+                    info['ReportNo'] = self.job_spec["references"][op_id].get("df2", "-")
+                    writer.writerow(info)
+                else:
                     info['Device'] = inst_id
                     info['ChannelList'] = self.instruments.get(inst_id).spec["operations"][op_id]["id"]
                     info['ID'] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
@@ -198,8 +219,11 @@ class Logger(Thread):
 
     def log_to_file(self):
         self.logf(self.raw_dict.values())
-        titles = self.op_names.copy()  # Add the no. column title
-        titles.insert(0, 'no.')
+        titles = self.job_spec["logged_operations"].copy()
+        for ref in self.job_spec["references"].keys():
+            ref = "reference.{}".format(ref)
+            titles.append(ref)
+        titles.insert(0, 'no.')  # Add the no. column title
         names = titles.copy()
         i = 0
         while i < len(titles):
@@ -208,23 +232,30 @@ class Logger(Thread):
                 names[i] = op_id
             elif inst_id == "no":
                 names[i] = "no."
+            elif inst_id == "reference":
+                names[i] = op_id
             else:
                 names[i] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
             i = i + 1
         self.datanum = self.datanum + 1  # Increment the data number
-        dataline = self.raw_dict.copy()  # Add the no. column data
+        dataline = self.raw_dict.copy()
+        dataline.update(self.ref_dict)
         dataline['no.'] = self.datanum
         with open(self.out_dir + self.rawfilename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline)
         dataline = self.trans_dict.copy()
+        dataline.update(self.ref_dict)
         dataline['no.'] = self.datanum
         with open(self.out_dir + self.transfilename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline)
 
     def point_to_file(self):
-        titles = self.op_names.copy()
+        titles = self.job_spec["logged_operations"].copy()
+        for ref in self.job_spec["references"].keys():
+            ref = "reference.{}".format(ref)
+            titles.append(ref)
         titles.insert(0, 'no.')
         # Get names from titles
         names = titles.copy()
@@ -235,6 +266,8 @@ class Logger(Thread):
                 names[i] = op_id
             elif inst_id == "no":
                 names[i] = "no."
+            elif inst_id == "reference":
+                names[i] = op_id
             else:
                 names[i] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
             i = i + 1

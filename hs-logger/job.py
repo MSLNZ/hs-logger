@@ -13,7 +13,7 @@ class Job(object):
         self.logger = Logger(self, inst_drivers, frame_log)
         self.frame = frame
         self.graphs = []
-        self.frame.add_table(4, len(spec["logged_operations"])-1)  # Todo move to elsewhere
+        self.frame.add_table(4, len(spec["logged_operations"])+len(spec.get("references", {}))-1)
         self.auto_profile = AutoProfile(self)
         self.frame.add_profile_table(self.auto_profile)
         self.n = 0
@@ -25,8 +25,8 @@ class Job(object):
         # self.sched.start()
 
     def update_cycle(self):
-        self.update_graphs()
         self.update_table()
+        self.update_graphs()
         self.update_autoprofile()
 
     def load_profile(self):
@@ -88,7 +88,7 @@ class Job(object):
         # self.sched.shutdown()
 
     def add_graph(self, plt):  # Adds the graph to the list of graphs
-        choices = self.spec.get("logged_operations")
+        choices = self.logger.opref.copy()
         name, x, y = self.frame.get_axes_dialog(choices)
         self.graphs.append((plt, (x, y)))
         return name
@@ -103,8 +103,16 @@ class Job(object):
                     x = g[i][0]
                     y = g[i][1]
                     # print(x,y)
-                    x_val = [d[1].get(x) for d in self.logger.store]
-                    y_val = [d[1].get(y) for d in self.logger.store]
+                    inst_x, op = x.split('.')
+                    if inst_x == "reference":
+                        x_val = [d[1].get(x) for d in self.logger.storeref]
+                    else:
+                        x_val = [d[1].get(x) for d in self.logger.store]
+                    inst_y, op = y.split('.')
+                    if inst_y == "reference":
+                        y_val = [d.get(y) for d in self.logger.storeref]
+                    else:
+                        y_val = [d.get(y) for d in self.logger.store]
                     plt.plot(x_val, y_val)
                     g[0].canvas.draw()
 
