@@ -105,14 +105,14 @@ class Job(object):
                     # print(x,y)
                     inst_x, op = x.split('.')
                     if inst_x == "reference":
-                        x_val = [d[1].get(x) for d in self.logger.storeref]
+                        x_val = [d.get(x) for d in self.logger.storeref]
                     else:
                         x_val = [d[1].get(x) for d in self.logger.store]
                     inst_y, op = y.split('.')
                     if inst_y == "reference":
                         y_val = [d.get(y) for d in self.logger.storeref]
                     else:
-                        y_val = [d.get(y) for d in self.logger.store]
+                        y_val = [d[1].get(y) for d in self.logger.store]
                     plt.plot(x_val, y_val)
                     g[0].canvas.draw()
 

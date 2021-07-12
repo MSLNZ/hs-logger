@@ -31,8 +31,8 @@
             "p2": "time.runtime",
             "t1": "dummy_inst.read_test",
             "t2": "time.runtime",
-            "df1": "dummy_inst.read_test",
-            "df2": "time.runtime",
+            "df1": 0,
+            "df2": 0,
             "type": "hh"
         }
     }

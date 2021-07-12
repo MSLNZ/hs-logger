@@ -225,27 +225,29 @@ class myjobframe(job_frame):
             for comp in references[ref]:
                 if comp == "type":
                     eq = "{}: {}".format(comp, references[ref][comp])
+                elif comp == "df1" or comp == "df2":
+                    datum[comp] = references[ref][comp]
                 else:
                     if references[ref][comp] in data[0][0]:
                         datum[comp] = data[-1][1].get(references[ref][comp])
                     else:
                         print("Operation not found.")
                         raise ValueError
-            h1 = datum.get("h1", 1)
+            hum = datum.get("hum", 1)
             p1 = datum.get("p1", 1)
             p2 = datum.get("p2", 1)
             t1 = datum.get("t1", 1)
             t2 = datum.get("t2", 1)
-            df1 = datum.get("df1", 1)
-            df2 = datum.get("df2", 1)
+            df1 = datum.get("df1", 0)
+            df2 = datum.get("df2", 0)
             if references[ref]["type"] == "dd":
-                value = refcalc.td2_ex_td1(t1, p1, p2, df1, df2)
+                value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
             elif references[ref]["type"] == "dh":
-                value = refcalc.h2_ex_td1(t1, p1, p2, t2, df1, df2)
+                value = refcalc.h2_ex_td1(hum, p1, p2, t1, df1, df2)
             elif references[ref]["type"] == "hd":
-                value = refcalc.td2_ex_h1(h1, p1, p2, t1, df1, df2)
+                value = refcalc.td2_ex_h1(hum, p1, p2, t1, df1, df2)
             elif references[ref]["type"] == "hh":
-                value = refcalc.h2_ex_h1(h1, p1, p2, t1, t2, df1, df2)
+                value = refcalc.h2_ex_h1(hum, p1, p2, t1, t2, df1, df2)
             else:
                 print("Invalid reference type.")
                 raise ValueError()
