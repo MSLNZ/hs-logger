@@ -26,9 +26,9 @@
     },
     "references": {
         "test_reference": {
-            "h1": "dummy_inst.read_test",
+            "h1": "time.runtime",
             "p1": "dummy_inst.read_test",
-            "p2": "time.runtime",
+            "p2": "dummy_inst.read_test",
             "t1": "dummy_inst.read_test",
             "t2": "time.runtime",
             "df1": 0,

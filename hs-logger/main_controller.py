@@ -241,18 +241,74 @@ class myjobframe(job_frame):
             df1 = datum.get("df1", 0)
             df2 = datum.get("df2", 0)
             if references[ref]["type"] == "dd":
-                value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
+                value = float("NaN")
+                if hum < -80 or hum > 95:
+                    print("Dew point {} is out of range.".format(hum))
+                elif p1 < 0.9 or p1 > 22:
+                    print("Pressure 1 {} is out of range.".format(p1))
+                elif p2 < 0.9 or p2 > 22:
+                    print("Pressure 2 {} is out of range.".format(p2))
+                elif df1 not in [0, 1]:
+                    print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
+                elif df2 not in [0, 1]:
+                    print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
+                else:
+                    value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
             elif references[ref]["type"] == "dh":
-                value = refcalc.h2_ex_td1(hum, p1, p2, t1, df1, df2)
+                value = float("NaN")
+                if hum < -80 or hum > 95:
+                    print("Dew point {} is out of range.".format(hum))
+                elif p1 < 0.9 or p1 > 22:
+                    print("Pressure 1 {} is out of range.".format(p1))
+                elif p2 < 0.9 or p2 > 22:
+                    print("Pressure 2 {} is out of range.".format(p2))
+                elif t2 < -80 or t2 > 150:
+                    print("Temperature 2 {} is out of range.".format(t2))
+                elif df1 not in [0, 1]:
+                    print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
+                elif df2 not in [0, 1]:
+                    print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
+                else:
+                    value = refcalc.h2_ex_td1(hum, p1, p2, t2, df1, df2)
             elif references[ref]["type"] == "hd":
-                value = refcalc.td2_ex_h1(hum, p1, p2, t1, df1, df2)
+                value = float("NaN")
+                if hum < 0.005 or hum > 120:
+                    print("Relative Humidity {} is out of range.".format(hum))
+                elif p1 < 0.9 or p1 > 22:
+                    print("Pressure 1 {} is out of range.".format(p1))
+                elif p2 < 0.9 or p2 > 22:
+                    print("Pressure 2 {} is out of range.".format(p2))
+                elif t1 < -80 or t1 > 150:
+                    print("Temperature 1 {} is out of range.".format(t1))
+                elif df1 not in [0, 1]:
+                    print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
+                elif df2 not in [0, 1]:
+                    print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
+                else:
+                    value = refcalc.td2_ex_h1(hum, p1, p2, t1, df1, df2)
             elif references[ref]["type"] == "hh":
-                value = refcalc.h2_ex_h1(hum, p1, p2, t1, t2, df1, df2)
+                value = float("NaN")
+                if hum < 0.005 or hum > 120:
+                    print("Relative Humidity {} is out of range.".format(hum))
+                elif p1 < 0.9 or p1 > 22:
+                    print("Pressure 1 {} is out of range.".format(p1))
+                elif p2 < 0.9 or p2 > 22:
+                    print("Pressure 2 {} is out of range.".format(p2))
+                elif t1 < -80 or t1 > 150:
+                    print("Temperature 1 {} is out of range.".format(t1))
+                elif t2 < -80 or t2 > 150:
+                    print("Temperature 2 {} is out of range.".format(t2))
+                elif df1 not in [0, 1]:
+                    print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
+                elif df2 not in [0, 1]:
+                    print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
+                else:
+                    value = refcalc.h2_ex_h1(hum, p1, p2, t1, t2, df1, df2)
             else:
                 print("Invalid reference type.")
                 raise ValueError()
             self.job.logger.ref_dict[title] = value
-        self.job.logger.storeref.append(self.job.logger.ref_dict)  # Todo this is adding the references...
+        self.job.logger.storeref.append(self.job.logger.ref_dict)
         data = self.job.logger.storeref.copy()
         for ref in references:
             refdata = np.array([d.get(title) for d in data])

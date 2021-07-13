@@ -12,7 +12,7 @@ class dummy_driver(object):
         read instrument s
         """
         v = random.random()
-        w = -v
+        w = 1+v
         return v, w
 
     def write_instrument(self, message):
