@@ -254,7 +254,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
-            elif references[ref]["type"] == "dh":
+            elif references[ref]["type"] == "hd":
                 value = float("NaN")
                 if hum < -80 or hum > 95:
                     print("Dew point {} is out of range.".format(hum))
@@ -270,7 +270,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.h2_ex_td1(hum, p1, p2, t2, df1, df2)
-            elif references[ref]["type"] == "hd":
+            elif references[ref]["type"] == "dh":
                 value = float("NaN")
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
@@ -311,6 +311,8 @@ class myjobframe(job_frame):
         self.job.logger.storeref.append(self.job.logger.ref_dict)
         data = self.job.logger.storeref.copy()
         for ref in references:
+            title = "reference.{}".format(ref)
+            value = self.job.logger.ref_dict[title]
             refdata = np.array([d.get(title) for d in data])
             if self.job.logger.window < len(raw):
                 mean = np.mean(refdata[-self.job.logger.window:])

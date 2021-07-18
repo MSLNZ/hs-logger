@@ -25,7 +25,7 @@
         }
     },
     "references": {
-        "test_reference": {
+        "test_reference_1": {
             "hum": "time.runtime",
             "p1": "dummy_inst.read_test",
             "p2": "dummy_inst.read_test",
@@ -33,7 +33,17 @@
             "t2": "time.runtime",
             "df1": 0,
             "df2": 0,
-            "type": "hh"
+            "type": "dd"
+        },
+        "test_reference_2": {
+            "hum": "time.runtime",
+            "p1": "dummy_inst.read_test",
+            "p2": "dummy_inst.read_test",
+            "t1": "dummy_inst.read_test",
+            "t2": "time.runtime",
+            "df1": 0,
+            "df2": 0,
+            "type": "hd"
         }
     }
 }
