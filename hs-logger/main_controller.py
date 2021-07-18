@@ -305,7 +305,7 @@ class myjobframe(job_frame):
                 else:
                     value = refcalc.h2_ex_h1(hum, p1, p2, t1, t2, df1, df2)
             else:
-                print("Invalid reference type.")
+                print("Invalid reference.")
                 raise ValueError()
             self.job.logger.ref_dict[title] = value
         self.job.logger.storeref.append(self.job.logger.ref_dict)
