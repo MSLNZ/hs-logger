@@ -1,6 +1,7 @@
 from logger import Logger
 import wx
 import time
+import numpy as np
 # from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -124,11 +125,17 @@ class AutoProfile(object):
     def __init__(self, job):
         self.job = job
         self.profile_header = ["Points", "Soak", "Assured"]
-        self.points = 3  # Todo reduce to 1
-        self.points_list = [1 + n for n in range(self.points)]
-        self.soak = [50 for _ in range(self.points)]
-        self.assured = [1 for _ in range(self.points)]
+        self.points = 1
+        self.points_list = [1]
+        self.soak = [50]
+        self.assured = [1]
         self.operations = {}  # format "Name":(inst_op,[points])
+        self.h_name = []  # The first line of the autoprofile contains the names.
+        self.h_set = []  # The second line of the autoprofile contains the commands to set the setpoints.
+        self.h_check = []  # The third line of the autoprofile contains the commands to read the setpoints.
+        self.h_actual = []  # The first line of the autoprofile contains the commands to read the actual values.
+        self.stdev_list = []  # This list contains the data required for the assured switch.
+        self.current_stdev = ""  # This defines what the standard deviation is of.
 
         self.current_point = 0
         self.point_start_time = time.time()  # Todo set this at start of run
@@ -139,18 +146,20 @@ class AutoProfile(object):
         cols1 = self.points
 
         with open(file_name, "r") as file:
-            h1 = file.readline().strip().split(',')
-            while h1[0][0] != "P":
-                h1[0] = h1[0][1:]  # Remove "ï»¿" from first item
-            self.profile_header = h1  # Get operation names
-            h2 = file.readline().strip().split(',')
+            self.h_name = file.readline().strip().split(',')
+            while self.h_name[0][0] != "P":
+                self.h_name[0] = self.h_name[0][1:]  # Remove "ï»¿" from first item.
+            self.profile_header = self.h_name
+            self.h_set = file.readline().strip().split(',')
+            self.h_check = file.readline().strip().split(',')
+            self.h_actual = file.readline().strip().split(',')
             d1 = {}
-            for name, inst_op in zip(h1, h2):
+            for name, inst_op in zip(self.h_name, self.h_set):
                 d1[name] = (inst_op, [])
             for line in file:
                 line = line.strip().split(',')
-                for i in range(len(h1)):
-                    name = h1[i]
+                for i in range(len(self.h_name)):
+                    name = self.h_name[i]
                     d1[name][1].append(line[i])
             # Extra bit to remove the mandatory fields from the operations list
             # Reset the lists
@@ -158,7 +167,7 @@ class AutoProfile(object):
             self.soak = []
             self.assured = []
             # Fill the lists again
-            for i in range(len(d1[h1[0]][1])):
+            for i in range(len(d1[self.h_name[0]][1])):
                 self.points_list.append(d1["Points"][1][i])
                 self.soak.append(d1["Soak"][1][i])
                 self.assured.append(d1["Assured"][1][i])
@@ -167,7 +176,7 @@ class AutoProfile(object):
             d1.pop("Soak")
             d1.pop("Assured")
             # Back to normal code
-            self.points = len(d1[h1[3]][1])
+            self.points = len(d1[self.h_name[3]][1])
             self.operations = d1
             print(self.operations)
 
@@ -252,18 +261,53 @@ class AutoProfile(object):
 
     def move_to_point(self, point):
         self.current_point = point
-        self.grid_refresh()
+        self.grid_refresh()  # Todo fix table so that this can be reinstated.
         self.point_start_time = time.time()
         actions = []
         for inst_op, vals in self.operations.values():
             actions.append((inst_op, vals[point]))
-        self.job.auto_profile_actions(actions)
         print(actions)
+        self.job.auto_profile_actions(actions)
+
 
     def update(self):
-        t1 = self.point_start_time+60*float(self.soak[self.current_point])
-        if time.time() > t1:
-            self.next_point()
+        t1 = self.point_start_time + 60 * float(self.soak[self.current_point])
+        index = 2 + int(self.assured[self.current_point])
+        if index < 3:
+            if time.time() > t1:
+                self.next_point()
+        else:
+            inst1, op1 = self.h_check[index].split('.')
+            inst2, op2 = self.h_actual[index].split('.')
+            value1 = self.check_instrument(inst1, op1)
+            value2 = self.check_instrument(inst2, op2)
+            if self.h_actual[index] == self.current_stdev:
+                self.stdev_list.append(value2)  # If this is the same operation as last time, append the data.
+            else:
+                self.current_stdev = self.h_actual[index]
+                self.stdev_list = []  # Otherwise, start a new array for the new operation.
+            if time.time() > t1:
+                dif = value2 - value1
+                std = self.stdev()
+                if abs(dif) < 0.1:
+                    if std < 0.1:
+                        self.next_point()
+                    else:
+                        print("Not sufficiently stable. Standard deviation = {}.".format(std))
+                else:
+                    print("Point not reached. Difference = {}.".format(dif))
+
+    def check_instrument(self, inst_id, operation_id):
+        inst = self.job.logger.instruments.get(inst_id)
+        result = inst.read_instrument(operation_id)
+        return result[1]
+
+    def stdev(self):
+        if self.job.logger.window < len(self.stdev_list):
+            std = np.std(self.stdev_list[-self.job.logger.window:])
+        else:
+            std = np.std(self.stdev_list)
+        return std
 
     def highlight_row(self):
         grid = self.job.frame.grid_auto_profile
