@@ -54,7 +54,7 @@ class generic_driver_visa_serial(object):
                     # print("locK")
                     self.instrument.write(operation['command'])
                     if echo:
-                        print(self.instrument.read())
+                        self.instrument.read()
                     data = self.instrument.read()
                     try:
                         while True:
@@ -193,7 +193,6 @@ class generic_driver_visa_serial(object):
                 print("Transform form not recognised: {}".format(eq[0]))
                 transformed = float("NaN")
         else:
-            print("{} can't be transformed.".format(x))
             transformed = float("NaN")  # The data can't be transformed
         # c = operation.get("transform_coeff", None)
         # transformed = eval(eq)

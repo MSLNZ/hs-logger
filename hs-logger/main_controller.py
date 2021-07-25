@@ -240,8 +240,8 @@ class myjobframe(job_frame):
             t2 = datum.get("t2", 1)
             df1 = datum.get("df1", 0)
             df2 = datum.get("df2", 0)
+            value = float("NaN")
             if references[ref]["type"] == "dd":
-                value = float("NaN")
                 if hum < -80 or hum > 95:
                     print("Dew point {} is out of range.".format(hum))
                 elif p1 < 0.9 or p1 > 22:
@@ -255,7 +255,6 @@ class myjobframe(job_frame):
                 else:
                     value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
             elif references[ref]["type"] == "hd":
-                value = float("NaN")
                 if hum < -80 or hum > 95:
                     print("Dew point {} is out of range.".format(hum))
                 elif p1 < 0.9 or p1 > 22:
@@ -271,7 +270,6 @@ class myjobframe(job_frame):
                 else:
                     value = refcalc.h2_ex_td1(hum, p1, p2, t2, df1, df2)
             elif references[ref]["type"] == "dh":
-                value = float("NaN")
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
                 elif p1 < 0.9 or p1 > 22:
@@ -287,7 +285,6 @@ class myjobframe(job_frame):
                 else:
                     value = refcalc.td2_ex_h1(hum, p1, p2, t1, df1, df2)
             elif references[ref]["type"] == "hh":
-                value = float("NaN")
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
                 elif p1 < 0.9 or p1 > 22:

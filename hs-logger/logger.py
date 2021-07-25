@@ -15,13 +15,13 @@ class Logger(Thread):
         # log file name
         t = time.strftime("%Y%m%d_%H%M%S", time.localtime())
         self.out_dir = "data_files\\"
-        self.rawfilename = "p" + t + "_" + self.job_spec["datafile_raw"]
-        self.transfilename = "p" + t + "_" + self.job_spec["datafile_trans"]
-        self.rawpointsname = "p" + t + "_" + self.job_spec["points_file_raw"]
-        self.transpointsname = "p" + t + "_" + self.job_spec["points_file_trans"]
-        self.rawsourcename = "p" + t + "_" + self.job_spec["source_file_raw"]
-        self.transsourcename = "p" + t + "_" + self.job_spec["source_file_trans"]
-        self.sensorname = "s" + t + "_" + self.job_spec["sensor_file"]
+        self.rawfilename = t + "p_" + self.job_spec["datafile_raw"]
+        self.transfilename = t + "p_" + self.job_spec["datafile_trans"]
+        self.rawpointsname = t + "p_" + self.job_spec["points_file_raw"]
+        self.transpointsname = t + "p_" + self.job_spec["points_file_trans"]
+        self.rawsourcename = t + "p_" + self.job_spec["source_file_raw"]
+        self.transsourcename = t + "p_" + self.job_spec["source_file_trans"]
+        self.sensorname = t + "s_" + self.job_spec["sensor_file"]
         self.op_names = self.job_spec["logged_operations"]
 
         # Ben's variables
@@ -197,14 +197,10 @@ class Logger(Thread):
                     info['ChannelList'] = self.instruments.get(inst_id).spec["operations"][op_id]["id"]
                     info['ID'] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
                     info['Name'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][0]
-                    details = self.job_spec.get("details", "noDet")
-                    details = details.get(inst_id, "noDet")
-                    details = details.get(op_id, "noDet")
-                    print(details)
-                    if details == "noDet":
+                    try:
+                        info['Description'] = self.job_spec["details"][inst_id][op_id]
+                    except KeyError:
                         info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id]["details"]
-                    else:
-                        info['Description'] = details
                     info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
                     info['B'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][2]
                     info['C'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][3]
