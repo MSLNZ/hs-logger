@@ -188,7 +188,9 @@
             "hp420A_ch": 1,
             "nplc": 20,
             "transform_eq": ["P", 2.56E-3, 2.00245E0, 5.98E-4, 0],
-            "details": ""
+            "details": "",
+            "check_date": "11/05/2021",
+            "rep_num": "Pressure/2021/635, 11 May 2021"
         },
         "read_px119": {
             "name": "PoDruck#2 0-3b h119",
@@ -198,7 +200,9 @@
             "hp420A_ch": 1,
             "nplc": 20,
             "transform_eq": ["P", -7.375E-3, 3.54549E-1, -6.2E-4, 0],
-            "details": ""
+            "details": "",
+            "check_date": "11/05/2021",
+            "rep_num": "Pressure/2021/636, 11 May 2021"
         },
         "read_px120": {
             "name": "PoDruck#3 0-3b h120",
@@ -208,7 +212,9 @@
             "hp420A_ch": 1,
             "nplc": 20,
             "transform_eq": ["P", -1.267E-3, 3.47863E-1, 4.07E-4, 0],
-            "details": ""
+            "details": "",
+            "check_date": "11/05/2021",
+            "rep_num": "Pressure/2021/637, 11 May 2021"
         }
     }
 }

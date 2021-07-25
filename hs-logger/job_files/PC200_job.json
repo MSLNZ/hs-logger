@@ -21,5 +21,10 @@
         "PC200.read_DS",
         "PC200.read_Unit_on"
         ],
+    "details": {
+        "PC200": {
+            "read_Tm": "In situ."
+        }
+    },
     "references": {}
 }
