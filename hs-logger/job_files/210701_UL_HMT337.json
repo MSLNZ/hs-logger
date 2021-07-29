@@ -47,6 +47,29 @@
         "F250Bridge_K705Scanner.read_tx20",
         "HMT337.read_sens_t",
         "HMT337.read_rh",
-        "HMT337.read_fp"
-    ]
+        "HMT337.read_fp",
+        "HMT337.read_c",
+        "HMT337.read_raw_rh",
+        "HMT337.read_corr_rh",
+        "HMT337.read_tx"
+    ],
+    "details": {
+        "F250Bridge_K705Scanner": {
+            "read_tx12": "Center-bottom",
+            "read_tx13": "Center-back",
+            "read_tx14": "Back",
+            "read_tx15": "Front",
+            "read_tx17": "Center-top"
+        },
+        "HG2500": {
+            "read_chamber_temp": "Center"
+        },
+        "MSL473_SHX": {
+            "read_Tx": "Center"
+        },
+        "HMT337": {
+            "read_sens_t": "Bottom",
+            "read_rh": "Separate minichamber"
+        }
+    }
 }
