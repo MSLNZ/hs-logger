@@ -49,8 +49,8 @@ class Job(object):
         self.auto_profile.update()
 
     def new_autoprofile_col(self):
-        name, inst_op = self.frame.get_autoprofile_new_action_dlg()
-        self.auto_profile.new_set_op(name, inst_op)
+        name, inst_ops, inst_opc, inst_opr = self.frame.get_autoprofile_new_action_dlg()
+        self.auto_profile.new_set_op(name, inst_ops, inst_opc, inst_opr)
 
     def next_point(self):
         self.auto_profile.next_point()
@@ -103,7 +103,6 @@ class Job(object):
                 else:
                     x = g[i][0]
                     y = g[i][1]
-                    # print(x,y)
                     inst_x, op = x.split('.')
                     if inst_x == "reference":
                         x_val = [d.get(x) for d in self.logger.storeref]
@@ -128,7 +127,7 @@ class AutoProfile(object):
         self.points = 1
         self.points_list = [1]
         self.soak = [50]
-        self.assured = [1]
+        self.assured = [0]
         self.operations = {}  # format "Name":(inst_op,[points])
         self.h_name = []  # The first line of the autoprofile contains the names.
         self.h_set = []  # The second line of the autoprofile contains the commands to set the setpoints.
@@ -136,6 +135,8 @@ class AutoProfile(object):
         self.h_actual = []  # The first line of the autoprofile contains the commands to read the actual values.
         self.stdev_list = []  # This list contains the data required for the assured switch.
         self.current_stdev = ""  # This defines what the standard deviation is of.
+        self.a_dif = 0.1  # This is the difference between the actual and measured values that assured allows.
+        self.a_std = 0.1  # This is the standard deviation of measured values that assured allows.
 
         self.current_point = 0
         self.point_start_time = time.time()  # Todo set this at start of run
@@ -149,7 +150,7 @@ class AutoProfile(object):
             self.h_name = file.readline().strip().split(',')
             while self.h_name[0][0] != "P":
                 self.h_name[0] = self.h_name[0][1:]  # Remove "ï»¿" from first item.
-            self.profile_header = self.h_name
+            self.profile_header = self.h_name.copy()
             self.h_set = file.readline().strip().split(',')
             self.h_check = file.readline().strip().split(',')
             self.h_actual = file.readline().strip().split(',')
@@ -191,10 +192,18 @@ class AutoProfile(object):
 
         self.grid_refresh()
 
-    def new_set_op(self, name, inst_op, default=0):
+    def new_set_op(self, name, inst_ops, inst_opc, inst_opr, default=0):
         points = [0 for _ in range(self.points)]
-        self.operations[name] = (inst_op, points)
-        self.profile_header.append(name)
+        self.operations[name] = (inst_ops, points)
+        print(self.operations)
+        self.h_name.append(name)
+        self.profile_header = self.h_name.copy()
+        self.h_set.append(inst_ops)
+        self.h_actual.append(inst_opr)
+        self.h_check.append(inst_opc)
+        print(self.h_set)
+        print(self.h_check)
+        print(self.h_actual)
         grid = self.job.frame.grid_auto_profile
         # msg = wx.grid.GridTableMessage(grid.table,
         #                                wx.grid.GRIDTABLE_NOTIFY_COLS_APPENDED, 1)
@@ -289,8 +298,8 @@ class AutoProfile(object):
             if time.time() > t1:
                 dif = value2 - value1
                 std = self.stdev()
-                if abs(dif) < 0.1:
-                    if std < 0.1:
+                if abs(dif) < self.a_dif:
+                    if std < self.a_std:
                         self.next_point()
                     else:
                         print("Not sufficiently stable. Standard deviation = {}.".format(std))
@@ -324,7 +333,7 @@ class AutoProfile(object):
         grid = self.job.frame.grid_auto_profile
         # self.job.frame.bSizer18.Layout()
         grid.AutoSizeRows()
-        grid.AutoSizeColumns()
+        # grid.AutoSizeColumns()  # This crashes the system for some reason.
         grid.ForceRefresh()
 
 

@@ -169,6 +169,14 @@ class myjobframe(job_frame):
             self.job.logger.window = int(self.n_points_input.GetValue())
         except ValueError:
             self.job.logger.window = 10
+        try:
+            self.job.a_dif = int(self.assured_error_input.GetValue())
+        except ValueError:
+            self.job.a_dif = 0.1
+        try:
+            self.job.a_std = int(self.assured_stdev_input.GetValue())
+        except ValueError:
+            self.job.a_std = 0.1
 
         for r in rows:
             if r == "time.datetime":
@@ -366,17 +374,20 @@ class myjobframe(job_frame):
     def get_autoprofile_new_action_dlg(self):
         dlg = new_action_autoprofile_dlg(self)
         name = "none"
+        inst = "none"
+        ops = "none"
+        opc = "none"
+        opr = "none"
         res = dlg.ShowModal()
-        print(dlg)
-        print(res)
         if res == wx.ID_OK:
-            print("OK")
             name = dlg.profile_name_ctrl.GetValue()
             inst = dlg.profile_inst_ctrl.GetValue()
-            op = dlg.profile_operation_ctrl.GetValue()
-            print("name")
+            ops = dlg.profile_set_ctrl.GetValue()
+            opc = dlg.profile_check_ctrl.GetValue()
+            opr = dlg.profile_read_ctrl.GetValue()
+            print("New point added: {} {} {} {} {}".format(name, inst, ops, opc, opr))
         dlg.Destroy()
-        return name, "{}.{}".format(inst, op)
+        return name, "{}.{}".format(inst, ops), "{}.{}".format(inst, opc, "{}.{}".format(inst, opr))
 
     def new_profile_action(self, event):
         self.job.new_autoprofile_col()

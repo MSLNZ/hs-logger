@@ -73,7 +73,6 @@ class Logger(Thread):
         while not self.stopped:
             while not self.paused and not self.stopped:
                 self.read_loop()
-
             time.sleep(1)
         sys.exit(1)
 
@@ -200,7 +199,6 @@ class Logger(Thread):
                     details = self.job_spec.get("details", "noDet")
                     details = details.get(inst_id, "noDet")
                     details = details.get(op_id, "noDet")
-                    print(details)
                     if details == "noDet":
                         info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id]["details"]
                     else:
