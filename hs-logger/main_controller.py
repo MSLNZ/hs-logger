@@ -198,7 +198,7 @@ class myjobframe(job_frame):
                 if r == "time.runtime":
                     # Make the time in minutes.
                     for i, x in enumerate(raw):
-                        raw[i] = x/60
+                        raw[i] = x / 60
                         trans[i] = x / 60
                 if self.job.logger.window < len(raw):
                     rmean = np.mean(raw[-self.job.logger.window:])
@@ -334,6 +334,10 @@ class myjobframe(job_frame):
             self.job.logger.tstds["{}".format("s" + ref)] = std
             self.job.logger.tsources["{}".format(ref)] = source
             points.append([ref, value, mean, std])
+
+        if len(self.job.logger.store[0][0])-len(self.job.logger.storeref[0]) != 0:
+            raise ValueError("References are {} long, rather than {}.".format(len(self.job.logger.storeref),
+                                                                              len(self.job.logger.store)))
 
         self.job.logger.comment = self.comment_input.GetValue()
         self.m_grid2.table.data = points
