@@ -79,7 +79,6 @@ class Driver_SmartTrak_pyserial(object):
                     cmd_e = cmd.encode("ascii") + crc + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
                     data = self.instrument.read_until(self.r_term)
-                    #print(data)
                     floats_data = re.findall(r"[-+]?\d*\.\d+|\d+", str(data))
                     data = float(floats_data[0])
 

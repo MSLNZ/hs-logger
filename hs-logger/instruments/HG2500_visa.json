@@ -52,7 +52,7 @@
             "store_index": 2,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 0.0689476, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
         "read_chamber_press":{
             "type": "read_store",
@@ -63,7 +63,7 @@
             "store_index": 3,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 0.0689476, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
         "read_sat_temp":{
             "type": "read_store",
@@ -124,7 +124,7 @@
             "name": "RH @Pc SP",
             "id": "read_rh_pc_setpoint",
             "details":"",
-            "store_id": "read_default",
+            "store_id": "read_setpoints",
             "store_index": 0,
             "data_type": "float",
             "unit": "",
@@ -135,7 +135,7 @@
             "name": "RH @PcTc SP",
             "id": "read_rh_pctc_setpoint",
             "details":"",
-            "store_id": "read_default",
+            "store_id": "read_setpoints",
             "store_index": 1,
             "data_type": "float",
             "unit": "",
@@ -146,7 +146,7 @@
             "name": "saturation pressure SP",
             "id": "read_sat_press_setpoint",
             "details":"",
-            "store_id": "read_default",
+            "store_id": "read_setpoints",
             "store_index": 2,
             "data_type": "float",
             "unit": "",
@@ -157,7 +157,7 @@
             "name": "saturation temperature SP",
             "id": "read_sat_temp_setpoint",
             "details":"",
-            "store_id": "read_default",
+            "store_id": "read_setpoints",
             "store_index": 3,
             "data_type": "float",
             "unit": "",
@@ -168,7 +168,7 @@
             "name": "flow rate SP",
             "id": "read_flowrate_setpoint",
             "details":"",
-            "store_id": "read_default",
+            "store_id": "read_setpoints",
             "store_index":4,
             "data_type": "float",
             "unit": "",
@@ -179,7 +179,7 @@
             "name": "current control mode",
             "id": "read_current_mode",
             "details":"",
-            "store_id": "read_default",
+            "store_id": "read_setpoints",
             "store_index": 5,
             "data_type": "float",
             "unit": "",

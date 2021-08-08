@@ -308,7 +308,7 @@ class AutoProfile(object):
 
     def check_instrument(self, inst_id, operation_id):
         inst = self.job.logger.instruments.get(inst_id)
-        result = inst.read_instrument(operation_id)
+        result = inst.read_instrument(operation_id)  # Todo fix for store issues
         return result[1]
 
     def stdev(self):

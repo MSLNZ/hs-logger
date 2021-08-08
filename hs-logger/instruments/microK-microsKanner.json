@@ -1,0 +1,144 @@
+{
+    "instrument_id": "microK",
+    "instrument_name": "Isotech microK with attached microsKanner",
+    "driver": "generic_driver_visa_serial",
+    "interface": "visa",            
+    "port": "GPIB0::13::INSTR",
+    "baudrate":9600,
+    "write_termination": "\n",
+    "read_termination": "\n",
+    "notes": "",
+    "doOpen": false,
+    "operations": {
+        "read_1": {
+            "type": "read_single",
+            "name": "read channel 1",
+            "id": "read_1",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES1:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_2": {
+            "type": "read_single",
+            "name": "read channel 2",
+            "id": "read_2",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES2:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_3": {
+            "type": "read_single",
+            "name": "read channel 3",
+            "id": "read_3",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES3:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_10": {
+            "type": "read_single",
+            "name": "Tc  c10",
+            "id": "read_10",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES10:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_11": {
+            "type": "read_single",
+            "name": "Tc  c11",
+            "id": "read_11",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES11:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_12": {
+            "type": "read_single",
+            "name": "Tc  c12",
+            "id": "read_12",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES12:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_13": {
+            "type": "read_single",
+            "name": "Tc  c13",
+            "id": "read_13",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES13:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_14": {
+            "type": "read_single",
+            "name": "Tc  c14",
+            "id": "read_14",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES14:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_15": {
+            "type": "read_single",
+            "name": "Tc  c15",
+            "id": "read_15",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES15:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_16": {
+            "type": "read_single",
+            "name": "Tc  c16",
+            "id": "read_16",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES16:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_17": {
+            "type": "read_single",
+            "name": "Tc  c17",
+            "id": "read_17",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES17:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_18": {
+            "type": "read_single",
+            "name": "Tc  c18",
+            "id": "read_18",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES18:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        },
+        "read_19": {
+            "type": "read_single",
+            "name": "Tc  c19",
+            "id": "read_19",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES19:REF204? 100,1",
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+        }
+    }
+}

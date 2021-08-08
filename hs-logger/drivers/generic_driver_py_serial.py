@@ -44,9 +44,9 @@ class generic_driver_py_serial(object):
         else:
             self.instrument.parity = serial.PARITY_NONE
 
-        if par == "2":
+        if stop_B == "2":
             self.instrument.stopbits = serial.STOPBITS_TWO
-        elif par == "1.5":
+        elif stop_B == "1.5":
             self.instrument.stopbits = serial.STOPBITS_ONE_POINT_FIVE
         else:
             self.instrument.stopbits = serial.STOPBITS_ONE
@@ -73,8 +73,10 @@ class generic_driver_py_serial(object):
                 with self.lock:
                     # print("locK")
                     cmd_e = (operation['command']).encode("ascii") + self.w_term.encode("ascii")
+                    print("Command: {}".format(cmd_e))
                     self.instrument.write(cmd_e)
                     data = self.instrument.read_until(self.r_term)
+                    print("Data: {}".format(data))
                     floats_data = re.findall(r"[-+]?\d*\.\d+|\d+", str(data))
                     data = float(floats_data[0])
 
