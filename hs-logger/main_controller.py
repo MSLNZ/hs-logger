@@ -335,7 +335,7 @@ class myjobframe(job_frame):
             self.job.logger.tsources["{}".format(ref)] = source
             points.append([ref, value, mean, std])
 
-        if len(self.job.logger.store[0][0])-len(self.job.logger.storeref[0]) != 0:
+        if len(self.job.logger.store)-len(self.job.logger.storeref) != 0:
             raise ValueError("References are {} long, rather than {}.".format(len(self.job.logger.storeref),
                                                                               len(self.job.logger.store)))
 
@@ -411,7 +411,7 @@ class myjobframe(job_frame):
 
         dlg.Destroy()
         print(file)
-        self.job.auto_profile.load_file(file)  # todo do better
+        self.job.auto_profile.load_file(file)
 
     def save_autoprofile(self, event):
         # TODO
@@ -446,14 +446,12 @@ class MyInstPannel(inst_pannel):
                 self.action_choice.Append(op.get("id"))
 
     def read_op(self, event):
-        # todo Problems here sometimes can break main logger
         op_id = self.read_op_choice.GetStringSelection()
         raw, trans = self.inst.read_instrument(op_id)
         self.read_response_ctrl.Clear()
         self.read_response_ctrl.AppendText(str(trans))
 
     def write_op(self, event):
-        # todo Problems here sometimes can break main logger
         op_id = self.write_op_choice.GetStringSelection()
         text = self.write_text_ctrl.GetValue()
         self.inst.write_instrument(op_id, [text])

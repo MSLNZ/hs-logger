@@ -20,21 +20,8 @@
             "details": "",
             "data_type": "float",
             "unit": "",
-            "command": "*IDN?",
+            "command": "PRESS?",
             "transform_eq": ["P", 0, 1, 0, 0]
-        },
-        "action_read_resistance": {
-            "type": "action",
-            "name": "Read Resistance",
-            "id": "action_read_resistance",
-            "details": "Sets the device to read resistance",
-            "command": "SENS:FUNC RES"
-        },
-        "set_channel": {
-            "type": "write",
-            "name": "Set Channel",
-            "id": "set_channel",
-            "command": "SENS:CHAN {}"
         }
     }
 }
