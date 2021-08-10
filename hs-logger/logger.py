@@ -200,7 +200,8 @@ class Logger(Thread):
                     try:
                         info['Description'] = self.job_spec["details"][inst_id][op_id]
                     except KeyError:
-                        info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id]["details"]
+                        info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id].get("details",
+                                                                                                          "No details.")
                     info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
                     info['B'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][2]
                     info['C'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][3]

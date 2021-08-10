@@ -25,7 +25,7 @@ class F250Bridge_K705Scanner(object):
 
         val = val[1:-1]
         if val.startswith("E"):
-            val = float("Inf")
+            val = float("NaN")
         elif val.startswith("A"):
             val = val.replace("A", "")
             val = f = np.float64(val)

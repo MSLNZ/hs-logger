@@ -71,7 +71,7 @@
                 "id":"read_tx16",
                 "channel": 16,
                 "bridge_prt":"A",
-                "transform_eq":["T", 3.9285E-03, -7.223E-07, 9.327E-12, 99.947955],
+                "transform_eq":["T", 3.908544E-03,-5.805512E-07,-1.1642100E-11,99.94731],
                 "details":"",
                 "check_date": "15/08/2016",
                 "rep_num": "Temperature/2016/593, 9 August 2016"
@@ -88,15 +88,15 @@
                 "rep_num": "Temperature/2020/891, 31 January 2020"
             },
             "read_tx18": {
-                "name":"Tc3900 SIL033 c18",
+                "name":"Tm DP30 c18",
                 "type":"read",
                 "id":"read_tx18",
                 "channel": 18,
                 "bridge_prt":"A",
-                "transform_eq":["T", 3.90908E-03, -6.116E-07, -1.97E-12, 100.04713],
+                "transform_eq":["T", 3.908544E-03, -5.805512E-07, -1.16421E-11, 99.94731],
                 "details":"",
-                "check_date": "13/03/2020",
-                "rep_num": "Temperature/2017/681, 16 August 2017"
+                "check_date": "12/02/2001",
+                "rep_num": "INTA No. 4661"
             },
             "read_tx19": {
                 "name":"Ts2500#2 SIL035 c19",

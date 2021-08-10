@@ -3,7 +3,7 @@
     "instrument_name": "PC200",
     "driver": "generic_driver_py_serial",
     "interface": "pyserial",
-    "port": "COM6",
+    "port": "COM11",
     "baudrate": 19200,
     "parity": "PARITY_NONE",
     "stopbits": "STOPBITS_ONE",
@@ -15,7 +15,7 @@
     "operations": {
         "read_Tm": {
             "type": "read_single",
-            "name": "Tm PC200",
+            "name": "Tb PC200",
             "id": "read_Tm",
             "command": "RT ",
             "transform_eq":["V",0,1,0,0],

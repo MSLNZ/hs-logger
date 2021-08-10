@@ -1,6 +1,6 @@
 {
-    "instrument_id": "SmartTrak100",
-    "instrument_name": "SmartTrak100",
+    "instrument_id": "ST100_C",
+    "instrument_name": "SmartTrak100 Mass Flow Controller",
     "driver": "Driver_SmartTrak_pyserial",
     "interface": "pyserial",
     "type": "Controller",
@@ -49,7 +49,7 @@
         },
         "read_unit_index": {
             "type": "read_single",
-            "name": "read_unit",
+            "name": "read_unit_index",
             "id": "read_unit",
             "command": "?Unti",
             "transform_eq": [
@@ -63,10 +63,10 @@
             "unit": "unit",
             "details": "scc/s = 1, scc/m = 2, scc/H = 3, Ncc/s = 4, Ncc/m = 5, Ncc/H = 6, SCF/s = 7, SCF/m = 8, SCF/H = 9, NM3/s = 10, NM3/m = 11, NM3/H = 12, SM3/s = 13, SM3/m = 14, SM3/H = 15, sl/s = 16, sl/m = 17, sl/H = 18, NL/s = 19, NL/m = 20, NL/H = 21, g/s = 22, g/m = 23, g/H = 24, kg/s = 25, kg/m = 26, kg/H = 27, lb/s = 28, lb/m = 29, lb/H = 30"
         },
-        "read_Valve_index": {
+        "read_valve_index": {
             "type": "read_single",
             "name": "read_valve",
-            "id": "read_valve",
+            "id": "read_valve_index",
             "command": "?Vlvi",
             "transform_eq": [
                 "V",
@@ -82,7 +82,7 @@
         "read_Gas_index": {
             "type": "read_single",
             "name": "Gas_index",
-            "id": "Gas_index",
+            "id": "read_Gas_index",
             "command": "?Gasi",
             "transform_eq": [
                 "V",
@@ -141,7 +141,7 @@
         "write_Valve_index": {
             "type": "write",
             "name": "write_valve",
-            "id": "write_valve",
+            "id": "write_Valve_index",
             "command": "!Vlvi{}",
             "data_type": "int",
             "unit": "index",

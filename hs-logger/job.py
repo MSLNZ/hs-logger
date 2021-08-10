@@ -298,6 +298,8 @@ class AutoProfile(object):
             if time.time() > t1:
                 dif = value2 - value1
                 std = self.stdev()
+                print("{} {}".format(dif, self.a_dif))
+                print("{} {}".format(std, self.a_std))
                 if abs(dif) < self.a_dif:
                     if std < self.a_std:
                         self.next_point()

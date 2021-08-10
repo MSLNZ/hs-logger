@@ -170,13 +170,13 @@ class myjobframe(job_frame):
         except ValueError:
             self.job.logger.window = 10
         try:
-            self.job.a_dif = int(self.assured_error_input.GetValue())
+            self.job.auto_profile.a_dif = float(self.assured_error_input.GetValue())
         except ValueError:
-            self.job.a_dif = 0.1
+            self.job.auto_profile.a_std = 0.1
         try:
-            self.job.a_std = int(self.assured_stdev_input.GetValue())
+            self.job.auto_profile.a_std = float(self.assured_stdev_input.GetValue())
         except ValueError:
-            self.job.a_std = 0.1
+            self.job.auto_profile.a_std = 0.1
 
         for r in rows:
             if r == "time.datetime":

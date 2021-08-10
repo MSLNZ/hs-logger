@@ -1,0 +1,120 @@
+{
+    "job_name":"Cold_Chamber_Test",
+    "job_id":1,
+    "job_notes":"Experiment testing the performance of the A25's cold chamber.",
+    "datafile_raw": "CCT_data_raw.dat",
+    "datafile_trans": "CCT_data_trans.dat",
+    "points_file_raw": "CCT_points_raw.dat",
+    "points_file_trans": "CCT_points_trans.dat",
+    "source_file_raw": "CCT_source_raw.dat",
+    "source_file_trans": "CCT_source_trans.dat",
+    "sensor_file": "CCT_sensor_file.dat",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "F250Bridge_K705Scanner":"instruments/F250Bridge_K705Scanner.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json",
+        "ST100_C":"instruments/SmartTrak100_Controller.json",
+        "ST100_M":"instruments/SmartTrak100_Meter.json",
+        "PC200":"instruments/PC200_serial.json",
+        "milliK":"instruments/milliK-millisKanner.json",
+        "Vaisala_HMP7_376":"instruments/Vaisala_HMP7_modbus_01.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_sat_temp",
+        "HG2500.read_chamber_temp",
+        "HG2500.read_sat_press",
+        "HG2500.read_chamber_press",
+        "HG2500.read_flowrate",
+        "F250Bridge_K705Scanner.read_tx11",
+        "F250Bridge_K705Scanner.read_tx19",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "MSL473_SH2.read_P",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_Tm",
+        "F250Bridge_K705Scanner.read_tx16",
+        "F250Bridge_K705Scanner.read_tx18",
+        "F250Bridge_K705Scanner.read_tx20",
+        "milliK.read_10",
+        "milliK.read_11",
+        "milliK.read_12",
+        "milliK.read_13",
+        "milliK.read_14",
+        "milliK.read_15",
+        "milliK.read_16",
+        "milliK.read_17",
+        "Vaisala_HMP7_376.read_temp",
+        "Vaisala_HMP7_376.read_rh",
+        "Vaisala_HMP7_376.read_dew_point_temp",
+        "ST100_C.read_flow",
+        "ST100_M.read_flow",
+        "PC200.read_Tm"
+    ],
+    "details": {
+        "F250Bridge_K705Scanner": {
+            "read_tx16": "Chamber PRT",
+            "read_tx18": "DP30",
+            "read_tx20": "Ambient"
+        },
+        "milliK": {
+            "read_10": "Top-right",
+            "read_11": "Bottom-right",
+            "read_12": "Bottom-left",
+            "read_13": "Left",
+            "read_14": "Center",
+            "read_15": "Right",
+            "read_16": "Bottom",
+            "read_17": "Top"
+        },
+        "HG2500": {
+            "read_chamber_temp": "Inside 2500 chamber."
+        },
+        "PC200": {
+            "read_Tm": "A25 with external chamber"
+        },
+        "Vaisala_HMP7_376": {
+            "read_temp": "Center",
+            "read_rh": "Center",
+            "read_dew_point_temp": "Center"
+        }
+    },
+    "references": {"DP_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK.read_14",
+            "t2": "milliK.read_14",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK.read_14",
+            "t2": "milliK.read_14",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RH_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK.read_10",
+            "t2": "milliK.read_10",
+            "df1": 0,
+            "df2": 0,
+            "type": "hd"
+        }
+    }
+}

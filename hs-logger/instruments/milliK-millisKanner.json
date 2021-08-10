@@ -3,7 +3,7 @@
     "instrument_name": "Isotech milliK with attached millisKanner",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "ASRL12::INSTR",
+    "port": "ASRL10::INSTR",
     "baudrate":9600,
     "write_termination": "\r",
     "read_termination": "\r",
