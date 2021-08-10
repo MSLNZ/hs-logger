@@ -174,7 +174,10 @@ class generic_driver_visa_serial(object):
                     print("{} with transform {} is out of range.".format(x,eq))
                     transformed = float("NaN")
                 else:
-                    fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
+                    if x < eq[4]:
+                        fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
+                    else:
+                        fulltransformed = np.roots([eq[2], eq[1], (1 - (x / eq[4]))])
                     transformed = float("inf")  # Create a maximum value
                     for j in fulltransformed:
                         if np.imag(j) == 0:  # Remove imaginary roots

@@ -9,7 +9,7 @@
     "source_file_raw": "test_source_raw.dat",
     "source_file_trans": "test_source_trans.dat",
     "sensor_file": "sensor_file.dat",
-    "min_interval": 10,
+    "min_interval": 1,
     "time": 0,
     "instruments": {
         "dummy_inst": "instruments/dummy_inst.json"
@@ -26,21 +26,21 @@
     },
     "references": {
         "test_reference_1": {
-            "hum": "time.runtime",
+            "hum": "dummy_inst.read_test",
             "p1": "dummy_inst.read_test",
             "p2": "dummy_inst.read_test",
             "t1": "dummy_inst.read_test",
-            "t2": "time.runtime",
+            "t2": "dummy_inst.read_test",
             "df1": 0,
             "df2": 0,
             "type": "dd"
         },
         "test_reference_2": {
-            "hum": "time.runtime",
+            "hum": "dummy_inst.read_test",
             "p1": "dummy_inst.read_test",
             "p2": "dummy_inst.read_test",
             "t1": "dummy_inst.read_test",
-            "t2": "time.runtime",
+            "t2": "dummy_inst.read_test",
             "df1": 0,
             "df2": 0,
             "type": "hd"

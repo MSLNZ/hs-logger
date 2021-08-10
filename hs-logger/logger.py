@@ -37,7 +37,6 @@ class Logger(Thread):
         self.tstds = {}  # This is the last standard deviation values for each sensor in transformed form
         self.tsources = {}  # This is the source data for the above
 
-        # todo load from inst spec
         self.min_cycle_time = self.job_spec.get("min_interval", 30)
         # store and file setup
         self.raw_dict = {}
@@ -62,6 +61,7 @@ class Logger(Thread):
 
         self.paused = True
         self.stopped = False
+        self.delay = 0
 
     def run(self):
         self.logf("starting")

@@ -77,7 +77,6 @@ class Driver_SmartTrak_pyserial(object):
                     cmd_e = cmd.encode("ascii") + crc + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
                     data = self.instrument.read_until(self.r_term)
-                    #print(data)
                     floats_data = re.findall(r"[-+]?\d*\.\d+|\d+", str(data))
                     data = float(floats_data[0])
 
@@ -132,7 +131,10 @@ class Driver_SmartTrak_pyserial(object):
                     print("{} with transform {} is out of range.".format(x, eq))
                     transformed = float("NaN")
                 else:
-                    fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
+                    if x < eq[4]:
+                        fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
+                    else:
+                        fulltransformed = np.roots([eq[2], eq[1], (1 - (x / eq[4]))])
                     transformed = float("inf")  # Create a maximum value
                     for j in fulltransformed:
                         if np.imag(j) == 0:  # Remove imaginary roots

@@ -198,7 +198,7 @@ class myjobframe(job_frame):
                 if r == "time.runtime":
                     # Make the time in minutes.
                     for i, x in enumerate(raw):
-                        raw[i] = x/60
+                        raw[i] = x / 60
                         trans[i] = x / 60
                 if self.job.logger.window < len(raw):
                     rmean = np.mean(raw[-self.job.logger.window:])
@@ -335,6 +335,10 @@ class myjobframe(job_frame):
             self.job.logger.tsources["{}".format(ref)] = source
             points.append([ref, value, mean, std])
 
+        if len(self.job.logger.store)-len(self.job.logger.storeref) != 0:
+            raise ValueError("References are {} long, rather than {}.".format(len(self.job.logger.storeref),
+                                                                              len(self.job.logger.store)))
+
         self.job.logger.comment = self.comment_input.GetValue()
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()
@@ -407,7 +411,7 @@ class myjobframe(job_frame):
 
         dlg.Destroy()
         print(file)
-        self.job.auto_profile.load_file(file)  # todo do better
+        self.job.auto_profile.load_file(file)
 
     def save_autoprofile(self, event):
         # TODO
@@ -442,14 +446,12 @@ class MyInstPannel(inst_pannel):
                 self.action_choice.Append(op.get("id"))
 
     def read_op(self, event):
-        # todo Problems here sometimes can break main logger
         op_id = self.read_op_choice.GetStringSelection()
         raw, trans = self.inst.read_instrument(op_id)
         self.read_response_ctrl.Clear()
         self.read_response_ctrl.AppendText(str(trans))
 
     def write_op(self, event):
-        # todo Problems here sometimes can break main logger
         op_id = self.write_op_choice.GetStringSelection()
         text = self.write_text_ctrl.GetValue()
         self.inst.write_instrument(op_id, [text])

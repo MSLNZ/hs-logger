@@ -22,7 +22,7 @@
         },
         "read_10": {
             "type": "read_single",
-            "name": "SIL046",
+            "name": "Tc SIL046 c10",
             "id": "read_10",
             "details": "",
             "data_type": "float",
@@ -32,7 +32,7 @@
         },
         "read_11": {
             "type": "read_single",
-            "name": "SIL047",
+            "name": "Tc SIL047 c11",
             "id": "read_11",
             "details": "",
             "data_type": "float",
@@ -42,7 +42,7 @@
         },
         "read_12": {
             "type": "read_single",
-            "name": "SIL049",
+            "name": "Tc SIL049 c12",
             "id": "read_12",
             "details": "",
             "data_type": "float",
@@ -52,7 +52,7 @@
         },
         "read_13": {
             "type": "read_single",
-            "name": "SIL050",
+            "name": "Tc SIL050 c13",
             "id": "read_13",
             "details": "",
             "data_type": "float",
@@ -62,7 +62,7 @@
         },
         "read_14": {
             "type": "read_single",
-            "name": "SIL051",
+            "name": "Tc SIL051 c14",
             "id": "read_14",
             "details": "",
             "data_type": "float",
@@ -72,7 +72,7 @@
         },
         "read_15": {
             "type": "read_single",
-            "name": "SIL053",
+            "name": "Tc SIL053 c15",
             "id": "read_15",
             "details": "",
             "data_type": "float",
@@ -82,7 +82,7 @@
         },
         "read_16": {
             "type": "read_single",
-            "name": "SIL054",
+            "name": "Tc SIL054 c16",
             "id": "read_16",
             "details": "",
             "data_type": "float",
@@ -92,7 +92,7 @@
         },
         "read_17": {
             "type": "read_single",
-            "name": "SIL055",
+            "name": "Tc SIL055 c17",
             "id": "read_17",
             "details": "",
             "data_type": "float",

@@ -18,6 +18,7 @@ class Job(object):
         self.auto_profile = AutoProfile(self)
         self.frame.add_profile_table(self.auto_profile)
         self.n = 0
+        self.pauseStart = time.time()
 
         # self.sched = BackgroundScheduler()
         # self.sched.add_job(func=self.update_graphs, trigger='interval', seconds=5)
@@ -33,7 +34,7 @@ class Job(object):
     def load_profile(self):
         pass
 
-    def auto_profile_actions(self, actions):  # todo check for other action types/ read/acton
+    def auto_profile_actions(self, actions):
         for inst_op, val in actions:
             # inst_op = inst_op.split(".")
             print(inst_op, val)
@@ -75,12 +76,15 @@ class Job(object):
 
     def pause(self):
         self.logger.pause()
+        self.pauseStart = time.time()
 
     def resume(self):
+        self.logger.delay = self.logger.delay + time.time() - self.pauseStart
         self.logger.resume()
 
     def start(self):
         self.logger.start()
+        self.auto_profile.point_start_time = time.time()
         self.auto_profile.move_to_point(self.auto_profile.current_point)
 
     def stop(self):
@@ -139,7 +143,7 @@ class AutoProfile(object):
         self.a_std = 0.1  # This is the standard deviation of measured values that assured allows.
 
         self.current_point = 0
-        self.point_start_time = time.time()  # Todo set this at start of run
+        self.point_start_time = time.time()
 
     def load_file(self, file_name):
         grid = self.job.frame.grid_auto_profile
@@ -280,7 +284,7 @@ class AutoProfile(object):
 
 
     def update(self):
-        t1 = self.point_start_time + 60 * float(self.soak[self.current_point])
+        t1 = self.point_start_time + 60 * float(self.soak[self.current_point])  # - self.job.logger.delay  # if paused
         index = 2 + int(self.assured[self.current_point])
         if index < 3:
             if time.time() > t1:

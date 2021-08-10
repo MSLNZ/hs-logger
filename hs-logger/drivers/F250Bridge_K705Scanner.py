@@ -42,7 +42,10 @@ class F250Bridge_K705Scanner(object):
             if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
                 transformed = float("NaN")
             else:
-                fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
+                if x < eq[4]:
+                    fulltransformed = np.roots([eq[3], -100 * eq[3], eq[2], eq[1], (1 - (x / eq[4]))])
+                else:
+                    fulltransformed = np.roots([eq[2], eq[1], (1 - (x / eq[4]))])
                 transformed = float("inf")  # Create a maximum value
                 for j in fulltransformed:
                     if np.imag(j) == 0:
