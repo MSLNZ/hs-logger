@@ -1,0 +1,110 @@
+{
+    "job_name":"HG2900 Characterization",
+    "job_id":1,
+    "job_notes":"Characterization of the Thunder Scientific HG2900.",
+    "datafile_raw": "HG2900_data_raw.dat",
+    "datafile_trans": "HG2900_data_trans.dat",
+    "points_file_raw": "HG2900_points_raw.dat",
+    "points_file_trans": "HG2900_points_trans.dat",
+    "source_file_raw": "HG2900_source_raw.dat",
+    "source_file_trans": "HG2900_source_trans.dat",
+    "sensor_file": "HG2900_sensor_file.dat",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "HG2900":"instruments/HG2900_visa.json",
+        "MSL473_SHX":"instruments/MSL473_SHX.json",
+        "milliK":"instruments/milliK-millisKanner.json",
+        "Vaisala_HMP7_376":"instruments/Vaisala_HMP7_modbus_01.json",
+        "CPT9000": "instruments/Mensor_CPT9000.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl",
+        "MSL473_SHX.read_DP",
+        "MSL473_SHX.read_FP",
+        "MSL473_SHX.read_Tm",
+        "MSL473_SHX.read_RH",
+        "MSL473_SHX.read_RHw",
+        "MSL473_SHX.read_Tx",
+        "MSL473_SHX.read_Th",
+        "MSL473_SHX.read_Flow",
+        "MSL473_SHX.read_Stable",
+        "milliK.read_10",
+        "milliK.read_11",
+        "milliK.read_12",
+        "milliK.read_13",
+        "milliK.read_14",
+        "milliK.read_15",
+        "milliK.read_16",
+        "milliK.read_17",
+        "Vaisala_HMP7_376.read_temp",
+        "Vaisala_HMP7_376.read_rh",
+        "Vaisala_HMP7_376.read_dew_point_temp",
+        "CPT9000.read_pressure"
+    ],
+    "details": {
+        "milliK": {
+            "read_10": "Top-right",
+            "read_11": "Bottom-right",
+            "read_12": "Bottom-left",
+            "read_13": "Left",
+            "read_14": "Center",
+            "read_15": "Right",
+            "read_16": "Bottom",
+            "read_17": "Top"
+        },
+        "Vaisala_HMP7_376": {
+            "read_temp": "Center",
+            "read_rh": "Center",
+            "read_dew_point_temp": "Center"
+        }
+    },
+    "references": {
+        "DP_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK.read_14",
+            "t2": "milliK.read_14",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK.read_14",
+            "t2": "milliK.read_14",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RH_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK.read_10",
+            "t2": "milliK.read_10",
+            "df1": 0,
+            "df2": 0,
+            "type": "hd"
+        }
+    }
+}
