@@ -3,7 +3,7 @@
     "instrument_name": "Thunder Scientific 2900 Humidity Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM4",
+    "port": "COM8",
     "baudrate":57600,
     "write_termination":"\r\n",
     "read_termination":"\n",
@@ -22,7 +22,7 @@
         },
         "read_rh":{
             "type": "read_store",
-            "name": "%rh",
+            "name": "rh 2900",
             "id": "read_rh",
             "details":"",
             "store_id": "read_default",
@@ -33,7 +33,7 @@
         },
         "read_fp":{
             "type": "read_store",
-            "name": "Frost point",
+            "name": "FP 2900",
             "id": "read_fp",
             "details":"",
             "store_id": "read_default",
@@ -44,7 +44,7 @@
         },
         "read_dp":{
             "type": "read_store",
-            "name": "Dew point",
+            "name": "DP 2900",
             "id": "read_dp",
             "details":"",
             "store_id": "read_default",
@@ -55,7 +55,7 @@
         },
         "read_ppmv":{
             "type": "read_store",
-            "name": "PPMv",
+            "name": "PPMv 2900",
             "id": "read_ppmv",
             "details":"",
             "store_id": "read_default",
@@ -66,7 +66,7 @@
         },
         "read_ppmw":{
             "type": "read_store",
-            "name": "PPMw",
+            "name": "PPMw 2900",
             "id": "read_ppmw",
             "details":"",
             "store_id": "read_default",
@@ -77,29 +77,29 @@
         },
         "read_ps":{
             "type": "read_store",
-            "name": "Saturation pressure",
+            "name": "Ps 2900",
             "id": "read_ps",
             "details":"",
             "store_id": "read_default",
             "store_index": 5,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["P", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
         "read_pc":{
             "type": "read_store",
-            "name": "Chamber pressure",
+            "name": "Pc 2900",
             "id": "read_pc",
             "details":"",
             "store_id": "read_default",
             "store_index": 6,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["P", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
         "read_ts":{
             "type": "read_store",
-            "name": "Saturation temperature",
+            "name": "Ts 2900",
             "id": "read_ts",
             "details":"",
             "store_id": "read_default",
@@ -110,7 +110,7 @@
         },
         "read_tc":{
             "type": "read_store",
-            "name": "Chamber temperature",
+            "name": "Tc 2900",
             "id": "read_tc",
             "details":"",
             "store_id": "read_default",
@@ -121,7 +121,7 @@
         },
         "read_q":{
             "type": "read_store",
-            "name": "Mass flow rate",
+            "name": "Q 2900",
             "id": "read_q",
             "details":"",
             "store_id": "read_default",
@@ -132,7 +132,7 @@
         },
         "read_tcab":{
             "type": "read_store",
-            "name": "Cabinet temperature",
+            "name": "Tcab 2900",
             "id": "read_tcab",
             "details":"",
             "store_id": "read_default",
@@ -143,7 +143,7 @@
         },
         "read_texp":{
             "type": "read_store",
-            "name": "Expansion valve temperature",
+            "name": "Texp 2900",
             "id": "read_texp",
             "details":"",
             "store_id": "read_default",
@@ -154,7 +154,7 @@
         },
         "read_tps":{
             "type": "read_store",
-            "name": "Pre-saturator temperature",
+            "name": "Tps 2900",
             "id": "read_tps",
             "details":"",
             "store_id": "read_default",
@@ -165,7 +165,7 @@
         },
         "read_pg":{
             "type": "read_store",
-            "name": "Supply pressure",
+            "name": "Pg 2900",
             "id": "read_pg",
             "details":"",
             "store_id": "read_default",
@@ -176,7 +176,7 @@
         },
         "read_wl":{
             "type": "read_store",
-            "name": "Water reservoir level",
+            "name": "WL 2900",
             "id": "read_wl",
             "details":"",
             "store_id": "read_default",
