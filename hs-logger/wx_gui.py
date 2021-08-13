@@ -182,7 +182,7 @@ class job_frame ( wx.Frame ):
 		self.reading_text.Wrap( -1 )
 		bSizer60.Add( self.reading_text, 0, wx.ALL, 5 )
 		
-		self.current_reading = wx.StaticText( self, wx.ID_ANY, u"-", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.current_reading = wx.StaticText( self, wx.ID_ANY, u"", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.current_reading.Wrap( -1 )
 		bSizer60.Add( self.current_reading, 0, wx.ALL, 5 )
 		

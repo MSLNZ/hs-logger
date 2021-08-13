@@ -81,8 +81,12 @@ class Logger(Thread):
         ls_time = time.time()
         self.raw_dict = {}
         self.trans_dict = {}
+        self.job.frame.reading_text.SetLabel(u"Reading:")
         for inst, op in self.operations:
+            self.job.frame.current_reading.SetLabel(u"{}.{}".format(inst, op))
             self.read_instrument(inst, op)
+        self.job.frame.reading_text.SetLabel(u"Waiting...")
+        self.job.frame.current_reading.SetLabel(u"")
         a = list(self.raw_dict.values())
         a.extend(list(self.trans_dict.values()))
         self.np_store = np.append(self.np_store, [a], axis=0)

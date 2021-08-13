@@ -343,6 +343,7 @@ class myjobframe(job_frame):
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()
         self.m_grid2.ForceRefresh()
+        self.points.Layout()
 
     def add_profile_table(self, data):
         table = Profile_Table(data)

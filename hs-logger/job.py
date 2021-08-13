@@ -13,6 +13,7 @@ class Job(object):
         frame_log = Text_Log(frame.job_disp_log)
         self.logger = Logger(self, inst_drivers, frame_log)
         self.frame = frame
+        self.frame.SetTitle(u"{}".format(spec.get("job_name")))
         self.graphs = []
         self.frame.add_table(4, len(spec["logged_operations"])+len(spec.get("references", {}))-1)
         self.auto_profile = AutoProfile(self)
@@ -274,7 +275,7 @@ class AutoProfile(object):
 
     def move_to_point(self, point):
         self.current_point = point
-        self.grid_refresh()  # Todo fix table so that this can be reinstated.
+        self.grid_refresh()
         self.point_start_time = time.time()
         actions = []
         for inst_op, vals in self.operations.values():
@@ -339,7 +340,7 @@ class AutoProfile(object):
         grid = self.job.frame.grid_auto_profile
         # self.job.frame.bSizer18.Layout()
         grid.AutoSizeRows()
-        # grid.AutoSizeColumns()  # This crashes the system for some reason.
+        # grid.AutoSizeColumns()  # This crashes the system for some reason. Todo fix
         grid.ForceRefresh()
 
 
