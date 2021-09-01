@@ -1,3 +1,3 @@
-# instrument_logger
+# hs_logger
 
-This is an early version of a logger to be used in the msl humidity lab
+This is the logger used by the MSL Humidity Standards team for calibrations and research. It is undergoing continuous improvement as part of BAU.

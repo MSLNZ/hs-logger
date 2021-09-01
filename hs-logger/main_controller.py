@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import numpy as np
-from wx_gui import ctrl_frame, job_frame, add_graph_dialog, append_graph_dialog, remove_graph_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
+from wx_gui import ctrl_frame, job_frame, add_graph_dialog, append_graph_dialog, detract_graph_graph_dialog, detract_graph_axis_dialog, remove_graph_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
 from logger import Logger
 from job import Job
 import refcalc
@@ -110,6 +110,12 @@ class myjobframe(job_frame):
         self.Layout()
         self.job.append_graph(plt)
 
+    def detract_graph(self, event):
+        book = self.job_book
+        plt = Plot(book)
+        self.Layout()
+        self.job.detract_graph(plt)
+
     def remove_graph(self, event):
         book = self.job_book
         plt = Plot(book)
@@ -146,6 +152,28 @@ class myjobframe(job_frame):
             index = graph_choices.index(name)
         dlg.Destroy()
         return index, y
+
+    def get_detract_graph_graph_dialog(self, graph_choices):
+        dlg = detract_graph_graph_dialog(self)
+        dlg.graph_choice.AppendItems(graph_choices)
+        res = dlg.ShowModal()
+        index = -1
+        if res == wx.ID_OK:
+            name = dlg.graph_choice.GetStringSelection()
+            index = graph_choices.index(name)
+        dlg.Destroy()
+        return index
+
+    def get_detract_graph_axis_dialog(self, axis_choices):
+        dlg = detract_graph_axis_dialog(self)
+        dlg.axis_choice.AppendItems(axis_choices)
+        res = dlg.ShowModal()
+        index = -1
+        if res == wx.ID_OK:
+            name = dlg.axis_choice.GetStringSelection()
+            index = axis_choices.index(name)
+        dlg.Destroy()
+        return index
 
     def get_remove_graph_dialog(self, graph_choices):
         dlg = remove_graph_dialog(self)

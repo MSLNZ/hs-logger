@@ -433,6 +433,9 @@ class job_frame ( wx.Frame ):
 		self.append_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Append Graph", wx.EmptyString, wx.ITEM_NORMAL )
 		self.graph_m.Append( self.append_graph_m )
 		
+		self.detract_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Detract Graph", wx.EmptyString, wx.ITEM_NORMAL )
+		self.graph_m.Append( self.detract_graph_m )
+		
 		self.remove_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Remove Graph", wx.EmptyString, wx.ITEM_NORMAL )
 		self.graph_m.Append( self.remove_graph_m )
 		
@@ -462,6 +465,7 @@ class job_frame ( wx.Frame ):
 		self.reset_autoprofile_btn.Bind( wx.EVT_BUTTON, self.reset_autoprofile )
 		self.Bind( wx.EVT_MENU, self.add_graph, id = self.add_graph_m.GetId() )
 		self.Bind( wx.EVT_MENU, self.append_graph, id = self.append_graph_m.GetId() )
+		self.Bind( wx.EVT_MENU, self.detract_graph, id = self.detract_graph_m.GetId() )
 		self.Bind( wx.EVT_MENU, self.remove_graph, id = self.remove_graph_m.GetId() )
 	
 	def __del__( self ):
@@ -513,6 +517,9 @@ class job_frame ( wx.Frame ):
 		event.Skip()
 	
 	def append_graph( self, event ):
+		event.Skip()
+	
+	def detract_graph( self, event ):
 		event.Skip()
 	
 	def remove_graph( self, event ):
@@ -665,6 +672,136 @@ class append_graph_dialog ( wx.Dialog ):
 		
 		
 		bSizer25.Add( bSizer201, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer19.Add( bSizer25, 0, wx.EXPAND, 5 )
+		
+		bSizer26 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.cancel_b = wx.Button( self, wx.ID_CANCEL, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer26.Add( self.cancel_b, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.confirm_b = wx.Button( self, wx.ID_OK, u"Confirm", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer26.Add( self.confirm_b, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		
+		bSizer19.Add( bSizer26, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		
+		self.SetSizer( bSizer19 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.cancel_b.Bind( wx.EVT_BUTTON, self.cancel_dialog )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def cancel_dialog( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class detract_graph_graph_dialog
+###########################################################################
+
+class detract_graph_graph_dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 288,131 ), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer19 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText8 = wx.StaticText( self, wx.ID_ANY, u"Detract Graph", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText8.Wrap( -1 )
+		bSizer19.Add( self.m_staticText8, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		bSizer25 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.Graph_label = wx.StaticText( self, wx.ID_ANY, u"Choose Graph", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Graph_label.Wrap( -1 )
+		bSizer25.Add( self.Graph_label, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+		
+		graph_choiceChoices = []
+		self.graph_choice = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, graph_choiceChoices, 0 )
+		self.graph_choice.SetSelection( 0 )
+		bSizer20.Add( self.graph_choice, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		
+		bSizer25.Add( bSizer20, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer19.Add( bSizer25, 0, wx.EXPAND, 5 )
+		
+		bSizer26 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.cancel_b = wx.Button( self, wx.ID_CANCEL, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer26.Add( self.cancel_b, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.confirm_b = wx.Button( self, wx.ID_OK, u"Confirm", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer26.Add( self.confirm_b, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		
+		bSizer19.Add( bSizer26, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		
+		self.SetSizer( bSizer19 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.cancel_b.Bind( wx.EVT_BUTTON, self.cancel_dialog )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def cancel_dialog( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class detract_graph_axis_dialog
+###########################################################################
+
+class detract_graph_axis_dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 288,131 ), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer19 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText8 = wx.StaticText( self, wx.ID_ANY, u"Detract Graph", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText8.Wrap( -1 )
+		bSizer19.Add( self.m_staticText8, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		bSizer25 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.axis_label = wx.StaticText( self, wx.ID_ANY, u"Choose Axis", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.axis_label.Wrap( -1 )
+		bSizer25.Add( self.axis_label, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+		
+		axis_choiceChoices = []
+		self.axis_choice = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, axis_choiceChoices, 0 )
+		self.axis_choice.SetSelection( 0 )
+		bSizer20.Add( self.axis_choice, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		
+		bSizer25.Add( bSizer20, 1, wx.EXPAND, 5 )
 		
 		
 		bSizer19.Add( bSizer25, 0, wx.EXPAND, 5 )

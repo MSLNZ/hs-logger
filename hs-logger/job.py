@@ -103,26 +103,45 @@ class Job(object):
             name = name + "\'"
         if name == "cancelled":
             return "cancelled"
-        else:
+        else:  # Procedure wasn't cancelled
             self.graphs.append([(plt, name), (x, y)])
             return name
 
-    def append_graph(self, plt):  # Adds the graph to the list of graphs
+    def append_graph(self, plt):  # Adds a new line to the selected graph
         graph_choices = []
         for i in range(len(self.graphs)):
             graph_choices.append(self.graphs[i][0][1])
         axis_choices = self.logger.opref.copy()
         index, y = self.frame.get_append_graph_dialog(graph_choices, axis_choices)
-        if index != -1:
-            x = self.graphs[index][1][0]
-            self.graphs[index].append((x, y))
+        axis_check = []
+        for i in range(len(self.graphs[index]) - 1):
+            axis_check.append(self.graphs[index][i + 1][1])
+        if index != -1:  # Procedure wasn't cancelled
+            if axis_check.count(y) == 0:
+                x = self.graphs[index][1][0]
+                self.graphs[index].append((x, y))
+            else:
+                print("{} already in {}.".format(y, self.graphs[index][0][1]))
 
-    def remove_graph(self, plt):  # Adds the graph to the list of graphs
+    def detract_graph(self, plt):  # Removes a line from the selected graph
+        graph_choices = []
+        for i in range(len(self.graphs)):
+            graph_choices.append(self.graphs[i][0][1])
+        graph_index = self.frame.get_detract_graph_graph_dialog(graph_choices)
+        if graph_index > -1:  # Procedure wasn't cancelled
+            axis_choices = []
+            for i in range(len(self.graphs[graph_index])-1):
+                axis_choices.append(self.graphs[graph_index][i+1][1])
+            axis_index = self.frame.get_detract_graph_axis_dialog(axis_choices)
+            if graph_index > -1:  # Procedure wasn't cancelled
+                self.graphs[graph_index].pop(axis_index+1)
+
+    def remove_graph(self, plt):  # Removes the selected graph
         graph_choices = []
         for i in range(len(self.graphs)):
             graph_choices.append(self.graphs[i][0][1])
         index = self.frame.get_remove_graph_dialog(graph_choices)
-        if index > -1:
+        if index > -1:  # Procedure wasn't cancelled
             self.graphs.pop(index)
         return index + 3
 
