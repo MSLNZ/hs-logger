@@ -1,29 +1,30 @@
 {
-    "instrument_id": "HG2900",
-    "instrument_name": "Thunder Scientific 2900 Humidity Generator",
+    "instrument_id": "HG3900",
+    "instrument_name": "Thunder Scientific 3900 Humidity Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM8",
-    "baudrate":57600,
-    "write_termination":"\r\n",
-    "read_termination":"\n",
+    "port": "COM6",
+    "baudrate":2400,
+    "write_termination":"\r",
+    "read_termination":"\r\n",
     "notes": "",
     "operations": {
         "read_default":{
             "type": "read_multiple",
-            "name": "Actuals",
+            "name": "Actual/generated values",
             "id": "read_default",
             "details":"",
-            "command":"get actuals",
-            "operations":["read_rh", "read_fp", "read_dp", "read_ppmv","read_ppmw", "read_ps", "read_pc", "read_ts", "read_tc", "read_q", "read_tcab", "read_texp", "read_tps", "read_pg", "read_wl"],
+            "command":"?",
+            "operations":["read_fp", "read_dp", "read_ppmv", "read_ppmw", "read_rh", "read_ps", "read_ts", "read_pc", "read_tc", "read_q", "read_status"],
             "data_type": "list",
             "split":",",
-            "unit": ""
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_rh":{
+        "read_fp":{
             "type": "read_store",
-            "name": "rh 2900",
-            "id": "read_rh",
+            "name": "FP 3900",
+            "id": "read_fp",
             "details":"",
             "store_id": "read_default",
             "store_index": 0,
@@ -31,10 +32,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_fp":{
+        "read_dp":{
             "type": "read_store",
-            "name": "FP 2900",
-            "id": "read_fp",
+            "name": "DP 3900",
+            "id": "read_dp",
             "details":"",
             "store_id": "read_default",
             "store_index": 1,
@@ -42,42 +43,42 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_dp":{
+        "read_ppmv":{
             "type": "read_store",
-            "name": "DP 2900",
-            "id": "read_dp",
+            "name": "PPMv 3900",
+            "id": "read_ppmv",
             "details":"",
             "store_id": "read_default",
             "store_index": 2,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
-        "read_ppmv":{
+        "read_ppmw":{
             "type": "read_store",
-            "name": "PPMv 2900",
-            "id": "read_ppmv",
+            "name": "PPMw 3900",
+            "id": "read_ppmw",
             "details":"",
             "store_id": "read_default",
             "store_index": 3,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["P", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
-        "read_ppmw":{
+        "read_rh":{
             "type": "read_store",
-            "name": "PPMw 2900",
-            "id": "read_ppmw",
+            "name": "%rh 3900",
+            "id": "read_rh",
             "details":"",
             "store_id": "read_default",
             "store_index": 4,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["P", 0, 1, 0, 0]
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_ps":{
             "type": "read_store",
-            "name": "Ps 2900",
+            "name": "Ps 3900",
             "id": "read_ps",
             "details":"",
             "store_id": "read_default",
@@ -86,31 +87,31 @@
             "unit": "",
             "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
-        "read_pc":{
+        "read_ts":{
             "type": "read_store",
-            "name": "Pc 2900",
-            "id": "read_pc",
+            "name": "Ts 3900",
+            "id": "read_ts",
             "details":"",
             "store_id": "read_default",
             "store_index": 6,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["P", 0, 0.0689476, 0, 0]
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_ts":{
+        "read_pc":{
             "type": "read_store",
-            "name": "Ts 2900",
-            "id": "read_ts",
+            "name": "Pc 3900",
+            "id": "read_pc",
             "details":"",
             "store_id": "read_default",
             "store_index": 7,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
         "read_tc":{
             "type": "read_store",
-            "name": "Tc 2900",
+            "name": "Tc 3900",
             "id": "read_tc",
             "details":"",
             "store_id": "read_default",
@@ -121,7 +122,7 @@
         },
         "read_q":{
             "type": "read_store",
-            "name": "Q 2900",
+            "name": "Ts 3900",
             "id": "read_q",
             "details":"",
             "store_id": "read_default",
@@ -130,57 +131,13 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_tcab":{
+        "read_status":{
             "type": "read_store",
-            "name": "Tcab 2900",
-            "id": "read_tcab",
+            "name": "Status 3900",
+            "id": "read_status",
             "details":"",
             "store_id": "read_default",
             "store_index": 10,
-            "data_type": "float",
-            "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
-        },
-        "read_texp":{
-            "type": "read_store",
-            "name": "Texp 2900",
-            "id": "read_texp",
-            "details":"",
-            "store_id": "read_default",
-            "store_index": 11,
-            "data_type": "float",
-            "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
-        },
-        "read_tps":{
-            "type": "read_store",
-            "name": "Tps 2900",
-            "id": "read_tps",
-            "details":"",
-            "store_id": "read_default",
-            "store_index": 12,
-            "data_type": "float",
-            "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
-        },
-        "read_pg":{
-            "type": "read_store",
-            "name": "Pg 2900",
-            "id": "read_pg",
-            "details":"",
-            "store_id": "read_default",
-            "store_index": 13,
-            "data_type": "float",
-            "unit": "",
-            "transform_eq": ["P", 0, 1, 0, 0]
-        },
-        "read_wl":{
-            "type": "read_store",
-            "name": "Water 2900",
-            "id": "read_wl",
-            "details":"",
-            "store_id": "read_default",
-            "store_index": 14,
             "data_type": "float",
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
@@ -190,16 +147,16 @@
             "name": "Setpoints",
             "id": "read_setpoints",
             "details":"Returns current system gsetpoint values",
-            "command":"get setpoints",
-            "operations":["read_rh_sp", "read_fp_sp", "read_dp_sp", "read_ppmv_sp","read_ppmw_sp", "read_ps_sp", "read_ts_sp", "read_q_sp"],
+            "command":"?SP",
+            "operations":["read_fp_sp", "read_dp_sp", "read_ppmv_sp", "read_ppmw_sp", "read_rh_sp", "read_ps_sp", "read_ts_sp", "read_pc_sp", "read_tc_sp", "read_q_sp", "read_mode"],
             "data_type": "list",
             "split":",",
             "unit": ""
         },
-        "read_rh_sp":{
+        "read_fp_sp":{
             "type": "read_store",
-            "name": "%rh 2900 setpoint",
-            "id": "read_rh_sp",
+            "name": "FP 3900 setpoint",
+            "id": "read_fp_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 0,
@@ -207,10 +164,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_fp_sp":{
+        "read_dp_sp":{
             "type": "read_store",
-            "name": "Fp 2900 setpoint",
-            "id": "read_fp_sp",
+            "name": "DP 3900 setpoint",
+            "id": "read_dp_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 1,
@@ -218,10 +175,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_dp_sp":{
+        "read_ppmv_sp":{
             "type": "read_store",
-            "name": "Dp 2900 setpoint",
-            "id": "read_dp_sp",
+            "name": "PPMv 3900 setpoint",
+            "id": "read_ppmv_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 2,
@@ -229,10 +186,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_ppmv_sp":{
+        "read_ppmw_sp":{
             "type": "read_store",
-            "name": "PPMv 2900 setpoint",
-            "id": "read_ppmv_sp",
+            "name": "PPMw 3900 setpoint",
+            "id": "read_ppmw_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 3,
@@ -240,20 +197,20 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_ppmw_sp":{
+        "read_rh_sp":{
             "type": "read_store",
-            "name": "PPMw 2900 setpoint",
-            "id": "read_ppmw_sp",
+            "name": "%rh 3900 setpoint",
+            "id": "read_rh_sp",
             "details":"",
             "store_id": "read_setpoints",
-            "store_index": 4,
+            "store_index":4,
             "data_type": "float",
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_ps_sp":{
             "type": "read_store",
-            "name": "Ps 2900 setpoint",
+            "name": "Ps 3900 setpoint",
             "id": "read_ps_sp",
             "details":"",
             "store_id": "read_setpoints",
@@ -264,7 +221,7 @@
         },
         "read_ts_sp":{
             "type": "read_store",
-            "name": "Ts 2900 setpoint",
+            "name": "Ts 3900 setpoint",
             "id": "read_ts_sp",
             "details":"",
             "store_id": "read_setpoints",
@@ -273,10 +230,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_q_sp":{
+        "read_pc_sp":{
             "type": "read_store",
-            "name": "Q 2900 setpoint",
-            "id": "read_q_sp",
+            "name": "Pc 3900 setpoint",
+            "id": "read_pc_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 7,
@@ -284,67 +241,145 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "action_generate":{
+        "read_tc_sp":{
+            "type": "read_store",
+            "name": "Tc 3900 setpoint",
+            "id": "read_tc_sp",
+            "details":"",
+            "store_id": "read_setpoints",
+            "store_index": 8,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_q_sp":{
+            "type": "read_store",
+            "name": "Q 3900 setpoint",
+            "id": "read_q_sp",
+            "details":"",
+            "store_id": "read_setpoints",
+            "store_index": 9,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mode":{
+            "type": "read_store",
+            "name": "Mode 3900",
+            "id": "read_mode",
+            "details":"",
+            "store_id": "read_setpoints",
+            "store_index": 10,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_cl":{
+            "type": "read_single",
+            "name": "Clear cycles remaining",
+            "id": "read_cl",
+            "details":"",
+            "command": "?CL",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pu":{
+            "type": "read_single",
+            "name": "Pressure units",
+            "id": "read_pu",
+            "details":"0 for psi, 1 for bar, 2 for hPa",
+            "command": "?CL",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "action_gen":{
             "type": "action",
-            "name": "Generate Mode",
-            "id":   "action_generate",
+            "name": "Generate 3900",
+            "id":   "action_gen",
             "details": "Start the System",
-            "command": "generate"
+            "command": "GEN"
         },
-        "action_shutdown":{
+        "action_pur":{
             "type": "action",
-            "name": "Shutdown System",
-            "id":   "action_shutdown",
-            "details": "Stops the System",
-            "command": "shutdown"
+            "name": "Purge 3900",
+            "id":   "action_pur",
+            "details": "Start the System",
+            "command": "PUR"
         },
-        "set_rh":{
-            "type": "write",
-            "name": "RH 2900 set",
-            "id":   "set_rh",
-            "command": "set %rh {}"
+        "action_sto":{
+            "type": "action",
+            "name": "Stop 3900",
+            "id":   "action_sto",
+            "details": "Stops the System",
+            "command": "STO"
         },
         "set_fp":{
             "type": "write",
-            "name": "FP 2900 set",
+            "name": "FP 3900 set",
             "id":   "set_fp",
-            "command": "set frost point {}"
+            "command": "FP={}"
         },
         "set_dp":{
             "type": "write",
-            "name": "DP 2900 set",
+            "name": "DP 3900 set",
             "id":   "set_dp",
-            "command": "set frost point {}"
+            "command": "DP={}"
         },
         "set_ppmv":{
             "type": "write",
-            "name": "PPMv 2900 set",
+            "name": "PPMv 3900 set",
             "id":   "set_ppmv",
-            "command": "set ppmv {}"
+            "command": "PV={}"
         },
         "set_ppmw":{
             "type": "write",
-            "name": "PPMw 2900 set",
+            "name": "PPMw 3900 set",
             "id":   "set_ppmw",
-            "command": "set ppmw {}"
+            "command": "PW={}"
+        },
+        "set_rh":{
+            "type": "write",
+            "name": "%rh 3900 set",
+            "id":   "set_rh",
+            "command": "RH={}"
         },
         "set_ps":{
             "type": "write",
-            "name": "Ps 2900 set",
+            "name": "Ps 3900 set",
             "id":   "set_ps",
-            "command": "set saturation pressure {}"
+            "command": "PS={}"
         },
         "set_ts":{
             "type": "write",
-            "name": "Ts 2900 set",
+            "name": "Ts 3900 set",
             "id":   "set_ts",
-            "command": "set saturation temperature {}"
+            "command": "TS={}"
+        },
+        "set_pc":{
+            "type": "write",
+            "name": "Pc 3900 set",
+            "id":   "set_pc",
+            "command": "PT={}"
+        },
+        "set_tc":{
+            "type": "write",
+            "name": "Tc 3900 set",
+            "id":   "set_tc",
+            "command": "TT={}"
         },
         "set_q":{
             "type": "write",
-            "name": "Q 2900 set",
+            "name": "Q 3900 set",
             "id":   "set_q",
-            "command": "set mass flow rate {}"
+            "command": "FL={}"
+        },
+        "set_pu":{
+            "type": "write",
+            "name": "PU 3900 set",
+            "id":   "set_pu",
+            "command": "PU={}"
         }
     }
 }

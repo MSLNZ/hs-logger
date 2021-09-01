@@ -77,8 +77,10 @@ class generic_driver_py_serial(object):
                     self.instrument.write(cmd_e)
                     data = self.instrument.read_until(self.r_term)
                     print("Data: {}".format(data))
-                    floats_data = re.findall(r"[-+]?\d*\.\d+|\d+", str(data))
-                    data = float(floats_data[0])
+                    # floats_data = re.findall(r"[-+]?\d*\.\d+|\d+", str(data))
+                    # data = float(floats_data[0])
+                    floats_data = re.findall(r"[-+]?(\d+(\.\d*))([eE][-+]?\d+)?", str(data))
+                    data = float(floats_data[0][0] + floats_data[0][2])
 
                     data_trans = self.transform(data, operation)
                 # print('unlocK')

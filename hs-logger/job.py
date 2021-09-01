@@ -94,20 +94,49 @@ class Job(object):
         # self.sched.shutdown()
 
     def add_graph(self, plt):  # Adds the graph to the list of graphs
-        choices = self.logger.opref.copy()
-        name, x, y = self.frame.get_axes_dialog(choices)
-        self.graphs.append((plt, (x, y)))
-        return name
+        graph_names = []
+        for i in range(len(self.graphs)):
+            graph_names.append(self.graphs[i][0][1])
+        axis_choices = self.logger.opref.copy()
+        name, x, y = self.frame.get_add_graph_dialog(axis_choices)
+        while graph_names.count(name) > 0:
+            name = name + "\'"
+        if name == "cancelled":
+            return "cancelled"
+        else:
+            self.graphs.append([(plt, name), (x, y)])
+            return name
+
+    def append_graph(self, plt):  # Adds the graph to the list of graphs
+        graph_choices = []
+        for i in range(len(self.graphs)):
+            graph_choices.append(self.graphs[i][0][1])
+        axis_choices = self.logger.opref.copy()
+        index, y = self.frame.get_append_graph_dialog(graph_choices, axis_choices)
+        if index != -1:
+            x = self.graphs[index][1][0]
+            self.graphs[index].append((x, y))
+
+    def remove_graph(self, plt):  # Adds the graph to the list of graphs
+        graph_choices = []
+        for i in range(len(self.graphs)):
+            graph_choices.append(self.graphs[i][0][1])
+        index = self.frame.get_remove_graph_dialog(graph_choices)
+        if index > -1:
+            self.graphs.pop(index)
+        return index + 3
 
     def update_graphs(self):  # Updates the data depicted in the graphs
-        for g in self.graphs:  # g in form of [graph object, [x, y]]
+        for g in self.graphs:  # g in form of [[graph object, name], [x1, y1], [x2, y2], etc...]
+            leg = []
             for i in range(len(g)):
                 if i == 0:
-                    plt = g[0].figure.gca()
+                    plt = g[0][0].figure.gca()
                     plt.clear()
                 else:
                     x = g[i][0]
                     y = g[i][1]
+                    leg.append(y)
                     inst_x, op = x.split('.')
                     if inst_x == "reference":
                         x_val = [d.get(x) for d in self.logger.storeref]
@@ -119,7 +148,9 @@ class Job(object):
                     else:
                         y_val = [d[1].get(y) for d in self.logger.store]
                     plt.plot(x_val, y_val)
-                    g[0].canvas.draw()
+            if len(g) > 2:
+                plt.legend(leg)
+            g[0][0].canvas.draw()
 
     def update_table(self):
         self.frame.update_table(0)

@@ -60,7 +60,7 @@ class generic_driver_visa_gpib(object):
 
 # #testing
 # def main():
-#     instr = generic_driver_visa(json.load(open('../instruments/LHG3900_visa.json')))
+#     instr = generic_driver_visa(json.load(open('../instruments/HG3900_visa.json')))
 #     print (instr.read_instrument('read_default'))
 #     print (instr.read_instrument('read_default'))
 #     time.sleep(2)

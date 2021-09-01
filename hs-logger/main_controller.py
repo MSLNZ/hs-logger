@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import numpy as np
-from wx_gui import ctrl_frame, job_frame, axes_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
+from wx_gui import ctrl_frame, job_frame, add_graph_dialog, append_graph_dialog, remove_graph_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
 from logger import Logger
 from job import Job
 import refcalc
@@ -99,22 +99,64 @@ class myjobframe(job_frame):
     def add_graph(self, event):
         book = self.job_book
         plt = Plot(book)
-        self.Layout()
+        self.Layout()  # why is this not at the end?
         name = self.job.add_graph(plt)
-        book.AddPage(plt, name)
+        if name != "cancelled":
+            book.AddPage(plt, name)
 
-    def get_axes_dialog(self, choices):
-        dlg = axes_dialog(self)
-        dlg.y_choice.AppendItems(choices)
-        dlg.x_choice.AppendItems(choices)
+    def append_graph(self, event):
+        book = self.job_book
+        plt = Plot(book)
+        self.Layout()
+        self.job.append_graph(plt)
+
+    def remove_graph(self, event):
+        book = self.job_book
+        plt = Plot(book)
+        self.Layout()
+        index = self.job.remove_graph(plt)
+        if index > 2:
+            book.RemovePage(index)
+
+    def get_add_graph_dialog(self, axis_choices):
+        dlg = add_graph_dialog(self)
+        dlg.y_choice.AppendItems(axis_choices)
+        dlg.x_choice.AppendItems(axis_choices)
         res = dlg.ShowModal()
+        name = "cancelled"
+        x = ""
+        y = ""
         if res == wx.ID_OK:
             name = dlg.label_text.GetValue()
             x = dlg.x_choice.GetStringSelection()
             y = dlg.y_choice.GetStringSelection()
         dlg.Destroy()
-        # Todo fix cancel error
         return name, x, y
+
+    def get_append_graph_dialog(self, graph_choices, axis_choices):
+        dlg = append_graph_dialog(self)
+        dlg.graph_choice.AppendItems(graph_choices)
+        dlg.y_choice.AppendItems(axis_choices)
+        res = dlg.ShowModal()
+        index = -1
+        y = ""
+        if res == wx.ID_OK:
+            name = dlg.graph_choice.GetStringSelection()
+            y = dlg.y_choice.GetStringSelection()
+            index = graph_choices.index(name)
+        dlg.Destroy()
+        return index, y
+
+    def get_remove_graph_dialog(self, graph_choices):
+        dlg = remove_graph_dialog(self)
+        dlg.graph_choice.AppendItems(graph_choices)
+        res = dlg.ShowModal()
+        index = -1
+        if res == wx.ID_OK:
+            name = dlg.graph_choice.GetStringSelection()
+            index = graph_choices.index(name)
+        dlg.Destroy()
+        return index
 
     def add_table(self, col, row):
         d = Data_Table()

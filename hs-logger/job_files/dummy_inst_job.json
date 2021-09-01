@@ -12,12 +12,14 @@
     "min_interval": 1,
     "time": 0,
     "instruments": {
-        "dummy_inst": "instruments/dummy_inst.json"
+        "dummy_inst": "instruments/dummy_inst.json",
+        "dummy_inst_2": "instruments/dummy_inst_2.json"
     },
     "logged_operations": [
         "time.runtime",
         "time.datetime",
-        "dummy_inst.read_test"
+        "dummy_inst.read_test",
+        "dummy_inst_2.read_test"
     ],
     "details": {
         "dummy_inst": {
@@ -28,9 +30,9 @@
         "test_reference_1": {
             "hum": "dummy_inst.read_test",
             "p1": "dummy_inst.read_test",
-            "p2": "dummy_inst.read_test",
+            "p2": "dummy_inst_2.read_test",
             "t1": "dummy_inst.read_test",
-            "t2": "dummy_inst.read_test",
+            "t2": "dummy_inst_2.read_test",
             "df1": 0,
             "df2": 0,
             "type": "dd"
@@ -38,9 +40,9 @@
         "test_reference_2": {
             "hum": "dummy_inst.read_test",
             "p1": "dummy_inst.read_test",
-            "p2": "dummy_inst.read_test",
+            "p2": "dummy_inst_2.read_test",
             "t1": "dummy_inst.read_test",
-            "t2": "dummy_inst.read_test",
+            "t2": "dummy_inst_2.read_test",
             "df1": 0,
             "df2": 0,
             "type": "hd"

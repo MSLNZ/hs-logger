@@ -11,11 +11,11 @@
     "operations": {
         "read_default":{
             "type": "read_multiple",
-            "name": "",
+            "name": "Actual/generated values",
             "id": "read_default",
             "details":"",
             "command":"?",
-            "operations":["read_rh_pc", "read_rh_pctc","read_sat_temp", "read_chamber_temp", "read_sat_press", "read_chamber_press", "read_flowrate", "read_status"],
+            "operations":["read_rh_pc", "read_rh_pctc", "read_ts", "read_tc", "read_ps", "read_pc", "read_q", "read_status"],
             "data_type": "list",
             "split":",",
             "unit": "",
@@ -23,7 +23,7 @@
         },
         "read_rh_pc":{
             "type": "read_store",
-            "name": "RH @Pc",
+            "name": "%rh @Pc 2500",
             "id": "read_rh_pc",
             "details":"",
             "store_id": "read_default",
@@ -34,7 +34,7 @@
         },
         "read_rh_pctc":{
             "type": "read_store",
-            "name": "RH @PcTc",
+            "name": "%rh @PcTc 2500",
             "id": "read_rh_pctc",
             "details":"",
             "store_id": "read_default",
@@ -43,10 +43,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_sat_press":{
+        "read_ps":{
             "type": "read_store",
-            "name": "saturation pressure",
-            "id": "read_sat_press",
+            "name": "Ps 2500",
+            "id": "read_ps",
             "details":"",
             "store_id": "read_default",
             "store_index": 2,
@@ -54,10 +54,10 @@
             "unit": "",
             "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
-        "read_chamber_press":{
+        "read_pc":{
             "type": "read_store",
-            "name": "chamber pressure",
-            "id": "read_chamber_press",
+            "name": "Pc 2500",
+            "id": "read_pc",
             "details":"",
             "store_id": "read_default",
             "store_index": 3,
@@ -65,10 +65,10 @@
             "unit": "",
             "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
-        "read_sat_temp":{
+        "read_ts":{
             "type": "read_store",
-            "name": "saturation temperature",
-            "id": "read_sat_temp",
+            "name": "Ts 2500",
+            "id": "read_ts",
             "details":"",
             "store_id": "read_default",
             "store_index": 4,
@@ -76,10 +76,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_chamber_temp":{
+        "read_tc":{
             "type": "read_store",
-            "name": "chamber temperature",
-            "id": "read_chamber_temp",
+            "name": "Tc 2500",
+            "id": "read_tc",
             "details":"",
             "store_id": "read_default",
             "store_index": 5,
@@ -87,10 +87,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_flowrate":{
+        "read_q":{
             "type": "read_store",
-            "name": "flow rate",
-            "id": "read_flowrate",
+            "name": "Q 2500",
+            "id": "read_q",
             "details":"",
             "store_id": "read_default",
             "store_index": 6,
@@ -100,7 +100,7 @@
         },
         "read_status":{
             "type": "read_store",
-            "name": "status",
+            "name": "Status 2500",
             "id": "read_status",
             "details":"",
             "store_id": "read_default",
@@ -115,14 +115,15 @@
             "id": "read_setpoints",
             "details":"Returns current system gsetpoint values",
             "command":"?SP",
+            "operations":["read_rh_pc_sp", "read_rh_pctc_sp", "read_ts_sp", "read_ps_sp", "read_q_sp", "read_mode"],
             "data_type": "list",
             "split":",",
             "unit": ""
         },
-        "read_rh_pc_setpoint":{
+        "read_rh_pc_sp":{
             "type": "read_store",
-            "name": "RH @Pc SP",
-            "id": "read_rh_pc_setpoint",
+            "name": "%rh @Pc 2500 setpoint",
+            "id": "read_rh_pc_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 0,
@@ -130,10 +131,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_rh_pctc_setpoint":{
+        "read_rh_pctc_sp":{
             "type": "read_store",
-            "name": "RH @PcTc SP",
-            "id": "read_rh_pctc_setpoint",
+            "name": "%rh @PcTc 2500 setpoint",
+            "id": "read_rh_pctc_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 1,
@@ -141,10 +142,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_sat_press_setpoint":{
+        "read_ps_sp":{
             "type": "read_store",
-            "name": "saturation pressure SP",
-            "id": "read_sat_press_setpoint",
+            "name": "Ps 2500 setpoint",
+            "id": "read_ps_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 2,
@@ -152,10 +153,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_sat_temp_setpoint":{
+        "read_ts_sp":{
             "type": "read_store",
-            "name": "saturation temperature SP",
-            "id": "read_sat_temp_setpoint",
+            "name": "Ts 2500 setpoint",
+            "id": "read_ts_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 3,
@@ -163,10 +164,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_flowrate_setpoint":{
+        "read_q_sp":{
             "type": "read_store",
-            "name": "flow rate SP",
-            "id": "read_flowrate_setpoint",
+            "name": "Q 2500 setpoint",
+            "id": "read_q_sp",
             "details":"",
             "store_id": "read_setpoints",
             "store_index":4,
@@ -174,10 +175,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_current_mode":{
+        "read_mode":{
             "type": "read_store",
-            "name": "current control mode",
-            "id": "read_current_mode",
+            "name": "Mode 2500",
+            "id": "read_mode",
             "details":"",
             "store_id": "read_setpoints",
             "store_index": 5,
@@ -187,46 +188,46 @@
         },
         "action_run":{
             "type": "action",
-            "name": "Run Mode",
+            "name": "Run 2500",
             "id":   "action_run",
             "details": "Start the System",
             "command": "RUN"
         },
         "action_stop":{
             "type": "action",
-            "name": "Stop System",
+            "name": "Stop 2500",
             "id":   "action_stop",
             "details": "Stops the System",
             "command": "STO"
         },
-        "set_rh_pc_setpoint":{
+        "set_rh_pc":{
             "type": "write",
-            "name": "RH @PC Setpoint",
-            "id":   "set_rh_pc_setpoint",
+            "name": "RH @PC 2500 set",
+            "id":   "set_rh_pc",
             "command": "R1={}"
         },
-        "set_rh_pctc_setpoint":{
+        "set_rh_pctc":{
             "type": "write",
-            "name": "RH @PcTc Setpoint",
-            "id":   "set_rh_pctc_setpoint",
+            "name": "RH @PcTc 2500 set",
+            "id":   "set_rh_pctc",
             "command": "R2={}"
         },
-        "set_flow_rate_setpoint":{
+        "set_q":{
             "type": "write",
-            "name": "Flow Rate Setpoint",
-            "id":   "set_flow_rate_setpoint",
+            "name": "Q 2500 set",
+            "id":   "set_q",
             "command": "FS={}"
         },
-        "set_saturation_pressure_setpoint":{
+        "set_ps":{
             "type": "write",
-            "name": "Saturation Pressure Setpoint",
-            "id":   "set_saturation_pressure_setpoint",
+            "name": "Ps 2500 set",
+            "id":   "set_ps",
             "command": "PS={}"
         },
-        "set_saturation_temperature_setpoint":{
+        "set_ts":{
             "type": "write",
-            "name": "Saturation Temperature Setpoint",
-            "id":   "set_saturation_temperature_setpoint",
+            "name": "Ts 2500 set",
+            "id":   "set_ts",
             "command": "TS={}"
         }
     }
