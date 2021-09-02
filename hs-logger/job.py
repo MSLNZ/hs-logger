@@ -84,9 +84,9 @@ class Job(object):
         self.logger.resume()
 
     def start(self):
-        self.logger.start()
         self.auto_profile.point_start_time = time.time()
         self.auto_profile.move_to_point(self.auto_profile.current_point)
+        self.logger.start()
 
     def stop(self):
         self.logger.stop()

@@ -64,8 +64,7 @@ class Logger(Thread):
         self.delay = 0
 
     def run(self):
-        self.logf("starting")
-        self.start_time = time.time()
+        self.instruments['time'].start_time = time.time()
         self.paused = False
         self.mainloop()
 
