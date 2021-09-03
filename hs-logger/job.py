@@ -7,7 +7,6 @@ import numpy as np
 
 class Job(object):
     def __init__(self, spec, inst_drivers, frame):
-        print(inst_drivers)
         self.inst_drivers = inst_drivers
         self.spec = spec
         frame_log = Text_Log(frame.job_disp_log)
@@ -148,11 +147,10 @@ class Job(object):
     def update_graphs(self):  # Updates the data depicted in the graphs
         for g in self.graphs:  # g in form of [[graph object, name], [x1, y1], [x2, y2], etc...]
             leg = []
+            plt = g[0][0].figure.gca()
+            plt.clear()
             for i in range(len(g)):
-                if i == 0:
-                    plt = g[0][0].figure.gca()
-                    plt.clear()
-                else:
+                if i != 0:
                     x = g[i][0]
                     y = g[i][1]
                     leg.append(y)
@@ -234,7 +232,6 @@ class AutoProfile(object):
             # Back to normal code
             self.points = len(d1[self.h_name[3]][1])
             self.operations = d1
-            print(self.operations)
 
         # bSizer = self.job.frame.bSizer181
         # self.job.frame.grid_auto_profile.Destroy()
@@ -250,15 +247,11 @@ class AutoProfile(object):
     def new_set_op(self, name, inst_ops, inst_opc, inst_opr, default=0):
         points = [0 for _ in range(self.points)]
         self.operations[name] = (inst_ops, points)
-        print(self.operations)
         self.h_name.append(name)
         self.profile_header = self.h_name.copy()
         self.h_set.append(inst_ops)
         self.h_actual.append(inst_opr)
         self.h_check.append(inst_opc)
-        print(self.h_set)
-        print(self.h_check)
-        print(self.h_actual)
         grid = self.job.frame.grid_auto_profile
         # msg = wx.grid.GridTableMessage(grid.table,
         #                                wx.grid.GRIDTABLE_NOTIFY_COLS_APPENDED, 1)
@@ -330,7 +323,6 @@ class AutoProfile(object):
         actions = []
         for inst_op, vals in self.operations.values():
             actions.append((inst_op, vals[point]))
-        print(actions)
         self.job.auto_profile_actions(actions)
 
 

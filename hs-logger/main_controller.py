@@ -4,7 +4,6 @@ import os
 import sys
 import numpy as np
 from wx_gui import ctrl_frame, job_frame, add_graph_dialog, append_graph_dialog, detract_graph_graph_dialog, detract_graph_axis_dialog, remove_graph_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
-from logger import Logger
 from job import Job
 import refcalc
 
@@ -19,9 +18,7 @@ class Main_Frame(ctrl_frame):
         self.ctrl = control
 
     def switchToJob(self, event):
-        print(event)
         job = event.GetEventObject().GetStringSelection()
-        print(job)
         job = self.ctrl.jobs.get(job)
         jframe = job.frame
         jframe.Show()
@@ -29,7 +26,6 @@ class Main_Frame(ctrl_frame):
         jframe.SetFocus()
 
     def switchToInst(self, event):
-        print(event)
         inst = event.GetEventObject().GetStringSelection()
 
         # inst = self.ctrl.instruments.get(inst)
@@ -130,8 +126,8 @@ class myjobframe(job_frame):
         dlg.x_choice.AppendItems(axis_choices)
         res = dlg.ShowModal()
         name = "cancelled"
-        x = ""
-        y = ""
+        x = "time.runtime"
+        y = "time.runtime"
         if res == wx.ID_OK:
             name = dlg.label_text.GetValue()
             x = dlg.x_choice.GetStringSelection()
@@ -145,7 +141,7 @@ class myjobframe(job_frame):
         dlg.y_choice.AppendItems(axis_choices)
         res = dlg.ShowModal()
         index = -1
-        y = ""
+        y = "time.runtime"
         if res == wx.ID_OK:
             name = dlg.graph_choice.GetStringSelection()
             y = dlg.y_choice.GetStringSelection()
@@ -475,13 +471,12 @@ class myjobframe(job_frame):
 
     def load_autoprofile(self, event):
         dlg = Load_profile_dialog(self)
-
+        # Todo add cancel
         res = dlg.ShowModal()
         if res == wx.ID_OK:
             file = dlg.profile_filePicker.GetPath()
 
         dlg.Destroy()
-        print(file)
         self.job.auto_profile.load_file(file)
 
     def save_autoprofile(self, event):
@@ -489,7 +484,7 @@ class myjobframe(job_frame):
         pass
 
     def save_points(self, event):
-        # TODO #self.job.save_points()
+        # TODO # self.job.save_points()
         pass
 
     def update_points_n(self, event):
