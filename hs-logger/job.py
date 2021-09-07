@@ -51,10 +51,14 @@ class Job(object):
 
     def new_autoprofile_col(self):
         name, inst_ops, inst_opc, inst_opr = self.frame.get_autoprofile_new_action_dlg()
-        self.auto_profile.new_set_op(name, inst_ops, inst_opc, inst_opr)
+        if name != "cancelled":
+            self.auto_profile.new_set_op(name, inst_ops, inst_opc, inst_opr)
 
     def next_point(self):
         self.auto_profile.next_point()
+
+    def save_points(self):
+        self.auto_profile.save_points()
 
     def new_point(self):
         self.auto_profile.new_point()
@@ -131,9 +135,12 @@ class Job(object):
             axis_choices = []
             for i in range(len(self.graphs[graph_index])-1):
                 axis_choices.append(self.graphs[graph_index][i+1][1])
-            axis_index = self.frame.get_detract_graph_axis_dialog(axis_choices)
-            if graph_index > -1:  # Procedure wasn't cancelled
-                self.graphs[graph_index].pop(axis_index+1)
+            if len(axis_choices) > 1:
+                axis_index = self.frame.get_detract_graph_axis_dialog(axis_choices)
+                if axis_index > -1:  # Procedure wasn't cancelled
+                    self.graphs[graph_index].pop(axis_index+1)
+            else:
+                print("Can't detract last line.")
 
     def remove_graph(self, plt):  # Removes the selected graph
         graph_choices = []
@@ -193,6 +200,7 @@ class AutoProfile(object):
 
         self.current_point = 0
         self.point_start_time = time.time()
+        self.transtime = u""
 
     def load_file(self, file_name):
         grid = self.job.frame.grid_auto_profile
@@ -305,16 +313,15 @@ class AutoProfile(object):
     def get_current_point(self):
         return self.current_point
 
-    def restart_point(self, point):
-        self.move_to_point(point)
-        self.point_start_time = time.time()
-
     def next_point(self):
         self.job.logger.point_to_file()
         if self.points == self.current_point+1:
             self.move_to_point(0)
         else:
             self.move_to_point(self.current_point+1)
+
+    def save_points(self):
+        self.job.logger.point_to_file()
 
     def move_to_point(self, point):
         self.current_point = point
@@ -329,9 +336,13 @@ class AutoProfile(object):
     def update(self):
         t1 = self.point_start_time + 60 * float(self.soak[self.current_point])  # - self.job.logger.delay  # if paused
         index = 2 + int(self.assured[self.current_point])
+        timeleft = (t1 - time.time())/60
         if index < 3:
-            if time.time() > t1:
+            if timeleft < 0:
+                self.transtime = u"Now"
                 self.next_point()
+            else:
+                self.transtime = u"{}".format(timeleft)
         else:
             inst1, op1 = self.h_check[index].split('.')
             inst2, op2 = self.h_actual[index].split('.')
@@ -342,18 +353,19 @@ class AutoProfile(object):
             else:
                 self.current_stdev = self.h_actual[index]
                 self.stdev_list = []  # Otherwise, start a new array for the new operation.
-            if time.time() > t1:
+            if timeleft < 0:
                 dif = value2 - value1
                 std = self.stdev()
-                print("{} {}".format(dif, self.a_dif))
-                print("{} {}".format(std, self.a_std))
                 if abs(dif) < self.a_dif:
                     if std < self.a_std:
+                        self.transtime = u"Now"
                         self.next_point()
                     else:
-                        print("Not sufficiently stable. Standard deviation = {}.".format(std))
+                        self.transtime = u"When stdev ({}) is less than {}.".format(std, self.a_std)
                 else:
-                    print("Point not reached. Difference = {}.".format(dif))
+                    self.transtime = u"When difference ({}) is less than {}.".format(dif, self.a_dif)
+            else:
+                self.transtime = u"{}".format(timeleft)
 
     def check_instrument(self, inst_id, operation_id):
         inst = self.job.logger.instruments.get(inst_id)

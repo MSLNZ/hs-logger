@@ -74,6 +74,9 @@ class myjobframe(job_frame):
         job_frame.__init__(self, None)
         self.job = job
         self.resume_b.Enable(False)
+        self.resumewait = True
+
+        self.countdown = -1
 
     def hide(self, event):
         self.Hide()
@@ -81,7 +84,7 @@ class myjobframe(job_frame):
     def pause_log(self, event):
         self.job.pause()
         self.pause_b.Enable(False)
-        self.resume_b.Enable(True)
+        self.resumewait = True
 
     def resume_log(self, event):
         self.job.resume()
@@ -405,6 +408,19 @@ class myjobframe(job_frame):
             raise ValueError("References are {} long, rather than {}.".format(len(self.job.logger.storeref),
                                                                               len(self.job.logger.store)))
 
+        num = int(self.reading_number.GetLabel()) + 1
+        self.reading_number.SetLabel(u"{}".format(num))
+        self.next_point_time.SetLabel(self.job.auto_profile.transtime)
+        if self.countdown > -1:
+            if self.countdown - num < 1:
+                self.countdown = -1
+                self.job.save_points()
+                self.countdown_number.SetLabel(u"")
+            else:
+                self.countdown_number.SetLabel(u"{}".format(self.countdown - num))
+        if self.resumewait:
+            self.resumewait = False
+            self.resume_b.Enable(True)
         self.job.logger.comment = self.comment_input.GetValue()
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()
@@ -441,11 +457,11 @@ class myjobframe(job_frame):
 
     def get_autoprofile_new_action_dlg(self):
         dlg = new_action_autoprofile_dlg(self)
-        name = "none"
-        inst = "none"
-        ops = "none"
-        opc = "none"
-        opr = "none"
+        name = "cancelled"
+        inst = "time"
+        ops = "runtime"
+        opc = "runtime"
+        opr = "runtime"
         res = dlg.ShowModal()
         if res == wx.ID_OK:
             name = dlg.profile_name_ctrl.GetValue()
@@ -453,7 +469,6 @@ class myjobframe(job_frame):
             ops = dlg.profile_set_ctrl.GetValue()
             opc = dlg.profile_check_ctrl.GetValue()
             opr = dlg.profile_read_ctrl.GetValue()
-            print("New point added: {} {} {} {} {}".format(name, inst, ops, opc, opr))
         dlg.Destroy()
         return name, "{}.{}".format(inst, ops), "{}.{}".format(inst, opc, "{}.{}".format(inst, opr))
 
@@ -471,21 +486,35 @@ class myjobframe(job_frame):
 
     def load_autoprofile(self, event):
         dlg = Load_profile_dialog(self)
-        # Todo add cancel
+        file = ""
         res = dlg.ShowModal()
         if res == wx.ID_OK:
             file = dlg.profile_filePicker.GetPath()
 
         dlg.Destroy()
-        self.job.auto_profile.load_file(file)
+        if file != "":
+            self.job.auto_profile.load_file(file)
+
+    def move_to_selected(self, event):
+        point = self.grid_auto_profile.GetSelectedRows()
+        if not point:
+            print("No point selected.")
+        else:
+            self.job.auto_profile.move_to_point(point[0])
 
     def save_autoprofile(self, event):
         # TODO
         pass
 
-    def save_points(self, event):
-        # TODO # self.job.save_points()
-        pass
+    def take_last_n(self, event):
+        self.job.save_points()
+
+    def take_next_n(self, event):
+        try:
+            n = int(self.n_points_input.GetValue())
+        except ValueError:
+            n = 10
+        self.countdown = int(self.reading_number.GetLabel()) + n
 
     def update_points_n(self, event):
         self.job.n = self.n_points_input.GetValue()

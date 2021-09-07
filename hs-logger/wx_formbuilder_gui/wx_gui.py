@@ -170,21 +170,42 @@ class job_frame ( wx.Frame ):
 		bSizer60 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.start_b = wx.Button( self, wx.ID_ANY, u"Start", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer60.Add( self.start_b, 0, wx.ALL, 5 )
+		bSizer60.Add( self.start_b, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.pause_b = wx.Button( self, wx.ID_ANY, u"Pause", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer60.Add( self.pause_b, 0, wx.ALL, 5 )
+		bSizer60.Add( self.pause_b, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.resume_b = wx.Button( self, wx.ID_ANY, u"Resume", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer60.Add( self.resume_b, 0, wx.ALL, 5 )
+		bSizer60.Add( self.resume_b, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		bSizer611 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.reading_number = wx.StaticText( self, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.reading_number.Wrap( -1 )
+		bSizer611.Add( self.reading_number, 1, wx.ALIGN_RIGHT|wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.countdown_number = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.countdown_number.Wrap( -1 )
+		bSizer611.Add( self.countdown_number, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		
+		bSizer60.Add( bSizer611, 0, wx.EXPAND, 5 )
 		
 		self.reading_text = wx.StaticText( self, wx.ID_ANY, u"Reading:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.reading_text.Wrap( -1 )
-		bSizer60.Add( self.reading_text, 0, wx.ALL, 5 )
+		bSizer60.Add( self.reading_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
-		self.current_reading = wx.StaticText( self, wx.ID_ANY, u"-", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.current_reading = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.current_reading.Wrap( -1 )
 		bSizer60.Add( self.current_reading, 0, wx.ALL, 5 )
+		
+		self.next_point_text = wx.StaticText( self, wx.ID_ANY, u"Next Point In:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.next_point_text.Wrap( -1 )
+		bSizer60.Add( self.next_point_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		self.next_point_time = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.next_point_time.Wrap( 100 )
+		bSizer60.Add( self.next_point_time, 0, wx.ALL, 5 )
 		
 		
 		bSizer59.Add( bSizer60, 0, wx.EXPAND, 5 )
@@ -249,18 +270,11 @@ class job_frame ( wx.Frame ):
 		
 		bSizer19 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.points_update = wx.Button( self.points, wx.ID_ANY, u"Update", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer19.Add( self.points_update, 0, wx.ALL, 5 )
-		
 		self.last_n = wx.Button( self.points, wx.ID_ANY, u"Last N", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.last_n.Enable( False )
-		
-		bSizer19.Add( self.last_n, 0, wx.ALL, 5 )
+		bSizer19.Add( self.last_n, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.next_n = wx.Button( self.points, wx.ID_ANY, u"Next N", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.next_n.Enable( False )
-		
-		bSizer19.Add( self.next_n, 0, wx.ALL, 5 )
+		bSizer19.Add( self.next_n, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		bSizer39 = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -272,21 +286,18 @@ class job_frame ( wx.Frame ):
 		bSizer39.Add( self.n_points_input, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		
-		bSizer19.Add( bSizer39, 0, 0, 5 )
-		
-		self.save_btn = wx.Button( self.points, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer19.Add( self.save_btn, 0, wx.ALL, 5 )
+		bSizer19.Add( bSizer39, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.transformed = wx.CheckBox( self.points, wx.ID_ANY, u"Transformed", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.transformed.SetValue(True) 
-		bSizer19.Add( self.transformed, 0, wx.ALL, 5 )
+		bSizer19.Add( self.transformed, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.comment_text = wx.StaticText( self.points, wx.ID_ANY, u"Comment", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.comment_text.Wrap( -1 )
-		bSizer19.Add( self.comment_text, 0, wx.ALL, 5 )
+		bSizer19.Add( self.comment_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.comment_input = wx.TextCtrl( self.points, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer19.Add( self.comment_input, 0, wx.ALL, 5 )
+		bSizer19.Add( self.comment_input, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		
 		bSizer18.Add( bSizer19, 0, wx.EXPAND, 5 )
@@ -347,17 +358,26 @@ class job_frame ( wx.Frame ):
 		
 		bSizer191 = wx.BoxSizer( wx.VERTICAL )
 		
+		self.next_point_btn = wx.Button( self.auto_profile, wx.ID_ANY, u"Next Point", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer191.Add( self.next_point_btn, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		self.move_to = wx.Button( self.auto_profile, wx.ID_ANY, u"Move to Selected", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer191.Add( self.move_to, 0, wx.ALL, 5 )
+		
 		self.points_load = wx.Button( self.auto_profile, wx.ID_ANY, u"Load File", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer191.Add( self.points_load, 0, wx.ALL, 5 )
+		bSizer191.Add( self.points_load, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.new_set_btn = wx.Button( self.auto_profile, wx.ID_ANY, u"New Set", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer191.Add( self.new_set_btn, 0, wx.ALL, 5 )
+		bSizer191.Add( self.new_set_btn, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.new_point_btn = wx.Button( self.auto_profile, wx.ID_ANY, u"New Point", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer191.Add( self.new_point_btn, 0, wx.ALL, 5 )
+		bSizer191.Add( self.new_point_btn, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
-		self.next_point_btn = wx.Button( self.auto_profile, wx.ID_ANY, u"Next Point", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer191.Add( self.next_point_btn, 0, wx.ALL, 5 )
+		self.m_button28 = wx.Button( self.auto_profile, wx.ID_ANY, u"Save Text", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer191.Add( self.m_button28, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		self.reset_autoprofile_btn = wx.Button( self.auto_profile, wx.ID_ANY, u"Reset", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer191.Add( self.reset_autoprofile_btn, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		bSizer391 = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -371,7 +391,7 @@ class job_frame ( wx.Frame ):
 		bSizer391.Add( self.assured_error_input, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 		
 		
-		bSizer191.Add( bSizer391, 0, 0, 5 )
+		bSizer191.Add( bSizer391, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		bSizer392 = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -385,13 +405,7 @@ class job_frame ( wx.Frame ):
 		bSizer392.Add( self.assured_stdev_input, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		
-		bSizer191.Add( bSizer392, 0, 0, 5 )
-		
-		self.m_button28 = wx.Button( self.auto_profile, wx.ID_ANY, u"Save Text", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer191.Add( self.m_button28, 0, wx.ALL, 5 )
-		
-		self.reset_autoprofile_btn = wx.Button( self.auto_profile, wx.ID_ANY, u"Reset", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer191.Add( self.reset_autoprofile_btn, 0, wx.ALL, 5 )
+		bSizer191.Add( bSizer392, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		
 		bSizer181.Add( bSizer191, 0, wx.EXPAND, 7 )
@@ -451,18 +465,17 @@ class job_frame ( wx.Frame ):
 		self.start_b.Bind( wx.EVT_BUTTON, self.start_log )
 		self.pause_b.Bind( wx.EVT_BUTTON, self.pause_log )
 		self.resume_b.Bind( wx.EVT_BUTTON, self.resume_log )
-		self.points_update.Bind( wx.EVT_BUTTON, self.update_table )
-		self.n_points_input.Bind( wx.EVT_TEXT, self.update_table )
-		self.save_btn.Bind( wx.EVT_BUTTON, self.save_points )
-		self.transformed.Bind( wx.EVT_CHECKBOX, self.update_table )
+		self.last_n.Bind( wx.EVT_BUTTON, self.take_last_n )
+		self.next_n.Bind( wx.EVT_BUTTON, self.take_next_n )
+		self.next_point_btn.Bind( wx.EVT_BUTTON, self.next_point_autoprofile )
+		self.move_to.Bind( wx.EVT_BUTTON, self.move_to_selected )
 		self.points_load.Bind( wx.EVT_BUTTON, self.load_autoprofile )
 		self.new_set_btn.Bind( wx.EVT_BUTTON, self.new_profile_action )
 		self.new_point_btn.Bind( wx.EVT_BUTTON, self.new_point_autoprofile )
-		self.next_point_btn.Bind( wx.EVT_BUTTON, self.next_point_autoprofile )
-		self.assured_error_input.Bind( wx.EVT_TEXT, self.update_table )
-		self.assured_stdev_input.Bind( wx.EVT_TEXT, self.update_table )
 		self.m_button28.Bind( wx.EVT_BUTTON, self.save_autoprofile )
 		self.reset_autoprofile_btn.Bind( wx.EVT_BUTTON, self.reset_autoprofile )
+		self.assured_error_input.Bind( wx.EVT_TEXT, self.update_table )
+		self.assured_stdev_input.Bind( wx.EVT_TEXT, self.update_table )
 		self.Bind( wx.EVT_MENU, self.add_graph, id = self.add_graph_m.GetId() )
 		self.Bind( wx.EVT_MENU, self.append_graph, id = self.append_graph_m.GetId() )
 		self.Bind( wx.EVT_MENU, self.detract_graph, id = self.detract_graph_m.GetId() )
@@ -485,13 +498,17 @@ class job_frame ( wx.Frame ):
 	def resume_log( self, event ):
 		event.Skip()
 	
-	def update_table( self, event ):
+	def take_last_n( self, event ):
 		event.Skip()
 	
-	
-	def save_points( self, event ):
+	def take_next_n( self, event ):
 		event.Skip()
 	
+	def next_point_autoprofile( self, event ):
+		event.Skip()
+	
+	def move_to_selected( self, event ):
+		event.Skip()
 	
 	def load_autoprofile( self, event ):
 		event.Skip()
@@ -502,16 +519,15 @@ class job_frame ( wx.Frame ):
 	def new_point_autoprofile( self, event ):
 		event.Skip()
 	
-	def next_point_autoprofile( self, event ):
-		event.Skip()
-	
-	
-	
 	def save_autoprofile( self, event ):
 		event.Skip()
 	
 	def reset_autoprofile( self, event ):
 		event.Skip()
+	
+	def update_table( self, event ):
+		event.Skip()
+	
 	
 	def add_graph( self, event ):
 		event.Skip()
