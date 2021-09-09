@@ -14,7 +14,8 @@ class Logger(Thread):
         self.f_log = f_log
         # log file name
         t = time.strftime("%Y%m%d_%H%M%S", time.localtime())
-        self.out_dir = "data_files\\"
+        self.out_dir_local = "data_files\\"
+        self.out_dir_global = self.job_spec["out_dir"]
         self.rawfilename = t + "p_" + self.job_spec["datafile_raw"]
         self.transfilename = t + "p_" + self.job_spec["datafile_trans"]
         self.rawpointsname = t + "p_" + self.job_spec["points_file_raw"]
@@ -36,6 +37,7 @@ class Logger(Thread):
         self.tmeans = {}  # This is the last mean values for each sensor in transformed form
         self.tstds = {}  # This is the last standard deviation values for each sensor in transformed form
         self.tsources = {}  # This is the source data for the above
+        self.is_connected = 1
 
         self.min_cycle_time = self.job_spec.get("min_interval", 30)
         # store and file setup
@@ -132,7 +134,7 @@ class Logger(Thread):
             i = i+1
 
         for datafile in datafiles1:
-            with open(self.out_dir + datafile, "w+") as outfile:
+            with open(self.out_dir_local + datafile, "w+") as outfile:
                 for k, v in self.job_spec.items():
                     # if k not in ["instruments", "logged_operations"]:
                     #     outfile.write(k + ": " + str(v) + "\n")
@@ -142,6 +144,26 @@ class Logger(Thread):
                         outfile.write(str(v) + "\n")
                 writer = csv.writer(outfile, names, lineterminator='\n', delimiter='\t')
                 writer.writerow(names)
+
+        try:
+            for datafile in datafiles1:
+                with open(self.out_dir_global + datafile, "w+") as outfile:
+                    for k, v in self.job_spec.items():
+                        # if k not in ["instruments", "logged_operations"]:
+                        #     outfile.write(k + ": " + str(v) + "\n")
+                        if k == "job_name":
+                            outfile.write(datafile + "\n")
+                        elif k == "job_notes":
+                            outfile.write(str(v) + "\n")
+                    writer = csv.writer(outfile, names, lineterminator='\n', delimiter='\t')
+                    writer.writerow(names)
+                if self.is_connected == 0:
+                    print("Connection established.")
+                    self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
 
         datafiles2 = [self.rawpointsname,
                       self.transpointsname]
@@ -159,7 +181,7 @@ class Logger(Thread):
         namesp.append('window')
         namesp.append('comment')
         for datafile in datafiles2:
-            with open(self.out_dir + datafile, "w+") as outfile:
+            with open(self.out_dir_local + datafile, "w+") as outfile:
                 for k, v in self.job_spec.items():
                     if k == "job_name":
                         outfile.write(datafile + "\n")
@@ -168,11 +190,28 @@ class Logger(Thread):
                 writer = csv.writer(outfile, 'excel', lineterminator='\n', delimiter='\t')
                 writer.writerow(namesp)
 
+        try:
+            for datafile in datafiles2:
+                with open(self.out_dir_global + datafile, "w+") as outfile:
+                    for k, v in self.job_spec.items():
+                        if k == "job_name":
+                            outfile.write(datafile + "\n")
+                        elif k == "job_notes":
+                            outfile.write(str(v) + "\n")
+                    writer = csv.writer(outfile, 'excel', lineterminator='\n', delimiter='\t')
+                    writer.writerow(namesp)
+                    if self.is_connected == 0:
+                        print("Connection established.")
+                        self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
+
         # Create "sensor file"
         titles = ['Device', 'ChannelList', 'ID', 'Name', 'Description', 'A', 'B', 'C', 'R(0)/D', 'Date', 'ReportNo']
         info = {}
-        sensorfile = self.out_dir + self.sensorname
-        with open(sensorfile, "w+") as outfile:
+        with open(self.out_dir_local + self.sensorname, "w+") as outfile:
             outfile.write(self.sensorname + "\n")
             outfile.write(self.job_spec["job_notes"] + "\n")
             writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
@@ -214,6 +253,56 @@ class Logger(Thread):
                     info['ReportNo'] = self.instruments.get(inst_id).spec["operations"][op_id].get("rep_num",
                                                                                                    "No report")
                     writer.writerow(info)
+        try:
+            with open(self.out_dir_global + self.sensorname, "w+") as outfile:
+                outfile.write(self.sensorname + "\n")
+                outfile.write(self.job_spec["job_notes"] + "\n")
+                writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
+                writer.writerow(titles)
+                writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', delimiter='\t')
+                for op in self.opref:
+                    inst_id, op_id = op.split('.')
+                    if inst_id == "time":
+                        pass
+                    elif inst_id == "reference":
+                        info['Device'] = inst_id
+                        info['ChannelList'] = op_id
+                        info['ID'] = self.job_spec["references"][op_id]["type"]
+                        info['Name'] = ""
+                        info['Description'] = self.job_spec["references"][op_id].get("h1", "-")
+                        info['A'] = self.job_spec["references"][op_id].get("p1", "-")
+                        info['B'] = self.job_spec["references"][op_id].get("p2", "-")
+                        info['C'] = self.job_spec["references"][op_id].get("t1", "-")
+                        info['R(0)/D'] = self.job_spec["references"][op_id].get("t2", "-")
+                        info['Date'] = self.job_spec["references"][op_id].get("df1", "-")
+                        info['ReportNo'] = self.job_spec["references"][op_id].get("df2", "-")
+                        writer.writerow(info)
+                    else:
+                        info['Device'] = inst_id
+                        info['ChannelList'] = self.instruments.get(inst_id).spec["operations"][op_id]["id"]
+                        info['ID'] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
+                        info['Name'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][0]
+                        try:
+                            info['Description'] = self.job_spec["details"][inst_id][op_id]
+                        except KeyError:
+                            info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id].get("details",
+                                                                                                              "No details.")
+                        info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
+                        info['B'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][2]
+                        info['C'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][3]
+                        info['R(0)/D'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][4]
+                        info['Date'] = self.instruments.get(inst_id).spec["operations"][op_id].get("check_date",
+                                                                                                   "No last check")
+                        info['ReportNo'] = self.instruments.get(inst_id).spec["operations"][op_id].get("rep_num",
+                                                                                                       "No report")
+                        writer.writerow(info)
+                if self.is_connected == 0:
+                    print("Connection established.")
+                    self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
 
     def setup_operations(self):
         for operation in self.op_names:
@@ -244,15 +333,39 @@ class Logger(Thread):
         dataline = self.raw_dict.copy()
         dataline.update(self.ref_dict)
         dataline['no.'] = self.datanum
-        with open(self.out_dir + self.rawfilename, "a") as outfile:
+        with open(self.out_dir_local + self.rawfilename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline)
+        try:
+            with open(self.out_dir_global + self.rawfilename, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline)
+                if self.is_connected == 0:
+                    print("Connection established.")
+                    self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
+
         dataline = self.trans_dict.copy()
         dataline.update(self.ref_dict)
         dataline['no.'] = self.datanum
-        with open(self.out_dir + self.transfilename, "a") as outfile:
+        with open(self.out_dir_local + self.transfilename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline)
+        try:
+            with open(self.out_dir_global + self.transfilename, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
+                writer.writerow(dataline)
+                if self.is_connected == 0:
+                    print("Connection established.")
+                    self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
 
     def point_to_file(self):
         titles = self.job_spec["logged_operations"].copy()
@@ -297,16 +410,41 @@ class Logger(Thread):
         dataline['window'] = self.window
         dataline['comment'] = self.comment
         dataline2 = {name: dataline[name] for name in namesp}
-        with open(self.out_dir + self.rawpointsname, "a") as outfile:
+        with open(self.out_dir_local + self.rawpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline2)
+        try:
+            with open(self.out_dir_global + self.rawpointsname, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline2)
+                if self.is_connected == 0:
+                    print("Connection established.")
+                    self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
 
         self.rsources["no."] = [self.pointsnum for i in range(len(self.rsources["datetime"]))]
-        with open(self.out_dir + self.rawsourcename, "a") as outfile:
+        with open(self.out_dir_local + self.rawsourcename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=names, lineterminator='\n', dialect="excel", delimiter='\t')
             rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
             for i in range(len(self.rsources["datetime"])):
                 writer.writerow(rows[i])
+        try:
+            with open(self.out_dir_global + self.rawsourcename, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=names, lineterminator='\n', dialect="excel", delimiter='\t')
+                rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
+                for i in range(len(self.rsources["datetime"])):
+                    writer.writerow(rows[i])
+                if self.is_connected == 0:
+                    print("Connection established.")
+                    self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
 
         dataline = self.trans_dict.copy()
         dataline.update(self.tmeans)
@@ -317,16 +455,41 @@ class Logger(Thread):
         dataline['window'] = self.window
         dataline['comment'] = self.comment
         dataline2 = {title: dataline[title] for title in namesp}
-        with open(self.out_dir + self.transpointsname, "a") as outfile:
+        with open(self.out_dir_local + self.transpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline2)
+        try:
+            with open(self.out_dir_global + self.transpointsname, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline2)
+                if self.is_connected == 0:
+                    print("Connection established.")
+                    self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
 
         self.tsources["no."] = [self.pointsnum for i in range(len(self.tsources["datetime"]))]
-        with open(self.out_dir + self.transsourcename, "a") as outfile:
+        with open(self.out_dir_local + self.transsourcename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=names, lineterminator='\n', dialect="excel", delimiter='\t')
             rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
             for i in range(len(self.tsources["datetime"])):
                 writer.writerow(rows[i])
+        try:
+            with open(self.out_dir_global + self.transsourcename, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=names, lineterminator='\n', dialect="excel", delimiter='\t')
+                rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
+                for i in range(len(self.tsources["datetime"])):
+                    writer.writerow(rows[i])
+                if self.is_connected == 0:
+                    print("Connection established.")
+                    self.is_connected = 1
+        except OSError:
+            if self.is_connected == 1:
+                print("Connection lost.")
+                self.is_connected = 0
 
     def get_npStore(self):
         header = self.np_store[0]
