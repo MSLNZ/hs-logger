@@ -189,10 +189,11 @@ class AutoProfile(object):
         self.soak = [50]
         self.assured = [0]
         self.operations = {}  # format "Name":(inst_op,[points])
-        self.h_name = []  # The first line of the autoprofile contains the names.
-        self.h_set = []  # The second line of the autoprofile contains the commands to set the setpoints.
-        self.h_check = []  # The third line of the autoprofile contains the commands to read the setpoints.
-        self.h_actual = []  # The first line of the autoprofile contains the commands to read the actual values.
+        self.title = ""  # The first line of the autoprofile is the name of the file.
+        self.h_name = []  # The second line of the autoprofile contains the names.
+        self.h_set = []  # The third line of the autoprofile contains the commands to set the setpoints.
+        self.h_check = []  # The forth line of the autoprofile contains the commands to read the setpoints.
+        self.h_actual = []  # The fifth line of the autoprofile contains the commands to read the actual values.
         self.stdev_list = []  # This list contains the data required for the assured switch.
         self.current_stdev = ""  # This defines what the standard deviation is of.
         self.a_dif = 0.1  # This is the difference between the actual and measured values that assured allows.
@@ -208,9 +209,10 @@ class AutoProfile(object):
         cols1 = self.points
 
         with open(file_name, "r") as file:
+            self.title = file.readline()
             self.h_name = file.readline().strip().split(',')
-            while self.h_name[0][0] != "P":
-                self.h_name[0] = self.h_name[0][1:]  # Remove "ï»¿" from first item.
+            # while self.h_name[0][0] != "P":
+            #     self.h_name[0] = self.h_name[0][1:]  # Remove "ï»¿" from first item.
             self.profile_header = self.h_name.copy()
             self.h_set = file.readline().strip().split(',')
             self.h_check = file.readline().strip().split(',')

@@ -1,9 +1,9 @@
 {
     "instrument_id": "microK",
     "instrument_name": "Isotech microK with attached microsKanner",
-    "driver": "generic_driver_visa_serial",
+    "driver": "generic_driver_visa_gpib",
     "interface": "visa",            
-    "port": "GPIB0::13::INSTR",
+    "port": "GPIB1::13::INSTR",
     "baudrate":9600,
     "write_termination": "\n",
     "read_termination": "\n",
@@ -18,7 +18,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES1:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_2": {
             "type": "read_single",
@@ -28,7 +30,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES2:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_3": {
             "type": "read_single",
@@ -38,7 +42,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES3:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_10": {
             "type": "read_single",
@@ -48,7 +54,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES10:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_11": {
             "type": "read_single",
@@ -58,7 +66,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES11:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_12": {
             "type": "read_single",
@@ -68,7 +78,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES12:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_13": {
             "type": "read_single",
@@ -78,7 +90,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES13:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_14": {
             "type": "read_single",
@@ -88,7 +102,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES14:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_15": {
             "type": "read_single",
@@ -98,7 +114,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES15:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_16": {
             "type": "read_single",
@@ -108,7 +126,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES16:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_17": {
             "type": "read_single",
@@ -118,7 +138,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES17:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_18": {
             "type": "read_single",
@@ -128,7 +150,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES18:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         },
         "read_19": {
             "type": "read_single",
@@ -138,7 +162,9 @@
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES19:REF204? 100,1",
-            "transform_eq": ["T", 4e-3, -6e-7, 0, 100]
+            "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
+            "check_date": "",
+            "rep_num": ""
         }
     }
 }

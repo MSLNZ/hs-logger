@@ -33,7 +33,7 @@ class generic_driver_pymodbus(ModbusClient):
             retry = 0
             while rr.isError():
                 retry += 1
-                print("modbus error retying {}".format(retry))
+                print("modbus error retrying {}".format(retry))
                 rr = self.read_holding_registers(op['register'], op['num_reg'], unit=self.address)
                 time.sleep(2)
                 if retry >= 10:
