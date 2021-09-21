@@ -2,9 +2,13 @@
     "job_name":"GPIB_job",
     "job_id":2,
     "job_notes":"comment",
-    "datafile_raw": "GPIB_job_data_raw.csv",
+    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\hs-logger_test\\",
+	"datafile_raw": "GPIB_job_data_raw.csv",
     "datafile_trans": "GPIB_job_data_trans.csv",
-    "points_file" : "GPIB_points.csv",
+	"points_file_raw": "GPIB_job_points_raw.csv",
+	"points_file_trans": "GPIB_job_points_trans.csv",
+	"source_file_raw": "GPIB_job_source_raw.csv",
+	"source_file_trans": "GPIB_job_source_trans.csv",
     "min_interval": 30,
 
     "instruments":{

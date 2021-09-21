@@ -2,6 +2,7 @@
     "job_name":"HG2900 Characterization",
     "job_id":1,
     "job_notes":"Characterization of the Thunder Scientific HG2900.",
+    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\hs-logger_test\\",
     "datafile_raw": "HG2900_data_raw.dat",
     "datafile_trans": "HG2900_data_trans.dat",
     "points_file_raw": "HG2900_points_raw.dat",

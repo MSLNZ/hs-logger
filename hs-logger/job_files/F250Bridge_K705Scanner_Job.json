@@ -2,6 +2,7 @@
     "job_name":"F250Bridge_K705Scanner_Job",
     "job_id":1,
     "job_notes":"comment",
+    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\hs-logger_test\\",
     "datafile_raw": "F250_K705_data_raw.dat",
     "datafile_trans": "F250_K705_data_trans.dat",
     "points_file_raw": "F250_K705_points_raw.dat",

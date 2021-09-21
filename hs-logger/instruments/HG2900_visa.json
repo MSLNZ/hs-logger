@@ -298,6 +298,14 @@
             "details": "Stops the System",
             "command": "shutdown"
         },
+        "set_state":{
+            "type": "write_action",
+            "name": "Operation state",
+            "id":   "set_state",
+            "details": "0 to generate, 1 to shutdown",
+            "operations": ["action_generate","action_shutdown"],
+            "command": "{}"
+        },
         "set_rh":{
             "type": "write",
             "name": "RH 2900 set",

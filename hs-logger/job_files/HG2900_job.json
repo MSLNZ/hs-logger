@@ -2,6 +2,7 @@
     "job_name":"HG2900_job",
     "job_id":2,
     "job_notes":"comment",
+    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\hs-logger_test\\",
     "datafile_raw": "HG2900_job_data_raw.dat",
     "datafile_trans": "HG2900_job_data_trans.dat",
     "points_file_raw" : "HG2900_rpoints.dat",

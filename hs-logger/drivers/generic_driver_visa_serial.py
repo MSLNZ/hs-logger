@@ -114,22 +114,28 @@ class generic_driver_visa_serial(object):
             """
             write instrument 
             """
-            # todo: check valid values for sending to instrument
             op = self.operations[operation_id]
-            command = op.get("command", "")
-            command = command.format(*values)
+            if op.get("type") == "write_action":  # This allows the autoprofile to control actions using a list
+                if 0 <= int(values) <= len(op.get("operations")):
+                    print(op.get("operations")[int(values)])
+                    response = self.action_instrument(op.get("operations")[int(values)])
+                else:
+                    print("Action {} does not exist.".format(values))
+            else:
+                command = op.get("command", "")
+                command = command.format(*values)
 
-            # response = self.instrument.query(command)
-            response = ""
-            self.instrument.write(command)
-            try:
-                while True:
-                    if response == "":
-                        response = self.instrument.read()
-                    else:
-                        response = response + ", " + self.instrument.read()
-            except visa.errors.VisaIOError:
-                pass
+                # response = self.instrument.query(command)
+                response = ""
+                self.instrument.write(command)
+                try:
+                    while True:
+                        if response == "":
+                            response = self.instrument.read()
+                        else:
+                            response = response + ", " + self.instrument.read()
+                except visa.errors.VisaIOError:
+                    pass
             if response != "":
                 print(response)
             else:

@@ -2,6 +2,7 @@
     "job_name":"210621_iPAC_473_RP2",
     "job_id":1,
     "job_notes":"comment",
+    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\hs-logger_test\\",
     "datafile_raw": "iPAC_473_data_raw.dat",
     "datafile_trans": "iPAC_473_data_trans.dat",
     "points_file_raw": "iPAC_473_points_raw.dat",

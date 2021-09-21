@@ -203,16 +203,28 @@ class AutoProfile(object):
         self.point_start_time = time.time()
         self.transtime = u""
 
+    def reset(self):
+        self.profile_header = ["Points", "Soak", "Assured"]
+        self.points = 1
+        self.points_list = [1]
+        self.soak = [1]
+        self.assured = [0]
+        self.operations = {}
+        self.job.frame.job_book.SetPageText(2, "Profile")
+        self.grid_refresh()
+
     def load_file(self, file_name):
         grid = self.job.frame.grid_auto_profile
         rows1 = len(self.profile_header)
         cols1 = self.points
 
         with open(file_name, "r") as file:
-            self.title = file.readline()
+            titles = file.readline().strip().split(',')
+            self.title = titles[0]
+            while self.title[0] != "a":  # Remove "ï»¿" from first item
+                self.title = self.title[1:]
+            self.job.frame.job_book.SetPageText(2, self.title)
             self.h_name = file.readline().strip().split(',')
-            # while self.h_name[0][0] != "P":
-            #     self.h_name[0] = self.h_name[0][1:]  # Remove "ï»¿" from first item.
             self.profile_header = self.h_name.copy()
             self.h_set = file.readline().strip().split(',')
             self.h_check = file.readline().strip().split(',')
@@ -251,8 +263,7 @@ class AutoProfile(object):
         # bSizer.Prepend(grid, 1, wx.ALL | wx.EXPAND, 5)
         # self.job.frame.auto_profile.Layout()
         # self.job.frame.add_profile_table(self)
-
-        self.grid_refresh()
+        self.move_to_point(self.current_point)
 
     def new_set_op(self, name, inst_ops, inst_opc, inst_opr, default=0):
         points = [0 for _ in range(self.points)]
@@ -331,7 +342,8 @@ class AutoProfile(object):
         self.point_start_time = time.time()
         actions = []
         for inst_op, vals in self.operations.values():
-            actions.append((inst_op, vals[point]))
+            if vals[point] != "":  # "" will not change the set point
+                actions.append((inst_op, vals[point]))
         self.job.auto_profile_actions(actions)
 
 

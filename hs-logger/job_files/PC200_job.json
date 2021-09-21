@@ -2,6 +2,7 @@
     "job_name":"PC200_job",
     "job_id":2,
     "job_notes":"comment",
+    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\hs-logger_test\\",
     "datafile_raw": "PC200_data_raw.dat",
     "datafile_trans": "PC200_data_trans.dat",
     "points_file_raw": "PC200_points_raw.dat",
