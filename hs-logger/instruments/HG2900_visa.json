@@ -172,7 +172,7 @@
             "store_index": 13,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["P", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
         "read_wl":{
             "type": "read_store",
