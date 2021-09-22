@@ -171,13 +171,13 @@
             "details": ""
         },
         "read_px117": {
-            "name": "Read Channel 117",
+            "name": "Q Toptrak 117",
             "type":"read",
             "id":"read_px117",
             "channel": 117,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["P", 0, 0.4, 0, 0],
             "details": ""
         },
         "read_px118": {

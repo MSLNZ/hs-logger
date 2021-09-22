@@ -3,7 +3,7 @@
     "instrument_name": "Thunder Scientific 2900 Humidity Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM8",
+    "port": "COM19",
     "baudrate":57600,
     "write_termination":"\r\n",
     "read_termination":"\n",
@@ -322,7 +322,7 @@
             "type": "write",
             "name": "DP 2900 set",
             "id":   "set_dp",
-            "command": "set frost point {}"
+            "command": "set dew point {}"
         },
         "set_ppmv":{
             "type": "write",

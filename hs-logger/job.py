@@ -87,9 +87,9 @@ class Job(object):
         self.logger.resume()
 
     def start(self):
+        self.logger.start()
         self.auto_profile.point_start_time = time.time()
         self.auto_profile.move_to_point(self.auto_profile.current_point)
-        self.logger.start()
 
     def stop(self):
         self.logger.stop()
@@ -341,9 +341,10 @@ class AutoProfile(object):
         self.grid_refresh()
         self.point_start_time = time.time()
         actions = []
-        for inst_op, vals in self.operations.values():
-            if vals[point] != "":  # "" will not change the set point
-                actions.append((inst_op, vals[point]))
+        if not self.job.logger.paused:
+            for inst_op, vals in self.operations.values():
+                if vals[point] != "":  # "" will not change the set point
+                    actions.append((inst_op, vals[point]))
         self.job.auto_profile_actions(actions)
 
 
