@@ -491,6 +491,8 @@ class Logger(Thread):
                 print("Connection lost.")
                 self.is_connected = 0
 
+        self.job.frame.comment_input.Clear()
+
     def get_npStore(self):
         header = self.np_store[0]
         body = self.np_store[1:]

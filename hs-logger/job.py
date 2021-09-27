@@ -35,9 +35,10 @@ class Job(object):
         pass
 
     def auto_profile_actions(self, actions):
+        self.frame.reading_text.SetLabel(u"Writing:")
         for inst_op, val in actions:
             # inst_op = inst_op.split(".")
-            print(inst_op, val)
+            self.frame.current_reading.SetLabel(u"{} = {}".format(inst_op, val))
             if inst_op != "":
                 i_id, op_id = inst_op.split(".")
                 inst_driver = self.inst_drivers.get(i_id)
@@ -45,6 +46,8 @@ class Job(object):
                     inst_driver.write_instrument(op_id, [val])
                 except:
                     print("auto profile action error")
+        self.frame.reading_text.SetLabel(u"Waiting...")
+        self.frame.current_reading.SetLabel(u"")
 
     def update_autoprofile(self):
         self.auto_profile.update()
