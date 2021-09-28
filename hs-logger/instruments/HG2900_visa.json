@@ -302,8 +302,8 @@
             "type": "write_action",
             "name": "Operation state",
             "id":   "set_state",
-            "details": "0 to generate, 1 to shutdown",
-            "operations": ["action_generate","action_shutdown"],
+            "details": "0 to shutdown, 1 to generate",
+            "operations": ["action_shutdown","action_generate"],
             "command": "{}"
         },
         "set_rh":{
