@@ -7,7 +7,7 @@ import numpy as np
 import math
 
 
-class generic_driver_visa_serial(object):
+class HG2900_visa_serial(object):
 
     def __init__(self, spec):
         self.spec = spec
@@ -55,14 +55,16 @@ class generic_driver_visa_serial(object):
                     if echo:
                         self.instrument.read()
                     data = self.instrument.read()
-                    if operation == "read_state":  # This block of code fixes the weird mode structure in the 2900
-                        if data == 0:
+                    id = operation['id']
+                    if id == "read_state":  # This block of code fixes the weird mode structure in the 2900
+                        data = "{}".format(data[10:]).strip("\r")
+                        if data == "0":
                             data = [0, 0]
-                        elif data == 0.1:
+                        elif data == "0.1":
                             data = [0, 1]
-                        elif data == 1:
+                        elif data == "1":
                             data = [1, 1]
-                        elif data == 1.1:
+                        elif data == "1.1":
                             data = [1, 0]
                         else:
                             print(data)
@@ -126,15 +128,27 @@ class generic_driver_visa_serial(object):
             write instrument 
             """
             op = self.operations[operation_id]
+            command = op.get("command", "")
+            command = command.format(*values)
+            # response = self.instrument.query(command)
+            response = ""
+
             if op.get("type") == "write_action":  # This allows the autoprofile to control actions using a list
-                if 0 <= int(values) <= len(op.get("operations")):
-                    print(op.get("operations")[int(values)])
-                    response = self.action_instrument(op.get("operations")[int(values)])
+                if 0 <= int(command) <= len(op.get("operations")):
+                    self.instrument.timeout = 10000
+                    self.instrument.write(op.get("operations")[int(command)])
+                    try:
+                        while True:
+                            if response == "":
+                                response = self.instrument.read()
+                            else:
+                                response = response + ", " + self.instrument.read()
+                    except visa.errors.VisaIOError:
+                        pass
+                    self.instrument.timeout = 2000
                 else:
-                    print("Action {} does not exist.".format(values))
+                    print("Action {} does not exist.".format(command))
             else:
-                command = op.get("command", "")
-                command = command.format(*values)
 
                 # response = self.instrument.query(command)
                 response = ""
@@ -169,7 +183,7 @@ class generic_driver_visa_serial(object):
                         response = response + ", " + self.instrument.read()
             except visa.errors.VisaIOError:
                 pass
-            self.timeout = 2000
+            self.instrument.timeout = 2000
             if response != "":
                 print(response)
             else:
@@ -236,7 +250,7 @@ class generic_driver_visa_serial(object):
 
 # testing
 def main():
-    instr = generic_driver_visa_serial(json.load(open('../instruments/Vaisala_HMT337.json')))
+    instr = HG2900_visa_serial(json.load(open('../instruments/HG2900_visa.json')))
     print(instr.read_instrument('read_default'))
     print(instr.read_instrument('read_rh'))
 

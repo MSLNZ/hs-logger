@@ -346,64 +346,64 @@
             "name": "RH 2900 set",
             "id":   "set_rh",
             "command": "set %rh {}",
-            "check_set": "read_rh",
-            "check_actual": "read_rh_sp"
+            "check_set": "read_rh_sp",
+            "check_actual": "read_rh"
         },
         "set_fp":{
             "type": "write",
             "name": "FP 2900 set",
             "id":   "set_fp",
             "command": "set frost point {}",
-            "check_set": "read_fp",
-            "check_actual": "read_fp_sp"
+            "check_set": "read_fp_sp",
+            "check_actual": "read_fp"
         },
         "set_dp":{
             "type": "write",
             "name": "DP 2900 set",
             "id":   "set_dp",
             "command": "set dew point {}",
-            "check_set": "read_dp",
-            "check_actual": "read_dp_sp"
+            "check_set": "read_dp_sp",
+            "check_actual": "read_dp"
         },
         "set_ppmv":{
             "type": "write",
             "name": "PPMv 2900 set",
             "id":   "set_ppmv",
             "command": "set ppmv {}",
-            "check_set": "read_ppmv",
-            "check_actual": "read_ppmv_sp"
+            "check_set": "read_ppmv_sp",
+            "check_actual": "read_ppmv"
         },
         "set_ppmw":{
             "type": "write",
             "name": "PPMw 2900 set",
             "id":   "set_ppmw",
             "command": "set ppmw {}",
-            "check_set": "read_ppmw",
-            "check_actual": "read_ppmw_sp"
+            "check_set": "read_ppmw_sp",
+            "check_actual": "read_ppmw"
         },
         "set_ps":{
             "type": "write",
             "name": "Ps 2900 set",
             "id":   "set_ps",
             "command": "set saturation pressure {}",
-            "check_set": "read_ps",
-            "check_actual": "read_rh_ps"
+            "check_set": "read_ps_sp",
+            "check_actual": "read_rh"
         },
         "set_ts":{
             "type": "write",
             "name": "Ts 2900 set",
             "id":   "set_ts",
             "command": "set saturation temperature {}",
-            "check_set": "read_ts",
-            "check_actual": "read_rh_ts"
+            "check_set": "read_ts_sp",
+            "check_actual": "read_rh"
         },
         "set_q":{
             "type": "write",
             "name": "Q 2900 set",
             "id":   "set_q",
             "command": "set mass flow rate {}",
-            "check_set": "read_q",
-            "check_actual": "read_q_sp"
+            "check_set": "read_q_sp",
+            "check_actual": "read_q"
         }
     }
 }
