@@ -11,10 +11,17 @@
         "read_test":{
             "name": "Dummy read",
             "id": "read_test",
-            "details":"Generates a random value between 0 and 1.",
-            "transform_eq":["D",0,-1,0,0],
+            "details": "Generates a random value between 0 and 1.",
+            "transform_eq": ["D",0,-1,0,0],
             "rep_num": "Test report #1",
             "check_date": "Test date 05/07/2021"
+        },
+        "write_test":{
+            "name": "Dummy write",
+            "id": "write_test",
+            "details": "Does nothing.",
+            "check_set": "noCheck",
+            "check_actual": "noCheck"
         }
     }
 }

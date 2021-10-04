@@ -41,9 +41,19 @@ class Job(object):
             self.frame.current_reading.SetLabel(u"{} = {}".format(inst_op, val))
             if inst_op != "":
                 i_id, op_id = inst_op.split(".")
+                op_check = self.job.logger.instruments.get(i_id).spec["operations"][op_id]["check_set"]
                 inst_driver = self.inst_drivers.get(i_id)
                 try:
-                    inst_driver.write_instrument(op_id, [val])
+                    if op_check == "noCheck":
+                        inst_driver.write_instrument(op_id, [val])
+                    else:
+                        curset = self.auto_profile.check_instrument(i_id, op_check)
+                        i = 0
+                        while curset != val & i < 5:
+                            i = i + 1
+                            print("Write attempt {}".format(i))
+                            inst_driver.write_instrument(op_id, [val])
+                            curset = self.auto_profile.check_instrument(i_id, op_check)
                 except:
                     print("auto profile action error")
         self.frame.reading_text.SetLabel(u"Waiting...")
@@ -195,8 +205,8 @@ class AutoProfile(object):
         self.title = ""  # The first line of the autoprofile is the name of the file.
         self.h_name = []  # The second line of the autoprofile contains the names.
         self.h_set = []  # The third line of the autoprofile contains the commands to set the setpoints.
-        self.h_check = []  # The forth line of the autoprofile contains the commands to read the setpoints.
-        self.h_actual = []  # The fifth line of the autoprofile contains the commands to read the actual values.
+        # self.h_check = []  # The forth line of the autoprofile contains the commands to read the setpoints.
+        # self.h_actual = []  # The fifth line of the autoprofile contains the commands to read the actual values.
         self.stdev_list = []  # This list contains the data required for the assured switch.
         self.current_stdev = ""  # This defines what the standard deviation is of.
         self.a_dif = 0.1  # This is the difference between the actual and measured values that assured allows.
@@ -230,8 +240,8 @@ class AutoProfile(object):
             self.h_name = file.readline().strip().split(',')
             self.profile_header = self.h_name.copy()
             self.h_set = file.readline().strip().split(',')
-            self.h_check = file.readline().strip().split(',')
-            self.h_actual = file.readline().strip().split(',')
+            # self.h_check = file.readline().strip().split(',')
+            # self.h_actual = file.readline().strip().split(',')
             d1 = {}
             for name, inst_op in zip(self.h_name, self.h_set):
                 d1[name] = (inst_op, [])
@@ -274,8 +284,8 @@ class AutoProfile(object):
         self.h_name.append(name)
         self.profile_header = self.h_name.copy()
         self.h_set.append(inst_ops)
-        self.h_actual.append(inst_opr)
-        self.h_check.append(inst_opc)
+        # self.h_actual.append(inst_opr)
+        # self.h_check.append(inst_opc)
         grid = self.job.frame.grid_auto_profile
         # msg = wx.grid.GridTableMessage(grid.table,
         #                                wx.grid.GRIDTABLE_NOTIFY_COLS_APPENDED, 1)
@@ -355,17 +365,20 @@ class AutoProfile(object):
         t1 = self.point_start_time + 60 * float(self.soak[self.current_point])  # - self.job.logger.delay  # if paused
         index = 2 + int(self.assured[self.current_point])
         timeleft = (t1 - time.time())/60
-        if index < 3:
+        inst, ops = self.h_set[index].split('.')
+        opc = self.job.logger.instruments.get(inst).spec["operations"][ops]["check_set"]
+        opa = self.job.logger.instruments.get(inst).spec["operations"][ops]["check_actual"]
+        # inst, opc = self.h_check[index].split('.')
+        # inst, opa = self.h_actual[index].split('.')
+        if index < 3 or opc == "noCheck" or opa == "noCheck":
             if timeleft < 0:
                 self.transtime = u"Now"
                 self.next_point()
             else:
                 self.transtime = u"{}".format(timeleft)
         else:
-            inst1, op1 = self.h_check[index].split('.')
-            inst2, op2 = self.h_actual[index].split('.')
-            value1 = self.check_instrument(inst1, op1)
-            value2 = self.check_instrument(inst2, op2)
+            value1 = self.check_instrument(inst, opc)
+            value2 = self.check_instrument(inst, opa)
             if self.h_actual[index] == self.current_stdev:
                 self.stdev_list.append(value2)  # If this is the same operation as last time, append the data.
             else:

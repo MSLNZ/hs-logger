@@ -1,7 +1,7 @@
 {
     "instrument_id": "HG2900",
     "instrument_name": "Thunder Scientific 2900 Humidity Generator",
-    "driver":"generic_driver_visa_serial",
+    "driver":"HG2900_visa_serial",
     "interface": "visa",            
     "port": "COM19",
     "baudrate":57600,
@@ -284,6 +284,39 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
+        "read_state":{
+            "type": "read_multiple",
+            "name": "state",
+            "id": "read_state",
+            "details": "Returns the status and mode of the 2900.",
+            "command": "get run state",
+            "operations": ["read_status", "read_mode"],
+            "data_type": "list",
+            "split": ".",
+            "unit": ""
+        },
+        "read_status":{
+            "type": "read_store",
+            "name": "Status 2900",
+            "id": "read_status",
+            "details": "Is 1 if the generator is currently generating, and 0 otherwise.",
+            "store_id": "read_state",
+            "store_index": 0,
+            "data_type": "int",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mode":{
+            "type": "read_store",
+            "name": "Mode 2900",
+            "id": "read_mode",
+            "details": "Is 1 if the generator is set to generate, and 0 otherwise.",
+            "store_id": "read_state",
+            "store_index": 1,
+            "data_type": "int",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
         "action_generate":{
             "type": "action",
             "name": "Generate Mode",
@@ -302,57 +335,75 @@
             "type": "write_action",
             "name": "Operation state",
             "id":   "set_state",
-            "details": "0 to generate, 1 to shutdown",
-            "operations": ["action_generate","action_shutdown"],
-            "command": "{}"
+            "details": "0 to shutdown, 1 to generate",
+            "operations": ["action_shutdown","action_generate"],
+            "command": "{}",
+            "check_set": "noCheck",
+            "check_actual": "noCheck"
         },
         "set_rh":{
             "type": "write",
             "name": "RH 2900 set",
             "id":   "set_rh",
-            "command": "set %rh {}"
+            "command": "set %rh {}",
+            "check_set": "read_rh",
+            "check_actual": "read_rh_sp"
         },
         "set_fp":{
             "type": "write",
             "name": "FP 2900 set",
             "id":   "set_fp",
-            "command": "set frost point {}"
+            "command": "set frost point {}",
+            "check_set": "read_fp",
+            "check_actual": "read_fp_sp"
         },
         "set_dp":{
             "type": "write",
             "name": "DP 2900 set",
             "id":   "set_dp",
-            "command": "set dew point {}"
+            "command": "set dew point {}",
+            "check_set": "read_dp",
+            "check_actual": "read_dp_sp"
         },
         "set_ppmv":{
             "type": "write",
             "name": "PPMv 2900 set",
             "id":   "set_ppmv",
-            "command": "set ppmv {}"
+            "command": "set ppmv {}",
+            "check_set": "read_ppmv",
+            "check_actual": "read_ppmv_sp"
         },
         "set_ppmw":{
             "type": "write",
             "name": "PPMw 2900 set",
             "id":   "set_ppmw",
-            "command": "set ppmw {}"
+            "command": "set ppmw {}",
+            "check_set": "read_ppmw",
+            "check_actual": "read_ppmw_sp"
         },
         "set_ps":{
             "type": "write",
             "name": "Ps 2900 set",
             "id":   "set_ps",
-            "command": "set saturation pressure {}"
+            "command": "set saturation pressure {}",
+            "check_set": "read_ps",
+            "check_actual": "read_rh_ps"
         },
         "set_ts":{
             "type": "write",
             "name": "Ts 2900 set",
             "id":   "set_ts",
-            "command": "set saturation temperature {}"
+            "command": "set saturation temperature {}",
+            "check_set": "read_ts",
+            "check_actual": "read_rh_ts"
         },
         "set_q":{
             "type": "write",
             "name": "Q 2900 set",
             "id":   "set_q",
-            "command": "set mass flow rate {}"
+            "command": "set mass flow rate {}",
+            "check_set": "read_q",
+            "check_actual": "read_q_sp"
         }
     }
 }

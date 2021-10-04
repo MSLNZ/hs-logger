@@ -56,7 +56,7 @@ class generic_driver_visa_gpib(object):
                     data = self.instrument.read()
                     try:
                         while True:
-                            data = data + "," + self.instrument.read()
+                            data = data + operation.get("split") + self.instrument.read()
                     except visa.errors.VisaIOError:
                         pass
                     data = data.split(operation.get("split"))

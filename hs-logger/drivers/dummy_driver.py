@@ -15,7 +15,7 @@ class dummy_driver(object):
         w = 1+v
         return v, w
 
-    def write_instrument(self, message):
+    def write_instrument(self, op_id, message):
         """
         write instrument
         """

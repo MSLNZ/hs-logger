@@ -51,33 +51,44 @@ class generic_driver_visa_serial(object):
                 return data, data_trans
             elif type == 'read_multiple':
                 with self.lock:
-                    # print("locK")
                     self.instrument.write(operation['command'])
                     if echo:
                         self.instrument.read()
                     data = self.instrument.read()
-                    try:
-                        while True:
-                            data = data + operation.get("split") + self.instrument.read()
-                    except visa.errors.VisaIOError:
-                        pass
-                    data = data.split(operation.get("split"))
-                    for i, d in enumerate(data):
-                        if self.isfloat(d):
-                            data[i] = self.decimals(d, operation)
+                    if operation == "read_state":  # This block of code fixes the weird mode structure in the 2900
+                        if data == 0:
+                            data = [0, 0]
+                        elif data == 0.1:
+                            data = [0, 1]
+                        elif data == 1:
+                            data = [1, 1]
+                        elif data == 1.1:
+                            data = [1, 0]
                         else:
+                            print(data)
+                            data = [0, 0]
+                    else:
+                        try:
+                            while True:
+                                data = data + operation.get("split") + self.instrument.read()
+                        except visa.errors.VisaIOError:
                             pass
-                    o_ops = operation.get("operations")
-                    if o_ops is not None:
-                        for on in o_ops:
-                            o = self.operations.get(on)
-                            oi = o.get("store_index")
-                            d = data[oi]
-                            dt = self.transform(d, o)
-                            self.store[on] = ((d, dt), time.time())
+                        data = data.split(operation.get("split"))
+                        for i, d in enumerate(data):
+                            if self.isfloat(d):
+                                data[i] = self.decimals(d, operation)
+                            else:
+                                pass
+                        o_ops = operation.get("operations")
+                        if o_ops is not None:
+                            for on in o_ops:
+                                o = self.operations.get(on)
+                                oi = o.get("store_index")
+                                d = data[oi]
+                                dt = self.transform(d, o)
+                                self.store[on] = ((d, dt), time.time())
 
                     data_trans = [self.transform(d, operation) for d in data]
-                # print('unlocK')
             elif type == 'read_single':
                 with self.lock:
                     # print("locK")
