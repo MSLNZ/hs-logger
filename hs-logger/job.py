@@ -205,8 +205,8 @@ class AutoProfile(object):
         self.title = ""  # The first line of the autoprofile is the name of the file.
         self.h_name = []  # The second line of the autoprofile contains the names.
         self.h_set = []  # The third line of the autoprofile contains the commands to set the setpoints.
-        # self.h_check = []  # The forth line of the autoprofile contains the commands to read the setpoints.
-        # self.h_actual = []  # The fifth line of the autoprofile contains the commands to read the actual values.
+        # self.h_check = []
+        # self.h_actual = []
         self.stdev_list = []  # This list contains the data required for the assured switch.
         self.current_stdev = ""  # This defines what the standard deviation is of.
         self.a_dif = 0.1  # This is the difference between the actual and measured values that assured allows.
