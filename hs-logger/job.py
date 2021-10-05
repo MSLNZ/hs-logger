@@ -365,38 +365,45 @@ class AutoProfile(object):
         t1 = self.point_start_time + 60 * float(self.soak[self.current_point])  # - self.job.logger.delay  # if paused
         index = 2 + int(self.assured[self.current_point])
         timeleft = (t1 - time.time())/60
-        inst, ops = self.h_set[index].split('.')
-        opc = self.job.logger.instruments.get(inst).spec["operations"][ops]["check_set"]
-        opa = self.job.logger.instruments.get(inst).spec["operations"][ops]["check_actual"]
-        # inst, opc = self.h_check[index].split('.')
-        # inst, opa = self.h_actual[index].split('.')
-        if index < 3 or opc == "noCheck" or opa == "noCheck":
+        if index < 3:
             if timeleft < 0:
                 self.transtime = u"Now"
                 self.next_point()
             else:
                 self.transtime = u"{}".format(timeleft)
         else:
-            value1 = self.check_instrument(inst, opc)
-            value2 = self.check_instrument(inst, opa)
-            if self.h_actual[index] == self.current_stdev:
-                self.stdev_list.append(value2)  # If this is the same operation as last time, append the data.
-            else:
-                self.current_stdev = self.h_actual[index]
-                self.stdev_list = []  # Otherwise, start a new array for the new operation.
-            if timeleft < 0:
-                dif = value2 - value1
-                std = self.stdev()
-                if abs(dif) < self.a_dif:
-                    if std < self.a_std:
-                        self.transtime = u"Now"
-                        self.next_point()
-                    else:
-                        self.transtime = u"When stdev ({}) is less than {}.".format(std, self.a_std)
+            inst, ops = self.h_set[index].split('.')
+            opc = self.job.logger.instruments.get(inst).spec["operations"][ops]["check_set"]
+            opa = self.job.logger.instruments.get(inst).spec["operations"][ops]["check_actual"]
+            # inst, opc = self.h_check[index].split('.')
+            # inst, opa = self.h_actual[index].split('.')
+            if opc == "" or opa == "":
+                if timeleft < 0:
+                    self.transtime = u"Now"
+                    self.next_point()
                 else:
-                    self.transtime = u"When difference ({}) is less than {}.".format(dif, self.a_dif)
+                    self.transtime = u"{}".format(timeleft)
             else:
-                self.transtime = u"{}".format(timeleft)
+                value1 = self.check_instrument(inst, opc)
+                value2 = self.check_instrument(inst, opa)
+                if self.h_actual[index] == self.current_stdev:
+                    self.stdev_list.append(value2)  # If this is the same operation as last time, append the data.
+                else:
+                    self.current_stdev = self.h_actual[index]
+                    self.stdev_list = []  # Otherwise, start a new array for the new operation.
+                if timeleft < 0:
+                    dif = value2 - value1
+                    std = self.stdev()
+                    if abs(dif) < self.a_dif:
+                        if std < self.a_std:
+                            self.transtime = u"Now"
+                            self.next_point()
+                        else:
+                            self.transtime = u"When stdev ({}) is less than {}.".format(std, self.a_std)
+                    else:
+                        self.transtime = u"When difference ({}) is less than {}.".format(dif, self.a_dif)
+                else:
+                    self.transtime = u"{}".format(timeleft)
 
     def check_instrument(self, inst_id, operation_id):
         inst = self.job.logger.instruments.get(inst_id)
