@@ -64,6 +64,7 @@ class HG2900_visa_serial(object):
                             data = [0, 1]
                         elif data == "1":
                             data = [1, 1]
+
                         elif data == "1.1":
                             data = [1, 0]
                         else:
@@ -127,7 +128,10 @@ class HG2900_visa_serial(object):
             """
             write instrument 
             """
-            op = self.operations[operation_id]
+            if float("{}".format(*values)) >= 0 and operation_id == "set_fp":
+                op = self.operations["set_dp"]  # This allows the frost point to be set above 0 °C as a dew point.
+            else:
+                op = self.operations[operation_id]
             command = op.get("command", "")
             command = command.format(*values)
             # response = self.instrument.query(command)
