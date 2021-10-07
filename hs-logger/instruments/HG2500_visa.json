@@ -200,35 +200,55 @@
             "details": "Stops the System",
             "command": "STO"
         },
+        "set_state":{
+            "type": "write_action",
+            "name": "Operation state",
+            "id":   "set_state",
+            "details": "0 to shutdown, 1 to generate",
+            "operations": ["action_stop","action_run"],
+            "command": "{}",
+            "check_set": "read_mode",
+            "check_actual": "read_status"
+        },
         "set_rh_pc":{
             "type": "write",
             "name": "RH @PC 2500 set",
             "id":   "set_rh_pc",
-            "command": "R1={}"
+            "command": "R1={}",
+            "check_set": "read_rh_pc_sp",
+            "check_actual": "read_rh_pc"
         },
         "set_rh_pctc":{
             "type": "write",
             "name": "RH @PcTc 2500 set",
             "id":   "set_rh_pctc",
-            "command": "R2={}"
+            "command": "R2={}",
+            "check_set": "read_rh_pctc_sp",
+            "check_actual": "read_rh_pctc"
         },
         "set_q":{
             "type": "write",
             "name": "Q 2500 set",
             "id":   "set_q",
-            "command": "FS={}"
+            "command": "FS={}",
+            "check_set": "read_q_sp",
+            "check_actual": "read_q"
         },
         "set_ps":{
             "type": "write",
             "name": "Ps 2500 set",
             "id":   "set_ps",
-            "command": "PS={}"
+            "command": "PS={}",
+            "check_set": "read_ps_sp",
+            "check_actual": "read_ps"
         },
         "set_ts":{
             "type": "write",
             "name": "Ts 2500 set",
             "id":   "set_ts",
-            "command": "TS={}"
+            "command": "TS={}",
+            "check_set": "read_ts_sp",
+            "check_actual": "read_ts"
         }
     }
 }

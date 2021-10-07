@@ -11,9 +11,12 @@ class dummy_driver(object):
         """
         read instrument s
         """
-        v = random.random()
-        w = 1+v
-        return v, w
+        if op_id == "setpoint_test":
+            return 0
+        else:
+            v = random.random()
+            w = 1+v
+            return v, w
 
     def write_instrument(self, op_id, message):
         """

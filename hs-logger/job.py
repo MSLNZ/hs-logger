@@ -44,7 +44,7 @@ class Job(object):
                 op_check = self.job.logger.instruments.get(i_id).spec["operations"][op_id]["check_set"]
                 inst_driver = self.inst_drivers.get(i_id)
                 try:
-                    if op_check == "noCheck":
+                    if op_check == "":
                         inst_driver.write_instrument(op_id, [val])
                     else:
                         curset = self.auto_profile.check_instrument(i_id, op_check)

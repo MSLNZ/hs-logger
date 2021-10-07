@@ -338,8 +338,8 @@
             "details": "0 to shutdown, 1 to generate",
             "operations": ["action_shutdown","action_generate"],
             "command": "{}",
-            "check_set": "noCheck",
-            "check_actual": "noCheck"
+            "check_set": "",
+            "check_actual": ""
         },
         "set_rh":{
             "type": "write",
