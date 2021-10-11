@@ -1,10 +1,10 @@
 {
-    "instrument_id": "ST100_M",
+    "instrument_id": "ST100_M2",
     "instrument_name": "SmartTrak100 Mass Flow Meter",
     "driver": "Driver_SmartTrak_pyserial",
     "interface": "pyserial",
     "type": "Controller",
-    "Serialnumber": "Srnm305561",
+    "Serialnumber": "305562",
     "port": "COM15",
     "baudrate": 9600,
     "parity": "PARITY_NONE",
