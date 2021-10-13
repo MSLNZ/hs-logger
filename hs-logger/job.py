@@ -41,7 +41,7 @@ class Job(object):
             self.frame.current_reading.SetLabel(u"{} = {}".format(inst_op, val))
             if inst_op != "":
                 i_id, op_id = inst_op.split(".")
-                op_check = self.job.logger.instruments.get(i_id).spec["operations"][op_id]["check_set"]
+                op_check = self.logger.instruments.get(i_id).spec["operations"][op_id]["check_set"]
                 inst_driver = self.inst_drivers.get(i_id)
                 try:
                     if op_check == "":
@@ -49,7 +49,7 @@ class Job(object):
                     else:
                         curset = self.auto_profile.check_instrument(i_id, op_check)
                         i = 0
-                        while curset != val & i < 5:
+                        while curset != float(val) and i < 5:
                             i = i + 1
                             print("Write attempt {}".format(i))
                             inst_driver.write_instrument(op_id, [val])
