@@ -181,12 +181,15 @@ class generic_driver_visa_serial(object):
         return f
 
     def transform(self, data, operation):
-        x = data
+        # Bridge transform
+        eqb = self.spec.get("bridge_transform", [0, 0])
+        x = eqb[0] + (1+eqb[1])*data
+        # x = data
         eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
         if self.isfloat(data):  # Check that the data can be transformed
             if eq[0] == 'T':  # Callendar-Van Dusen equation
                 if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
-                    print("{} with transform {} is out of range.".format(x,eq))
+                    print("{} with transform {} is out of range.".format(x, eq))
                     transformed = float("NaN")
                 else:
                     if x < eq[4]:

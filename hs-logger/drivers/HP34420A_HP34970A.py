@@ -22,7 +22,10 @@ class HP34420A_HP34970A(object):
         return val, val_trans
 
     def transform(self, data, operation):
-        x = data
+        # Bridge transform
+        eqb = self.spec.get("bridge_transform", [0, 0])
+        x = eqb[0] + (1 + eqb[1]) * data
+        # x = data
         eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
         if eq[0] == 'T':  # Callendar-Van Dusen equation
             if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):

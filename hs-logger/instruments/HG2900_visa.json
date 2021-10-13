@@ -292,7 +292,6 @@
             "command": "get run state",
             "operations": ["read_status", "read_mode"],
             "data_type": "list",
-            "split": ".",
             "unit": ""
         },
         "read_status":{
