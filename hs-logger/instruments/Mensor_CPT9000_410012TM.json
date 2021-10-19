@@ -1,6 +1,6 @@
 {
-    "instrument_id": "CPT9000",
-    "instrument_name": "Mensor CPT9000 Template",
+    "instrument_id": "CPT9000_410012TM",
+    "instrument_name": "Mensor 12TM",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
     "port": "COM22",
@@ -10,12 +10,12 @@
     "timeout": 3,
     "write_termination": "\r\n",
     "read_termination": "\r\n",
-    "notes": "",
+    "notes": "Range: 0-3 bar",
     "doOpen": false,
     "operations": {
         "read_pressure": {
             "type": "read_single",
-            "name": "Ps 2900 Mensor",
+            "name": "Mensor 12TM P",
             "id": "read_pressure",
             "details": "",
             "data_type": "float",
