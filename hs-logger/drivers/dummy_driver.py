@@ -12,7 +12,7 @@ class dummy_driver(object):
         read instrument s
         """
         if op_id == "setpoint_test":
-            return 0
+            return 1, 1
         else:
             v = random.random()
             w = 1+v

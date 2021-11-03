@@ -315,6 +315,16 @@
             "details": "Stops the System",
             "command": "STO"
         },
+        "set_state":{
+            "type": "write_action",
+            "name": "Operation state",
+            "id":   "set_state",
+            "details": "-1 to purge, 0 to shutdown, 1 to generate",
+            "operations": {"-1": "action_pur","0": "action_sto","1": "action_gen"},
+            "command": "{}",
+            "check_set": "read_mode",
+            "check_actual": "read_status"
+        },
         "set_fp":{
             "type": "write",
             "name": "FP 3900 set",

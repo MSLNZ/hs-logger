@@ -1,10 +1,10 @@
 {
-    "job_name":"S8000__airlabCal_job",
+    "job_name":"S8000_RS_job",
     "job_id":2,
     "job_notes":"comment",
-    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\hs-logger_test\\",
-    "datafile_raw": "S8000_job_data_raw.csv",
-    "datafile_trans": "S8000_job_data_trans.csv",
+    "out_dir": "\\",
+    "datafile_raw": "S8000_job_data_raw.dat",
+    "datafile_trans": "S8000_job_data_trans.dat",
     "points_file_raw": "S8000_job_points_raw.dat",
     "points_file_trans": "S8000_job_points_trans.dat",
     "source_file_raw": "S8000_job_source_raw.dat",
@@ -19,7 +19,15 @@
         "time.runtime",
         "time.datetime",
         "S8000RS.read_dewpoint",
+        "S8000RS.read_ambtemp",
+        "S8000RS.read_rh",
+        "S8000RS.read_ppmv",
+        "S8000RS.read_ppmw",
+        "S8000RS.read_gm3",
+        "S8000RS.read_gkg",
         "S8000RS.read_pressure",
         "S8000RS.read_flow"
-    ]
+    ],
+    "details": {},
+    "references": {}
 }

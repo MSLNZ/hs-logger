@@ -140,7 +140,7 @@ class HG2900_visa_serial(object):
             if op.get("type") == "write_action":  # This allows the autoprofile to control actions using a list
                 if 0 <= int(command) <= len(op.get("operations")):
                     self.instrument.timeout = 10000
-                    self.instrument.write(op.get("operations")[int(command)])
+                    self.instrument.write(op.get("operations")["{}".format(int(command))])
                     try:
                         while True:
                             if response == "":

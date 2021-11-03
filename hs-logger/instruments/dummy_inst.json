@@ -6,7 +6,7 @@
     "operations": {
         "read_test":{
             "type": "read",
-            "name": "Dummy read",
+            "name": "Dummy read 1",
             "id": "read_test",
             "details": "Generates a random value between 0 and 1.",
             "transform_eq": ["D",0,-1,0,0],
@@ -15,16 +15,16 @@
         },
         "setpoint_test":{
             "type": "read",
-            "name": "Dummy read",
+            "name": "Set read 1",
             "id": "setpoint_test",
-            "details": "Returns 0.",
+            "details": "Returns 1.",
             "transform_eq": ["D",0,-1,0,0],
             "rep_num": "Test report #2",
             "check_date": "Test date 05/10/2021"
         },
         "write_test":{
             "type": "write",
-            "name": "Dummy write",
+            "name": "Dummy write 1",
             "id": "write_test",
             "details": "Does nothing.",
             "check_set": "setpoint_test",

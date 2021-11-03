@@ -173,7 +173,6 @@ class Job(object):
                 if i != 0:
                     x = g[i][0]
                     y = g[i][1]
-                    leg.append(y)
                     inst_x, op = x.split('.')
                     if inst_x == "reference":
                         x_val = [d.get(x) for d in self.logger.storeref]
@@ -182,8 +181,14 @@ class Job(object):
                     inst_y, op = y.split('.')
                     if inst_y == "reference":
                         y_val = [d.get(y) for d in self.logger.storeref]
+                        y_name = op
                     else:
                         y_val = [d[1].get(y) for d in self.logger.store]
+                        if inst_y != "time":
+                            y_name = self.logger.instruments.get(inst_y).spec["operations"][op]["name"]
+                        else:
+                            y_name = op
+                    leg.append(y_name)
                     plt.plot(x_val, y_val)
             if len(g) > 2:
                 plt.legend(leg)

@@ -711,7 +711,7 @@ class Controller(object):
                         instrument = json.load(open(instrument))
 
                     except (OSError, ValueError):
-                        sys.stderr.write("Error Loading Insturment: {}".format(inst_id))
+                        sys.stderr.write("Error Loading Instrument: {}".format(inst_id))
                         sys.exit(1)
                 inst_id = instrument["instrument_id"]
                 driver_name = instrument["driver"]

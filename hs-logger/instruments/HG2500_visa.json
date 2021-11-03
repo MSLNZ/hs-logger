@@ -205,7 +205,7 @@
             "name": "Operation state",
             "id":   "set_state",
             "details": "0 to shutdown, 1 to generate",
-            "operations": ["action_stop","action_run"],
+            "operations": {"0": "action_stop","1": "action_run"},
             "command": "{}",
             "check_set": "read_mode",
             "check_actual": "read_status"

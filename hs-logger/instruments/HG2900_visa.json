@@ -335,10 +335,10 @@
             "name": "Operation state",
             "id":   "set_state",
             "details": "0 to shutdown, 1 to generate",
-            "operations": ["action_shutdown","action_generate"],
+            "operations": {"0": "action_shutdown","1": "action_generate"},
             "command": "{}",
-            "check_set": "",
-            "check_actual": ""
+            "check_set": "read_mode",
+            "check_actual": "read_status"
         },
         "set_rh":{
             "type": "write",
