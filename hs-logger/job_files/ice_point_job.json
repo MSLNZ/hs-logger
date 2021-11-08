@@ -30,15 +30,16 @@
         "microK.read_19"
     ],
     "details": {"microK": {
-            "read_10": "",
-            "read_11": "",
-            "read_12": "",
-            "read_13": "",
-            "read_15": "",
-            "read_16": "",
-            "read_17": "",
-            "read_18": "",
-            "read_19": ""
+            "read_10": "HART001",
+            "read_11": "HART006",
+            "read_12": "SDL148",
+            "read_13": "SIL042",
+            "read_14": "SIL064",
+            "read_15": "NONE CONNECTED",
+            "read_16": "NONE CONNECTED",
+            "read_17": "NONE CONNECTED",
+            "read_18": "NONE CONNECTED",
+            "read_19": "NONE CONNECTED"
         }
     },
     "references": {}

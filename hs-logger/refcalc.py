@@ -161,7 +161,7 @@ def td_ex_pv(pvo, po, df):
     tol = 1E-10
     ct = 0
     while abs(diff) > tol and ct < 20:
-        ct=ct+1
+        ct = ct+1
         edi = pvo/ef(tdi, po, df)  # recalculate ed from Pv and new fd
         td = td_ex_vp(edi, df)  # recalculate td from new ed
         pvi = ef(td, po, df) * vp(td, df)

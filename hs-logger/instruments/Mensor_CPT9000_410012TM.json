@@ -3,7 +3,7 @@
     "instrument_name": "Mensor 12TM",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM22",
+    "port": "COM23",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",
@@ -21,7 +21,7 @@
             "data_type": "float",
             "unit": "",
             "command": "PRESS?",
-            "transform_eq": ["P", 4.415718e-4, 9.99849e-1, 0, 0]
+            "transform_eq": ["P", 0, 1, 0, 0]
         }
     }
 }

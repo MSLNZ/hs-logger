@@ -48,20 +48,32 @@
         },
         "read_10": {
             "type": "read_single",
-            "name": "Tamb SIL039 c10",
+            "name": "Ts2500#1 SIL010 c10",
             "id": "read_10",
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES10:REF204? 200,1",
-            "transform_eq":["T", 3.91246E-3,-5.96E-7,-6.775E-12,99.97356],
+            "transform_eq":["T", 3.91E-3,-6.04E-7,-4.59E-12,100.0184547],
             "details":"",
-            "check_date": "13/03/2020",
-            "rep_num": "Temperature/2020/894, 31 January 2020"
+            "check_date": "3/05/2021",
+            "rep_num": "Temperature/2020/890, 31 January 2020"
         },
         "read_11": {
             "type": "read_single",
-            "name": "Tc SIL019 c11",
+            "name": "Tc SIL012 c11",
             "id": "read_11",
+            "data_type": "float",
+            "unit": "",
+            "command": "MEAS:FRES13:REF204? 200,1",
+            "transform_eq":["T", 3.91E-3,-5.99E-7,-6.39E-11,100.0150747],
+            "details":"",
+            "check_date": "3/05/2021",
+            "rep_num": "Temperature/2020/891, 31 January 2020"
+        },
+        "read_12": {
+            "type": "read_single",
+            "name": "Tc SIL019 c12",
+            "id": "read_12",
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES11:REF204? 200,1",
@@ -70,10 +82,10 @@
             "check_date": "3/05/2021",
             "rep_num": "Temperature/2020/892, 31 January 2020"
         },
-        "read_12": {
+        "read_13": {
             "type": "read_single",
-            "name": "Tc SIL020 c12",
-            "id": "read_12",
+            "name": "Tc SIL020 c13",
+            "id": "read_13",
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES12:REF204? 200,1",
@@ -81,18 +93,6 @@
             "details":"",
             "check_date": "3/05/2021",
             "rep_num": "Temperature/2020/893, 31 January 2020"
-        },
-        "read_13": {
-            "type": "read_single",
-            "name": "Tc SIL012 c13",
-            "id": "read_13",
-            "data_type": "float",
-            "unit": "",
-            "command": "MEAS:FRES13:REF204? 200,1",
-            "transform_eq":["T", 3.91E-3,-5.99E-7,-6.39E-11,100.0150747],
-            "details":"",
-            "check_date": "3/05/2021",
-            "rep_num": "Temperature/2020/891, 31 January 2020"
         },
         "read_14": {
             "type": "read_single",
@@ -144,27 +144,27 @@
         },
         "read_18": {
             "type": "read_single",
-            "name": "Tc SIL050 c18",
+            "name":"Tm DP30 c18",
             "id": "read_18",
-            "details": "",
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES18:REF204? 200,1",
-            "transform_eq": ["T", 3.91103e-3, -5.943e-7, -3.57e-12, 100.0539],
-            "check_date": "2/03/2020",
-            "rep_num": "Temperature/2019/849, 16 September 2019"
+            "transform_eq":["T", 3.908544E-03, -5.805512E-07, -1.16421E-11, 99.94731],
+            "details":"",
+            "check_date": "12/02/2001",
+            "rep_num": "INTA No. 4661"
         },
         "read_19": {
             "type": "read_single",
-            "name": "Tc SIL053 c19",
+            "name": "Tamb SIL039 c19",
             "id": "read_19",
             "details": "",
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES19:REF204? 200,1",
-            "transform_eq": ["T", 3.91155e-3, -5.942e-7, -6.686e-12, 99.9893],
-            "check_date": "2/03/2020",
-            "rep_num": "Temperature/2019/852, 16 September 2019"
+            "transform_eq":["T", 3.91246E-3,-5.96E-7,-6.775E-12,99.97356],
+            "check_date": "13/03/2020",
+            "rep_num": "Temperature/2020/894, 31 January 2020"
         }
     }
 }

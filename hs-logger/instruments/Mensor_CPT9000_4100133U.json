@@ -21,7 +21,7 @@
             "data_type": "float",
             "unit": "",
             "command": "PRESS?",
-            "transform_eq": ["P", 4.415718e-4, 9.99849e-1, 0, 0]
+            "transform_eq": ["P", 0, 1, 0, 0]
         }
     }
 }

@@ -161,7 +161,7 @@
             "details": ""
         },
         "read_px116": {
-            "name": "Read Channel 116",
+            "name": "P Wika",
             "type":"read",
             "id":"read_px116",
             "channel": 116,

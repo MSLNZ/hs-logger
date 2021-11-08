@@ -99,8 +99,9 @@ class generic_driver_pymodbus(ModbusClient):
             return self.to_uint
 
     def uint_to_float(self, data):
-        mp = struct.pack('!HH', data[1], data[0])
-        return struct.unpack('!f', mp)[0]
+        mp = struct.pack('!HH', data[0], data[1])  # Reverse this for HMPs (figure out how to do this)
+        test = struct.unpack('!f', mp)[0]
+        return test
 
     def uint_to_int(self, data):
         mp = struct.pack('!H', data[0])
