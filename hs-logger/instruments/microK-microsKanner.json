@@ -132,15 +132,15 @@
         },
         "read_17": {
             "type": "read_single",
-            "name": "Tc SIL049 c17",
+            "name": "Tc SIL033 c17",
             "id": "read_17",
             "details": "",
             "data_type": "float",
             "unit": "",
             "command": "MEAS:FRES17:REF204? 200,1",
-            "transform_eq": ["T", 3.91217e-3, -5.923e-7, -1.664e-12, 100.0516],
-            "check_date": "2/03/2020",
-            "rep_num": "Temperature/2019/848, 16 September 2019"
+            "transform_eq": ["T", 3.909080E-03, -6.1160E-07, -1.9700E-12, 100.0461],
+            "check_date": "14/10/2021",
+            "rep_num": "Temperature/2017/681, 16 August 2017"
         },
         "read_18": {
             "type": "read_single",

@@ -111,44 +111,52 @@
             "details": ""
         },
         "read_px111": {
-            "name": "Read Channel 111",
+            "name": "PsHi 3900 0-20.7 h111",
             "type":"read",
             "id":"read_px111",
             "channel": 111,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
-            "details": ""
+            "transform_eq": ["P", 1.1235e-1, 4.12633, 1.049e-3, 1.36e-4],
+            "details": "",
+            "check_date": "19/05/2021",
+            "rep_num": "Pressure/2021/640, 19 May 2021"
         },
         "read_px112": {
-            "name": "Read Channel 112",
+            "name": "PsLo 3900 0-3.4 h112",
             "type":"read",
             "id":"read_px112",
             "channel": 112,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
-            "details": ""
+            "transform_eq": ["P", 4.582e-3, 6.988e-1, 4.27e-4, 5.35e-5],
+            "details": "",
+            "check_date": "11/05/2021",
+            "rep_num": "Pressure/2021/635, 11 May 2021"
         },
         "read_px113": {
-            "name": "Read Channel 113",
+            "name": "Pg 3900 0-21 h113",
             "type":"read",
             "id":"read_px113",
             "channel": 113,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
-            "details": ""
+            "transform_eq": ["P", -5.59828, 6.89923, 7.08e-3, 0],
+            "details": "",
+            "check_date": "03/06/2021",
+            "rep_num": "Pressure/2021/639, 3 June 2021"
         },
         "read_px114": {
-            "name": "Read Channel 114",
+            "name": "Pc 3900 0-3.4 h114",
             "type":"read",
             "id":"read_px114",
             "channel": 114,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
-            "details": ""
+            "transform_eq": ["P", 4.331e-3, 6.91126e-1, 5.57e-4, 5.23e-5],
+            "details": "",
+            "check_date": "03/06/2021",
+            "rep_num": "Pressure/2021/638, 3 June 2021"
         },
         "read_px115": {
             "name": "Read Channel 115",

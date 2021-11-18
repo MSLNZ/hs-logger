@@ -1,11 +1,11 @@
 {
-    "instrument_id": "ST100_C",
-    "instrument_name": "SmartTrak100 Mass Flow Controller",
+    "instrument_id": "ST100_C_2",
+    "instrument_name": "SmartTrak100 Mass Flow Controller 2",
     "driver": "Driver_SmartTrak_pyserial",
     "interface": "pyserial",
     "type": "Controller",
-    "Serialnumber": "Srnm305563",
-    "port": "COM14",
+    "Serialnumber": "Srnm305564",
+    "port": "COM29",
     "baudrate": 9600,
     "parity": "PARITY_NONE",
     "stopbits": "STOPBITS_ONE",
@@ -113,7 +113,7 @@
         },
         "write_flow": {
             "type": "write",
-            "name": "write_flow",
+            "name": "q C2",
             "id": "write_flow",
             "command": "!FLOW{}",
             "data_type": "float",
@@ -127,7 +127,9 @@
             "command": "!Sinv{}",
             "data_type": "float",
             "unit": "slm",
-            "details": "write setpoint of flow"
+            "details": "write setpoint of flow",
+            "check_set": "read_setpoint",
+            "check_actual": "read_flow"
         },
         "write_unit_index": {
             "type": "write",

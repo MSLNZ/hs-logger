@@ -1,0 +1,69 @@
+{
+    "job_name":"Voltage_check 1.018V px120-111",
+    "job_id":2,
+    "job_notes":"Checking the HP34420A and HP34970A using a reference voltage source Fluke 732 B from electrical standards",
+    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Support\\EquipMaintReg\\Checks\\DMMs\\Voltage check HP34420A_HP34970A 17112021\\",
+    "datafile_raw": "PreAirlabTest_job_data_raw.dat",
+    "datafile_trans": "Voltage check HP34420A_HP34970A_job_data_trans.dat",
+    "points_file_raw": "Voltage check HP34420A_HP34970A_job_points_raw.dat",
+    "points_file_trans": "Voltage check HP34420A_HP34970A_job_points_trans.dat",
+    "source_file_raw": "Voltage check HP34420A_HP34970A_job_source_raw.dat",
+    "source_file_trans": "Voltage check HP34420A_HP34970A_job_source_trans.dat",
+    "sensor_file": "Voltage check HP34420A_HP34970A_job_sensor_file.dat",
+    "min_interval": 5,
+    "time":0,
+    "instruments":{
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json"
+            },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HP34420A_HP34970A.read_px101",
+        "HP34420A_HP34970A.read_px102",
+        "HP34420A_HP34970A.read_px103",
+        "HP34420A_HP34970A.read_px104",
+        "HP34420A_HP34970A.read_px105",
+        "HP34420A_HP34970A.read_px106",
+        "HP34420A_HP34970A.read_px107",
+        "HP34420A_HP34970A.read_px108",
+        "HP34420A_HP34970A.read_px109",
+        "HP34420A_HP34970A.read_px110",
+        "HP34420A_HP34970A.read_px111",
+        "HP34420A_HP34970A.read_px112",
+        "HP34420A_HP34970A.read_px113",
+        "HP34420A_HP34970A.read_px114",
+        "HP34420A_HP34970A.read_px115",
+        "HP34420A_HP34970A.read_px116",
+        "HP34420A_HP34970A.read_px117",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120"
+    ],
+    "details": {
+        "HP34420A_HP34970A": {
+            "read_px101": "test",
+            "read_px102": "test",
+            "read_px103": "test",
+            "read_px104": "test",
+            "read_px105": "test",
+            "read_px106": "test",
+            "read_px107": "test",
+            "read_px108": "test",
+            "read_px109": "test",
+            "read_px110": "test",
+            "read_px111": "test",
+            "read_px112": "test",
+            "read_px113": "test",
+            "read_px114": "test",
+            "read_px115": "test",
+            "read_px116": "test",
+            "read_px117": "test",
+            "read_px118": "test",
+            "read_px119": "test",
+            "read_px120": "test"
+        }
+    },
+    "references": {
+
+    }
+}

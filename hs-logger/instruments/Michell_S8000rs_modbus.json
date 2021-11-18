@@ -235,7 +235,7 @@
         },
         "read_sensor_temp":{
             "type": "read",
-            "name": "Read Semsor Temperature",
+            "name": "Read Sensor Temperature",
             "details":"",
             "id": "read_sensor_temp",
             "register":20,
@@ -247,7 +247,7 @@
         },
         "read_sensor_temp_g1":{
             "type": "read_g1",
-            "name": "Read Semsor Temperature",
+            "name": "Read Sensor Temperature",
             "details":"",
             "id": "read_sensor_temp",
             "register":20,

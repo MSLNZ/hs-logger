@@ -41,7 +41,7 @@ class Job(object):
             self.frame.current_reading.SetLabel(u"{} = {}".format(inst_op, val))
             if inst_op != "":
                 i_id, op_id = inst_op.split(".")
-                op_check = self.logger.instruments.get(i_id).spec["operations"][op_id]["check_set"]
+                op_check = self.logger.instruments.get(i_id).spec["operations"][op_id].get("check_set", "")
                 inst_driver = self.inst_drivers.get(i_id)
                 try:
                     if op_check == "":
@@ -240,6 +240,7 @@ class AutoProfile(object):
             titles = file.readline().strip().split(',')
             self.title = titles[0]
             while self.title[0] != "a":  # Remove "ï»¿" from first item
+                print(self.title)
                 self.title = self.title[1:]
             self.job.frame.job_book.SetPageText(2, self.title)
             self.h_name = file.readline().strip().split(',')
@@ -378,8 +379,8 @@ class AutoProfile(object):
                 self.transtime = u"{}".format(timeleft)
         else:
             inst, ops = self.h_set[index].split('.')
-            opc = self.job.logger.instruments.get(inst).spec["operations"][ops]["check_set"]
-            opa = self.job.logger.instruments.get(inst).spec["operations"][ops]["check_actual"]
+            opc = self.job.logger.instruments.get(inst).spec["operations"][ops].get("check_set", "")
+            opa = self.job.logger.instruments.get(inst).spec["operations"][ops].get("check_actual", "")
             # inst, opc = self.h_check[index].split('.')
             # inst, opa = self.h_actual[index].split('.')
             if opc == "" or opa == "":
