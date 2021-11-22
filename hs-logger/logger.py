@@ -66,7 +66,7 @@ class Logger(Thread):
         self.delay = 0
 
     def run(self):
-        self.instruments['time'].start_time = time.time() #todo time-fix
+        self.instruments['time'].start_time = time.time() / 60
         self.paused = False
         self.mainloop()
 
@@ -79,7 +79,7 @@ class Logger(Thread):
         sys.exit(1)
 
     def read_loop(self):
-        ls_time = time.time() #todo time-fix
+        ls_time = time.time() / 60
         self.raw_dict = {}
         self.trans_dict = {}
         self.job.frame.reading_text.SetLabel(u"Reading:")
@@ -96,7 +96,7 @@ class Logger(Thread):
         self.count += 1
         self.job.update_cycle()
         self.log_to_file()
-        cycle_time = time.time()-ls_time #todo time-fix
+        cycle_time = (time.time() / 60) - ls_time
         ttnc = self.min_cycle_time-cycle_time
         if ttnc > 0 and not self.stopped:
             time.sleep(ttnc)
@@ -514,7 +514,7 @@ class Logger(Thread):
 
 class Timer(object):
     def __init__(self):
-        self.start_time = time.time() #todo time-fix
+        self.start_time = time.time() / 60
 
     def read_instrument(self, operation_id):
         op = getattr(self, operation_id)
@@ -522,10 +522,10 @@ class Timer(object):
         return t, t
 
     def reset_time(self):
-        self.start_time = time.time() #todo time-fix
+        self.start_time = time.time() / 60
 
     def runtime(self):
-        return time.time() - self.start_time #todo time-fix
+        return (time.time() / 60) - self.start_time
 
     def datetime(self):
         return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
