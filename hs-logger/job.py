@@ -18,7 +18,7 @@ class Job(object):
         self.auto_profile = AutoProfile(self)
         self.frame.add_profile_table(self.auto_profile)
         self.n = 0
-        self.pauseStart = time.time()
+        self.pauseStart = time.time() #todo time-fix
 
         # self.sched = BackgroundScheduler()
         # self.sched.add_job(func=self.update_graphs, trigger='interval', seconds=5)
@@ -93,15 +93,15 @@ class Job(object):
 
     def pause(self):
         self.logger.pause()
-        self.pauseStart = time.time()
+        self.pauseStart = time.time() #todo time-fix
 
     def resume(self):
-        self.logger.delay = self.logger.delay + time.time() - self.pauseStart
+        self.logger.delay = self.logger.delay + time.time() - self.pauseStart #todo time-fix
         self.logger.resume()
 
     def start(self):
         self.logger.start()
-        self.auto_profile.point_start_time = time.time()
+        self.auto_profile.point_start_time = time.time() #todo time-fix
         self.auto_profile.move_to_point(self.auto_profile.current_point)
 
     def stop(self):
@@ -218,7 +218,7 @@ class AutoProfile(object):
         self.a_std = 0.1  # This is the standard deviation of measured values that assured allows.
 
         self.current_point = 0
-        self.point_start_time = time.time()
+        self.point_start_time = time.time() #todo time-fix
         self.transtime = u""
 
     def reset(self):
@@ -358,7 +358,7 @@ class AutoProfile(object):
     def move_to_point(self, point):
         self.current_point = point
         self.grid_refresh()
-        self.point_start_time = time.time()
+        self.point_start_time = time.time() #todo time-fix
         actions = []
         if not self.job.logger.paused:
             for inst_op, vals in self.operations.values():
@@ -368,9 +368,9 @@ class AutoProfile(object):
 
 
     def update(self):
-        t1 = self.point_start_time + 60 * float(self.soak[self.current_point])  # - self.job.logger.delay  # if paused
+        t1 = self.point_start_time + 60 * float(self.soak[self.current_point])  # - self.job.logger.delay  # if paused todo time-fix
         index = 2 + int(self.assured[self.current_point])
-        timeleft = (t1 - time.time())/60
+        timeleft = (t1 - time.time())/60 #todo time-fix
         if index < 3:
             if timeleft < 0:
                 self.transtime = u"Now"

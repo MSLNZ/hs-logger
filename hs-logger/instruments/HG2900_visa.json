@@ -185,6 +185,16 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
+        "read_fan":{
+            "type": "read_single",
+            "name": "Fan 2900",
+            "id": "read_fan",
+            "details":"",
+            "data_type": "float",
+            "command": "get chamber fan speed",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
         "read_setpoints":{
             "type": "read_multiple",
             "name": "Setpoints",
@@ -403,6 +413,14 @@
             "command": "set mass flow rate {}",
             "check_set": "read_q_sp",
             "check_actual": "read_q"
+        },
+        "set_fan":{
+            "type": "write",
+            "name": "fan 2900 set",
+            "id":   "set_fan",
+            "command": "fan {}",
+            "check_set": "read_fan",
+            "check_actual": ""
         }
     }
 }

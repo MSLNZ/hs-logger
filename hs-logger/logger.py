@@ -39,7 +39,7 @@ class Logger(Thread):
         self.tsources = {}  # This is the source data for the above
         self.is_connected = 1
 
-        self.min_cycle_time = self.job_spec.get("min_interval", 30)
+        self.min_cycle_time = self.job_spec.get("min_interval", 0)
         # store and file setup
         self.raw_dict = {}
         self.trans_dict = {}
@@ -66,7 +66,7 @@ class Logger(Thread):
         self.delay = 0
 
     def run(self):
-        self.instruments['time'].start_time = time.time()
+        self.instruments['time'].start_time = time.time() #todo time-fix
         self.paused = False
         self.mainloop()
 
@@ -79,7 +79,7 @@ class Logger(Thread):
         sys.exit(1)
 
     def read_loop(self):
-        ls_time = time.time()
+        ls_time = time.time() #todo time-fix
         self.raw_dict = {}
         self.trans_dict = {}
         self.job.frame.reading_text.SetLabel(u"Reading:")
@@ -96,7 +96,7 @@ class Logger(Thread):
         self.count += 1
         self.job.update_cycle()
         self.log_to_file()
-        cycle_time = time.time()-ls_time
+        cycle_time = time.time()-ls_time #todo time-fix
         ttnc = self.min_cycle_time-cycle_time
         if ttnc > 0 and not self.stopped:
             time.sleep(ttnc)
@@ -514,7 +514,7 @@ class Logger(Thread):
 
 class Timer(object):
     def __init__(self):
-        self.start_time = time.time()
+        self.start_time = time.time() #todo time-fix
 
     def read_instrument(self, operation_id):
         op = getattr(self, operation_id)
@@ -522,10 +522,10 @@ class Timer(object):
         return t, t
 
     def reset_time(self):
-        self.start_time = time.time()
+        self.start_time = time.time() #todo time-fix
 
     def runtime(self):
-        return time.time() - self.start_time
+        return time.time() - self.start_time #todo time-fix
 
     def datetime(self):
         return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())

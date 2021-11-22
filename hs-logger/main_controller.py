@@ -267,8 +267,8 @@ class myjobframe(job_frame):
                 if r == "time.runtime":
                     # Make the time in minutes.
                     for i, x in enumerate(raw):
-                        raw[i] = x / 60
-                        trans[i] = x / 60
+                        raw[i] = x / 60 #todo time-fix
+                        trans[i] = x / 60 #todo time-fix
                 if self.job.logger.window < len(raw):
                     rmean = np.mean(raw[-self.job.logger.window:])
                     rstd = np.std(raw[-self.job.logger.window:])

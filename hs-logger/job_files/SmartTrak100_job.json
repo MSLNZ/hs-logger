@@ -13,13 +13,13 @@
     "min_interval": 1,
     "time":0,
     "instruments":{
-        "ST100_C":"instruments/SmartTrak100_Controller.json"
+        "ST100_M_2":"instruments/SmartTrak100_Meter_2.json"
     },
     "logged_operations":[
         "time.datetime",
         "time.runtime",
-        "ST100_C.read_flow",
-        "ST100_C.read_setpoint"
+        "ST100_M_2.read_flow",
+        "ST100_M_2.read_setpoint"
         ],
     "details": {
     },
