@@ -1,0 +1,35 @@
+{
+    "instrument_id": "Thorlabs_stage",
+    "instrument_name": "LTS Long Travel Stage",
+    "driver": "Thorlabs_stage_driver",
+    "notes": "comment",
+    "serialnumber": "45843029",
+    "operations": {
+        "read_pos":{
+            "name": "read_pos",
+            "id": "read_pos",
+            "type": "read",
+            "command": "position",
+            "details": "read stage position",
+            "transform_eq": ["D",0,1,0,0]
+        },
+        "move_by":{
+            "name": "move_by",
+            "type": "write",
+            "id": "move_by",
+            "command": "move_by",
+            "details": "relative movement",
+            "check_set": "",
+            "check_actual": ""
+        },
+        "move_to":{
+            "name": "move_to",
+            "id": "move_to",
+            "type": "write",
+            "command": "move_to",
+            "details": "move_to",
+            "check_set": "",
+            "check_actual": ""
+        }
+    }
+}
