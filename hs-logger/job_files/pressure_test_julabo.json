@@ -1,0 +1,27 @@
+{
+    "job_name": "pressure_test_julabo",
+    "job_id": 0,
+    "job_notes": "This job can be used and modified for doing a pressure test.",
+    "out_dir": "\\",
+    "datafile_raw": "PT_dr.dat",
+    "datafile_trans": "PT_dt.dat",
+    "points_file_raw": "PT_pr_USE_THIS_ONE.dat",
+    "points_file_trans": "PT_pt.dat",
+    "source_file_raw": "PT_sr.dat",
+    "source_file_trans": "PT_st.dat",
+    "sensor_file": "PT_sf.dat",
+    "min_interval": 0,
+    "time": 0,
+    "instruments": {
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json"
+
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "CPT9000_4100133U.read_pressure"
+    ],
+    "details": {
+    },
+    "references": {}
+}
