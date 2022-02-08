@@ -54,6 +54,7 @@ class Job(object):
                             print("Write attempt {}".format(i))
                             inst_driver.write_instrument(op_id, [val])
                             curset = self.auto_profile.check_instrument(i_id, op_check)
+                            print("{} = {}?".format(float(val), curset))
                 except:
                     print("auto profile action error")
         self.frame.reading_text.SetLabel(u"Waiting...")
@@ -392,11 +393,12 @@ class AutoProfile(object):
             else:
                 value1 = self.check_instrument(inst, opc)
                 value2 = self.check_instrument(inst, opa)
-                if self.h_actual[index] == self.current_stdev:
+                if opa == self.current_stdev:
                     self.stdev_list.append(value2)  # If this is the same operation as last time, append the data.
                 else:
-                    self.current_stdev = self.h_actual[index]
-                    self.stdev_list = []  # Otherwise, start a new array for the new operation.
+                    self.current_stdev = opa[index]  # Otherwise, start a new array for the new operation.
+                    self.stdev_list = []
+                    self.stdev_list.append(value2)
                 if timeleft < 0:
                     dif = value2 - value1
                     std = self.stdev()

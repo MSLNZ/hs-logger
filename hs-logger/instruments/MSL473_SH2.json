@@ -1,14 +1,14 @@
 {
-  "instrument_id": "MSL473_SH2",
+    "instrument_id": "MSL473_SH2",
     "instrument_name": "MSL473_SH2",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",
-    "port": "COM24",
+    "port": "COM12",
     "baudrate": 9600,
     "write_termination": "\r",
     "read_termination": "\r\n",
     "echo": true,
-    "notes": "this should also work for 373 series ",
+    "notes": "this should also work for 373 series",
     "operations": {
         "read_Tm": {
             "type": "read_single",
@@ -175,10 +175,12 @@
             "name": "Ox MSL473_SH2",
             "id": "read_Ox",
             "command": "Ox?",
-            "transform_eq":["V",0,1,0,0],
+            "transform_eq":["T",3.91507e-3,-6.2883e-7,-6.1422e-11,99.9331],
             "data_type": "float",
             "unit": "Ohms",
-            "details": "External PRT Resistance"
+            "details": "External PRT Resistance",
+            "check_date": "09/09/2021",
+            "rep_num": "RHS210909B"
         }
     }
 }

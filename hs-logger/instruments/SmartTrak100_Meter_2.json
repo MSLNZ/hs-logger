@@ -5,7 +5,7 @@
     "interface": "pyserial",
     "type": "meter",
     "Serialnumber": "Srn305562",
-    "port": "COM3",
+    "port": "COM11",
     "baudrate": 9600,
     "parity": "PARITY_NONE",
     "stopbits": "STOPBITS_ONE",

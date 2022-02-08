@@ -304,6 +304,16 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
+        "read_parameters":{
+            "type": "read_multiple",
+            "name": "Bath P's",
+            "id": "read_parameters",
+            "details":"Returns current system parameters",
+            "command":"?BP",
+            "data_type": "list",
+            "split":",",
+            "unit": ""
+        },
         "action_gen":{
             "type": "action",
             "name": "Generate 3900",
@@ -332,7 +342,7 @@
             "details": "-1 to purge, 0 to shutdown, 1 to generate",
             "operations": {"-1": "action_pur","0": "action_sto","1": "action_gen"},
             "command": "{}",
-            "check_set": "read_mode",
+            "check_set": "read_status",
             "check_actual": "read_status"
         },
         "set_fp":{

@@ -77,10 +77,8 @@ class generic_driver_py_serial(object):
                     data = self.instrument.read_until(self.r_term)
                     # floats_data = re.findall(r"[-+]?\d*\.\d+|\d+", str(data))
                     # data = float(floats_data[0])
-                    print(data)
 
-                    floats_data = re.findall(r"[-+]?(\d+(\.\d*))([eE][-+]?\d+)?", str(data))
-                    print(floats_data)
+                    floats_data = re.findall(r"([-+]?\d+(\.\d*))([eE][-+]?\d+)?", str(data))
                     data = float(floats_data[0][0] + floats_data[0][2])
 
                     data_trans = self.transform(data, operation)

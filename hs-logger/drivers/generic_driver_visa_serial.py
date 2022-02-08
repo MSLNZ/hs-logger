@@ -58,10 +58,11 @@ class generic_driver_visa_serial(object):
                     data = self.instrument.read()
                     try:
                         while True:
-                            data = data + operation.get("split") + self.instrument.read()
+                            data = data + operation.get("split", " ") + self.instrument.read()
                     except visa.errors.VisaIOError:
                         pass
                     data = data.split(operation.get("split"))
+                    print(data)
                     for i, d in enumerate(data):
                         if self.isfloat(d):
                             data[i] = self.decimals(d, operation)
@@ -82,13 +83,17 @@ class generic_driver_visa_serial(object):
                 with self.lock:
                     # print("locK")
                     self.instrument.write(operation['command'])
-                    data = 0
+                    data = float("NaN")
                     try:
                         while True:
                             data = self.instrument.read()
+                            # print("{}: {}".format(operation['command'], data))
                     except visa.errors.VisaIOError:
                         pass
-                    data = float(data)
+                    try:
+                        data = float(data)
+                    except ValueError:
+                        data = float("NaN")
                     data_trans = self.transform(data, operation)
                 # print('unlocK')
             else:
@@ -121,9 +126,14 @@ class generic_driver_visa_serial(object):
             response = ""
 
             if op.get("type") == "write_action":  # This allows the autoprofile to control actions using a list
-                if 0 <= int(command) <= len(op.get("operations")):
+                if command in op.get("operations"):
                     self.instrument.timeout = 10000
-                    self.instrument.write(op.get("operations")["{}".format(int(command))])
+                    action_id = op.get("operations").get(command)
+
+                    act = self.operations[action_id]
+                    command2 = act.get("command", "")
+                    command2 = command2.format(*values)
+                    self.instrument.write(command2)
                     try:
                         while True:
                             if response == "":
@@ -183,10 +193,10 @@ class generic_driver_visa_serial(object):
     def transform(self, data, operation):
         # Bridge transform
         eqb = self.spec.get("bridge_transform", [0, 0])
-        x = eqb[0] + (1+eqb[1])*data
         # x = data
         eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
         if self.isfloat(data):  # Check that the data can be transformed
+            x = eqb[0] + (1 + eqb[1]) * data
             if eq[0] == 'T':  # Callendar-Van Dusen equation
                 if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
                     print("{} with transform {} is out of range.".format(x, eq))

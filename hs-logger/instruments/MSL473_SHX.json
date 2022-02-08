@@ -8,7 +8,7 @@
     "write_termination": "\r",
     "read_termination": "\r\n",
     "echo": true,
-    "notes": "this should also work for 373 series ",
+    "notes": "this should also work for 373 series",
     "operations": {
         "read_Tm": {
             "type": "read_single",

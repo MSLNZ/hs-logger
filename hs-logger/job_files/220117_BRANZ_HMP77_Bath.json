@@ -1,0 +1,104 @@
+{
+    "job_name":"220117_BRANZ_HMP77_Bath",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\H96140200 BRANZ HMP77 (-529)\\Data\\",
+    "datafile_raw": "BRANZ_HMP77_Bath_data_raw.dat",
+    "datafile_trans": "BRANZ_HMP77_Bath_data_trans.dat",
+    "points_file_raw": "BRANZ_HMP77_Bath_points_raw.dat",
+    "points_file_trans": "BRANZ_HMP77_Bath_points_trans.dat",
+    "source_file_raw": "BRANZ_HMP77_Bath_source_raw.dat",
+    "source_file_trans": "BRANZ_HMP77_Bath_source_trans.dat",
+    "sensor_file": "BRANZ_HMP77_Bath_sensor_file.dat",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "milliK": "instruments/milliK-millisKanner.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json",
+        "PC200":"instruments/PC200_serial.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "MSL473_SH2.read_P",
+        "milliK.read_10",
+        "milliK.read_11",
+        "milliK.read_12",
+        "milliK.read_13",
+        "milliK.read_14",
+        "milliK.read_16",
+        "milliK.read_17",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_Tm",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_Ox",
+        "PC200.read_Tm"
+    ],
+    "details": {
+        "milliK": {
+            "read_10": "Ts 2500",
+            "read_11": "Tc Back",
+            "read_12": "Tc Back Bottom Center",
+            "read_13": "Tc Front",
+            "read_14": "Tb Bath",
+            "read_16": "Tm Cold Chamber Sample",
+            "read_17": "Tamb"
+        },
+        "HG2500": {
+            "read_chamber_temp": "Tc Back Top Center"
+        },
+        "MSL473_SH2": {
+            "read_Tx": "Tc Front Bottom Center"
+        },
+        "PC200": {
+            "read_Tm": "A25 with external chamber"
+        }
+    },
+    "references": {
+        "DP_at_dut": {
+            "hum": "milliK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK.read_12",
+            "t2": "milliK.read_12",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP_at_473": {
+            "hum": "milliK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px119",
+            "t1": "milliK.read_12",
+            "t2": "milliK.read_12",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RHw_at_473": {
+            "hum": "milliK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px119",
+            "t1": "milliK.read_12",
+            "t2": "milliK.read_12",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    }
+}

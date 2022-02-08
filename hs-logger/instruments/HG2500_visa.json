@@ -1,12 +1,12 @@
 {
     "instrument_id": "HG2500",
     "instrument_name": "Thunder Scientific 2500 Humidity Generator",
-    "driver":"generic_driver_visa_serial",
-    "interface": "visa",            
-    "port": "COM19",
-    "baudrate":2400,
-    "write_termination":"\r",
-    "read_termination":"\r\n",
+    "driver": "generic_driver_visa_serial",
+    "interface": "visa",
+    "port": "COM22",
+    "baudrate": 2400,
+    "write_termination": "\r",
+    "read_termination": "\r\n",
     "notes": "",
     "operations": {
         "read_default":{
