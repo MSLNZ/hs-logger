@@ -3,7 +3,7 @@
     "instrument_name": "Thunder Scientific 3900 Humidity Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM20",
+    "port": "COM4",
     "baudrate":2400,
     "write_termination":"\r",
     "read_termination":"\r\n",
@@ -304,47 +304,6 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_parameters":{
-            "type": "read_multiple",
-            "name": "Bath P's",
-            "id": "read_parameters",
-            "details":"Returns current system parameters",
-            "command":"?BP",
-            "data_type": "list",
-            "split":",",
-            "unit": ""
-        },
-        "action_gen":{
-            "type": "action",
-            "name": "Generate 3900",
-            "id":   "action_gen",
-            "details": "Start the System",
-            "command": "GEN"
-        },
-        "action_pur":{
-            "type": "action",
-            "name": "Purge 3900",
-            "id":   "action_pur",
-            "details": "Start the System",
-            "command": "PUR"
-        },
-        "action_sto":{
-            "type": "action",
-            "name": "Stop 3900",
-            "id":   "action_sto",
-            "details": "Stops the System",
-            "command": "STO"
-        },
-        "set_state":{
-            "type": "write_action",
-            "name": "Operation state",
-            "id":   "set_state",
-            "details": "-1 to purge, 0 to shutdown, 1 to generate",
-            "operations": {"-1": "action_pur","0": "action_sto","1": "action_gen"},
-            "command": "{}",
-            "check_set": "read_status",
-            "check_actual": "read_status"
-        },
         "set_fp":{
             "type": "write",
             "name": "FP 3900 set",
@@ -432,6 +391,559 @@
             "command": "PU={}",
             "check_set": "read_pu",
             "check_actual": "read_pu"
+        },
+        "action_gen":{
+            "type": "action",
+            "name": "Generate 3900",
+            "id":   "action_gen",
+            "details": "Start the System",
+            "command": "GEN"
+        },
+        "action_pur":{
+            "type": "action",
+            "name": "Purge 3900",
+            "id":   "action_pur",
+            "details": "Start the System",
+            "command": "PUR"
+        },
+        "action_sto":{
+            "type": "action",
+            "name": "Stop 3900",
+            "id":   "action_sto",
+            "details": "Stops the System",
+            "command": "STO"
+        },
+        "set_state":{
+            "type": "write_action",
+            "name": "Operation state",
+            "id":   "set_state",
+            "details": "-1 to purge, 0 to shutdown, 1 to generate",
+            "operations": {"-1": "action_pur","0": "action_sto","1": "action_gen"},
+            "command": "{}",
+            "check_set": "read_status",
+            "check_actual": "read_status"
+        },
+        "read_user_p":{
+            "type": "read_multiple",
+            "name": "User P's",
+            "id": "read_user_p",
+            "details":"Returns current user parameters",
+            "operations":["read_up0","read_up1","read_up2","read_up3","read_up4","read_up5","read_up6","read_up7","read_up8","read_up9","read_up10","read_up11","read_up12","read_up13","read_up14"],
+            "command":"?UP",
+            "data_type": "list",
+            "split":",",
+            "offset": 15,
+            "unit": ""
+        },
+        "read_up0":{
+            "type": "read_store",
+            "name": "3900 WMO",
+            "id": "read_up0",
+            "details":"1 = WMO, 0 = Normal",
+            "store_id": "read_user_p",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up1":{
+            "type": "read_store",
+            "name": "3900 Pressure Units",
+            "id": "read_up1",
+            "details":"0 = PSI, 1 = Bar, 2 = hPa",
+            "store_id": "read_user_p",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up2":{
+            "type": "read_store",
+            "name": "3900 Temp Units",
+            "id": "read_up2",
+            "details":"0 = °C",
+            "store_id": "read_user_p",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up3":{
+            "type": "read_store",
+            "name": "3900 Flow Units",
+            "id": "read_up3",
+            "details":"0 = L/min",
+            "store_id": "read_user_p",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up4":{
+            "type": "read_store",
+            "name": "3900 Date Format",
+            "id": "read_up4",
+            "details":"0 = mm/dd/yy, 1 = dd/mm/yy",
+            "store_id": "read_user_p",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up5":{
+            "type": "read_store",
+            "name": "3900 Molecular Weight of Gas",
+            "id": "read_up5",
+            "details":"Normal air is 28.0134",
+            "store_id": "read_user_p",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up6":{
+            "type": "read_store",
+            "name": "3900 Tc Probe Type",
+            "id": "read_up6",
+            "details":"0 = 10K, 1 = 1K",
+            "store_id": "read_user_p",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up7":{
+            "type": "read_store",
+            "name": "3900 Pt Probe Range",
+            "id": "read_up7",
+            "details":"Pt probe range in PSI",
+            "store_id": "read_user_p",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up8":{
+            "type": "read_store",
+            "name": "3900 Pg Warn",
+            "id": "read_up8",
+            "details":"Pg warning below in PSI",
+            "store_id": "read_user_p",
+            "store_index": 8,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up9":{
+            "type": "read_store",
+            "name": "3900 Pg Stop",
+            "id": "read_up9",
+            "details":"Pg stopping below in PSI",
+            "store_id": "read_user_p",
+            "store_index": 9,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up10":{
+            "type": "read_store",
+            "name": "3900 Control Mode",
+            "id": "read_up10",
+            "details":"1 = 2P2T, 0 = 2T",
+            "store_id": "read_user_p",
+            "store_index": 10,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up11":{
+            "type": "read_store",
+            "name": "3900 UNUSED",
+            "id": "read_up11",
+            "details":"UNUSED",
+            "store_id": "read_user_p",
+            "store_index": 11,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up12":{
+            "type": "read_store",
+            "name": "3900 UNUSED",
+            "id": "read_up12",
+            "details":"UNUSED",
+            "store_id": "read_user_p",
+            "store_index": 12,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up13":{
+            "type": "read_store",
+            "name": "3900 UNUSED",
+            "id": "read_up13",
+            "details":"UNUSED",
+            "store_id": "read_user_p",
+            "store_index": 13,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_up14":{
+            "type": "read_store",
+            "name": "3900 UNUSED",
+            "id": "read_up14",
+            "details":"UNUSED",
+            "store_id": "read_user_p",
+            "store_index": 14,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_up0":{
+            "type": "write",
+            "name": "3900 WMO set",
+            "id":   "set_up0",
+            "command": "U0={}",
+            "check_set": "read_up0",
+            "check_actual": "read_up0"
+        },
+        "set_up1":{
+            "type": "write",
+            "name": "3900 Pressure Units set",
+            "id":   "set_up1",
+            "command": "U1={}",
+            "check_set": "read_up1",
+            "check_actual": "read_up1"
+        },
+        "set_up2":{
+            "type": "write",
+            "name": "3900 Temp Units set",
+            "id":   "set_up2",
+            "command": "U2={}",
+            "check_set": "read_up2",
+            "check_actual": "read_up2"
+        },
+        "set_up3":{
+            "type": "write",
+            "name": "3900 Flow Units set",
+            "id":   "set_up3",
+            "command": "U3={}",
+            "check_set": "read_up3",
+            "check_actual": "read_up3"
+        },
+        "set_up4":{
+            "type": "write",
+            "name": "3900 Date Format set",
+            "id":   "set_up4",
+            "command": "U4={}",
+            "check_set": "read_up4",
+            "check_actual": "read_up4"
+        },
+        "set_up5":{
+            "type": "write",
+            "name": "3900 Molecular Weight of Gas set",
+            "id":   "set_up5",
+            "command": "U5={}",
+            "check_set": "read_up5",
+            "check_actual": "read_up5"
+        },
+        "set_up6":{
+            "type": "write",
+            "name": "3900 Tc Probe Type set",
+            "id":   "set_up6",
+            "command": "U6={}",
+            "check_set": "read_up6",
+            "check_actual": "read_up6"
+        },
+        "set_up7":{
+            "type": "write",
+            "name": "3900 Pt Probe Range set",
+            "id":   "set_up7",
+            "command": "U7={}",
+            "check_set": "read_up7",
+            "check_actual": "read_up7"
+        },
+        "set_up8":{
+            "type": "write",
+            "name": "3900 Pg Warn set",
+            "id":   "set_up8",
+            "command": "U8={}",
+            "check_set": "read_up8",
+            "check_actual": "read_up8"
+        },
+        "set_up9":{
+            "type": "write",
+            "name": "3900 Pg Stop set",
+            "id":   "set_up9",
+            "command": "U9={}",
+            "check_set": "read_up9",
+            "check_actual": "read_up9"
+        },
+        "set_up10":{
+            "type": "write",
+            "name": "3900 Control Mode set",
+            "id":   "set_up10",
+            "command": "UA5={}",
+            "check_set": "read_up10",
+            "check_actual": "read_up10"
+        },
+        "set_up11":{
+            "type": "write",
+            "name": "3900 UNUSED set",
+            "id":   "set_up11",
+            "command": "Ub={}",
+            "check_set": "read_up11",
+            "check_actual": "read_up11"
+        },
+        "set_up12":{
+            "type": "write",
+            "name": "3900 UNUSED set",
+            "id":   "set_up12",
+            "command": "Uc={}",
+            "check_set": "read_up12",
+            "check_actual": "read_up12"
+        },
+        "set_up13":{
+            "type": "write",
+            "name": "3900 UNUSED set",
+            "id":   "set_up13",
+            "command": "Ud={}",
+            "check_set": "read_up13",
+            "check_actual": "read_up13"
+        },
+        "set_up14":{
+            "type": "write",
+            "name": "3900 UNUSED set",
+            "id":   "set_up14",
+            "command": "Ue={}",
+            "check_set": "read_up14",
+            "check_actual": "read_up14"
+        },
+        "read_pressure_p":{
+            "type": "read_multiple",
+            "name": "Pressure P's",
+            "id": "read_pressure_p",
+            "details":"Returns current pressure parameters",
+            "operations":[""],
+            "command":"?PP",
+            "data_type": "list",
+            "split":",",
+            "offset": 16,
+            "unit": ""
+        },
+        "read_pp0":{
+            "type": "read_store",
+            "name": "3900 PPID Threshold Ratio",
+            "id": "read_pp0",
+            "details":"Begin average of setpoint when within PP0 ratio of setpoint",
+            "store_id": "read_pressure_p",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp1":{
+            "type": "read_store",
+            "name": "3900 PPID Derivative",
+            "id": "read_pp1",
+            "details":"",
+            "store_id": "read_pressure_p",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp2":{
+            "type": "read_store",
+            "name": "3900 PPID Derivative Max",
+            "id": "read_pp2",
+            "details":"",
+            "store_id": "read_pressure_p",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp3":{
+            "type": "read_store",
+            "name": "3900 PPID Gain Slope",
+            "id": "read_pp3",
+            "details":"Gain = PP3 * Ps + PP4",
+            "store_id": "read_pressure_p",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp4":{
+            "type": "read_store",
+            "name": "3900 PPID Gain Offset",
+            "id": "read_pp4",
+            "details":"Gain = PP3 * Ps + PP4",
+            "store_id": "read_pressure_p",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp5":{
+            "type": "read_store",
+            "name": "3900 PPID Backlash Beep",
+            "id": "read_pp5",
+            "details":"1 = Beep, 0 = Silent",
+            "store_id": "read_pressure_p",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp6":{
+            "type": "read_store",
+            "name": "3900 PPID Backlash Window",
+            "id": "read_pp6",
+            "details":"",
+            "store_id": "read_pressure_p",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp7":{
+            "type": "read_store",
+            "name": "3900 PPID Min dP",
+            "id": "read_pp7",
+            "details":"Minimum dealt P from Pt",
+            "store_id": "read_pressure_p",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp8":{
+            "type": "read_store",
+            "name": "3900 PPID Max uSteps",
+            "id": "read_pp8",
+            "details":"Max microsteps per interval",
+            "store_id": "read_pressure_p",
+            "store_index": 8,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp19":{
+            "type": "read_store",
+            "name": "3900 PPID Start uSteps",
+            "id": "read_pp9",
+            "details":"",
+            "store_id": "read_pressure_p",
+            "store_index": 9,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp10":{
+            "type": "read_store",
+            "name": "3900 PPID Setpoint Ramp",
+            "id": "read_pp10",
+            "details":"Setpoint ramping amount (psi/L/min)",
+            "store_id": "read_pressure_p",
+            "store_index": 10,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp11":{
+            "type": "read_store",
+            "name": "3900 PPID Setpoint Average",
+            "id": "read_pp11",
+            "details":"Setpoint averaging when PP0 ratio from setpoint",
+            "store_id": "read_pressure_p",
+            "store_index": 11,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp12":{
+            "type": "read_store",
+            "name": "3900 PPID Proportional Max",
+            "id": "read_pp12",
+            "details":"",
+            "store_id": "read_pressure_p",
+            "store_index": 12,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp13":{
+            "type": "read_store",
+            "name": "3900 PPID Backlash Slope",
+            "id": "read_pp13",
+            "details":"Blacklash = PP13 * Ps + PP14",
+            "store_id": "read_pressure_p",
+            "store_index": 13,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pp14":{
+            "type": "read_store",
+            "name": "3900 PPID Backlash Offset",
+            "id": "read_pp14",
+            "details":"Blacklash = PP13 * Ps + PP14",
+            "store_id": "read_pressure_p",
+            "store_index": 14,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_flow_p":{
+            "type": "read_multiple",
+            "name": "Flow P's",
+            "id": "read_flow_p",
+            "details":"Returns current flow parameters",
+            "operations":[""],
+            "command":"?FP",
+            "data_type": "list",
+            "split":",",
+            "offset": 16,
+            "unit": ""
+        },
+        "read_bath_p":{
+            "type": "read_multiple",
+            "name": "Bath P's",
+            "id": "read_bath_p",
+            "details":"Returns current bath parameters",
+            "operations":[""],
+            "command":"?BP",
+            "data_type": "list",
+            "split":",",
+            "offset": 16,
+            "unit": ""
+        },
+        "read_miscellaneous_p":{
+            "type": "read_multiple",
+            "name": "Miscellaneous P's",
+            "id": "read_miscellaneous_p",
+            "details":"Returns current miscellaneous parameters",
+            "operations":[""],
+            "command":"?MP",
+            "data_type": "list",
+            "split":",",
+            "offset": 16,
+            "unit": ""
+        },
+        "read_cool_pulse":{
+            "type": "read_multiple",
+            "name": "Cool pulse",
+            "id": "read_cool_pulse",
+            "details":"Returns current cool pulse formula",
+            "operations":[""],
+            "command":"?CM",
+            "data_type": "list",
+            "split":",",
+            "offset": 16,
+            "unit": ""
         }
     }
 }

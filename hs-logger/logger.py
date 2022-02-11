@@ -208,7 +208,7 @@ class Logger(Thread):
                 print("Connection lost.")
                 self.is_connected = 0
 
-        # Create "sensor file"
+        # Create "sensor file" Todo change for instrument fix
         titles = ['Device', 'ChannelList', 'ID', 'Name', 'Description', 'A', 'B', 'C', 'R(0)/D', 'Date', 'ReportNo']
         info = {}
         with open(self.out_dir_local + self.sensorname, "w+") as outfile:

@@ -13,10 +13,7 @@
     "min_interval": 60,
     "time": 0,
     "instruments":{
-        "milliK": "instruments/milliK-millisKanner.json",
-        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
-        "HG3900":"instruments/HG3900_visa.json",
-        "S8000RS":"instruments/Michell_S8000rs_modbus.json"
+        "HG3900":"instruments/HG3900_visa.json"
     },
     "logged_operations":[
         "time.datetime",
@@ -31,24 +28,7 @@
         "HG3900.read_pc",
         "HG3900.read_tc",
         "HG3900.read_q",
-        "HG3900.read_status",
-        "milliK.read_15",
-        "milliK.read_16",
-        "HP34420A_HP34970A.read_px120",
-        "S8000RS.read_dewpoint",
-        "S8000RS.read_rh",
-        "S8000RS.read_ppmv",
-        "S8000RS.read_pressure",
-        "S8000RS.read_flow"
+        "HG3900.read_status"
     ],
-    "references": {
-        "pressureFP_DP30": {
-            "hum": "milliK.read_16",
-            "p1": "HG3900.read_ps",
-            "p2": "HP34420A_HP34970A.read_px120",
-            "df1": 0,
-            "df2": 0,
-            "type": "dd"
-        }
-    }
+    "references": {}
 }

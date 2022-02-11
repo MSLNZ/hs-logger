@@ -298,29 +298,24 @@ def h2_ex_h1(h1, p1, p2, t1, t2, df1, df2):
 # testing
 def main():
     df1 = 0
-    df2 = 0
-    td1 = 0
-    pd1 = 10e5
+    df2 = 1
+    td1 = 19
+    pd1 = 1e5
     pd2 = 1e5
-    p1 = pd1
-    p2 = pd2
-    t1 = 0
-    t2 = 0
-    h1 = 75
-    print("df1=", df1,
-          " df2=", df2,
-          " td1=", td1,
-          " pd1=", pd1,
-          " pd2=", pd2,
-          " p1=", p1,
-          " p2=", p2,
-          " t1=", t1,
-          " t2=", t2,
-          " h1=", h1
-          )
+    p1 = 1e5
+    p2 = 1e5
+    t1 = 21
+    t2 = 21
+    h1 = 95
+    print("df1={} df2={} td1={} pd1={} pd2={} p1={} p2={} t1={} t2={} h1={}".format(
+        df1, df2, td1, pd1, pd2, p1, p2, t1, t2, h1))
 
     print("td2_ex_td1 = ", td2_ex_td1(td1, pd1, pd2, df1, df2), " C")
     print("h2_ex_td1 = ", h2_ex_td1(td1, pd1, pd2, t2, df1, df2), " %rh")
 
     print("td2_ex_h1 = ", td2_ex_h1(h1, p1, pd2, t1, df1, df2), " C")
     print("h2_ex_h1 = ", h2_ex_h1(h1, p1, p2, t1, t2, df1, df2), " %rh")
+
+
+if __name__ == '__main__':
+    main()

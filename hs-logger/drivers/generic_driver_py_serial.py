@@ -179,7 +179,7 @@ class generic_driver_py_serial(object):
 def main():
     instr = generic_driver_py_serial(json.load(open('../instruments/PC200_serial.json')))
     #print(instr.read_instrument('read_Tm'))
-    print(instr.write_instrument('SS',5))
+    print(instr.write_instrument('SS', 5))
 
 
 if __name__ == '__main__':
