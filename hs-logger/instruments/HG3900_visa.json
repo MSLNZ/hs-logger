@@ -692,7 +692,7 @@
             "type": "write",
             "name": "3900 UNUSED set",
             "id":   "set_up11",
-            "command": "Ub={}",
+            "command": "UB={}",
             "check_set": "read_up11",
             "check_actual": "read_up11"
         },
@@ -700,7 +700,7 @@
             "type": "write",
             "name": "3900 UNUSED set",
             "id":   "set_up12",
-            "command": "Uc={}",
+            "command": "UC={}",
             "check_set": "read_up12",
             "check_actual": "read_up12"
         },
@@ -708,7 +708,7 @@
             "type": "write",
             "name": "3900 UNUSED set",
             "id":   "set_up13",
-            "command": "Ud={}",
+            "command": "UD={}",
             "check_set": "read_up13",
             "check_actual": "read_up13"
         },
@@ -716,7 +716,7 @@
             "type": "write",
             "name": "3900 UNUSED set",
             "id":   "set_up14",
-            "command": "Ue={}",
+            "command": "UE={}",
             "check_set": "read_up14",
             "check_actual": "read_up14"
         },
@@ -877,7 +877,7 @@
         },
         "read_pp13":{
             "type": "read_store",
-            "name": "3900 PPID Backlash Slope",
+            "name": "3900 PPID Backlash Slope set",
             "id": "read_pp13",
             "details":"Blacklash = PP13 * Ps + PP14",
             "store_id": "read_pressure_p",
@@ -888,7 +888,7 @@
         },
         "read_pp14":{
             "type": "read_store",
-            "name": "3900 PPID Backlash Offset",
+            "name": "3900 PPID Backlash Offset set",
             "id": "read_pp14",
             "details":"Blacklash = PP13 * Ps + PP14",
             "store_id": "read_pressure_p",
@@ -896,6 +896,126 @@
             "data_type": "float",
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_pp0":{
+            "type": "write",
+            "name": "3900 PPID Threshold Ratio set",
+            "id":   "set_pp0",
+            "command": "P0={}",
+            "check_set": "read_pp0",
+            "check_actual": "read_pp0"
+        },
+        "set_pp1":{
+            "type": "write",
+            "name": "3900 PPID Derivative set",
+            "id":   "set_pp1",
+            "command": "P1={}",
+            "check_set": "read_pp1",
+            "check_actual": "read_pp1"
+        },
+        "set_pp2":{
+            "type": "write",
+            "name": "3900 PPID Derivative Max set",
+            "id":   "set_pp2",
+            "command": "P2={}",
+            "check_set": "read_pp2",
+            "check_actual": "read_pp2"
+        },
+        "set_pp3":{
+            "type": "write",
+            "name": "3900 PPID Gain Slope set",
+            "id":   "set_pp3",
+            "command": "P3={}",
+            "check_set": "read_pp3",
+            "check_actual": "read_pp3"
+        },
+        "set_pp4":{
+            "type": "write",
+            "name": "3900 PPID Gain Offset set",
+            "id":   "set_pp4",
+            "command": "P4={}",
+            "check_set": "read_pp4",
+            "check_actual": "read_pp4"
+        },
+        "set_pp5":{
+            "type": "write",
+            "name": "3900 PPID Backlash Beep set",
+            "id":   "set_pp5",
+            "command": "P5={}",
+            "check_set": "read_pp5",
+            "check_actual": "read_pp5"
+        },
+        "set_pp6":{
+            "type": "write",
+            "name": "3900 PPID Backlash Window set",
+            "id":   "set_pp6",
+            "command": "P6={}",
+            "check_set": "read_pp6",
+            "check_actual": "read_pp6"
+        },
+        "set_pp7":{
+            "type": "write",
+            "name": "3900 PPID Min dP set",
+            "id":   "set_pp7",
+            "command": "P7={}",
+            "check_set": "read_pp7",
+            "check_actual": "read_pp7"
+        },
+        "set_pp8":{
+            "type": "write",
+            "name": "3900 PPID Max uSteps set",
+            "id":   "set_pp8",
+            "command": "P8={}",
+            "check_set": "read_pp8",
+            "check_actual": "read_pp8"
+        },
+        "set_pp9":{
+            "type": "write",
+            "name": "3900 PPID Start uSteps set",
+            "id":   "set_pp9",
+            "command": "P9={}",
+            "check_set": "read_pp9",
+            "check_actual": "read_pp9"
+        },
+        "set_pp10":{
+            "type": "write",
+            "name": "3900 PPID Setpoint Ramp set",
+            "id":   "set_pp10",
+            "command": "PA={}",
+            "check_set": "read_pp10",
+            "check_actual": "read_pp10"
+        },
+        "set_pp11":{
+            "type": "write",
+            "name": "3900 PPID Setpoint Average set",
+            "id":   "set_pp11",
+            "command": "PB={}",
+            "check_set": "read_pp11",
+            "check_actual": "read_pp11"
+        },
+        "set_pp12":{
+            "type": "write",
+            "name": "3900 PPID Proportional Max set",
+            "id":   "set_pp12",
+            "command": "PC={}",
+            "check_set": "read_pp12",
+            "check_actual": "read_pp12"
+        },
+        "set_pp13":{
+            "type": "write",
+            "name": "3900 PPID Backlash Slope set",
+            "id":   "set_pp13",
+            "command": "PD={}",
+            "check_set": "read_pp13",
+            "check_actual": "read_pp13"
+        },
+        "set_pp14":{
+            "type": "write",
+            "name": "3900 PPID Backlash Offset set",
+            "id":   "set_pp14",
+            "command": "PE={}",
+            "check_set": "read_pp14",
+            "check_actual": "read_pp14"
         },
         "read_flow_p":{
             "type": "read_multiple",
@@ -909,6 +1029,215 @@
             "offset": 16,
             "unit": ""
         },
+        "read_fp0":{
+            "type": "read_store",
+            "name": "3900 FPID Gain",
+            "id": "read_fp0",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp1":{
+            "type": "read_store",
+            "name": "3900 FPID Derivative",
+            "id": "read_fp1",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp2":{
+            "type": "read_store",
+            "name": "3900 FPID Derivative Max",
+            "id": "read_fp2",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp3":{
+            "type": "read_store",
+            "name": "3900 FPID Integral Gain",
+            "id": "read_fp3",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp4":{
+            "type": "read_store",
+            "name": "3900 FPID Backlash",
+            "id": "read_fp4",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp5":{
+            "type": "read_store",
+            "name": "3900 FPID dP-dF",
+            "id": "read_fp5",
+            "details":"Amount flow decrease on pressure decrease (of current flow setpoint)",
+            "store_id": "read_flow_p",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp6":{
+            "type": "read_store",
+            "name": "3900 FPID Backlash Window",
+            "id": "read_fp6",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp7":{
+            "type": "read_store",
+            "name": "3900 FPID Dead-Band",
+            "id": "read_fp7",
+            "details":"In L/min",
+            "store_id": "read_flow_p",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp8":{
+            "type": "read_store",
+            "name": "3900 FPID Max uSteps",
+            "id": "read_fp8",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 8,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp9":{
+            "type": "read_store",
+            "name": "3900 FPID Start uSteps",
+            "id": "read_fp9",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 9,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp10":{
+            "type": "read_store",
+            "name": "3900 FPID Setpoint Ramp",
+            "id": "read_fp10",
+            "details":"",
+            "store_id": "read_flow_p",
+            "store_index": 10,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_fp0":{
+            "type": "write",
+            "name": "3900 FPID Gain set",
+            "id":   "set_fp0",
+            "command": "F0={}",
+            "check_set": "read_fp0",
+            "check_actual": "read_fp0"
+        },
+        "set_fp1":{
+            "type": "write",
+            "name": "3900 FPID Derivative set",
+            "id":   "set_fp1",
+            "command": "F1={}",
+            "check_set": "read_fp1",
+            "check_actual": "read_fp1"
+        },
+        "set_fp2":{
+            "type": "write",
+            "name": "3900 FPID Derivative Max set",
+            "id":   "set_fp2",
+            "command": "F2={}",
+            "check_set": "read_fp2",
+            "check_actual": "read_fp2"
+        },
+        "set_fp3":{
+            "type": "write",
+            "name": "3900 FPID Integral Gain set",
+            "id":   "set_fp3",
+            "command": "F3={}",
+            "check_set": "read_fp3",
+            "check_actual": "read_fp3"
+        },
+        "set_fp4":{
+            "type": "write",
+            "name": "3900 FPID Backlash set",
+            "id":   "set_fp4",
+            "command": "F4={}",
+            "check_set": "read_fp4",
+            "check_actual": "read_fp4"
+        },
+        "set_fp5":{
+            "type": "write",
+            "name": "3900 FPID dP-dF set",
+            "id":   "set_fp5",
+            "command": "F5={}",
+            "check_set": "read_fp5",
+            "check_actual": "read_fp5"
+        },
+        "set_fp6":{
+            "type": "write",
+            "name": "3900 FPID Backlash Window set",
+            "id":   "set_fp6",
+            "command": "F6={}",
+            "check_set": "read_fp6",
+            "check_actual": "read_fp6"
+        },
+        "set_fp7":{
+            "type": "write",
+            "name": "3900 FPID Dead-Band set",
+            "id":   "set_fp7",
+            "command": "F7={}",
+            "check_set": "read_fp7",
+            "check_actual": "read_fp7"
+        },
+        "set_fp8":{
+            "type": "write",
+            "name": "3900 FPID Max uSteps set",
+            "id":   "set_fp8",
+            "command": "F8={}",
+            "check_set": "read_fp8",
+            "check_actual": "read_fp8"
+        },
+        "set_fp9":{
+            "type": "write",
+            "name": "3900 FPID Start uSteps set",
+            "id":   "set_fp9",
+            "command": "F9={}",
+            "check_set": "read_fp9",
+            "check_actual": "read_fp9"
+        },
+        "set_fp10":{
+            "type": "write",
+            "name": "3900 FPID Setpoint Ramp set",
+            "id":   "set_fp10",
+            "command": "FA={}",
+            "check_set": "read_fp10",
+            "check_actual": "read_fp10"
+        },
         "read_bath_p":{
             "type": "read_multiple",
             "name": "Bath P's",
@@ -920,6 +1249,234 @@
             "split":",",
             "offset": 16,
             "unit": ""
+        },
+        "read_bp0":{
+            "type": "read_store",
+            "name": "3900 BPID Heat Gain",
+            "id": "read_bp0",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp1":{
+            "type": "read_store",
+            "name": "3900 BPID Heat Derivative Gain",
+            "id": "read_bp1",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp2":{
+            "type": "read_store",
+            "name": "3900 BPID Heat Integral Gain",
+            "id": "read_bp2",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp3":{
+            "type": "read_store",
+            "name": "3900 BPID Heat PW",
+            "id": "read_bp3",
+            "details":"Heat PW before bypass valve is used (secs)",
+            "store_id": "read_bath_p",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp4":{
+            "type": "read_store",
+            "name": "3900 BPID Heat Derivative Max",
+            "id": "read_bp4",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp5":{
+            "type": "read_store",
+            "name": "3900 BPID Heat Bypass",
+            "id": "read_bp5",
+            "details":"Bypass valve PW during heat mode",
+            "store_id": "read_bath_p",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp6":{
+            "type": "read_store",
+            "name": "3900 BPID Cool Gain",
+            "id": "read_bp6",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp7":{
+            "type": "read_store",
+            "name": "3900 BPID Cool Derivative Gain",
+            "id": "read_bp7",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp8":{
+            "type": "read_store",
+            "name": "3900 BPID Cool Integral Gain",
+            "id": "read_bp8",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 8,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp9":{
+            "type": "read_store",
+            "name": "3900 BPID Cool PW",
+            "id": "read_bp9",
+            "details":"Minimum cool PW (secs)",
+            "store_id": "read_bath_p",
+            "store_index": 9,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp10":{
+            "type": "read_store",
+            "name": "3900 BPID Cool Derivative Max",
+            "id": "read_bp10",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 10,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_bp11":{
+            "type": "read_store",
+            "name": "3900 BPID Integral Band",
+            "id": "read_bp11",
+            "details":"",
+            "store_id": "read_bath_p",
+            "store_index": 11,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_bp0":{
+            "type": "write",
+            "name": "3900 BPID Heat Gain set",
+            "id":   "set_bp0",
+            "command": "B0={}",
+            "check_set": "read_bp0",
+            "check_actual": "read_bp0"
+        },
+        "set_bp1":{
+            "type": "write",
+            "name": "3900 BPID Heat Derivative Gain set",
+            "id":   "set_bp1",
+            "command": "B1={}",
+            "check_set": "read_bp1",
+            "check_actual": "read_bp1"
+        },
+        "set_bp2":{
+            "type": "write",
+            "name": "3900 BPID Heat Integral Gain set",
+            "id":   "set_bp2",
+            "command": "B2={}",
+            "check_set": "read_bp2",
+            "check_actual": "read_bp2"
+        },
+        "set_bp3":{
+            "type": "write",
+            "name": "3900 BPID Heat PW set",
+            "id":   "set_bp3",
+            "command": "B3={}",
+            "check_set": "read_bp3",
+            "check_actual": "read_bp3"
+        },
+        "set_bp4":{
+            "type": "write",
+            "name": "3900 BPID Heat Derivative Max set",
+            "id":   "set_bp4",
+            "command": "B4={}",
+            "check_set": "read_bp4",
+            "check_actual": "read_bp4"
+        },
+        "set_bp5":{
+            "type": "write",
+            "name": "3900 BPID Heat Bypass set",
+            "id":   "set_bp5",
+            "command": "B5={}",
+            "check_set": "read_bp5",
+            "check_actual": "read_bp5"
+        },
+        "set_bp6":{
+            "type": "write",
+            "name": "3900 BPID Cool Gain set",
+            "id":   "set_bp6",
+            "command": "B6={}",
+            "check_set": "read_bp6",
+            "check_actual": "read_bp6"
+        },
+        "set_bp7":{
+            "type": "write",
+            "name": "3900 BPID Cool Derivative Gain set",
+            "id":   "set_bp7",
+            "command": "B7={}",
+            "check_set": "read_bp7",
+            "check_actual": "read_bp7"
+        },
+        "set_bp8":{
+            "type": "write",
+            "name": "3900 BPID Cool Integral Gain set",
+            "id":   "set_bp8",
+            "command": "B8={}",
+            "check_set": "read_bp8",
+            "check_actual": "read_bp8"
+        },
+        "set_bp9":{
+            "type": "write",
+            "name": "3900 BPID Cool PW set",
+            "id":   "set_bp9",
+            "command": "B9={}",
+            "check_set": "read_bp9",
+            "check_actual": "read_bp9"
+        },
+        "set_bp10":{
+            "type": "write",
+            "name": "3900 BPID Cool Derivative Max set",
+            "id":   "set_bp10",
+            "command": "BA={}",
+            "check_set": "read_bp10",
+            "check_actual": "read_bp10"
+        },
+        "set_bp11":{
+            "type": "write",
+            "name": "3900 BPID Integral Band set",
+            "id":   "set_bp11",
+            "command": "BB={}",
+            "check_set": "read_bp11",
+            "check_actual": "read_bp11"
         },
         "read_miscellaneous_p":{
             "type": "read_multiple",
@@ -933,6 +1490,291 @@
             "offset": 16,
             "unit": ""
         },
+        "read_mp0":{
+            "type": "read_store",
+            "name": "3900 UNUSED",
+            "id": "read_mp0",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp1":{
+            "type": "read_store",
+            "name": "3900 Upper Lim DP",
+            "id": "read_mp1",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp2":{
+            "type": "read_store",
+            "name": "3900 Upper Lim Ps",
+            "id": "read_mp2",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp3":{
+            "type": "read_store",
+            "name": "3900 Key Click Time",
+            "id": "read_mp3",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp4":{
+            "type": "read_store",
+            "name": "3900 Num Clears",
+            "id": "read_mp4",
+            "details":"Number of clear cycles each key-press",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp5":{
+            "type": "read_store",
+            "name": "3900 R-23 Start Delay",
+            "id": "read_mp5",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp6":{
+            "type": "read_store",
+            "name": "3900 R-23 Vent Time",
+            "id": "read_mp6",
+            "details":"Vent time after shutdown (secs)",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp7":{
+            "type": "read_store",
+            "name": "3900 BPID Exponent",
+            "id": "read_mp7",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp8":{
+            "type": "read_store",
+            "name": "3900 BPID Integral PW",
+            "id": "read_mp8",
+            "details":"Bath PIC integral pulse width preload (secs)",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 8,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp9":{
+            "type": "read_store",
+            "name": "3900 UNUSED",
+            "id": "read_mp9",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 9,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp10":{
+            "type": "read_store",
+            "name": "3900 UNUSED",
+            "id": "read_mp10",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 10,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp11":{
+            "type": "read_store",
+            "name": "3900 UNUSED",
+            "id": "read_mp11",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 11,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp12":{
+            "type": "read_store",
+            "name": "3900 RESERVED",
+            "id": "read_mp12",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 12,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp13":{
+            "type": "read_store",
+            "name": "3900 RESERVED",
+            "id": "read_mp13",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 13,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mp14":{
+            "type": "read_store",
+            "name": "3900 RESERVED",
+            "id": "read_mp14",
+            "details":"",
+            "store_id": "read_miscellaneous_p",
+            "store_index": 14,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_mp0":{
+            "type": "write",
+            "name": "3900 UNUSED",
+            "id":   "set_mp0",
+            "command": "M0={}",
+            "check_set": "read_mp0",
+            "check_actual": "read_mp0"
+        },
+        "set_mp1":{
+            "type": "write",
+            "name": "3900 Upper Lim DP set",
+            "id":   "set_mp1",
+            "command": "M1={}",
+            "check_set": "read_mp1",
+            "check_actual": "read_mp1"
+        },
+        "set_mp2":{
+            "type": "write",
+            "name": "3900 Upper Lim Ps set",
+            "id":   "set_mp2",
+            "command": "M2={}",
+            "check_set": "read_mp2",
+            "check_actual": "read_mp2"
+        },
+        "set_mp3":{
+            "type": "write",
+            "name": "3900 Key Click Time set",
+            "id":   "set_mp3",
+            "command": "M3={}",
+            "check_set": "read_mp3",
+            "check_actual": "read_mp3"
+        },
+        "set_mp4":{
+            "type": "write",
+            "name": "3900 Num Clears set",
+            "id":   "set_mp4",
+            "command": "M4={}",
+            "check_set": "read_mp4",
+            "check_actual": "read_mp4"
+        },
+        "set_mp5":{
+            "type": "write",
+            "name": "3900 R-23 Start Delay set",
+            "id":   "set_mp5",
+            "command": "M5={}",
+            "check_set": "read_mp5",
+            "check_actual": "read_mp5"
+        },
+        "set_mp6":{
+            "type": "write",
+            "name": "3900 R-23 Vent Time set",
+            "id":   "set_mp6",
+            "command": "M6={}",
+            "check_set": "read_mp6",
+            "check_actual": "read_mp6"
+        },
+        "set_mp7":{
+            "type": "write",
+            "name": "3900 BPID Exponent set",
+            "id":   "set_mp7",
+            "command": "M7={}",
+            "check_set": "read_mp7",
+            "check_actual": "read_mp7"
+        },
+        "set_mp8":{
+            "type": "write",
+            "name": "3900 BPID Integral PW set",
+            "id":   "set_mp8",
+            "command": "M8={}",
+            "check_set": "read_mp8",
+            "check_actual": "read_mp8"
+        },
+        "set_mp9":{
+            "type": "write",
+            "name": "3900 UNUSED set",
+            "id":   "set_mp9",
+            "command": "M9={}",
+            "check_set": "read_mp9",
+            "check_actual": "read_mp9"
+        },
+        "set_mp10":{
+            "type": "write",
+            "name": "3900 UNUSED set",
+            "id":   "set_mp10",
+            "command": "MA={}",
+            "check_set": "read_mp10",
+            "check_actual": "read_mp10"
+        },
+        "set_mp11":{
+            "type": "write",
+            "name": "3900 UNUSED set",
+            "id":   "set_mp11",
+            "command": "MB={}",
+            "check_set": "read_mp11",
+            "check_actual": "read_mp11"
+        },
+        "set_mp12":{
+            "type": "write",
+            "name": "3900 RESERVED set",
+            "id":   "set_mp12",
+            "command": "MC={}",
+            "check_set": "read_mp12",
+            "check_actual": "read_mp12"
+        },
+        "set_mp13":{
+            "type": "write",
+            "name": "3900 RESERVED set",
+            "id":   "set_mp13",
+            "command": "MD={}",
+            "check_set": "read_mp13",
+            "check_actual": "read_mp13"
+        },
+        "set_mp14":{
+            "type": "write",
+            "name": "3900 RESERVED set",
+            "id":   "set_mp14",
+            "command": "ME={}",
+            "check_set": "read_mp14",
+            "check_actual": "read_mp14"
+        },
         "read_cool_pulse":{
             "type": "read_multiple",
             "name": "Cool pulse",
@@ -944,6 +1786,44 @@
             "split":",",
             "offset": 16,
             "unit": ""
+        },
+        "read_cm0":{
+            "type": "read_store",
+            "name": "3900 Cool Pulse Offset",
+            "id": "read_cm0",
+            "details":"",
+            "store_id": "read_cool_pulse",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_cm1":{
+            "type": "read_store",
+            "name": "3900 Cool Pulse Span",
+            "id": "read_cm1",
+            "details":"",
+            "store_id": "read_cool_pulse",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_cm0":{
+            "type": "write",
+            "name": "3900 Cool Pulse Offset set",
+            "id":   "set_cm0",
+            "command": "C0={}",
+            "check_set": "read_cm0",
+            "check_actual": "read_cm0"
+        },
+        "set_cm1":{
+            "type": "write",
+            "name": "3900 Cool Pulse Span set",
+            "id":   "set_cm1",
+            "command": "C1={}",
+            "check_set": "read_cm1",
+            "check_actual": "read_cm1"
         }
     }
 }
