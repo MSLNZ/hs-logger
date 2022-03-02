@@ -1,0 +1,11 @@
+{
+    "t_name": "",
+    "t_id": "SIL049",
+    "details": "2mmx150m",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.912170E-03,-5.9230E-07,-1.6640E-12,100.05256],
+    "check_date": "14/10/2021",
+    "rep_num": "Temperature/2019/848, 16 September 2019",
+    "uncertainty": 6.10E-03
+}

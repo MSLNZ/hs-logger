@@ -1,0 +1,11 @@
+{
+    "t_name": "",
+    "t_id": "HART006",
+    "details": "-40°C-100°C 1mmx100mm",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.91337E-3, -5.890E-7, -7.389E-12, 100.0078562],
+    "check_date": "14/10/2021",
+    "rep_num": "Temperature/2021/032, 20 September 2021",
+    "uncertainty": 1.4E-2
+}

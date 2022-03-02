@@ -1,0 +1,11 @@
+{
+    "t_name": "",
+    "t_id": "SIL064",
+    "details": "3mmx30mm (Failed icepoint check",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.910570E-03,-5.9450E-07,-2.9000E-12,100.0159],
+    "check_date": "26/08/2020",
+    "rep_num": "Temperature/2020/950, 26 August 2020",
+    "uncertainty": null
+}

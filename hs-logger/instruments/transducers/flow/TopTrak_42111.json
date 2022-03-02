@@ -1,0 +1,11 @@
+{
+    "t_name": "Q ",
+    "t_id": "TopTrak_42111",
+    "details": "0-2 SLPM",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["V", 0, 1, 0, 0],
+    "check_date": "",
+    "rep_num": "",
+    "uncertainty": null
+}

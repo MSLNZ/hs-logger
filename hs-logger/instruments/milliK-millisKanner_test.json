@@ -1,0 +1,116 @@
+{
+    "instrument_id": "milliK",
+    "instrument_name": "Isotech milliK with attached millisKanner",
+    "driver": "generic_driver_visa_serial",
+    "interface": "visa",            
+    "port": "ASRL7::INSTR",
+    "baudrate":9600,
+    "write_termination": "\r",
+    "read_termination": "\r",
+    "notes": "",
+    "doOpen": false,
+    "operations": {
+        "read_1": {
+            "type": "read_single",
+            "name": "read channel 1",
+            "id": "read_1",
+            "command": "MEAS:RES1? 200,NORM,4",
+            "transducer": ""
+        },
+        "read_10": {
+            "type": "read_single",
+            "name": "c10",
+            "id": "read_10",
+            "command": "MEAS:RES10? 200,NORM,4",
+            "transducer": "instruments/transducers/temperature/SIL010"
+        },
+        "read_11": {
+            "type": "read_single",
+            "name": "c11",
+            "id": "read_11",
+            "command": "MEAS:RES11? 200,NORM,4",
+            "transducer": "instruments/transducers/temperature/SIL012"
+        },
+        "read_12": {
+            "type": "read_single",
+            "name": "c12",
+            "id": "read_12",
+            "command": "MEAS:RES12? 200,NORM,4",
+            "transducer": "instruments/transducers/temperature/SIL019"
+        },
+        "read_13": {
+            "type": "read_single",
+            "name": "c13",
+            "id": "read_13",
+            "command": "MEAS:RES13? 200,NORM,4",
+            "transducer": "instruments/transducers/temperature/SIL020"
+        },
+        "read_14": {
+            "type": "read_single",
+            "name": "c14",
+            "id": "read_14",
+            "command": "MEAS:RES14? 200,NORM,4",
+            "transducer": "instruments/transducers/temperature/SIL023"
+        },
+        "read_15": {
+            "type": "read_single",
+            "name": "c15",
+            "id": "read_15",
+            "command": "MEAS:RES15? 200,NORM,4",
+            "transducer": "instruments/transducers/temperature/SIL033"
+        },
+        "read_16": {
+            "type": "read_single",
+            "name": "c16",
+            "id": "read_16",
+            "command": "MEAS:RES16? 200,NORM,4",
+            "transducer": "instruments/transducers/temperature/DP30"
+        },
+        "read_17": {
+            "type": "read_single",
+            "name": "c17",
+            "id": "read_17",
+            "command": "MEAS:RES17? 200,NORM,4",
+            "transducer": "instruments/transducers/temperature/SIL039"
+        },
+        "action_read_resistance": {
+            "type": "action",
+            "name": "Read Resistance",
+            "id": "action_read_resistance",
+            "details": "Sets the device to read resistance",
+            "command": "SENS:FUNC RES"
+        },
+        "action_current_normal": {
+            "type": "action",
+            "name": "Current Normal",
+            "id": "action_current_normal",
+            "details": "Sets the read current to 1 A",
+            "command": "SENS:CURR NORM"
+        },
+        "action_current_sqrt2": {
+            "type": "action",
+            "name": "Current Sqrt(2)",
+            "id": "action_current_sqrt2",
+            "details": "Sets the read current to sqrt(2) A",
+            "command": "SENS:CURR ROOT2"
+        },
+        "set_resistance_range": {
+            "type": "write",
+            "name": "Set Resistance Range",
+            "id": "set_resistance_range",
+            "command": "SENS:RES:RANG {}"
+        },
+        "set_wires": {
+            "type": "write",
+            "name": "Set Wires",
+            "id": "set_wires",
+            "command": "SENS:WIR {}"
+        },
+        "set_channel": {
+            "type": "write",
+            "name": "Set Channel",
+            "id": "set_channel",
+            "command": "SENS:CHAN {}"
+        }
+    }
+}

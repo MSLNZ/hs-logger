@@ -1,0 +1,11 @@
+{
+    "t_name": "P473 Druck#2",
+    "t_id": "Druck_1192020",
+    "details": "0-3 bara",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["P", -7.375E-3, 3.54549E-1, -6.2E-4, 0],
+    "check_date": "3/6/2021",
+    "rep_num": "Pressure/2021/636, 3 June 2021",
+    "uncertainty": 1.1E-4
+}

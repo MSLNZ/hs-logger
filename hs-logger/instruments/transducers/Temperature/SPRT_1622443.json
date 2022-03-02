@@ -1,0 +1,11 @@
+{
+    "t_name": "",
+    "t_id": "SPRT_1622443",
+    "details": "-90°C-100°C",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.98749E-03,-6.037E-07,-2.827E-12,25.3784],
+    "check_date": "3/09/2021",
+    "rep_num": "Temperature/2021/042, 3 September 2021",
+    "uncertainty": 6.9E-03
+}

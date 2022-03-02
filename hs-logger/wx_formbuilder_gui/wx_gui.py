@@ -26,23 +26,11 @@ class ctrl_frame ( wx.Frame ):
 		
 		bSizer28 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.new_job_b = wx.Button( self, wx.ID_ANY, u"New Job", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.new_job_b.Enable( False )
-		
-		bSizer28.Add( self.new_job_b, 0, wx.ALL, 5 )
-		
 		self.open_job_b = wx.Button( self, wx.ID_ANY, u"Open Job", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer28.Add( self.open_job_b, 0, wx.ALL, 5 )
 		
 		self.open_inst_b = wx.Button( self, wx.ID_ANY, u"Open Inst", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.open_inst_b.Enable( False )
-		
 		bSizer28.Add( self.open_inst_b, 0, wx.ALL, 5 )
-		
-		self.stop_all = wx.Button( self, wx.ID_ANY, u"Stop All", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.stop_all.Enable( False )
-		
-		bSizer28.Add( self.stop_all, 0, wx.ALL, 5 )
 		
 		
 		bSizer9.Add( bSizer28, 0, wx.EXPAND, 5 )
@@ -81,7 +69,8 @@ class ctrl_frame ( wx.Frame ):
 		
 		# Connect Events
 		self.Bind( wx.EVT_CLOSE, self.OnCloseFrame )
-		self.open_job_b.Bind( wx.EVT_BUTTON, self.file_open )
+		self.open_job_b.Bind( wx.EVT_BUTTON, self.job_open )
+		self.open_inst_b.Bind( wx.EVT_BUTTON, self.inst_open )
 		self.job_listbox.Bind( wx.EVT_LISTBOX_DCLICK, self.switchToJob )
 		self.inst_listbox.Bind( wx.EVT_LISTBOX_DCLICK, self.switchToInst )
 	
@@ -93,7 +82,10 @@ class ctrl_frame ( wx.Frame ):
 	def OnCloseFrame( self, event ):
 		event.Skip()
 	
-	def file_open( self, event ):
+	def job_open( self, event ):
+		event.Skip()
+	
+	def inst_open( self, event ):
 		event.Skip()
 	
 	def switchToJob( self, event ):
@@ -549,7 +541,7 @@ class job_frame ( wx.Frame ):
 class add_graph_dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 700,190 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 288,190 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		

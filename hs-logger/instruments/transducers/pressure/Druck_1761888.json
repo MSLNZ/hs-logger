@@ -1,0 +1,11 @@
+{
+    "t_name": "Pc2500 Druck#3",
+    "t_id": "Druck_1761888",
+    "details": "0-3 bara",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["P", -1.267E-3, 3.47863E-1, 4.07E-4, 0],
+    "check_date": "3/6/2021",
+    "rep_num": "Pressure/2021/637, 3 June 2021",
+    "uncertainty": 1.3E-4
+}

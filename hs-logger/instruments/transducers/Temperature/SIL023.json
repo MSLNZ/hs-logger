@@ -1,0 +1,11 @@
+{
+    "t_name": "TbA25",
+    "t_id": "SIL023",
+    "details": "Can no longer be calibrated.",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.928500E-03,-7.2230E-07,9.3270E-12,99.947955],
+    "check_date": "15/08/2016",
+    "rep_num": "Temperature/2016/593, 9 August 2016",
+    "uncertainty": 9E-03
+}

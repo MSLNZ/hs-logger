@@ -1,0 +1,11 @@
+{
+    "t_name": "Tc3",
+    "t_id": "SIL020",
+    "details": "",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.910300E-03,-5.9550E-07,-2.9350E-12,100.0256122],
+    "check_date": "14/10/2021",
+    "rep_num": "Temperature/2020/893, 31 January 2020",
+    "uncertainty": 5E-03
+}

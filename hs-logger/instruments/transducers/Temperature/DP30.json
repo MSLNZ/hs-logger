@@ -1,0 +1,11 @@
+{
+    "t_name": "Tm",
+    "t_id": "DP30",
+    "details": "DP30 chilled mirror temperature (Td/f)",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.908544E-03, -5.805512E-07, -1.16421E-11, 99.94731],
+    "check_date": "12/02/2001",
+    "rep_num": "INTA No. 4661",
+    "uncertainty": null
+}

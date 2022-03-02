@@ -1,0 +1,11 @@
+{
+    "t_name": "DAMAGED?",
+    "t_id": "SIL036",
+    "details": "-40°C-100°C 3mmx150mm (Appears damaged)",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.914240E-03,-5.9300E-07,-7.1110E-12,99.88115766],
+    "check_date": "14/10/2021",
+    "rep_num": "Temperature/2021/034, 20 September 2021",
+    "uncertainty": 6.8E-03
+}

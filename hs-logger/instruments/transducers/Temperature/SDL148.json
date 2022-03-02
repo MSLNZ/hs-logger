@@ -1,0 +1,11 @@
+{
+    "t_name": "",
+    "t_id": "SDL148",
+    "etails": "-40°C-100°C 4mmx160mm",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.91E-03,-5.96E-07,-8.99E-12,100.004692],
+    "check_date": "14/10/2021",
+    "rep_num": "Temperature/2021/033, 20 September 2021",
+    "uncertainty": 7.5E-03
+}

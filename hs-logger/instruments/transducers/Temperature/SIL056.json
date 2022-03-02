@@ -1,0 +1,11 @@
+{
+    "t_name": "",
+    "t_id": "SIL056",
+    "details": "3mmx150mm (Gold plated)",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.911550E-03,-5.9600E-07,5.4920E-12,99.98322],
+    "check_date": "14/10/2021",
+    "rep_num": "Temperature/2019/855, 16 September 2019",
+    "uncertainty": 6.40E-03
+}

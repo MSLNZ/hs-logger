@@ -55,13 +55,22 @@ class Main_Frame(ctrl_frame):
     def err(self, err):
         print(err)
 
-    def file_open(self, event):
+    def job_open(self, event):
         self.dirname = '/job_files'
         dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.FD_OPEN)
         if dlg.ShowModal() == wx.ID_OK:
             self.filename = dlg.GetFilename()
             self.dirname = dlg.GetDirectory()
             self.ctrl.open_job_file(self.dirname, self.filename, self.cb, self.err)
+        dlg.Destroy()
+
+    def inst_open(self, event):
+        self.dirname = '/job_files'
+        dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.FD_OPEN)
+        if dlg.ShowModal() == wx.ID_OK:
+            self.filename = dlg.GetFilename()
+            self.dirname = dlg.GetDirectory()
+            self.ctrl.open_inst_file(self.dirname, self.filename, self.cb, self.err)
         dlg.Destroy()
 
     def update_inst_list(self, insts):
@@ -690,6 +699,23 @@ class Controller(object):
         finally:
             f.close()
 
+    def open_inst_file(self, direc, fn, cb, err):
+        try:
+            inst = open(os.path.join(direc, fn), 'r')
+            inst_spec = json.load(inst)
+            inst_name = inst_spec["instrument_name"]
+            inst_driver = self.load_instruments({inst_name: "{}\\{}".format(direc, fn)})
+            self.update_instruments(inst_driver)
+            cb(True)
+        except ValueError as e:
+            print(e)
+            err('not a valid inst file')
+        except OSError as e:
+            print(e)
+            err('not a valid inst file')
+        finally:
+            inst.close()
+
     def update_instruments(self, insts):
         self.instruments.update(insts)
         self.frame.update_inst_list(self.instruments.keys())
@@ -710,17 +736,32 @@ class Controller(object):
                         sys.exit(1)
                 inst_id = instrument["instrument_id"]
                 driver_name = instrument["driver"]
-                if str.startswith(driver_name, "generic"):
-                    driver = getattr(__import__("drivers." + driver_name), driver_name)
-                    klass = getattr(driver, driver_name)
-                    inst_driver = klass(instrument)
-                    instruments[inst_id] = inst_driver
-                else:
-                    driver = getattr(__import__("drivers." + driver_name), driver_name)
-                    klass = getattr(driver, driver_name)
-                    inst_driver = klass(instrument)
-                    instruments[inst_id] = inst_driver
 
+                for operation in instrument["operations"]:
+                    if "transducer" in operation:
+                        td = json.load(open(operation["transducer"]))
+                        print("Initial operation: ".format(operation))
+                        print("Transducer: ".format(operation))
+                        operation.update(td)
+                        print("Intermediate operation: ".format(operation))
+                        c_name = ""
+                        if operation["t_name"] != "":
+                            c_name.join("{} ".format(operation["t_name"]))
+                        if operation["t_id"] != "":
+                            c_name.join("{} ".format(operation["t_id"]))
+                        c_name.join("{} ".format(operation["name"]))
+                        print("Combined name: ".format(c_name))
+                        operation["name"] = c_name
+                        print("Finished operation: ".format(operation))
+                        instrument["operations"].update(operation)
+
+                # if str.startswith(driver_name, "generic"):  # else  ## These two statements did the same thing
+                driver = getattr(__import__("drivers." + driver_name), driver_name)
+                klass = getattr(driver, driver_name)
+                inst_driver = klass(instrument)
+                instruments[inst_id] = inst_driver
+
+        print("Instruments: ".format(instruments))
         return instruments
 
     def shutdown(self):

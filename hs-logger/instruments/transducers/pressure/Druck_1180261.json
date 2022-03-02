@@ -1,0 +1,11 @@
+{
+    "t_name": "Ps2500 Druck#1",
+    "t_id": "Druck_1180261",
+    "details": "0-20 bara",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["P", 2.56E-3, 2.00245E0, 5.98E-4, 0],
+    "check_date": "11/5/2021",
+    "rep_num": "Pressure/2021/635, 11 May 2021",
+    "uncertainty": 3.3E-3
+}
