@@ -1,7 +1,7 @@
 {
-    "t_name": "P473 Druck#2",
-    "t_id": "Druck_1192020",
-    "details": "0-3 bara",
+    "t_name": "P473",
+    "t_id": "Druck#2",
+    "details": "SN: 1192020 0-3 bara",
     "data_type": "float",
     "unit": "",
     "transform_eq":["P", -7.375E-3, 3.54549E-1, -6.2E-4, 0],

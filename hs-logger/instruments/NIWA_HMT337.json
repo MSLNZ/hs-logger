@@ -40,7 +40,7 @@
             "store_index": 1,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0.3,0.928,6.5E-4,-2.5E-6]
+            "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_fp":{
             "type": "read_store",

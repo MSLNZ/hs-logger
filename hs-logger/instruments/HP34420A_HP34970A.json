@@ -169,60 +169,49 @@
             "details": ""
         },
         "read_px116": {
-            "name": "P Wika",
+            "name": "h116",
             "type":"read",
             "id":"read_px116",
             "channel": 116,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", -170.717, 169.977, 0.571, -0.0408],
-            "details": ""
+            "transducer": "instruments/transducers/pressure/Wika.json"
         },
         "read_px117": {
-            "name": "Q Toptrak 117",
+            "name": "h117",
             "type":"read",
             "id":"read_px117",
             "channel": 117,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, 0.4, 0, 0],
-            "details": ""
+            "transducer": "instruments/transducers/temperature/TopTrack.json"
         },
         "read_px118": {
-            "name": "PsDruck#1 0-20 h118",
+            "name": "h118",
             "type":"read",
             "id":"read_px118",
             "channel": 118,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 2.56E-3, 2.00245E0, 5.98E-4, 0],
-            "details": "",
-            "check_date": "11/05/2021",
-            "rep_num": "Pressure/2021/635, 11 May 2021"
+            "transducer": "instruments/transducers/flow/Druck#1.json"
         },
         "read_px119": {
-            "name": "PoDruck#2 0-3b h119",
+            "name": "h119",
             "type":"read",
             "id":"read_px119",
             "channel": 119,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", -7.375E-3, 3.54549E-1, -6.2E-4, 0],
-            "details": "",
-            "check_date": "11/05/2021",
-            "rep_num": "Pressure/2021/636, 11 May 2021"
+            "transducer": "instruments/transducers/pressure/Druck#2.json"
         },
         "read_px120": {
-            "name": "PoDruck#3 0-3b h120",
+            "name": "h120",
             "type":"read",
             "id":"read_px120",
             "channel": 120,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", -1.267E-3, 3.47863E-1, 4.07E-4, 0],
-            "details": "",
-            "check_date": "11/05/2021",
-            "rep_num": "Pressure/2021/637, 11 May 2021"
+            "transducer": "instruments/transducers/pressure/Druck#3.json"
         }
     }
 }

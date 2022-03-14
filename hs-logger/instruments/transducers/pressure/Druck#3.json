@@ -1,7 +1,7 @@
 {
-    "t_name": "Pc2500 Druck#3",
-    "t_id": "Druck_1761888",
-    "details": "0-3 bara",
+    "t_name": "Pc2500",
+    "t_id": "Druck#3",
+    "details": "SN: 1761888 0-3 bara",
     "data_type": "float",
     "unit": "",
     "transform_eq":["P", -1.267E-3, 3.47863E-1, 4.07E-4, 0],

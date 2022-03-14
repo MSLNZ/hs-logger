@@ -1,7 +1,7 @@
 {
     "t_name": "WIKA",
-    "t_id": "Wika_2958428",
-    "details": "0-6 barg",
+    "t_id": "Wika",
+    "details": "SN: 2958428 0-6 barg",
     "data_type": "float",
     "unit": "",
     "transform_eq":["P", -1.70717, 1.69977, 5.71E-3, -4.08E-4],

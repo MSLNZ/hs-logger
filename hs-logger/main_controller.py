@@ -737,23 +737,20 @@ class Controller(object):
                 inst_id = instrument["instrument_id"]
                 driver_name = instrument["driver"]
 
-                for operation in instrument["operations"]:
-                    if "transducer" in operation:
-                        td = json.load(open(operation["transducer"]))
-                        print("Initial operation: ".format(operation))
-                        print("Transducer: ".format(operation))
-                        operation.update(td)
-                        print("Intermediate operation: ".format(operation))
-                        c_name = ""
-                        if operation["t_name"] != "":
-                            c_name.join("{} ".format(operation["t_name"]))
-                        if operation["t_id"] != "":
-                            c_name.join("{} ".format(operation["t_id"]))
-                        c_name.join("{} ".format(operation["name"]))
-                        print("Combined name: ".format(c_name))
-                        operation["name"] = c_name
-                        print("Finished operation: ".format(operation))
-                        instrument["operations"].update(operation)
+                itr = instrument["operations"].copy()
+                for operation in itr:
+                    if "transducer" in instrument["operations"][operation]:
+                        td = json.load(open(instrument["operations"][operation]["transducer"]))
+                        instrument["operations"][operation].update(td)
+                        names = []
+                        if instrument["operations"][operation]["t_name"] != "":
+                            names.append(instrument["operations"][operation]["t_name"])
+                        if instrument["operations"][operation]["t_id"] != "":
+                            names.append(instrument["operations"][operation]["t_id"])
+                        names.append(instrument["operations"][operation]["name"])
+                        c_name = " "
+                        c_name = c_name.join(names)
+                        instrument["operations"][operation]["name"] = c_name
 
                 # if str.startswith(driver_name, "generic"):  # else  ## These two statements did the same thing
                 driver = getattr(__import__("drivers." + driver_name), driver_name)
@@ -761,7 +758,6 @@ class Controller(object):
                 inst_driver = klass(instrument)
                 instruments[inst_id] = inst_driver
 
-        print("Instruments: ".format(instruments))
         return instruments
 
     def shutdown(self):

@@ -1,7 +1,7 @@
 {
-    "t_name": "Ps2500 Druck#1",
-    "t_id": "Druck_1180261",
-    "details": "0-20 bara",
+    "t_name": "Ps2500",
+    "t_id": "Druck#1",
+    "details": "SN: 1180261 0-20 bara",
     "data_type": "float",
     "unit": "",
     "transform_eq":["P", 2.56E-3, 2.00245E0, 5.98E-4, 0],
