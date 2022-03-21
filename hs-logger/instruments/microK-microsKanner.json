@@ -9,6 +9,11 @@
     "read_termination": "\n",
     "notes": "",
     "doOpen": false,
+    "check_date": "24/05/2019",
+    "cal_date": "24/05/2019",
+    "check_freq": 1,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2019/731, 24 May 2019",
     "operations": {
         "read_1": {
             "type": "read_single",

@@ -6,6 +6,9 @@
     "unit": "",
     "transform_eq":["T", 3.911330E-03,-5.9390E-07,-2.1520E-12,100.05881],
     "check_date": "14/10/2021",
+    "cal_date": "16/09/2019",
+    "check_freq": 0.5,
+    "cal_freq": 5,
     "rep_num": "Temperature/2019/850, 16 September 2019",
     "uncertainty": 6.20E-03
 }

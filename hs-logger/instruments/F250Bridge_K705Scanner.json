@@ -9,6 +9,11 @@
     "write_termination":"\r",
     "read_termination":"\n",
     "notes": "",
+    "check_date": "18/10/2021",
+    "cal_date": "18/10/2021",
+    "check_freq": 1,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2021/046, 18 October 2021",
     "operations":{
             "read_tx11": {
                 "name":"Ts2500#1 SIL010 c11",

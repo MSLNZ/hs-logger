@@ -6,6 +6,7 @@ import numpy as np
 from wx_gui import ctrl_frame, job_frame, add_graph_dialog, append_graph_dialog, detract_graph_graph_dialog, detract_graph_axis_dialog, remove_graph_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog
 from job import Job
 import refcalc
+import datetime
 
 import matplotlib as mpl
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
@@ -736,11 +737,14 @@ class Controller(object):
                         sys.exit(1)
                 inst_id = instrument["instrument_id"]
                 driver_name = instrument["driver"]
+                self.check_instrument(instrument, inst_id)
 
                 itr = instrument["operations"].copy()
                 for operation in itr:
                     if "transducer" in instrument["operations"][operation]:
                         td = json.load(open(instrument["operations"][operation]["transducer"]))
+                        t_id = td["t_id"]
+                        self.check_instrument(td, t_id)
                         instrument["operations"][operation].update(td)
                         names = []
                         if instrument["operations"][operation]["t_name"] != "":
@@ -759,6 +763,26 @@ class Controller(object):
                 instruments[inst_id] = inst_driver
 
         return instruments
+
+    def check_instrument(self, instrument, id):
+        today = datetime.date.today()
+        check_date = datetime.datetime.strptime(instrument.get("check_date", "01/01/1980"), "%d/%m/%Y").date()
+        cal_date = datetime.datetime.strptime(instrument.get("cal_date", "01/01/1980"), "%d/%m/%Y").date()
+        check_freq = datetime.timedelta(instrument.get("check_freq", 9999)*365.2425)
+        cal_freq = datetime.timedelta(instrument.get("cal_freq", 9999)*365.2425)
+        message = ""
+        if today - cal_date > cal_freq:  # Device is out of calibration. Fail the job.
+            message = "Error: {} out of calibration.".format(id)
+        elif today - cal_date + cal_freq/18 > cal_freq:  # Give a warning a few months ahead of calibration expiration.
+            message = "Transducer {} will require calibration soon.".format(id)
+        elif today - check_date > check_freq:  # Device requires checking. Process can continue, but be careful.
+            message = "Transducer {} requires checking.".format(id)
+        elif today - check_date + check_freq/9 > check_freq:  # Give a warning about a week before a check is required.
+            message = "Transducer {} will require checking soon.".format(id)
+        if message != "":
+            print(message)
+            if message.startswith("Error"):
+                raise ValueError  # This won't actually crash, just fail the job.
 
     def shutdown(self):
         for job in self.jobs.values():

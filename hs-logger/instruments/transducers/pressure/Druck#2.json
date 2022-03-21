@@ -5,7 +5,10 @@
     "data_type": "float",
     "unit": "",
     "transform_eq":["P", -7.375E-3, 3.54549E-1, -6.2E-4, 0],
-    "check_date": "3/6/2021",
+    "check_date": "03/06/2021",
+    "cal_date": "03/06/2021",
+    "check_freq": 0.25,
+    "cal_freq": 5,
     "rep_num": "Pressure/2021/636, 3 June 2021",
     "uncertainty": 1.1E-4
 }

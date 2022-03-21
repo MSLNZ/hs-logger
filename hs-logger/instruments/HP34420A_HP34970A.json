@@ -9,6 +9,10 @@
     "write_termination":"\r",
     "read_termination":"\r\n",
     "notes": "",
+    "check_date": "18/03/2020",
+    "cal_date": "18/03/2020",
+    "check_freq": 1,
+    "cal_freq": 5,
     "operations":{
         "read_px101": {
             "name": "Read Channel 101",

@@ -9,6 +9,11 @@
     "read_termination": "\r",
     "notes": "",
     "doOpen": false,
+    "check_date": "01/01/1980",
+    "cal_date": "01/01/1980",
+    "check_freq": 1,
+    "cal_freq": 5,
+    "rep_num": "",
     "operations": {
         "read_1": {
             "type": "read_single",

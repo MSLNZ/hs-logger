@@ -6,6 +6,9 @@
     "unit": "",
     "transform_eq":["V", 0, 1, 0, 0],
     "check_date": "",
+    "cal_date": "",
+    "check_freq": 1,
+    "cal_freq": 9999,
     "rep_num": "",
     "uncertainty": null
 }

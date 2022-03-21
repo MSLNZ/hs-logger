@@ -3,6 +3,7 @@ import sys
 import csv
 import numpy as np
 from threading import Thread
+import git
 
 
 class Logger(Thread):
@@ -46,6 +47,9 @@ class Logger(Thread):
         self.ref_dict = {}
         self.store = []
         self.storeref = []
+
+        repo = git.Repo(search_parent_directories=True)
+        self.hash = repo.head.object.hexsha
 
         a = [n+".raw" for n in self.op_names]
         a.extend([n+".trans" for n in self.op_names])
@@ -141,7 +145,7 @@ class Logger(Thread):
                     if k == "job_name":
                         outfile.write(datafile + "\n")
                     elif k == "job_notes":
-                        outfile.write(str(v) + "\n")
+                        outfile.write("Hash: {}; {}".format(self.hash, v) + "\n")
                 writer = csv.writer(outfile, names, lineterminator='\n', delimiter='\t')
                 writer.writerow(names)
 
