@@ -905,6 +905,66 @@ class remove_graph_dialog ( wx.Dialog ):
 	
 
 ###########################################################################
+## Class continue_dialog
+###########################################################################
+
+class continue_dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 288,146 ), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer19 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.Message = wx.StaticText( self, wx.ID_ANY, u"Message", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Message.Wrap( -1 )
+		bSizer19.Add( self.Message, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		bSizer15 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText81 = wx.StaticText( self, wx.ID_ANY, u"Continue?", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText81.Wrap( -1 )
+		bSizer20.Add( self.m_staticText81, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		
+		bSizer15.Add( bSizer20, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer19.Add( bSizer15, 0, wx.EXPAND, 5 )
+		
+		bSizer26 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.cancel_b = wx.Button( self, wx.ID_CANCEL, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer26.Add( self.cancel_b, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+		
+		self.confirm_b = wx.Button( self, wx.ID_OK, u"Confirm", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer26.Add( self.confirm_b, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		
+		bSizer19.Add( bSizer26, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		
+		self.SetSizer( bSizer19 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.cancel_b.Bind( wx.EVT_BUTTON, self.cancel_dialog )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def cancel_dialog( self, event ):
+		event.Skip()
+	
+
+###########################################################################
 ## Class Load_profile_dialog
 ###########################################################################
 

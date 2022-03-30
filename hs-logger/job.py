@@ -241,7 +241,6 @@ class AutoProfile(object):
             titles = file.readline().strip().split(',')
             self.title = titles[0]
             while self.title[0] != "a":  # Remove "ï»¿" from first item
-                print(self.title)
                 self.title = self.title[1:]
             self.job.frame.job_book.SetPageText(2, self.title)
             self.h_name = file.readline().strip().split(',')
