@@ -144,7 +144,7 @@ class generic_driver_visa_serial(object):
                                 response = response + ", " + self.instrument.read()
                     except visa.errors.VisaIOError:
                         pass
-                    self.timeout = 2000
+                    self.instrument.timeout = 2000
                 else:
                     print("Action {} does not exist.".format(command))
             else:
@@ -179,7 +179,7 @@ class generic_driver_visa_serial(object):
                         response = response + ", " + self.instrument.read()
             except visa.errors.VisaIOError:
                 pass
-            self.timeout = 2000
+            self.instrument.timeout = 2000
             if response != "":
                 print(response)
             else:

@@ -780,9 +780,11 @@ class Controller(object):
         elif today - check_date + check_freq/9 > check_freq:  # Give a warning about a week before a check is required.
             message = "{} will require checking soon.".format(id)
         if message != "":
-            answer = self.get_continue_dialog(message)
-            if answer != wx.ID_OK:
-                raise ValueError  # This won't actually crash, just fail the job.
+            print(message)
+            if message.startswith("Error"):
+                answer = self.get_continue_dialog(message)
+                if answer != wx.ID_OK:
+                    raise ValueError  # This won't actually crash, just fail the job.
 
     def get_continue_dialog(self, message):
         dlg = continue_dialog(self.frame)
