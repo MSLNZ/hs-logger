@@ -336,6 +336,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
+                    print(value, hum, p1, p2, df1, df2)
             elif references[ref]["type"] == "hd":
                 if hum < -80 or hum > 95:
                     print("Dew point {} is out of range.".format(hum))
@@ -351,6 +352,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.h2_ex_td1(hum, p1, p2, t2, df1, df2)
+                    print(value, hum, p1, p2, t2, df1, df2)
             elif references[ref]["type"] == "dh":
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
@@ -366,6 +368,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.td2_ex_h1(hum, p1, p2, t1, df1, df2)
+                    print(value, hum, p1, p2, t1, df1, df2)
             elif references[ref]["type"] == "hh":
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
@@ -383,6 +386,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.h2_ex_h1(hum, p1, p2, t1, t2, df1, df2)
+                    print(value, hum, p1, p2, t1, t2, df1, df2)
             else:
                 print("Invalid reference.")
                 raise ValueError()

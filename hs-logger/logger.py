@@ -502,6 +502,11 @@ class Logger(Thread):
         body = self.np_store[1:]
         return header, body
 
+    def write_check(self):
+        # Check nothing is saving/loading
+        # If something is, wait until it's not.
+        pass
+
     def pause(self):
         self.paused = True
 

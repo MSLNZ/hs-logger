@@ -15,43 +15,43 @@
     "cal_freq": 5,
     "operations":{
         "read_px101": {
-            "name": "Read Channel 101",
+            "name": "T T0510886",
             "type":"read",
             "id":"read_px101",
             "channel": 101,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["V", -40, 100, 0, 0],
             "details": ""
         },
         "read_px102": {
-            "name": "Read Channel 102",
+            "name": "RH T0510886",
             "type":"read",
             "id":"read_px102",
             "channel": 102,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["V", 0, 100, 0, 0],
             "details": ""
         },
         "read_px103": {
-            "name": "Read Channel 103",
+            "name": "T M0530876",
             "type":"read",
             "id":"read_px103",
             "channel": 103,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["P", -40, 100, 0, 0],
             "details": ""
         },
         "read_px104": {
-            "name": "Read Channel 104",
+            "name": "RH M0530876",
             "type":"read",
             "id":"read_px104",
             "channel": 104,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["P", 0, 100, 0, 0],
             "details": ""
         },
         "read_px105": {
