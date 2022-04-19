@@ -3,7 +3,7 @@
     "instrument_name": "Mensor 0MG4",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM2",
+    "port": "COM5",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",

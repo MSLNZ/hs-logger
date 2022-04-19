@@ -27,7 +27,6 @@ class generic_driver_pymodbus(ModbusClient):
             # print(self.connect())
             converter = self.uint_conversion(op.get('data_type','uint'))
             # print(op['register'])
-            print(op['id'])
             rr = self.read_holding_registers(op['register'], count=op['num_reg'], unit=self.address)
             # print(rr.isError())
             retry = 0

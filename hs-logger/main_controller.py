@@ -773,11 +773,11 @@ class Controller(object):
         message = ""
         if today - cal_date > cal_freq:  # Device is out of calibration. Confirm before proceeding.
             message = "Error: {} out of calibration.".format(id)
-        elif today - cal_date + cal_freq/18 > cal_freq:  # Give a warning a few months ahead of calibration expiration.
+        elif today - cal_date + cal_freq/18 > cal_freq:  # Give a warning a few months ahead of calibration expiration
             message = "{} will require calibration soon.".format(id)
         elif today - check_date > check_freq:  # Device requires checking. Confirm before proceeding.
             message = "Error: {} requires checking.".format(id)
-        elif today - check_date + check_freq/9 > check_freq:  # Give a warning about a week before a check is required.
+        elif today - check_date + check_freq/12 > check_freq:  # Give a warning about a week before a check is required
             message = "{} will require checking soon.".format(id)
         if message != "":
             print(message)
@@ -802,6 +802,10 @@ class Controller(object):
 
 
 def main():
+    def saveme(exctype, value, traceback):
+        print(exctype, value, traceback)
+
+    sys.excepthook = saveme
     ctrl = Controller()
 
 

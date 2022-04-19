@@ -188,7 +188,7 @@
             "channel": 117,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transducer": "instruments/transducers/temperature/TopTrack.json"
+            "transducer": "instruments/transducers/flow/TopTrak.json"
         },
         "read_px118": {
             "name": "h118",
@@ -197,7 +197,7 @@
             "channel": 118,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transducer": "instruments/transducers/flow/Druck#1.json"
+            "transducer": "instruments/transducers/pressure/Druck#1.json"
         },
         "read_px119": {
             "name": "h119",

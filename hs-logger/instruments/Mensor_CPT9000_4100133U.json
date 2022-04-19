@@ -3,7 +3,7 @@
     "instrument_name": "Mensor 133U",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM5",
+    "port": "COM14",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",

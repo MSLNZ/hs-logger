@@ -5,7 +5,6 @@ from decimal import Decimal
 from threading import Lock
 import numpy as np
 import math
-import re
 
 
 class generic_driver_visa_serial(object):
@@ -63,11 +62,11 @@ class generic_driver_visa_serial(object):
                     except visa.errors.VisaIOError:
                         pass
                     data = data.split(operation.get("split", " "))
-                    print(data)
                     for i, d in enumerate(data):
-                        if self.isfloat(d[operation.get("offset", "0"):]):
+                        if self.isfloat(d):
+                            data[i] = self.decimals(d, operation)
+                        elif self.isfloat(d[operation.get("offset", "0"):]):
                             data[i] = self.decimals(d[operation.get("offset", "0"):], operation)
-                            print(data[i])
                         else:
                             pass
                     o_ops = operation.get("operations")

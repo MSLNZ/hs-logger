@@ -88,7 +88,7 @@
             "name": "C16",
             "id": "read_16",
             "command": "MEAS:FRES16:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL062.json"
+            "transducer": "instruments/transducers/temperature/DP30.json"
         },
         "read_17": {
             "type": "read_single",
@@ -102,14 +102,14 @@
             "name":"C18",
             "id": "read_18",
             "command": "MEAS:FRES18:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/DP30.json"
+            "transducer": "instruments/transducers/temperature/SIL039.json"
         },
         "read_19": {
             "type": "read_single",
             "name": "C19",
             "id": "read_19",
             "command": "MEAS:FRES19:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL039.json"
+            "transducer": "instruments/transducers/temperature/SPRT_1620466.json"
         }
     }
 }

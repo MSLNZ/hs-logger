@@ -5,7 +5,7 @@
     "interface": "pyserial",
     "type": "Controller",
     "Serialnumber": "Srnm305563",
-    "port": "COM22",
+    "port": "COM20",
     "baudrate": 9600,
     "parity": "PARITY_NONE",
     "stopbits": "STOPBITS_ONE",

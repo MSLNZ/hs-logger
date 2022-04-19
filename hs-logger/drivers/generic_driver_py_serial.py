@@ -73,13 +73,12 @@ class generic_driver_py_serial(object):
                 with self.lock:
                     # print("locK")
                     cmd_e = (operation['command']).encode("ascii") + self.w_term.encode("ascii")
-                    print("Command: {}".format(cmd_e))
                     self.instrument.write(cmd_e)
                     data = self.instrument.read_until(self.r_term)
-                    print("Data: {}".format(data))
                     # floats_data = re.findall(r"[-+]?\d*\.\d+|\d+", str(data))
                     # data = float(floats_data[0])
                     floats_data = re.findall(r"[-+]?(\d+(\.\d*))([eE][-+]?\d+)?", str(data))
+                    print(floats_data)
                     data = float(floats_data[0][0] + floats_data[0][2])
 
                     data_trans = self.transform(data, operation)

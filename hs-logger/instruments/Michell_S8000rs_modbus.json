@@ -16,7 +16,7 @@
     "operations": {
         "read_address":{
             "type": "read",
-            "name": "Slave Address",
+            "name": "S8000 Address",
             "details":"",
             "id": "read_address",
             "register":0,
@@ -35,7 +35,7 @@
         },
         "read_dewpoint":{
             "type": "read",
-            "name": "Dew Point",
+            "name": "S8000 DP",
             "details":"",
             "id": "read_dewpoint",
             "register":1,
@@ -46,7 +46,7 @@
         },
         "read_ambtemp":{
             "type": "read",
-            "name": "Ambient Tempreature",
+            "name": "S8000 Tamb",
             "details":"",
             "id": "read_ambtemp",
             "register":3,
@@ -57,7 +57,7 @@
         },
         "read_rh":{
             "type": "read",
-            "name": "Relitive Humidity",
+            "name": "S8000 RH",
             "details":"",
             "id": "read_rh",
             "register":5,
@@ -69,7 +69,7 @@
         },
         "read_pressure":{
             "type": "read",
-            "name": "Pressure",
+            "name": "S8000 P",
             "details":"",
             "id": "read_pressure",
             "register":6,
@@ -81,7 +81,7 @@
         },
         "read_ppmv":{
             "type": "read",
-            "name": "Ppmv",
+            "name": "S8000 PPMv",
             "details":"",
             "id": "read_ppmv",
             "register":7,
@@ -92,7 +92,7 @@
         },
         "read_ppmw":{
             "type": "read",
-            "name": "Ppmw",
+            "name": "S8000 PPMw",
             "details":"",
             "id": "read_ppmw",
             "register":9,
@@ -103,7 +103,7 @@
         },
         "read_gm3":{
             "type": "read",
-            "name": "g/m3",
+            "name": "S8000 g/m3",
             "id": "read_gm3",
             "details":"",
             "register":11,
@@ -114,7 +114,7 @@
         },
         "read_gkg":{
             "type": "read",
-            "name": "g/kg",
+            "name": "S8000 g/kg",
             "id": "read_gm3",
             "details":"",
             "register":13,
@@ -125,7 +125,7 @@
         },
         "read_flow":{
             "type": "read",
-            "name": "Flow Rate",
+            "name": "S8000 Q",
             "details":"",
             "id": "read_flow",
             "register":15,
@@ -136,7 +136,7 @@
         },
         "read_mirror_cond":{
             "type": "read",
-            "name": "Mirror Condition",
+            "name": "S8000 mirror cond",
             "details":"",
             "id": "read_mirror_cond",
             "register":16,
@@ -148,7 +148,7 @@
         },
         "read_hp_drive":{
             "type": "read",
-            "name": "heat pump Drive",
+            "name": "S8000 heat pump drive",
             "details":"",
             "id": "read_hp_drive",
             "register":17,

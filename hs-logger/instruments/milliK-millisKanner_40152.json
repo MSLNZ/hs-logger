@@ -72,14 +72,14 @@
             "name": "c16",
             "id": "read_16",
             "command": "MEAS:RES16? 200,NORM,4",
-            "transducer": "instruments/transducers/temperature/DP30.json"
+            "transducer": "instruments/transducers/temperature/SIL039.json"
         },
         "read_17": {
             "type": "read_single",
             "name": "c17",
             "id": "read_17",
             "command": "MEAS:RES17? 200,NORM,4",
-            "transducer": "instruments/transducers/temperature/SIL039.json"
+            "transducer": "instruments/transducers/temperature/SPRT_1620466.json"
         },
         "action_read_resistance": {
             "type": "action",

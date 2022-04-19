@@ -3,7 +3,7 @@
     "instrument_name": "Thunder Scientific 3900 Humidity Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM4",
+    "port": "COM11",
     "baudrate":2400,
     "write_termination":"\r",
     "read_termination":"\r\n",
@@ -420,7 +420,7 @@
             "details": "-1 to purge, 0 to shutdown, 1 to generate",
             "operations": {"-1": "action_pur","0": "action_sto","1": "action_gen"},
             "command": "{}",
-            "check_set": "read_status",
+            "check_set": "read_mode",
             "check_actual": "read_status"
         },
         "read_user_p":{
@@ -684,7 +684,7 @@
             "type": "write",
             "name": "3900 Control Mode set",
             "id":   "set_up10",
-            "command": "UA5={}",
+            "command": "UA={}",
             "check_set": "read_up10",
             "check_actual": "read_up10"
         },

@@ -1,16 +1,16 @@
 {
-    "job_name":"220211_FPH_Optidew",
+    "job_name":"220309MSL_MI70",
     "job_id":1,
     "job_notes":"comment",
-    "out_dir": "C:\\datasync\\220211_FPH_Optidew\\",
-    "datafile_raw": "FPH_Optidew_data_raw.dat",
-    "datafile_trans": "FPH_Optidew_data_trans.dat",
-    "points_file_raw": "FPH_Optidew_points_raw.dat",
-    "points_file_trans": "FPH_Optidew_points_trans.dat",
-    "source_file_raw": "FPH_Optidew_source_raw.dat",
-    "source_file_trans": "FPH_Optidew_source_trans.dat",
-    "sensor_file": "FPH_Optidew_sensor_file.dat",
-    "min_interval": 0,
+    "out_dir": "C:\\datasync\\220309 MSL MI70\\",
+    "datafile_raw": "MSL_MI70_data_raw.dat",
+    "datafile_trans": "MSL_MI70_data_trans.dat",
+    "points_file_raw": "MSL_MI70_points_raw.dat",
+    "points_file_trans": "MSL_MI70_points_trans.dat",
+    "source_file_raw": "MSL_MI70_source_raw.dat",
+    "source_file_trans": "MSL_MI70_source_trans.dat",
+    "sensor_file": "MSL_MI70_sensor_file.dat",
+    "min_interval": 60,
     "time":0,
     "instruments":{
         "milliK": "instruments/milliK-millisKanner.json",
@@ -19,8 +19,8 @@
         "MSL473_SH2":"instruments/MSL473_SH2.json"
     },
     "logged_operations":[
-        "time.runtime",
         "time.datetime",
+        "time.runtime",
         "HG2500.read_rh_pc",
         "HG2500.read_rh_pctc",
         "HG2500.read_ts",
@@ -28,36 +28,37 @@
         "HG2500.read_ps",
         "HG2500.read_pc",
         "HG2500.read_q",
-        "milliK.read_10",
         "HP34420A_HP34970A.read_px118",
         "HP34420A_HP34970A.read_px119",
         "HP34420A_HP34970A.read_px120",
-        "MSL473_SH2.read_P",
+        "milliK.read_10",
         "milliK.read_11",
         "milliK.read_12",
         "milliK.read_13",
+        "milliK.read_17",
+        "MSL473_SH2.read_P",
         "MSL473_SH2.read_Tx",
         "MSL473_SH2.read_DP",
         "MSL473_SH2.read_FP",
         "MSL473_SH2.read_RH",
         "MSL473_SH2.read_Tm",
         "MSL473_SH2.read_Th",
-        "MSL473_SH2.read_Ox",
-        "milliK.read_17"
+        "MSL473_SH2.read_Ox"
+
     ],
     "details": {
         "milliK": {
-            "read_10": "Ts 2500",
-            "read_11": "Tc Back",
-            "read_12": "Tc Front",
-            "read_13": "Tc Bottom",
+            "read_10": "SIL010_TS2500",
+            "read_11": "SIL012",
+            "read_12": "SIL019",
+            "read_13": "SIL020",
             "read_17": "Tamb"
         },
         "HG2500": {
-            "read_chamber_temp": "Tc Front Center"
+            "read_chamber_temp": "Tc Front-Center"
         },
         "MSL473_SH2": {
-            "read_Tx": "Tc Back Center"
+            "read_Tx": "Tc Front"
         }
     },
     "references": {
