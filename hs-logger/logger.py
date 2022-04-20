@@ -4,6 +4,7 @@ import csv
 import numpy as np
 from threading import Thread
 import git
+import os
 
 
 class Logger(Thread):
@@ -25,6 +26,21 @@ class Logger(Thread):
         self.transsourcename = t + "p_" + self.job_spec["source_file_trans"]
         self.sensorname = t + "s_" + self.job_spec["sensor_file"]
         self.op_names = self.job_spec["logged_operations"]
+
+        # filename = self.job_spec.get("filename", "TEST")
+        # self.out_dir_local = self.job_spec.get("out_dir_local", "data_files\\") + t + "_" + filename + "\\"
+        # if not os.path.exists(self.out_dir_local):
+        #     os.makedirs(self.out_dir_local)
+        # self.out_dir_global = self.job_spec.get("out_dir_global", "C:\\datasync\\TEST\\") + t + "_" + filename + "\\"
+        # if not os.path.exists(self.out_dir_global):
+        #     os.makedirs(self.out_dir_global)
+        # self.rawpointsname = t + "a_" + filename + "_points_raw.dat"
+        # self.transpointsname = t + "b_" + filename + "_points_trans.dat"
+        # self.rawfilename = t + "c_" + filename + "_data_raw.dat"
+        # self.transfilename = t + "d_" + filename + "_data_trans.dat"
+        # self.rawsourcename = t + "e_" + filename + "_source_raw.dat"
+        # self.transsourcename = t + "f_" + filename + "_source_trans.dat"
+        # self.sensorname = t + "s_" + filename + "_sensor.dat"
 
         # Ben's variables
         self.opref = []
