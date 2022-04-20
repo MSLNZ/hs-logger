@@ -46,56 +46,56 @@
             "name": "C10",
             "id": "read_10",
             "command": "MEAS:FRES10:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL010.json"
+            "transducer": "instruments/transducers/temperature/SIL035.json"
         },
         "read_11": {
             "type": "read_single",
             "name": "C11",
             "id": "read_11",
             "command": "MEAS:FRES11:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL012.json"
+            "transducer": "instruments/transducers/temperature/SIL036.json"
         },
         "read_12": {
             "type": "read_single",
             "name": "C12",
             "id": "read_12",
             "command": "MEAS:FRES12:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL019.json"
+            "transducer": "instruments/transducers/temperature/SIL042.json"
         },
         "read_13": {
             "type": "read_single",
             "name": "C13",
             "id": "read_13",
             "command": "MEAS:FRES13:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL020.json"
+            "transducer": "instruments/transducers/temperature/SIL050.json"
         },
         "read_14": {
             "type": "read_single",
             "name": "C14",
             "id": "read_14",
             "command": "MEAS:FRES14:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL060.json"
+            "transducer": "instruments/transducers/temperature/SIL051.json"
         },
         "read_15": {
             "type": "read_single",
             "name": "C15",
             "id": "read_15",
             "command": "MEAS:FRES15:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL061.json"
+            "transducer": "instruments/transducers/temperature/SIL049.json"
         },
         "read_16": {
             "type": "read_single",
             "name": "C16",
             "id": "read_16",
             "command": "MEAS:FRES16:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/DP30.json"
+            "transducer": "instruments/transducers/temperature/SIL046.json"
         },
         "read_17": {
             "type": "read_single",
             "name": "C17",
             "id": "read_17",
             "command": "MEAS:FRES17:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL063.json"
+            "transducer": "instruments/transducers/temperature/SIL047.json"
         },
         "read_18": {
             "type": "read_single",
