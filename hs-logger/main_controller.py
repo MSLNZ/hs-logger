@@ -316,8 +316,8 @@ class myjobframe(job_frame):
                         print("Operation not found.")
                         raise ValueError
             hum = datum.get("hum", 1)
-            p1 = datum.get("p1", 1)
-            p2 = datum.get("p2", 1)
+            p1 = datum.get("p1", 1)*10**5  # Convert bar to pascal
+            p2 = datum.get("p2", 1)*10**5  # Convert bar to pascal
             t1 = datum.get("t1", 1)
             t2 = datum.get("t2", 1)
             df1 = datum.get("df1", 0)

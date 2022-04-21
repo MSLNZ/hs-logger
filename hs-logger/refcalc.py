@@ -300,7 +300,7 @@ def main():
     df2 = 1
     td1 = 10
     pd1 = 1e5
-    pd2 = 1e5
+    pd2 = 2e5
     p1 = 1e5
     p2 = 1e5
     t1 = 47
@@ -316,5 +316,5 @@ def main():
     print("h2_ex_h1 = ", h2_ex_h1(h1, p1, p2, t1, t2, df1, df2), " %rh")
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
