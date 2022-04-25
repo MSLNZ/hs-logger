@@ -2,14 +2,9 @@
     "job_name": "dummy_inst_job",
     "job_id": 1,
     "job_notes": "comment",
-    "out_dir": "\\",
-    "datafile_raw": "test_data_raw.dat",
-    "datafile_trans": "test_data_trans.dat",
-    "points_file_raw": "test_points_raw.dat",
-    "points_file_trans": "test_points_trans.dat",
-    "source_file_raw": "test_source_raw.dat",
-    "source_file_trans": "test_source_trans.dat",
-    "sensor_file": "sensor_file.dat",
+    "out_dir_local": "C:\\Users\\b.sherson.CI\\PycharmProjects\\hs-logger\\hs-logger\\data_files",
+    "out_dir_global": "\\",
+    "filename": "dummy",
     "min_interval": 1,
     "time": 0,
     "instruments": {
@@ -47,6 +42,22 @@
             "df1": 0,
             "df2": 0,
             "type": "hd"
+        }
+    },
+    "graphs": {
+        "graph_1": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "dummy_inst.read_test",
+                "dummy_inst_2.read_test"
+            ]
+        },
+        "graph_2": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "reference.test_reference_1",
+                "reference.test_reference_2"
+            ]
         }
     }
 }

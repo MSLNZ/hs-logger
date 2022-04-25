@@ -21,6 +21,7 @@ class Main_Frame(ctrl_frame):
     def switchToJob(self, event):
         job = event.GetEventObject().GetStringSelection()
         job = self.ctrl.jobs.get(job)
+        job.frame.autogenerate_graphs(job.spec.get("graphs"))
         jframe = job.frame
         jframe.Show()
         jframe.Maximize(False)
@@ -104,6 +105,20 @@ class myjobframe(job_frame):
     def start_log(self, event):
         self.start_b.Enable(False)
         self.job.start()
+
+    def autogenerate_graphs(self, graphlist):
+        for name in graphlist:
+            book = self.job_book
+            plt = Plot(book)
+            self.Layout()
+            graph = [(plt, name)]
+            xaxis = graphlist[name]["x_axis"]
+            yaxes = graphlist[name]["y_axes"]
+            for yaxis in yaxes:
+                graph.append((xaxis, yaxis))
+            print(graph)
+            self.job.generate_graph(graph)
+            book.AddPage(plt, name)
 
     def add_graph(self, event):
         book = self.job_book
@@ -299,7 +314,7 @@ class myjobframe(job_frame):
                 self.job.logger.tstds["{}".format("s" + rows[r])] = tstd
                 self.job.logger.tsources["{}".format(rows[r])] = tsource
 
-        references = self.job.spec["references"]
+        references = self.job.spec.get("references", {})
         self.job.logger.ref_dict = {}
         for ref in references:
             title = "reference.{}".format(ref)
@@ -316,8 +331,8 @@ class myjobframe(job_frame):
                         print("Operation not found.")
                         raise ValueError
             hum = datum.get("hum", 1)
-            p1 = datum.get("p1", 1)*10**5  # Convert bar to pascal
-            p2 = datum.get("p2", 1)*10**5  # Convert bar to pascal
+            p1 = datum.get("p1", 1)*1e5  # Convert bar to pascal
+            p2 = datum.get("p2", 1)*1e5  # Convert bar to pascal
             t1 = datum.get("t1", 1)
             t2 = datum.get("t2", 1)
             df1 = datum.get("df1", 0)
@@ -326,9 +341,9 @@ class myjobframe(job_frame):
             if references[ref]["type"] == "dd":
                 if hum < -80 or hum > 95:
                     print("Dew point {} is out of range.".format(hum))
-                elif p1 < 0.9 or p1 > 22:
+                elif p1 < 0.9e5 or p1 > 22e5:
                     print("Pressure 1 {} is out of range.".format(p1))
-                elif p2 < 0.9 or p2 > 22:
+                elif p2 < 0.9e5 or p2 > 22e5:
                     print("Pressure 2 {} is out of range.".format(p2))
                 elif df1 not in [0, 1]:
                     print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
@@ -336,13 +351,12 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
-                    print(value, hum, p1, p2, df1, df2)
             elif references[ref]["type"] == "hd":
                 if hum < -80 or hum > 95:
                     print("Dew point {} is out of range.".format(hum))
-                elif p1 < 0.9 or p1 > 22:
+                elif p1 < 0.9e5 or p1 > 22e5:
                     print("Pressure 1 {} is out of range.".format(p1))
-                elif p2 < 0.9 or p2 > 22:
+                elif p2 < 0.9e5 or p2 > 22e5:
                     print("Pressure 2 {} is out of range.".format(p2))
                 elif t2 < -80 or t2 > 150:
                     print("Temperature 2 {} is out of range.".format(t2))
@@ -352,13 +366,12 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.h2_ex_td1(hum, p1, p2, t2, df1, df2)
-                    print(value, hum, p1, p2, t2, df1, df2)
             elif references[ref]["type"] == "dh":
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
-                elif p1 < 0.9 or p1 > 22:
+                elif p1 < 0.9e5 or p1 > 22e5:
                     print("Pressure 1 {} is out of range.".format(p1))
-                elif p2 < 0.9 or p2 > 22:
+                elif p2 < 0.9e5 or p2 > 22e5:
                     print("Pressure 2 {} is out of range.".format(p2))
                 elif t1 < -80 or t1 > 150:
                     print("Temperature 1 {} is out of range.".format(t1))
@@ -368,13 +381,12 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.td2_ex_h1(hum, p1, p2, t1, df1, df2)
-                    print(value, hum, p1, p2, t1, df1, df2)
             elif references[ref]["type"] == "hh":
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
-                elif p1 < 0.9 or p1 > 22:
+                elif p1 < 0.9e5 or p1 > 22e5:
                     print("Pressure 1 {} is out of range.".format(p1))
-                elif p2 < 0.9 or p2 > 22:
+                elif p2 < 0.9e5 or p2 > 22e5:
                     print("Pressure 2 {} is out of range.".format(p2))
                 elif t1 < -80 or t1 > 150:
                     print("Temperature 1 {} is out of range.".format(t1))
@@ -386,7 +398,6 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.h2_ex_h1(hum, p1, p2, t1, t2, df1, df2)
-                    print(value, hum, p1, p2, t1, t2, df1, df2)
             else:
                 print("Invalid reference.")
                 raise ValueError()
@@ -806,10 +817,10 @@ class Controller(object):
 
 
 def main():
-    def saveme(exctype, value, traceback):
-        print(exctype, value, traceback)
-
-    sys.excepthook = saveme
+    # def saveme(exctype, value, traceback):
+    #     print(exctype, value, traceback)
+    #
+    # sys.excepthook = saveme
     ctrl = Controller()
 
 

@@ -122,6 +122,7 @@ class Job(object):
             return "cancelled"
         else:  # Procedure wasn't cancelled
             self.graphs.append([(plt, name), (x, y)])
+            self.update_graphs()
             return name
 
     def append_graph(self, plt):  # Adds a new line to the selected graph
@@ -137,6 +138,7 @@ class Job(object):
             if axis_check.count(y) == 0:
                 x = self.graphs[index][1][0]
                 self.graphs[index].append((x, y))
+                self.update_graphs()
             else:
                 print("{} already in {}.".format(y, self.graphs[index][0][1]))
 
@@ -153,6 +155,7 @@ class Job(object):
                 axis_index = self.frame.get_detract_graph_axis_dialog(axis_choices)
                 if axis_index > -1:  # Procedure wasn't cancelled
                     self.graphs[graph_index].pop(axis_index+1)
+                    self.update_graphs()
             else:
                 print("Can't detract last line.")
 
@@ -167,6 +170,7 @@ class Job(object):
 
     def update_graphs(self):  # Updates the data depicted in the graphs
         for g in self.graphs:  # g in form of [[graph object, name], [x1, y1], [x2, y2], etc...]
+            print(g)
             leg = []
             plt = g[0][0].figure.gca()
             plt.clear()
@@ -194,6 +198,10 @@ class Job(object):
             if len(g) > 2:
                 plt.legend(leg)
             g[0][0].canvas.draw()
+
+    def generate_graph(self, graph):
+        self.graphs.append(graph)
+        self.update_graphs()
 
     def update_table(self):
         self.frame.update_table(0)
