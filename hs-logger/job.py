@@ -2,6 +2,7 @@ from logger import Logger
 import wx
 import time
 import numpy as np
+import os
 # from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -170,7 +171,6 @@ class Job(object):
 
     def update_graphs(self):  # Updates the data depicted in the graphs
         for g in self.graphs:  # g in form of [[graph object, name], [x1, y1], [x2, y2], etc...]
-            print(g)
             leg = []
             plt = g[0][0].figure.gca()
             plt.clear()
@@ -240,47 +240,54 @@ class AutoProfile(object):
         self.job.frame.job_book.SetPageText(2, "Profile")
         self.grid_refresh()
 
-    def load_file(self, file_name):
+    def load_file(self, direc, fn):
         grid = self.job.frame.grid_auto_profile
         rows1 = len(self.profile_header)
         cols1 = self.points
+        try:
+            with open(os.path.join(direc, fn), 'r') as file:
+                titles = file.readline().strip().split(',')
+                self.title = titles[0]
+                while self.title[0] != 'a':  # Remove "ï»¿" from first item
+                    self.title = self.title[1:]
+                self.job.frame.job_book.SetPageText(2, self.title)
+                self.h_name = file.readline().strip().split(',')
+                self.profile_header = self.h_name.copy()
+                self.h_set = file.readline().strip().split(',')
+                # self.h_check = file.readline().strip().split(',')
+                # self.h_actual = file.readline().strip().split(',')
+                d1 = {}
+                for name, inst_op in zip(self.h_name, self.h_set):
+                    d1[name] = (inst_op, [])
+                for line in file:
+                    line = line.strip().split(',')
+                    for i in range(len(self.h_name)):
+                        name = self.h_name[i]
+                        d1[name][1].append(line[i])
+                # Extra bit to remove the mandatory fields from the operations list
+                # Reset the lists
+                self.points_list = []
+                self.soak = []
+                self.assured = []
+                # Fill the lists again
+                for i in range(len(d1[self.h_name[0]][1])):
+                    self.points_list.append(d1["Points"][1][i])
+                    self.soak.append(d1["Soak"][1][i])
+                    self.assured.append(d1["Assured"][1][i])
+                # Remove the data from d1
+                d1.pop("Points")
+                d1.pop("Soak")
+                d1.pop("Assured")
+                # Back to normal code
+                self.points = len(d1[self.h_name[3]][1])
+                self.operations = d1
 
-        with open(file_name, "r") as file:
-            titles = file.readline().strip().split(',')
-            self.title = titles[0]
-            while self.title[0] != "a":  # Remove "ï»¿" from first item
-                self.title = self.title[1:]
-            self.job.frame.job_book.SetPageText(2, self.title)
-            self.h_name = file.readline().strip().split(',')
-            self.profile_header = self.h_name.copy()
-            self.h_set = file.readline().strip().split(',')
-            # self.h_check = file.readline().strip().split(',')
-            # self.h_actual = file.readline().strip().split(',')
-            d1 = {}
-            for name, inst_op in zip(self.h_name, self.h_set):
-                d1[name] = (inst_op, [])
-            for line in file:
-                line = line.strip().split(',')
-                for i in range(len(self.h_name)):
-                    name = self.h_name[i]
-                    d1[name][1].append(line[i])
-            # Extra bit to remove the mandatory fields from the operations list
-            # Reset the lists
-            self.points_list = []
-            self.soak = []
-            self.assured = []
-            # Fill the lists again
-            for i in range(len(d1[self.h_name[0]][1])):
-                self.points_list.append(d1["Points"][1][i])
-                self.soak.append(d1["Soak"][1][i])
-                self.assured.append(d1["Assured"][1][i])
-            # Remove the data from d1
-            d1.pop("Points")
-            d1.pop("Soak")
-            d1.pop("Assured")
-            # Back to normal code
-            self.points = len(d1[self.h_name[3]][1])
-            self.operations = d1
+        except ValueError as e:
+            print(e)
+            print('not a valid autoprofile')
+        except OSError as e:
+            print(e)
+            print('not a valid autoprofile')
 
         # bSizer = self.job.frame.bSizer181
         # self.job.frame.grid_auto_profile.Destroy()

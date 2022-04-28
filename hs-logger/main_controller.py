@@ -58,7 +58,8 @@ class Main_Frame(ctrl_frame):
         print(err)
 
     def job_open(self, event):
-        self.dirname = '/job_files'
+        hs_address = os.getcwd()
+        self.dirname = hs_address + "\\job_files"
         dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.FD_OPEN)
         if dlg.ShowModal() == wx.ID_OK:
             self.filename = dlg.GetFilename()
@@ -67,7 +68,8 @@ class Main_Frame(ctrl_frame):
         dlg.Destroy()
 
     def inst_open(self, event):
-        self.dirname = '/job_files'
+        hs_address = os.getcwd()
+        self.dirname = hs_address + "\\instruments"
         dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.FD_OPEN)
         if dlg.ShowModal() == wx.ID_OK:
             self.filename = dlg.GetFilename()
@@ -116,7 +118,6 @@ class myjobframe(job_frame):
             yaxes = graphlist[name]["y_axes"]
             for yaxis in yaxes:
                 graph.append((xaxis, yaxis))
-            print(graph)
             self.job.generate_graph(graph)
             book.AddPage(plt, name)
 
@@ -505,15 +506,22 @@ class myjobframe(job_frame):
         pass
 
     def load_autoprofile(self, event):
-        dlg = Load_profile_dialog(self)
-        file = ""
-        res = dlg.ShowModal()
-        if res == wx.ID_OK:
-            file = dlg.profile_filePicker.GetPath()
-
+        hs_address = os.getcwd()
+        self.dirname = hs_address + "\\autoprofiles"
+        dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.FD_OPEN)
+        if dlg.ShowModal() == wx.ID_OK:
+            self.filename = dlg.GetFilename()
+            self.dirname = dlg.GetDirectory()
+            self.job.auto_profile.load_file(self.dirname, self.filename)
         dlg.Destroy()
-        if file != "":
-            self.job.auto_profile.load_file(file)
+        # dlg = Load_profile_dialog(self)
+        # file = ""
+        # res = dlg.ShowModal()
+        # if res == wx.ID_OK:
+        #     file = dlg.profile_filePicker.GetPath()
+        # dlg.Destroy()
+        # if file != "":
+        #     self.job.auto_profile.load_file(file)
 
     def move_to_selected(self, event):
         point = self.grid_auto_profile.GetSelectedRows()

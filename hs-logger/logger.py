@@ -18,12 +18,21 @@ class Logger(Thread):
         t = time.strftime("%Y%m%d_%H%M%S", time.localtime())
 
         filename = self.job_spec.get("filename", "TEST")
-        self.out_dir_local = self.job_spec.get("out_dir_local", "data_files\\") + t + "_" + filename + "\\"
+        hs_address = os.getcwd()
+        self.out_dir_local = self.job_spec.get("out_dir_local", "{}\\data_files\\".format(hs_address))
+        if not self.out_dir_local.endswith("\\"):
+            self.out_dir_local = "{}\\".format(self.out_dir_local)
+        self.out_dir_local = "{}{}_{}\\".format(self.out_dir_local, t, filename)
         if not os.path.exists(self.out_dir_local):
             os.makedirs(self.out_dir_local)
-        self.out_dir_global = self.job_spec.get("out_dir_global", "C:\\datasync\\TEST\\") + t + "_" + filename + "\\"
+
+        self.out_dir_global = self.job_spec.get("out_dir_global", "C:\\datasync\\TEST\\")
+        if not self.out_dir_global.endswith("\\"):
+            self.out_dir_global = "{}\\".format(self.out_dir_global)
+        self.out_dir_global = "{}{}_{}\\".format(self.out_dir_global, t, filename)
         if not os.path.exists(self.out_dir_global):
             os.makedirs(self.out_dir_global)
+
         self.rawpointsname = t + "a_" + filename + "_points_raw.dat"
         self.transpointsname = t + "b_" + filename + "_points_trans.dat"
         self.rawfilename = t + "c_" + filename + "_data_raw.dat"
