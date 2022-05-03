@@ -21,7 +21,7 @@ class Main_Frame(ctrl_frame):
     def switchToJob(self, event):
         job = event.GetEventObject().GetStringSelection()
         job = self.ctrl.jobs.get(job)
-        job.frame.autogenerate_graphs(job.spec.get("graphs"))
+        job.frame.autogenerate_graphs(job.spec.get("graphs", {}))
         jframe = job.frame
         jframe.Show()
         jframe.Maximize(False)

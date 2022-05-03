@@ -3,7 +3,7 @@
 This is the logger used by the MSL Humidity Standards team for calibrations and research. It is undergoing continuous improvement as part of BAU.
 
 The logger has the following functionalities:
-* Read and write to any instrument that has an {instrument}.json file using the instrument window of main_controller.py (NB: Currently can't load instruments directly. They must be in a job file first.)
+* Read and write to any instrument that has an {instrument}.json file using the instrument window of main_controller.py
 * Log data for {job}.json files using the job window of main_controller.py
 * Control jobs using an {autoprofile}.csv file on the Profile tab of the job window above
 * Produce graphs of logged data
@@ -50,14 +50,16 @@ write_action operations are used by the autoprofile system to perform actions on
 
 Job files consist of a dictionary containing at least the following details:
 * job_name (STRING; The name the logger uses to refer to this job.)
-* out_dir (STRING; The external directory that this job will write to. Normally an address in I:\\. If external recording isn't required, simply put "\\" and no connection will be established.)
-* filenames (STRINGS; Seven file names must be included: _raw and _trans for each of datafile, points_file, and source_file, as well as a sensor_file. These filenames control where the data is put during logging. datafile contains all the recorded data, points_file contains each "point" taken, source_file contains the data that was converted into those points, and sensor_file contains relevant information, such as the calibration equations of the instruments. _raw contains the data as it was recorded, while _trans records that data after it has been transformed.)
+* out_dir_local (STRING; The local directory that this job will write to. Normally an address in I:\\. If external recording isn't required, simply put "\\" and no connection will be established.)
+* out_dir_global (STRING; The external directory that this job will write to. Normally an address in I:\\. If external recording isn't required, simply put "\\" and no connection will be established.)
+* filename (STRING; the name that this job will be saved under. The files will be saved in a folder with the date, time, and filename, containing data, points, and source files for both raw and transformed data, as well as the sensor file.)
 * min_interval (INTEGER; The minimum number of minutes allowed between cycles. Can be 0.)
 * time (INTEGER; Starting time. Normally 0.)
 * instruments (DICTIONARY of (STRING: STRING); The instrument files that need to be used. The key of each entry should be the instrument_id of that instrument, while the data should be the filename of that instrument file including any path information required.)
 * logged_operations (LIST of (STRING); The read operations that need to be used. Each should take the form of {instrument}.{operation}, where {instrument} is the instrument_id of the instrument being read and {operation} is the id of the read operation being performed.)
 * details (DICTIONARY of (STRING: DICTIONARY of (STRING: STRING)); Additional details regarding instrument positions and other notable information. The outer-most dictionary uses instruments as keys, while the inner-most dictionaries use operations as keys. Only notable keys need to be filled in. If no relevant information needs to be recorded, this can be left as an empty dictionary.)
 * references (DICTIONARY of (STRING: DICTIONARY of (STRING: VARIOUS)); Contains the reference "operations" that the logger will record. The outer-most dictionary uses the keys provided as the operations' names, while the inner-most dictionaries each include eight specific details which define the data values that will be associated their operation. The reference calculations take an initial reference humidity "hum" as well as reference pressure "p1", temperature "t1" and dew/frost state "df1" at this humidity, and then calculate the humidity at another point with reference pressure "p2", temperature "t2" and dew/frost state "df2", using an equation defined by "type". "hum", "p1", "p2", "t1", and "t2" are all STRINGS of the same form as detailed in logger_operations, indicating which operation defines their values. "df1" and "df2" are INTEGERS, with 0 being dew and 1 being frost. "type" is a STRING consisting of the type of humidity measurement being made and the type of humidity measurement being calculated. d represents a dew point, and h represents a relative humidity. The first letter in the string is what is being calculated, and the second letter is what is being provided. For instance, calculating a dew point from a relative humidity would have "type": "dh". If no references are needed, this can be left as an empty dictionary.)
+* graphs (DICTIONARY of (STRING: DICTIONARY of (STRING: STRING, STRING: DICTIONARY of (STRING: STRING))); Contains the graphs that should be automatically generated on starting the job. The outer-most dictionary uses the keys provided as the graph names, the middle dictionaries contain the x-axis for each graph, and the inner-most dictionaries contain the y-axes for each graph. References can be included in the graph using the form "reference.{reference name}".)
 
 ***
 
@@ -89,7 +91,16 @@ No additional lines should be included after the last comma delineated line, nor
 
 # The Job Window
 
+The Job window is the main window used when running this software. There is a lot to consider here, so it will be discussed sequentially.
 
+## GRAPH
 
-* [HOW TO MAKE GRAPHS]
-* [HOW TO USE A PROFILE]
+## CONTROL SIDEBAR
+
+## LOG TAB
+
+## POINTS TAB
+
+## PROFILE TAB
+
+## GRAPH TABS
