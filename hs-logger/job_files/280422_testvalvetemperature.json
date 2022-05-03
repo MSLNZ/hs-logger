@@ -1,0 +1,62 @@
+{
+    "job_name":"280422test_valve_temperature",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir_local": "C:\\datasync\\280422_test_valve_temperature\\",
+    "filename": "test_valve_temperature",
+    "datafile_raw": "test_valve_temperature_data_raw.dat",
+    "datafile_trans": "test_valve_temperature_data_trans.dat",
+    "points_file_raw": "test_valve_temperature_raw.dat",
+    "points_file_trans": "test_valve_temperature_trans.dat",
+    "source_file_raw": "test_valve_temperature_source_raw.dat",
+    "source_file_trans": "test_valve_temperature_source_trans.dat",
+    "sensor_file": "test_valve_temperature_sensor_file.dat",
+    "min_interval": 20,
+    "time":0,
+    "instruments":{
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "ST100_M_1": "instruments/SmartTrak100_Meter_1.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_13",
+        "milliK-millisKanner_40152.read_17",
+        "ST100_M_1.read_flow"
+    ],
+    "details": {
+        "milliK-millisKanner_40152": {
+            "read_10": "SIL010_TS2500",
+            "read_11": "SIL012",
+            "read_12": "SIL019",
+            "read_13": "SIL020",
+            "read_17": "Tamb"
+        },
+        "HG2500": {
+            "read_chamber_temp": "Tc Front-Center"
+        }
+    },
+    "references": {
+
+    },
+    "graphs": {
+        "graph_1": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_11",
+                "milliK-millisKanner_40152.read_12"
+            ]
+        }
+    }
+}
