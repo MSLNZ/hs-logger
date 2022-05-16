@@ -1,5 +1,5 @@
 {
-    "instrument_id": "milliK",
+    "instrument_id": "milliK-millisKanner_40152",
     "instrument_name": "Isotech milliK with attached millisKanner",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",            
