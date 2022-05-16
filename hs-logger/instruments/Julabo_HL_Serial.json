@@ -56,6 +56,13 @@
             "id": "write_unit_on",
             "command": "OUT_MODE_05 {}",
             "details": "Set Unit On Status, 1 on and 0 off"
+        },
+        "write_pump_stage": {
+            "type": "write",
+            "name": "Julabo Pump Stage",
+            "id": "write_pump_stage",
+            "command": "OUT_SP_07 {}",
+            "details": "Set pump stage to an integer from 1 to 4."
         }
     }
 }
