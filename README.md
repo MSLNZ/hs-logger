@@ -22,27 +22,35 @@ Instrument files consist of a dictionary containing at least the following detai
 
 Specific drivers may require additional information. For instance, the generic_driver_visa_serial driver requires a port number, baudrate, and write_ and read_termination characters. Documentation of what additional details are required is included in the drivers. (NB: This information isn't currently in the drivers. It should be added.)
 
-The operations dictionary contains every command that can be given to the instrument. These are split into "read", "write", and "action". Each operation must contain the following:
-* type (STRING; The first section of this string determines if this operation is a read, a write, or an action. Additional information here can be used by the driver, such as the read_multiple, read_store, and write_action commands detailed at the end of this section.)
+The "operations" dictionary contains every command that can be given to the instrument. These are split into "read", "write", and "action". Each operation must contain the following:
+* type (STRING; The first section of this string determines if this operation is a read, write, or action. Additional information here can be used by the driver, such as the read_multiple, read_store, and write_action commands detailed at the end of this section.)
 * name (STRING; The plain text name for the command for use in documentation.)
-* id (STRING; This should be the same as the key of this operation in the operations dictionary. It is the function that is called by the logger to perform this operation.)
+* id (STRING; This should be the same as the key of this operation in the "operations" dictionary. It is the function that is called by the logger to perform this operation.)
 * details (STRING; A description of this specific operation for use in documentation.)
 * command (STRING; The command that communicates the desired operation to the device. Use "{}" in place of inputs in write commands.)
 
 The following additional details are required if the operation is a read operation:
-* transform_eq (LIST of (STRING,FLOAT,FLOAT,FLOAT,FLOAT); The equation used to generate the transformed data. The first datum can be used to tell certain drivers what equation the transform uses, such as "T" using a Callendar–Van Dusen equation. The next four numbers are the variables used in the transform equation.)
-* rep_num (STRING; The name of the last valid calibration report for the particular operation, if appropriate. Otherwise, leave "".)
-* check_date (STRING; The date of the last valid check for the particular operation (such as an ice point check), if appropriate. Otherwise, leave "".)
+* transform_eq (LIST of (STRING,FLOAT,FLOAT,FLOAT,FLOAT); The equation used to generate the transformed data. The first datum can be used to tell certain drivers what equation the transform uses, such as "T" using a Callendar–Van Dusen equation. The next four numbers are the variables used in the transform equation. Defaults to ["V", 0, 1, 0 0])
+* rep_num (STRING; The name of the last valid calibration report for the particular operation, if appropriate. Defaults to "".)
+* check_date (STRING; The date of the last valid check for the particular operation (such as an ice point check), if appropriate. Otherwise, Defaults to "".)
 
-The following details are required if the operation is a write operation:
-* check_set (STRING; The read operation that reads the value this operation writes to, if available. Otherwise, leave "".)
-* check_actual (STRING; The read operation that reads the transducer this operation would attempt to control, if available. Otherwise, leave "".)
+The following details are recommended if the operation is a write operation:
+* check_set (STRING; The read operation that reads the value this operation writes to, if available. Defaults to "".)
+* check_actual (STRING; The read operation that reads the transducer this operation would attempt to control, if available. Defaults to "".)
 
 Some instruments use read_multiple/read_store commands or write_action commands. These are special functions that are detailed below.
 
-read_multiple and read_store are connected commands that are used to speed up read/write times to instruments that allow them. This is accomplished by using a read_multiple operation to read a bunch of values at once, which are then written to an internal list referred to as the store. read_store operations then extract the desired data from this store instead of from the instrument itself. Because accessing the store takes considerably less time than communicating with an external instrument, this saves a lot of time.
+read_multiple and read_store are connected commands that are used to speed up read/write times for instruments that allow them. This is accomplished by using a read_multiple operation to read a bunch of values at once, which are then written to an internal list referred to as the store. read_store operations then extract the desired data from this store instead of from the instrument itself. Because accessing the store takes considerably less time than communicating with an external instrument, this saves a lot of time.
 
 write_action operations are used by the autoprofile system to perform actions on the system using a write command. This is accomplished using a dictionary of available action operations indexed by string. This string is set by the autoprofile, and the corresponding action operation is performed. Because write_action operations are write operations, they can have associated check_set and check_actual values. If they do, their keys will most likely be determined by the values produced by these check operations.
+
+## Transducer files
+
+EXPLAIN TRANSDUCER FILES HERE
+
+## PID instruments?
+
+IF THESE WORK, EXPLAIN THEM HERE
 
 ***
 
@@ -57,9 +65,9 @@ Job files consist of a dictionary containing at least the following details:
 * time (INTEGER; Starting time. Normally 0.)
 * instruments (DICTIONARY of (STRING: STRING); The instrument files that need to be used. The key of each entry should be the instrument_id of that instrument, while the data should be the filename of that instrument file including any path information required.)
 * logged_operations (LIST of (STRING); The read operations that need to be used. Each should take the form of {instrument}.{operation}, where {instrument} is the instrument_id of the instrument being read and {operation} is the id of the read operation being performed.)
-* details (DICTIONARY of (STRING: DICTIONARY of (STRING: STRING)); Additional details regarding instrument positions and other notable information. The outer-most dictionary uses instruments as keys, while the inner-most dictionaries use operations as keys. Only notable keys need to be filled in. If no relevant information needs to be recorded, this can be left as an empty dictionary.)
-* references (DICTIONARY of (STRING: DICTIONARY of (STRING: VARIOUS)); Contains the reference "operations" that the logger will record. The outer-most dictionary uses the keys provided as the operations' names, while the inner-most dictionaries each include eight specific details which define the data values that will be associated their operation. The reference calculations take an initial reference humidity "hum" as well as reference pressure "p1", temperature "t1" and dew/frost state "df1" at this humidity, and then calculate the humidity at another point with reference pressure "p2", temperature "t2" and dew/frost state "df2", using an equation defined by "type". "hum", "p1", "p2", "t1", and "t2" are all STRINGS of the same form as detailed in logger_operations, indicating which operation defines their values. "df1" and "df2" are INTEGERS, with 0 being dew and 1 being frost. "type" is a STRING consisting of the type of humidity measurement being made and the type of humidity measurement being calculated. d represents a dew point, and h represents a relative humidity. The first letter in the string is what is being calculated, and the second letter is what is being provided. For instance, calculating a dew point from a relative humidity would have "type": "dh". If no references are needed, this can be left as an empty dictionary.)
-* graphs (DICTIONARY of (STRING: DICTIONARY of (STRING: STRING, STRING: DICTIONARY of (STRING: STRING))); Contains the graphs that should be automatically generated on starting the job. The outer-most dictionary uses the keys provided as the graph names, the middle dictionaries contain the x-axis for each graph, and the inner-most dictionaries contain the y-axes for each graph. References can be included in the graph using the form "reference.{reference name}".)
+* details (DICTIONARY of (STRING: DICTIONARY of (STRING: STRING)); Additional details regarding instrument positions and other notable information. The outer-most dictionary uses instruments as keys, while the inner-most dictionaries use operations as keys. Only notable keys need to be filled in.)
+* references (DICTIONARY of (STRING: DICTIONARY of (STRING: VARIOUS)); Contains the reference "operations" that the logger will record. These operate as phantom instruments that can be graphed or logged from the instrument "reference.[REFERENCE_NAME]". The outer-most dictionary uses the keys provided as the operations' names, while the inner-most dictionaries each include eight specific details which define the reference. The reference calculations take an initial reference humidity "hum" as well as reference pressure "p1", temperature "t1" and dew/frost state "df1" at this humidity, and then calculate the humidity at another point with reference pressure "p2", temperature "t2" and dew/frost state "df2", using an equation defined by "type". "hum", "p1", "p2", "t1", and "t2" are all STRINGS of the same form as detailed in logger_operations, indicating which operation defines their values. "df1" and "df2" are INTEGERS, with 0 being dew and 1 being frost. "type" is a STRING consisting of the type of humidity measurement being made and the type of humidity measurement being calculated. d represents a dew point, and h represents a relative humidity. The first letter in the string is what is being calculated, and the second letter is what is being provided. For instance, calculating a dew point from a relative humidity would have "type": "dh".)
+* graphs (DICTIONARY of (STRING: DICTIONARY of (STRING: STRING, STRING: DICTIONARY of (STRING: STRING))); Contains the graphs that should be automatically generated on starting the job. The outer-most dictionary uses the keys provided as the graph names, the middle dictionaries contain the x-axis for each graph, and the inner-most dictionaries contain the y-axes for each graph.)
 
 ***
 
@@ -73,7 +81,7 @@ Autoprofile files consist of comma delineated lines containing the following:
 
 Values should be as follows:
 * Points (The number associated with this point. The first one should be "1", second "2", and so on.)
-* Soak (The time, in minutes, that the logger should wait before trying to move to the next point. If no Assured is set, this will be approximately how long the logger waits between points. If Assured is set, this will be how long the logger waits before checking Assured.)
+* Soak (The time, in minutes, that the logger should wait before trying to move to the next point. If Assured isn't set, this will be approximately how long the logger waits between points. If Assured is set, this will be how long the logger waits before checking Assured.)
 * Assured (The operation that Assured is trying to wait for. "0" or less is no Assured, "1" is the first instrument operation, "2" is the second, and so on. Only one value can be assured against at a time.)
 * additional operations (The value that will be written to the instrument using this write command.)
 
@@ -95,12 +103,73 @@ The Job window is the main window used when running this software. There is a lo
 
 ## GRAPH
 
+### Add Graph
+
+This creates a new graph tab. It takes three arguments:
+
+* Name (The title shown on the tab. Should be descriptive of what is depicted. If a graph with the same name [NAME] already exists, the new graph will be named [NAME]' instead.)
+* X Axis (The x-axis of the graph. For reasons of clarity, only one x-axis is allowed per graph.)
+* Y Axis (The trace of the graph. Additional traces can be added using the "Append Graph" option in the dropdown menu.)
+
+### Append Graph
+
+This will add a trace to an already existing graph. It takes two arguments:
+
+* Append Graph (This is the graph that will be appended. The list contains all the currently existing graphs.)
+* New Y Axis (This is the trace that should be appended. If that trace is already on that graph, this does nothing.)
+
+### Detract Graph
+
+This will remove a trace from an existing graph. It takes two arguments, one after the other:
+
+* Choose Graph (This is the graph that will be detracted. The list contains all the currently existing graphs.)
+* Choose Axis (This is the trace to be removed. The list contains all traces on the graph chosen above.)
+
+### Remove Graph
+
+This will remove a graph from the graph list. It takes one argument:
+
+* Remove Graph (This is the graph to be removed. The list contains all the currently existing graphs.)
+
 ## CONTROL SIDEBAR
+
+START/PAUSE/RESUME
+
+NUMBER
+
+CURRENT READING
+
+NEXT POINT TIME
 
 ## LOG TAB
 
+
+
 ## POINTS TAB
+
+TABLE
+
+LAST/NEXT N
+
+TRANSFORMED
+
+COMMENT
 
 ## PROFILE TAB
 
+TABLE
+
+NEXT POINT/MOVE TO SELECTED
+
+LOAD FILE
+
+NEW SET/NEW POINT
+
+SAVE TEXT (NB: Not implemented, probably remove)
+
+RESET (NB: Not implemented, probably remove)
+
+ERROR/STDEV
+
 ## GRAPH TABS
+

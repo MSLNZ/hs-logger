@@ -237,7 +237,7 @@ class Logger(Thread):
             writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
             writer.writerow(titles)
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', delimiter='\t')
-            for op in self.opref:
+            for op in self.opref:  # Todo move this outside "with", iterate through a list of lists instead.
                 inst_id, op_id = op.split('.')
                 if inst_id == "time":
                     pass

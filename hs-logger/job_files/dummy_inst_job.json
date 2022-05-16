@@ -8,13 +8,15 @@
     "time": 0,
     "instruments": {
         "dummy_inst": "instruments/dummy_inst.json",
-        "dummy_inst_2": "instruments/dummy_inst_2.json"
+        "dummy_inst_2": "instruments/dummy_inst_2.json",
+        "PID_inst_test": "instruments/PID_inst_test.json"
     },
     "logged_operations": [
         "time.runtime",
         "time.datetime",
         "dummy_inst.read_test",
-        "dummy_inst_2.read_test"
+        "dummy_inst_2.read_test",
+        "PID_inst_test.read_control"
     ],
     "details": {
         "dummy_inst": {

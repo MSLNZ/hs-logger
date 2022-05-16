@@ -114,8 +114,8 @@ class myjobframe(job_frame):
             plt = Plot(book)
             self.Layout()
             graph = [(plt, name)]
-            xaxis = graphlist[name]["x_axis"]
-            yaxes = graphlist[name]["y_axes"]
+            xaxis = graphlist[name].get("x_axis", "time.runtime")
+            yaxes = graphlist[name].get("y_axes", ["time.runtime"])
             for yaxis in yaxes:
                 graph.append((xaxis, yaxis))
             self.job.generate_graph(graph)

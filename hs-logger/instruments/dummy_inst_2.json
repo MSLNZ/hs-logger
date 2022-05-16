@@ -5,6 +5,7 @@
     "notes": "comment",
     "operations": {
         "read_test":{
+            "type": "read",
             "name": "Dummy read 2",
             "id": "read_test",
             "details": "Generates a random value between 0 and 1.",
@@ -13,6 +14,7 @@
             "check_date": "Test date 05/07/2021"
         },
         "setpoint_test":{
+            "type": "read",
             "name": "Set read 2",
             "id": "setpoint_test",
             "details": "Returns 1.",
@@ -21,11 +23,12 @@
             "check_date": "Test date 05/10/2021"
         },
         "write_test":{
+            "type": "write",
             "name": "Dummy write 2",
             "id": "write_test",
             "details": "Does nothing.",
-            "check_set": "noCheck",
-            "check_actual": "noCheck"
+            "check_set": "setpoint_test",
+            "check_actual": "read_test"
         }
     }
 }
