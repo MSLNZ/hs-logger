@@ -195,8 +195,7 @@ class Job(object):
                             y_name = op
                     leg.append(y_name)
                     plt.plot(x_val, y_val)
-            if len(g) > 2:
-                plt.legend(leg)
+            plt.legend(leg)
             g[0][0].canvas.draw()
 
     def generate_graph(self, graph):

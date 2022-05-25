@@ -10,7 +10,7 @@
     "source_file_raw": "PT_sr.dat",
     "source_file_trans": "PT_st.dat",
     "sensor_file": "PT_sf.dat",
-    "min_interval": 0,
+    "min_interval": 1,
     "time": 0,
     "instruments": {
         "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json"

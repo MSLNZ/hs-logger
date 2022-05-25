@@ -54,7 +54,8 @@ def main():
     # instr.write_instrument('write_Valve_index', 1)
     # print(instr.read_instrument('read_Tm'))
     position=instr.read_instrument('read_pos')
-    while position<20:
+    print(position)
+    while position[0]<20:
         instr.write_instrument('move_by', [1])
         position=instr.read_instrument('read_pos')
         print(position)

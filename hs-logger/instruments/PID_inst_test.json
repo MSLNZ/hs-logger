@@ -1,6 +1,6 @@
 {
     "instrument_id": "PID_inst_test",
-    "instrument_name": "PID_inst_test",
+    "instrument_name": "PID inst test",
     "driver": "PID_driver",
     "notes": "comment",
     "measure": ["dummy_inst.json","read_test"],

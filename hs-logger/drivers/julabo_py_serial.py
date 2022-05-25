@@ -7,7 +7,7 @@ import re
 
 from threading import Lock
 
-class generic_driver_py_serial(object):
+class julabo_py_serial(object):
 
     def __init__(self, spec):
         self.spec = spec
@@ -74,12 +74,11 @@ class generic_driver_py_serial(object):
                     # print("locK")
                     cmd_e = (operation['command']).encode("ascii") + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
-                    data = self.instrument.read_until(self.r_term)
-                    #print(data)
+                    data = str(self.instrument.read_until(self.r_term))
+                    data = data.replace("\\xb", "")
                     # floats_data = re.findall(r"[-+]?\d*\.\d+|\d+", str(data))
                     # data = float(floats_data[0])
                     floats_data = re.findall(r"([-+]?\d+(\.\d*))([eE][-+]?\d+)?", str(data))
-                    #print(floats_data)
                     try:
                         data = float(floats_data[0][0] + floats_data[0][2])
                     except IndexError:
@@ -90,11 +89,9 @@ class generic_driver_py_serial(object):
             else:
                 with self.lock:
                     # print("lock")
-                    print(operation['command'])
                     cmd_e = (operation['command']).encode("ascii") + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
                     data = str(self.instrument.read_until(self.r_term))
-                    print(data)
 
                     data = []
                     data_trans = []
@@ -180,7 +177,7 @@ class generic_driver_py_serial(object):
             return False
 # testing
 def main():
-    instr = generic_driver_py_serial(json.load(open('../instruments/PC200_serial.json')))
+    instr = julabo_py_serial(json.load(open('../instruments/PC200_serial.json')))
     #print(instr.read_instrument('read_Tm'))
     print(instr.write_instrument('SS', 5))
 
