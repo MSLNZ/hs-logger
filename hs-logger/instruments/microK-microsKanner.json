@@ -3,7 +3,7 @@
     "instrument_name": "Isotech microK with attached microsKanner",
     "driver": "generic_driver_visa_gpib",
     "interface": "visa",            
-    "port": "GPIB1::13::INSTR",
+    "port": "GPIB0::13::INSTR",
     "baudrate":9600,
     "write_termination": "\n",
     "read_termination": "\n",
@@ -102,14 +102,14 @@
             "name":"C18",
             "id": "read_18",
             "command": "MEAS:FRES18:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SIL039.json"
+            "transducer": "instruments/transducers/temperature/DP30.json"
         },
         "read_19": {
             "type": "read_single",
             "name": "C19",
             "id": "read_19",
             "command": "MEAS:FRES19:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/SPRT_1620466.json"
+            "transducer": "instruments/transducers/temperature/SIL038.json"
         }
     }
 }

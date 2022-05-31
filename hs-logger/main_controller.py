@@ -738,7 +738,10 @@ class Controller(object):
             print(e)
             err('not a valid inst file')
         finally:
-            inst.close()
+            try:
+                inst.close()
+            except UnboundLocalError:
+                pass
 
     def update_instruments(self, insts):
         self.instruments.update(insts)
@@ -799,7 +802,7 @@ class Controller(object):
         elif today - cal_date + cal_freq/18 > cal_freq:  # Give a warning a few months ahead of calibration expiration
             message = "{} will require calibration soon.".format(id)
         elif today - check_date > check_freq:  # Device requires checking. Confirm before proceeding.
-            message = "Error: {} requires checking.".format(id)
+            message = "{} requires checking.".format(id)
         elif today - check_date + check_freq/12 > check_freq:  # Give a warning about a week before a check is required
             message = "{} will require checking soon.".format(id)
         if message != "":

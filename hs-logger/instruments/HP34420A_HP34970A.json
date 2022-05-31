@@ -3,8 +3,8 @@
     "instrument_name": "HP34420A and HP34970A",
     "driver":"HP34420A_HP34970A",
     "interface": "GPIB",
-    "port_bridge": "GPIB0::22::INSTR",
-    "port_scanner": "GPIB0::1::INSTR",
+    "port_bridge": "GPIB1::22::INSTR",
+    "port_scanner": "GPIB1::1::INSTR",
     "baudrate":9600,
     "write_termination":"\r",
     "read_termination":"\r\n",
@@ -35,33 +35,33 @@
             "details": ""
         },
         "read_px103": {
-            "name": "T M0530876",
+            "name": "UNSUED",
             "type":"read",
             "id":"read_px103",
             "channel": 103,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["V", -40, 100, 0, 0],
+            "transform_eq": ["V", 0, -1, 0, 0],
             "details": ""
         },
         "read_px104": {
-            "name": "RH M0530876",
+            "name": "T M0530876",
             "type":"read",
             "id":"read_px104",
             "channel": 104,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["V", 0, 100, 0, 0],
+            "transform_eq": ["V", -40, 100, 0, 0],
             "details": ""
         },
         "read_px105": {
-            "name": "Read Channel 105",
+            "name": "RH M0530876",
             "type":"read",
             "id":"read_px105",
             "channel": 105,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["V", 0, 100, 0, 0],
             "details": ""
         },
         "read_px106": {
