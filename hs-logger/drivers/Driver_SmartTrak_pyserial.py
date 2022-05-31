@@ -17,7 +17,7 @@ class Driver_SmartTrak_pyserial(object):
         port = spec["port"]
         baud = spec["baudrate"]
         par = spec["parity"]
-        stop_B = spec["stopbits"]
+        stop_b = spec["stopbits"]
         time_out = spec["timeout"]
         self.w_term = spec.get("write_termination", '\r')
         self.r_term = spec.get("read_termination", '\r')
@@ -46,9 +46,9 @@ class Driver_SmartTrak_pyserial(object):
         else:
             self.instrument.parity = serial.PARITY_NONE
 
-        if par == "2":
+        if stop_b == "2":
             self.instrument.stopbits = serial.STOPBITS_TWO
-        elif par == "1.5":
+        elif stop_b == "1.5":
             self.instrument.stopbits = serial.STOPBITS_ONE_POINT_FIVE
         else:
             self.instrument.stopbits = serial.STOPBITS_ONE
@@ -72,7 +72,7 @@ class Driver_SmartTrak_pyserial(object):
             if type == 'read_single':
                 with self.lock:
                     # print("locK")
-                    cmd=operation['command']
+                    cmd = operation['command']
                     crc = calcCRC(cmd)
                     cmd_e = cmd.encode("ascii") + crc + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
@@ -111,13 +111,13 @@ class Driver_SmartTrak_pyserial(object):
             cmd_e = command.encode("ascii") + calcCRC(command) + self.w_term.encode("ascii")
 
             # response = self.instrument.query(command)
-            #cmd_e = command.encode("ascii") + self.w_term.encode("ascii")
+            # cmd_e = command.encode("ascii") + self.w_term.encode("ascii")
             self.instrument.write(cmd_e)
 
             response = str(self.instrument.read_until(self.r_term))
 
             if response != "":
-                pass #print(response)
+                pass  # print(response)
             else:
                 print("No response")
             return response
@@ -194,7 +194,7 @@ def calcCRC(cmnd):
             # then crc is shifted left one bit (same as times 2) XORED with hex 0x1021 and ANDED to
             # hex 0xffff to limit the crc to lower 16 bits. If the 15th bit is not set then the crc
             # is shifted left one bit and ANDED with hex 0xffff to limit the crc to lower 16 bits.
-            if ((crc & 0x8000) == 0x8000):
+            if (crc & 0x8000) == 0x8000:
                 crc = ((crc << 1) ^ 0x1021) & 0xffff
             else:
                 crc = (crc << 1) & 0xffff
@@ -204,13 +204,13 @@ def calcCRC(cmnd):
 
     # These are byte values so the high byte and the low byte of the crc must be checked and incremented if
     # the bytes are either 0x00 0r 0x0d
-    if ((crc & 0xff00) == 0x0d00):
+    if (crc & 0xff00) == 0x0d00:
         crc += 0x0100
-    if ((crc & 0x00ff) == 0x000d):
+    if (crc & 0x00ff) == 0x000d:
         crc += 0x0001
-    if ((crc & 0xff00) == 0x0000):
+    if (crc & 0xff00) == 0x0000:
         crc += 0x0100
-    if ((crc & 0x00ff) == 0x0000):
+    if (crc & 0x00ff) == 0x0000:
         crc += 0x0001
 
     crc_hex_string = str(hex(crc))
@@ -225,7 +225,7 @@ def calcCRC(cmnd):
     # print('final= ')
     # print (final)
 
-    return (final)
+    return final
 
     # If the string Sinv2.000 is sent through this routine the crc = 0x8f55
     # The complete command "Sinv2.000" will look like this in hex:
@@ -241,7 +241,6 @@ def main():
     print(instr.read_instrument('read_flow'))
 
     instr.write_instrument('write_Valve_index', [1])
-
 
 
 if __name__ == '__main__':

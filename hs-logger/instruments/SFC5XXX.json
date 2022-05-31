@@ -1,0 +1,58 @@
+{
+    "instrument_id": "SFC5XXX",
+    "instrument_name": "SFC5XXX",
+    "driver": "SFC5XXX_driver",
+    "interface": "pyserial",
+    "Serialnumber": "",
+    "port": "COM4",
+    "address": 0,
+    "baudrate": 115200,
+    "parity": "none",
+    "stopbits": 1,
+    "timeout": 1,
+    "echo": false,
+    "notes": "",
+    "operations": {
+        "read_q":{
+            "type": "read",
+            "name": "SFC5XXX Read Flow",
+            "id": "read_q",
+            "details": "Returns flow rate",
+            "command_id": 8,
+            "mosi_dtype": ["u8t"],
+            "miso_dtype": ["f"],
+            "din": 0,
+            "response_time": 5,
+            "transform_eq": ["V",0,1,0,0],
+            "rep_num": "",
+            "check_date": ""
+        },
+        "read_qset":{
+            "type": "read",
+            "name": "SFC5XXX Read Flow Setpoint",
+            "id": "read_qset",
+            "details": "Returns flow rate setpoint",
+            "command_id": 0,
+            "mosi_dtype": ["u8t"],
+            "miso_dtype": ["f"],
+            "din": 0,
+            "response_time": 5,
+            "transform_eq": ["V",0,1,0,0],
+            "rep_num": "",
+            "check_date": ""
+        },
+        "write_qset":{
+            "type": "write",
+            "name": "SFC5XXX Write Flow Setpoint",
+            "id": "write_qset",
+            "details": "Writes flow rate setpoint",
+            "command_id": 0,
+            "mosi_dtype": ["u8t", "f"],
+            "miso_dtype": [],
+            "response_time": 5,
+            "transform_eq": ["V",0,1,0,0],
+            "rep_num": "",
+            "check_date": ""
+        }
+    }
+}
