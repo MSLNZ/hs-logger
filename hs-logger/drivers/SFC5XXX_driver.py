@@ -52,25 +52,23 @@ class SFC5XXX_driver(object):
         with self.lock:
             # print("locK")
             cid = operation.get('command_id', 0)
-            data = operation['din']
+            din = operation['din']
             mositype = operation['mosi_dtype']
             misotype = operation['miso_dtype']
-            if data is list:
-                feed = data
+            if din is list:
+                feed = din
             else:
-                feed = [data]
+                feed = [din]
             cmd = self.mosi(self.adr, cid, feed, mositype)
             self.instrument.write(cmd)
             frame = self.instrument.read_until(bytes(126))
-            print(frame)
             try:
                 data = self.miso(frame, misotype)
+                data = float(data[0])
             except ValueError:
                 data = float("NaN")
-            data = float(data[0])
 
             data_trans = self.transform(data, operation)
-        print(data, data_trans)
         return data, data_trans
 
     def write_instrument(self, op_id, data):
@@ -79,17 +77,23 @@ class SFC5XXX_driver(object):
             cid = operation.get('command_id', 0)
             mositype = operation['mosi_dtype']
             misotype = operation['miso_dtype']
-            if data is list:
-                feed = data
+            ai = operation.get('add_in', False)
+            # convert data to appropriate type
+            if ai:
+                feed = [ai, data[0]]
             else:
-                feed = [data]
+                feed = data
             cmd = self.mosi(self.adr, cid, feed, mositype)
             self.instrument.write(cmd)
+            frame = self.instrument.read_until(bytes(126))
 
-            response = self.miso(str(self.instrument.read_until(self.r_term)), misotype)
+            try:
+                response = self.miso(frame, misotype)
+            except ValueError:
+                response = "FAILURE"
 
             if response != "":
-                pass  # print(response)
+                print(response)
             else:
                 print("No response")
             return response
@@ -191,13 +195,15 @@ class SFC5XXX_driver(object):
             print("length wrong: {} != {}".format(l, length))
             raise ValueError
         # check state if required
-        if state != 0:
-            if 0 < state < 32:
-                print("state wrong: common error {}".format(state))
-                raise ValueError
-            else:
-                print("state wrong: specific error {}".format(state))
-                raise ValueError
+        if 127 < state:
+            state = state - 128
+            print("state wrong: device error {}".format(state))
+        if 0 < state < 32:
+            print("state wrong: common error {}".format(state))
+            raise ValueError
+        elif 31 < state < 128:
+            print("state wrong: specific error {}".format(state))
+            raise ValueError
         # convert data from bytes to appropriate data type
         temp = []
         for i in range(len(dtype)):
@@ -283,28 +289,28 @@ class SFC5XXX_driver(object):
         # convert data from given data type to bytes
         for i in range(len(data)):
             if dtype[i].startswith("b"):  # Data is a boolean
-                framelist.append(list(struct.pack('>?', data[i])))
+                framelist.append(list(struct.pack('>?', bool(data[i]))))
             elif dtype[i].startswith("f"):  # Data is a float
-                framelist.append(list(struct.pack('>f', data[i])))
+                framelist.append(list(struct.pack('>f', float(data[i]))))
             elif dtype[i].startswith("s"):  # Data is a string
                 framelist.append(list(data[i].encode('unicode_escape')))
                 framelist[-1].append(0)
             elif dtype[i].startswith("u8t"):  # Data is an unsigned integer of length 1
-                framelist.append(list(struct.pack('>B', data[i])))
+                framelist.append(list(struct.pack('>B', int(data[i]))))
             elif dtype[i].startswith("u16t"):  # Data is an unsigned integer of length 2
-                framelist.append(list(struct.pack('>H', data[i])))
+                framelist.append(list(struct.pack('>H', int(data[i]))))
             elif dtype[i].startswith("u32t"):  # Data is an unsigned integer of length 4
-                framelist.append(list(struct.pack('>I', data[i])))
+                framelist.append(list(struct.pack('>I', int(data[i]))))
             elif dtype[i].startswith("u64t"):  # Data is an unsigned integer of length 8
-                framelist.append(list(struct.pack('>Q', data[i])))
+                framelist.append(list(struct.pack('>Q', int(data[i]))))
             elif dtype[i].startswith("i8t"):  # Data is a signed integer of length 1
-                framelist.append(list(struct.pack('>b', data[i])))
+                framelist.append(list(struct.pack('>b', int(data[i]))))
             elif dtype[i].startswith("i16t"):  # Data is a signed integer of length 2
-                framelist.append(list(struct.pack('>h', data[i])))
+                framelist.append(list(struct.pack('>h', int(data[i]))))
             elif dtype[i].startswith("i32t"):  # Data is a signed integer of length 4
-                framelist.append(list(struct.pack('>i', data[i])))
+                framelist.append(list(struct.pack('>i', int(data[i]))))
             elif dtype[i].startswith("i64t"):  # Data is a signed integer of length 8
-                framelist.append(list(struct.pack('>q', data[i])))
+                framelist.append(list(struct.pack('>q', int(data[i]))))
             else:
                 print("dtype wrong: {} is not a valid data type".format(dtype))
                 raise ValueError
