@@ -65,8 +65,8 @@ class generic_driver_visa_serial(object):
                     for i, d in enumerate(data):
                         if self.isfloat(d):
                             data[i] = self.decimals(d, operation)
-                        elif self.isfloat(d[operation.get("offset", "0"):]):
-                            data[i] = self.decimals(d[operation.get("offset", "0"):], operation)
+                        elif self.isfloat(d[operation.get("offset", 0):]):
+                            data[i] = self.decimals(d[operation.get("offset", 0):], operation)
                         else:
                             pass
                     o_ops = operation.get("operations")
@@ -88,9 +88,9 @@ class generic_driver_visa_serial(object):
                     try:
                         while True:
                             data = self.instrument.read()
-                            # print("{}: {}".format(operation['command'], data))
-                    except visa.errors.VisaIOError:
-                        pass
+                            print("{}: {}".format(operation['command'], data))
+                    except visa.errors.VisaIOError as e:
+                        print(e)
                     try:
                         data = float(data)
                     except ValueError:
@@ -100,7 +100,6 @@ class generic_driver_visa_serial(object):
             else:
                 with self.lock:
                     # print("lock")
-                    print(operation['command'])
                     self.instrument.write(operation['command'])
                     try:
                         while True:

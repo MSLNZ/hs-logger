@@ -356,7 +356,7 @@ class SFC5XXX_driver(object):
 
 
 def main():
-    instr = SFC5XXX_driver(json.load(open('../instruments/SFC5XXX.json')))
+    instr = SFC5XXX_driver(json.load(open('../instruments/SFC5500_21470114.json')))
     adr = 1
     cmd = 2
     dtypelist = [["u8t", "b", "f", "s"], ["u8t", "u8t", "u8t"], ["u16t", "u16t", "u16t"], ["u32t", "u32t", "u32t"],

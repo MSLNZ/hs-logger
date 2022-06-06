@@ -1,9 +1,9 @@
 {
-    "instrument_id": "SFC5XXX",
-    "instrument_name": "SFC5XXX",
+    "instrument_id": "SFC5500_21470114",
+    "instrument_name": "SFC5500-0.5slm 21470114",
     "driver": "SFC5XXX_driver",
     "interface": "pyserial",
-    "Serialnumber": "",
+    "Serialnumber": "21470114",
     "port": "COM4",
     "address": 0,
     "baudrate": 115200,
@@ -37,9 +37,7 @@
             "miso_dtype": ["f"],
             "din": 1,
             "response_time": 5,
-            "transform_eq": ["V",0,1,0,0],
-            "rep_num": "",
-            "check_date": ""
+            "transform_eq": ["V",0,1,0,0]
         },
         "read_des":{
             "type": "read",
@@ -51,9 +49,7 @@
             "miso_dtype": ["u32t", "u8t"],
             "din": false,
             "response_time": 5,
-            "transform_eq": ["V",0,1,0,0],
-            "rep_num": "",
-            "check_date": ""
+            "transform_eq": ["V",0,1,0,0]
         },
         "write_qset":{
             "type": "write",
@@ -65,9 +61,8 @@
             "mosi_dtype": ["u8t", "f"],
             "miso_dtype": [],
             "response_time": 5,
-            "transform_eq": ["V",0,1,0,0],
-            "rep_num": "",
-            "check_date": ""
+            "check_set": "read_qset",
+            "check_actual": "read_q"
         }
     }
 }

@@ -1,0 +1,87 @@
+{
+    "instrument_id": "Equilibar_EPR",
+    "instrument_name": "Equilibar Electronic Pressure Regulator",
+    "driver": "generic_driver_visa_serial",
+    "Serialnumber": "305368",
+    "port": "ASRL3::INSTR",
+    "baudrate": 19200,
+    "write_termination": "\r",
+    "read_termination": "\r",
+    "parity": "none",
+    "stopbits": 1,
+    "echo": false,
+    "notes": "",
+    "doOpen": false,
+    "operations": {
+        "read_all":{
+            "type": "read_multiple",
+            "name": "Equilibar Read",
+            "id": "read_all",
+            "details": "Returns pressure and pressure setpoint",
+            "command": "A",
+            "operations":["read_address", "read_p", "read_pset"],
+            "split":" "
+        },
+        "read_address":{
+            "type": "read_store",
+            "name": "Equilibar Address",
+            "id": "read_address",
+            "details": "This doesn't actually work, it's just here to correctly split things.",
+            "store_id": "read_all",
+            "store_index": 0,
+            "transform_eq": ["V",0,1,0,0]
+        },
+        "read_p":{
+            "type": "read_store",
+            "name": "Equilibar Read Pressure",
+            "id": "read_p",
+            "details": "Returns pressure",
+            "store_id": "read_all",
+            "store_index": 1,
+            "transform_eq": ["V",0,1,0,0],
+            "rep_num": "",
+            "check_date": ""
+        },
+        "read_pset":{
+            "type": "read_store",
+            "name": "Equilibar Read Pressure Setpoint",
+            "id": "read_pset",
+            "details": "Returns pressure setpoint",
+            "store_id": "read_all",
+            "store_index": 2,
+            "transform_eq": ["V",0,1,0,0],
+            "rep_num": "",
+            "check_date": ""
+        },
+        "write_pset":{
+            "type": "write",
+            "name": "Equilibar Write Pressure Setpoint",
+            "id": "write_pset",
+            "details": "Writes pressure setpoint",
+            "command": "AS{}",
+            "check_set": "read_pset",
+            "check_actual": "read_p"
+        },
+        "write_pset_alt":{
+            "type": "write",
+            "name": "Equilibar Write Pressure Setpoint",
+            "id": "write_pset_alt",
+            "details": "Writes pressure setpoint as a number from 0 to 64000",
+            "command": "A{}"
+        },
+        "action_poll":{
+            "type": "action",
+            "name": "Equilibar Poll",
+            "id": "action_poll",
+            "details": "Tells the device to operate in polling mode (recommended).",
+            "command": "*@=A"
+        },
+        "action_stream":{
+            "type": "action",
+            "name": "Equilibar Stream",
+            "id": "action_stream",
+            "details": "Tells the device to operate in streaming mode (Don't use this).",
+            "command": "*@=@"
+        }
+    }
+}
