@@ -1,0 +1,120 @@
+{
+     "job_name": "220506_Spectrumlabs_RHS473",
+    "job_id": 1,
+    "job_notes": "comment",
+    "out_dir_global": "C:\\datasync\\220506_Spectrumlabs_RHS473\\",
+    "filename": "220506_Spectrumlabs_RHS473",
+    "min_interval": 1,
+    "time": 0,
+    "instruments":{
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "HG2500": "instruments/HG2500_visa.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json",
+        "MSL473_SH2": "instruments/MSL473_SH2.json",
+        "DUT473_SH2": "instruments/DUT473_SH2.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_13",
+        "milliK-millisKanner_40152.read_16",
+        "CPT9000_410012TM.read_pressure",
+        "CPT9000_4100133U.read_pressure",
+        "MSL473_SH2.read_P",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_Tm",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_Ox",
+        "DUT473_SH2.read_P",
+        "DUT473_SH2.read_Tx",
+        "DUT473_SH2.read_DP",
+        "DUT473_SH2.read_FP",
+        "DUT473_SH2.read_RH",
+        "DUT473_SH2.read_Tm",
+        "DUT473_SH2.read_Th",
+        "DUT473_SH2.read_Ox"
+    ],
+    "details": {
+        "milliK-millisKanner_40152": {
+            "read_10": "SIL010_TS2500",
+            "read_11": "SIL012",
+            "read_12": "SIL019",
+            "read_13": "SIL020",
+            "read_16": "Tamb"
+        },
+        "CPT9000_410012TM": {
+            "read_pressure": "Atmospheric pressure"
+        },
+        "CPT9000_4100133U": {
+            "read_pressure": "Ps"
+        },
+        "HG2500": {
+            "read_chamber_temp": "Tc Front-Center"
+        }
+    },
+    "references": {
+        "DP": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_4100133U.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_12",
+            "t2": "milliK-millisKanner_40152.read_12",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_4100133U.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_12",
+            "t2": "milliK-millisKanner_40152.read_12",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RH": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_4100133U.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_12",
+            "t2": "milliK-millisKanner_40152.read_12",
+            "df1": 0,
+            "df2": 0,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "MSL473_SH2.read_RH",
+                "DUT473_SH2.read_RH",
+                "HG2500.read_rh_pctc",
+                "reference.RH"
+            ]
+        },
+        "Temperature": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_11",
+                "milliK-millisKanner_40152.read_12",
+                "milliK-millisKanner_40152.read_13"
+            ]
+        }
+    }
+}
