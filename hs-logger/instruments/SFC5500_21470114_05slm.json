@@ -1,10 +1,10 @@
 {
-    "instrument_id": "SFC5500_21470114",
-    "instrument_name": "SFC5500-0.5slm 21470114",
+    "instrument_id": "SFC5500_21470114_05slm",
+    "instrument_name": "SFC5500_21470114_05slm",
     "driver": "SFC5XXX_driver",
     "interface": "pyserial",
     "Serialnumber": "21470114",
-    "port": "COM4",
+    "port": "COM31",
     "address": 0,
     "baudrate": 115200,
     "parity": "none",
@@ -15,7 +15,7 @@
     "operations": {
         "read_q":{
             "type": "read",
-            "name": "SFC5XXX Read Flow",
+            "name": "SFC5_0.5slm  Read Flow",
             "id": "read_q",
             "details": "Returns flow rate",
             "command_id": 8,
@@ -29,7 +29,7 @@
         },
         "read_qset":{
             "type": "read",
-            "name": "SFC5XXX Read Flow Setpoint",
+            "name": "SFC5_0.5slm  Read Flow Setpoint",
             "id": "read_qset",
             "details": "Returns flow rate setpoint",
             "command_id": 0,
@@ -41,7 +41,7 @@
         },
         "read_des":{
             "type": "read",
-            "name": "SFC5XXX Read Device Error State",
+            "name": "SFC5_0.5slm  Read Device Error State",
             "id": "read_des",
             "details": "Returns device error state",
             "command_id": 8,
@@ -53,7 +53,7 @@
         },
         "write_qset":{
             "type": "write",
-            "name": "SFC5XXX Write Flow Setpoint",
+            "name": "SFC5_0.5slm  Write Flow Setpoint",
             "id": "write_qset",
             "details": "Writes flow rate setpoint",
             "command_id": 0,
