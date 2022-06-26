@@ -735,10 +735,10 @@ class Controller(object):
 
         except ValueError as e:
             print(e)
-            err('not a valid job file')
+            err('not a valid job file (ValueError)')
         except OSError as e:
             print(e)
-            err('not a valid job file')
+            err('not a valid job file (OSError')
         finally:
             f.close()
 

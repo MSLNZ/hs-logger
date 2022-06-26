@@ -37,35 +37,35 @@
             "name": "c11",
             "id": "read_11",
             "command": "MEAS:RES11? 200,NORM,4",
-            "transducer": "instruments/transducers/temperature/SIL012.json"
+            "transducer": "instruments/transducers/temperature/SIL049.json"
         },
         "read_12": {
             "type": "read_single",
             "name": "c12",
             "id": "read_12",
             "command": "MEAS:RES12? 200,NORM,4",
-            "transducer": "instruments/transducers/temperature/SIL019.json"
+            "transducer": "instruments/transducers/temperature/SIL038.json"
         },
         "read_13": {
             "type": "read_single",
             "name": "c13",
             "id": "read_13",
             "command": "MEAS:RES13? 200,NORM,4",
-            "transducer": "instruments/transducers/temperature/SIL020.json"
+            "transducer": "instruments/transducers/temperature/SIL051.json"
         },
         "read_14": {
             "type": "read_single",
             "name": "c14",
             "id": "read_14",
             "command": "MEAS:RES14? 200,NORM,4",
-            "transducer": "instruments/transducers/temperature/SIL023.json"
+            "transducer": "instruments/transducers/temperature/SIL036.json"
         },
         "read_15": {
             "type": "read_single",
             "name": "c15",
             "id": "read_15",
             "command": "MEAS:RES15? 200,NORM,4",
-            "transducer": "instruments/transducers/temperature/SIL033.json"
+            "transducer": "instruments/transducers/temperature/SIL042.json"
         },
         "read_16": {
             "type": "read_single",
@@ -79,7 +79,7 @@
             "name": "c17",
             "id": "read_17",
             "command": "MEAS:RES17? 200,NORM,4",
-            "transducer": "instruments/transducers/temperature/SPRT_1620466.json"
+            "transducer": "instruments/transducers/temperature/DP30.json"
         },
         "action_read_resistance": {
             "type": "action",

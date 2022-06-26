@@ -5,7 +5,7 @@
     "interface": "pyserial",
     "type": "Controller",
     "Serialnumber": "305561",
-    "port": "COM5",
+    "port": "COM19",
     "baudrate": 9600,
     "parity": "PARITY_NONE",
     "stopbits": "STOPBITS_ONE",
@@ -17,7 +17,7 @@
     "operations": {
         "read_flow": {
             "type": "read_single",
-            "name": "read_flow",
+            "name": "read_flow M_1",
             "id": "read_flow",
             "command": "?Sinv",
             "transform_eq": [
@@ -33,7 +33,7 @@
         },
         "read_setpoint": {
             "type": "read_single",
-            "name": "read_setpoint",
+            "name": "read_setpoint M_1",
             "id": "read_setpoint",
             "command": "?Sinv",
             "transform_eq": [
@@ -49,7 +49,7 @@
         },
         "read_unit_index": {
             "type": "read_single",
-            "name": "read_unit",
+            "name": "read_unit M_1",
             "id": "read_unit",
             "command": "?Unti",
             "transform_eq": [
@@ -65,7 +65,7 @@
         },
         "read_Valve_index": {
             "type": "read_single",
-            "name": "read_valve",
+            "name": "read_valve M_1",
             "id": "read_valve",
             "command": "?Vlvi",
             "transform_eq": [
@@ -81,7 +81,7 @@
         },
         "read_Gas_index": {
             "type": "read_single",
-            "name": "Gas_index",
+            "name": "Gas_index M_1",
             "id": "Gas_index",
             "command": "?Gasi",
             "transform_eq": [
@@ -97,7 +97,7 @@
         },
         "read_stream_mode": {
             "type": "read_single",
-            "name": "Stream_mode",
+            "name": "Stream_mode M_1",
             "id": "Stream_mode",
             "command": "?Strm ",
             "transform_eq": [
@@ -113,7 +113,7 @@
         },
         "write_flow": {
             "type": "write",
-            "name": "write_flow",
+            "name": "write_flow M_1",
             "id": "write_flow",
             "command": "!FLOW{}",
             "data_type": "float",
@@ -122,7 +122,7 @@
         },
         "write_setpoint": {
             "type": "write",
-            "name": "write_setpoint",
+            "name": "write_setpoint M_1",
             "id": "write_setpoint",
             "command": "!Sinv{}",
             "data_type": "float",
@@ -131,7 +131,7 @@
         },
         "write_unit_index": {
             "type": "write",
-            "name": "write_unit",
+            "name": "write_unit M_1",
             "id": "write_unit",
             "command": "!Unti{}",
             "data_type": "int",
@@ -140,7 +140,7 @@
         },
         "write_Valve_index": {
             "type": "write",
-            "name": "write_valve",
+            "name": "write_valve M_1",
             "id": "write_valve",
             "command": "!Vlvi{}",
             "data_type": "int",
@@ -149,7 +149,7 @@
         },
         "write_Gas_index": {
             "type": "write",
-            "name": "Gas_index",
+            "name": "Gas_index M_1",
             "id": "Gas_index",
             "command": "!Gasi{}",
             "data_type": "int",
@@ -158,7 +158,7 @@
         },
         "write_stream_mode": {
             "type": "write",
-            "name": "Stream_mode",
+            "name": "Stream_mode M_1",
             "id": "Stream_mode",
             "command": "!Strm{}",
             "data_type": "string",
