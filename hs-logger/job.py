@@ -390,6 +390,7 @@ class AutoProfile(object):
                 self.transtime = u"Now"
                 self.next_point()
             else:
+                timeleft = round(timeleft, 1)
                 self.transtime = u"{}".format(timeleft)
         else:
             inst, ops = self.h_set[index].split('.')
@@ -402,6 +403,7 @@ class AutoProfile(object):
                     self.transtime = u"Now"
                     self.next_point()
                 else:
+                    timeleft = round(timeleft, 1)
                     self.transtime = u"{}".format(timeleft)
             else:
                 value1 = self.check_instrument(inst, opc)
@@ -443,17 +445,30 @@ class AutoProfile(object):
         for col in range(len(self.profile_header)):
             for row in range(self.points):
                 grid.SetCellBackgroundColour(row, col, wx.Colour(255, 255, 255))
-        # grid.SetCellBackgroundColour(colour=grid.GetDefaultCellBackgroundColour())
         for col in range(len(self.profile_header)):
             grid.SetCellBackgroundColour(self.current_point, col, wx.Colour(230, 235, 245))
-        # grid.ForceRefresh()
 
     def grid_refresh(self):
         self.highlight_row()
         grid = self.job.frame.grid_auto_profile
-        # self.job.frame.bSizer18.Layout()
+        # Fix the number of rows and columns
+        # currows = grid.GetNumberRows()
+        # desrows = self.points
+        # print(currows, desrows)
+        # if currows < desrows:
+        #     grid.AppendRows(desrows - currows)
+        # elif currows > desrows:
+        #     grid.DeleteRows(desrows - 1, currows - desrows)
+        # curcols = grid.GetNumberCols()
+        # descols = len(self.get_header())
+        # print(curcols, descols)
+        # if curcols < descols:
+        #     grid.AppendCols(descols - curcols)
+        # elif curcols > descols:
+        #     grid.DeleteCols(descols - 1, curcols - descols)
+        # Refresh the table
         grid.AutoSizeRows()
-        # grid.AutoSizeColumns()  # This crashes the system for some reason. Todo fix
+        # grid.AutoSizeColumns() TODO
         grid.ForceRefresh()
 
 

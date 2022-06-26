@@ -24,26 +24,6 @@
         }
     },
     "references": {
-        "test_reference_1": {
-            "hum": "dummy_inst.read_test",
-            "p1": "dummy_inst.read_test",
-            "p2": "dummy_inst_2.read_test",
-            "t1": "dummy_inst.read_test",
-            "t2": "dummy_inst_2.read_test",
-            "df1": 0,
-            "df2": 0,
-            "type": "dd"
-        },
-        "test_reference_2": {
-            "hum": "dummy_inst.read_test",
-            "p1": "dummy_inst.read_test",
-            "p2": "dummy_inst_2.read_test",
-            "t1": "dummy_inst.read_test",
-            "t2": "dummy_inst_2.read_test",
-            "df1": 0,
-            "df2": 0,
-            "type": "hd"
-        }
     },
     "graphs": {
         "graph_1": {
@@ -56,8 +36,7 @@
         "graph_2": {
             "x_axis": "time.runtime",
             "y_axes": [
-                "reference.test_reference_1",
-                "reference.test_reference_2"
+                "PID_inst_test.read_control"
             ]
         }
     }

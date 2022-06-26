@@ -8,7 +8,7 @@
     "Proportional": 0.5,
     "Integral": 0,
     "Derivative": 0,
-    "sign": 1,
+    "positive_feedback": true,
     "operations": {
         "read_control":{
             "type": "read",

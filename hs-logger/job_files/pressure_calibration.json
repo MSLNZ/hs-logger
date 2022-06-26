@@ -9,7 +9,8 @@
     "instruments": {
         "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
         "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
-        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json"
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json",
+        "CPT9000_4100OMG4": "instruments/Mensor_CPT9000_41000MG4.json"
     },
     "logged_operations": [
         "time.runtime",
@@ -18,6 +19,7 @@
         "HP34420A_HP34970A.read_px119",
         "HP34420A_HP34970A.read_px120",
         "CPT9000_410012TM.read_pressure",
-        "CPT9000_4100133U.read_pressure"
+        "CPT9000_4100133U.read_pressure",
+        "CPT9000_41000MG4.read_pressure"
     ]
 }

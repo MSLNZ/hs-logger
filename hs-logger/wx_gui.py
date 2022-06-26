@@ -301,7 +301,7 @@ class job_frame ( wx.Frame ):
 		self.points.SetSizer( bSizer17 )
 		self.points.Layout()
 		bSizer17.Fit( self.points )
-		self.job_book.AddPage( self.points, u"Points", True )
+		self.job_book.AddPage( self.points, u"Points", False )
 		self.auto_profile = wx.Panel( self.job_book, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.auto_profile.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 		self.auto_profile.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -365,12 +365,6 @@ class job_frame ( wx.Frame ):
 		self.new_point_btn = wx.Button( self.auto_profile, wx.ID_ANY, u"New Point", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer191.Add( self.new_point_btn, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
-		self.m_button28 = wx.Button( self.auto_profile, wx.ID_ANY, u"Save Text", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer191.Add( self.m_button28, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-		
-		self.reset_autoprofile_btn = wx.Button( self.auto_profile, wx.ID_ANY, u"Reset", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer191.Add( self.reset_autoprofile_btn, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-		
 		bSizer391 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.assured_error_text = wx.StaticText( self.auto_profile, wx.ID_ANY, u"Error <", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -409,7 +403,7 @@ class job_frame ( wx.Frame ):
 		self.auto_profile.SetSizer( bSizer171 )
 		self.auto_profile.Layout()
 		bSizer171.Fit( self.auto_profile )
-		self.job_book.AddPage( self.auto_profile, u"Profile", False )
+		self.job_book.AddPage( self.auto_profile, u"Profile", True )
 		
 		bSizer59.Add( self.job_book, 1, wx.EXPAND, 5 )
 		
@@ -464,8 +458,6 @@ class job_frame ( wx.Frame ):
 		self.points_load.Bind( wx.EVT_BUTTON, self.load_autoprofile )
 		self.new_set_btn.Bind( wx.EVT_BUTTON, self.new_profile_action )
 		self.new_point_btn.Bind( wx.EVT_BUTTON, self.new_point_autoprofile )
-		self.m_button28.Bind( wx.EVT_BUTTON, self.save_autoprofile )
-		self.reset_autoprofile_btn.Bind( wx.EVT_BUTTON, self.reset_autoprofile )
 		self.assured_error_input.Bind( wx.EVT_TEXT, self.update_table )
 		self.assured_stdev_input.Bind( wx.EVT_TEXT, self.update_table )
 		self.Bind( wx.EVT_MENU, self.add_graph, id = self.add_graph_m.GetId() )
@@ -511,12 +503,6 @@ class job_frame ( wx.Frame ):
 	def new_point_autoprofile( self, event ):
 		event.Skip()
 	
-	def save_autoprofile( self, event ):
-		event.Skip()
-	
-	def reset_autoprofile( self, event ):
-		event.Skip()
-	
 	def update_table( self, event ):
 		event.Skip()
 	
@@ -541,7 +527,7 @@ class job_frame ( wx.Frame ):
 class add_graph_dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 288,190 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 596,256 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
@@ -917,7 +903,7 @@ class continue_dialog ( wx.Dialog ):
 		
 		bSizer19 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.Message = wx.StaticText( self, wx.ID_ANY, u"", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.Message = wx.StaticText( self, wx.ID_ANY, u"Message", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.Message.Wrap( -1 )
 		bSizer19.Add( self.Message, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
@@ -940,7 +926,7 @@ class continue_dialog ( wx.Dialog ):
 		self.cancel_b = wx.Button( self, wx.ID_CANCEL, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer26.Add( self.cancel_b, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 		
-		self.confirm_b = wx.Button( self, wx.ID_OK, u"Continue", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.confirm_b = wx.Button( self, wx.ID_OK, u"Confirm", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer26.Add( self.confirm_b, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		
@@ -1051,30 +1037,6 @@ class new_action_autoprofile_dlg ( wx.Dialog ):
 		
 		bSizer34.Add( bSizer351, 0, wx.EXPAND, 5 )
 		
-		bSizer353 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.m_staticText113 = wx.StaticText( self, wx.ID_ANY, u"Check", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-		self.m_staticText113.Wrap( -1 )
-		bSizer353.Add( self.m_staticText113, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.profile_check_ctrl = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer353.Add( self.profile_check_ctrl, 2, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		
-		bSizer34.Add( bSizer353, 0, wx.ALIGN_CENTER|wx.EXPAND, 5 )
-		
-		bSizer352 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.m_staticText112 = wx.StaticText( self, wx.ID_ANY, u"Read", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-		self.m_staticText112.Wrap( -1 )
-		bSizer352.Add( self.m_staticText112, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.profile_read_ctrl = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer352.Add( self.profile_read_ctrl, 2, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		
-		bSizer34.Add( bSizer352, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
-		
 		bSizer41 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.ocancel_new_profile_action = wx.Button( self, wx.ID_CANCEL, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -1126,41 +1088,6 @@ class inst_pannel ( wx.Frame ):
 		self.m_panel8 = wx.Panel( self.m_splitter1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer26 = wx.BoxSizer( wx.VERTICAL )
 		
-		bSizer35 = wx.BoxSizer( wx.VERTICAL )
-		
-		bSizer37 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.status_ctrl = wx.TextCtrl( self.m_panel8, wx.ID_ANY, u"Running", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer37.Add( self.status_ctrl, 0, wx.ALL, 5 )
-		
-		self.m_staticText15 = wx.StaticText( self.m_panel8, wx.ID_ANY, u"Status", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText15.Wrap( -1 )
-		bSizer37.Add( self.m_staticText15, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		
-		bSizer35.Add( bSizer37, 1, wx.EXPAND, 5 )
-		
-		bSizer38 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.com_text_ctrl = wx.TextCtrl( self.m_panel8, wx.ID_ANY, u"COM22", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer38.Add( self.com_text_ctrl, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.m_staticText14 = wx.StaticText( self.m_panel8, wx.ID_ANY, u"Com Port", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText14.Wrap( -1 )
-		bSizer38.Add( self.m_staticText14, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.com_port_btn = wx.Button( self.m_panel8, wx.ID_ANY, u"Update", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer38.Add( self.com_port_btn, 0, wx.ALL, 5 )
-		
-		
-		bSizer35.Add( bSizer38, 1, wx.EXPAND, 5 )
-		
-		
-		bSizer26.Add( bSizer35, 0, wx.EXPAND, 5 )
-		
-		self.m_staticline1 = wx.StaticLine( self.m_panel8, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
-		bSizer26.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
-		
 		self.m_staticText9 = wx.StaticText( self.m_panel8, wx.ID_ANY, u"Actions", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText9.Wrap( -1 )
 		bSizer26.Add( self.m_staticText9, 0, wx.ALL, 5 )
@@ -1209,9 +1136,6 @@ class inst_pannel ( wx.Frame ):
 		
 		
 		bSizer26.Add( bSizer4711, 0, wx.EXPAND, 5 )
-		
-		self.m_staticline2 = wx.StaticLine( self.m_panel8, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
-		bSizer26.Add( self.m_staticline2, 0, wx.EXPAND |wx.ALL, 5 )
 		
 		
 		self.m_panel8.SetSizer( bSizer26 )

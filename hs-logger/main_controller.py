@@ -525,6 +525,7 @@ class myjobframe(job_frame):
 
     def move_to_selected(self, event):
         point = self.grid_auto_profile.GetSelectedRows()
+        self.grid_auto_profile.ClearSelection()
         if not point:
             print("No point selected.")
         else:
@@ -554,6 +555,7 @@ class MyInstPannel(inst_pannel):
         self.ctrl = ctrl
         self.inst = instrument
         self.spec = instrument.spec
+        self.SetTitle(u"{}".format(self.spec.get("instrument_name")))
         self.com_text_ctrl = self.spec.get("port")
         operations = self.spec.get("operations")
         self.action_choice.Clear()
@@ -619,7 +621,6 @@ class Data_Table(wx.grid.GridTableBase):
         return str(d)
 
     def GetNumberRows(self):
-
         return len(self.data)-self.headerRows
 
     def GetNumberCols(self):
@@ -644,6 +645,22 @@ class Profile_Table(wx.grid.GridTableBase):
 
         self.data = data
 
+    def AppendRows(self, numRows=1):
+        # print(f"AR {numRows}")
+        return True
+
+    def AppendCols(self, numCols=1):
+        # print(f"AC {numCols}")
+        return True
+
+    def DeleteRows(self, start=0, numRows=1):
+        # print(f"DR {start} {numRows}")
+        return True
+
+    def DeleteCols(self, start=0, numCols=1):
+        # print(f"DC {start} {numCols}")
+        return True
+
     def GetValue(self, row, col):
         h = self.data.get_header()
         if col >= len(h):
@@ -656,9 +673,11 @@ class Profile_Table(wx.grid.GridTableBase):
         return str(d)
 
     def GetNumberRows(self):
-        return 100
+        # return self.data.points
+        return 200
 
     def GetNumberCols(self):
+        # return len(self.data.get_header())
         return 40
 
     def GetColLabelValue(self, col):
@@ -797,6 +816,10 @@ class Controller(object):
         check_freq = datetime.timedelta(instrument.get("check_freq", 9999)*365.2425)
         cal_freq = datetime.timedelta(instrument.get("cal_freq", 9999)*365.2425)
         message = ""
+        if cal_freq == 0:
+            cal_freq = 9999*365.2425
+        if check_freq == 0:
+            check_freq = 9999 * 365.2425
         if today - cal_date > cal_freq:  # Device is out of calibration. Confirm before proceeding.
             message = "Error: {} out of calibration.".format(id)
         elif today - cal_date + cal_freq/18 > cal_freq:  # Give a warning a few months ahead of calibration expiration
