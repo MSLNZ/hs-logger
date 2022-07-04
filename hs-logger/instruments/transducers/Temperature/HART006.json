@@ -5,7 +5,7 @@
     "data_type": "float",
     "unit": "",
     "transform_eq":["T", 3.91337E-3, -5.890E-7, -7.389E-12, 100.0078562],
-    "check_date": "14/10/2021",
+    "check_date": "30/06/2021",
     "cal_date": "20/09/2021",
     "check_freq": 0.5,
     "cal_freq": 5,

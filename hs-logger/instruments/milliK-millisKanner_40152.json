@@ -81,44 +81,61 @@
             "command": "MEAS:RES17? 200,NORM,4",
             "transducer": "instruments/transducers/temperature/DP30.json"
         },
-        "action_read_resistance": {
-            "type": "action",
-            "name": "Read Resistance",
-            "id": "action_read_resistance",
-            "details": "Sets the device to read resistance",
-            "command": "SENS:FUNC RES"
+        "read_10_r2": {
+            "type": "read_single",
+            "name": "c10_r2",
+            "id": "read_10_r2",
+            "command": "MEAS:RES10? 200,ROOT2,4",
+            "transducer": "instruments/transducers/temperature/SIL010.json"
         },
-        "action_current_normal": {
-            "type": "action",
-            "name": "Current Normal",
-            "id": "action_current_normal",
-            "details": "Sets the read current to 1 A",
-            "command": "SENS:CURR NORM"
+        "read_11_r2": {
+            "type": "read_single",
+            "name": "c11_r2",
+            "id": "read_11_r2",
+            "command": "MEAS:RES11? 200,ROOT2,4",
+            "transducer": "instruments/transducers/temperature/SIL049.json"
         },
-        "action_current_sqrt2": {
-            "type": "action",
-            "name": "Current Sqrt(2)",
-            "id": "action_current_sqrt2",
-            "details": "Sets the read current to sqrt(2) A",
-            "command": "SENS:CURR ROOT2"
+        "read_12_r2": {
+            "type": "read_single",
+            "name": "c12_r2",
+            "id": "read_12_r2",
+            "command": "MEAS:RES12? 200,ROOT2,4",
+            "transducer": "instruments/transducers/temperature/SIL038.json"
         },
-        "set_resistance_range": {
-            "type": "write",
-            "name": "Set Resistance Range",
-            "id": "set_resistance_range",
-            "command": "SENS:RES:RANG {}"
+        "read_13_r2": {
+            "type": "read_single",
+            "name": "c13_r2",
+            "id": "read_13_r2",
+            "command": "MEAS:RES13? 200,ROOT2,4",
+            "transducer": "instruments/transducers/temperature/SIL051.json"
         },
-        "set_wires": {
-            "type": "write",
-            "name": "Set Wires",
-            "id": "set_wires",
-            "command": "SENS:WIR {}"
+        "read_14_r2": {
+            "type": "read_single",
+            "name": "c14_r2",
+            "id": "read_14_r2",
+            "command": "MEAS:RES14? 200,ROOT2,4",
+            "transducer": "instruments/transducers/temperature/SIL036.json"
         },
-        "set_channel": {
-            "type": "write",
-            "name": "Set Channel",
-            "id": "set_channel",
-            "command": "SENS:CHAN {}"
+        "read_15_r2": {
+            "type": "read_single",
+            "name": "c15_r2",
+            "id": "read_15_r2",
+            "command": "MEAS:RES15? 200,ROOT2,4",
+            "transducer": "instruments/transducers/temperature/SIL042.json"
+        },
+        "read_16_r2": {
+            "type": "read_single",
+            "name": "c16_r2",
+            "id": "read_16_r2",
+            "command": "MEAS:RES16? 200,ROOT2,4",
+            "transducer": "instruments/transducers/temperature/SIL039.json"
+        },
+        "read_17_r2": {
+            "type": "read_single",
+            "name": "c17_r2",
+            "id": "read_17_r2",
+            "command": "MEAS:RES17? 200,ROOT2,4",
+            "transducer": "instruments/transducers/temperature/DP30.json"
         }
     }
 }
