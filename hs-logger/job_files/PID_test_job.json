@@ -1,0 +1,36 @@
+{
+    "job_name": "PID_test_job",
+    "job_id": 1,
+    "job_notes": "comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "PID_test",
+    "min_interval": 1,
+    "time": 0,
+    "instruments": {
+        "Julabo_HL": "instruments/Julabo_HL_Serial.json",
+        "microK": "instruments/microK-microsKanner.json",
+        "PID_julabo": "instruments/PID_inst_test_JULABO.json"
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "Julabo_HL.read_Tm",
+        "Julabo_HL.read_Tsp1",
+        "microK.read_3",
+        "PID_inst_test.read_control"
+    ],
+    "references": {
+    },
+    "graphs": {
+        "graph_1": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "Julabo_HL.read_Tm",
+                "Julabo_HL.read_Tsp1",
+                "PID_julabo.setpoint_check",
+                "PID_julabo.read_control",
+                "microK.read_3"
+            ]
+        }
+    }
+}

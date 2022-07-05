@@ -48,7 +48,9 @@
             "name": "Tsp1 Julabo HL",
             "id": "write_Tsp1",
             "command": "OUT_SP_00 {}",
-            "details": "Tsp1 is set point temperature"
+            "details": "Tsp1 is set point temperature",
+            "check_set": "read_Tsp1",
+            "check_actual": "read_Tm"
         },
         "write_unit_on": {
             "type": "write",
