@@ -10,13 +10,15 @@ import time
 class SFC5XXX_driver(object):
 
     def __init__(self, spec):
+        """This driver expects to receive information on:
+        port, baud rate, parity, stop bits, timeout, read/write terms"""
         self.spec = spec
-        self.operations = spec['operations']
-        port = spec["port"]
-        baud = spec["baudrate"]
-        par = spec["parity"]
-        stop_b = spec["stopbits"]
-        time_out = spec["timeout"]
+        self.operations = spec.get('operations', {})
+        port = spec["port"]  # Port is required and can't be generalised.
+        baud = spec.get("baudrate", 9600)
+        par = spec.get("parity", "NONE")
+        stop_b = spec.get("stopbits", 1)
+        time_out = spec.get("timeout", 0)
         self.instrument = serial.Serial(port,
                                         baud,
                                         timeout=time_out)
@@ -39,7 +41,7 @@ class SFC5XXX_driver(object):
         else:
             self.instrument.stopbits = serial.STOPBITS_ONE
 
-        self.adr = spec["address"]
+        self.adr = spec.get("address", 0)
         self.abyte = ["b", "u8t", "i8t"]
         self.bbyte = ["u16t", "i16t"]
         self.cbyte = ["f", "u32t", "i32t"]
@@ -48,13 +50,21 @@ class SFC5XXX_driver(object):
         self.lock = Lock()
 
     def read_instrument(self, op_id):
-        operation = self.operations[op_id]
+        try:
+            operation = self.operations[op_id]
+        except KeyError:
+            print("Invalid operation")
+            return float("NaN"), float("NaN")
         with self.lock:
             # print("locK")
             cid = operation.get('command_id', 0)
             din = operation['din']
-            mositype = operation['mosi_dtype']
-            misotype = operation['miso_dtype']
+            try:
+                mositype = operation['mosi_dtype']
+                misotype = operation['miso_dtype']
+            except KeyError:
+                print("Instrument configured incorrectly")
+                return float("NaN"), float("NaN")
             if din is list:
                 feed = din
             else:
@@ -73,7 +83,11 @@ class SFC5XXX_driver(object):
 
     def write_instrument(self, op_id, data):
         with self.lock:
-            operation = self.operations[op_id]
+            try:
+                operation = self.operations[op_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             cid = operation.get('command_id', 0)
             mositype = operation['mosi_dtype']
             misotype = operation['miso_dtype']

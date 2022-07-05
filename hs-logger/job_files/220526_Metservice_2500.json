@@ -2,7 +2,7 @@
     "job_name":"220526_Metservice",
     "job_id":2,
     "job_notes":"comment",
-    "out_dir_global": "C:\\datasync\\220526_Metservice_2500\\",
+    "out_dir": "C:\\datasync\\",
     "filename": "220526_Metservice_2500",
     "min_interval": 60,
     "time":0,

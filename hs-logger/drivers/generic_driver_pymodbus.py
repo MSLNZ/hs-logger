@@ -19,7 +19,11 @@ class generic_driver_pymodbus(ModbusClient):
         self.timeout1 = spec.get("store_timeout", 0)
 
     def read_instrument(self,op_id):
-        op = self.operations[op_id]
+        try:
+            op = self.operations[op_id]
+        except KeyError:
+            print("Invalid operation")
+            return float("NaN"), float("NaN")
         stored = self.store.get(op_id, (None, time.time() - (self.timeout1 + 1)))
         if time.time() - stored[1] < self.timeout1:
             data ,data_trans = stored[0]

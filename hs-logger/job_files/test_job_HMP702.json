@@ -2,14 +2,8 @@
     "job_name":"HMP702_test_job",
     "job_id":1,
     "job_notes":"comment",
-    "out_dir": "I:\\MSL\\Private\\Humidity\\Commercial\\Jobs\\2021-2022\\hs-logger_test\\",
-	"datafile_raw": "HMP7_test_job_raw.csv",
-    "datafile_trans": "HMP7_test_job_trans.csv",
-	"points_file_raw": "HMP7_test_points_raw.csv",
-	"points_file_trans": "HMP7_test_points_trans.csv",
-	"source_file_raw": "HMP7_test_source_raw.csv",
-	"source_file_trans": "HMP7_test_Source_trans.csv",
-
+    "out_dir": "C:\\datasync\\",
+	"filename": "HMP7_test",
     "interval": 7,
     "time":0,
     "instruments":{

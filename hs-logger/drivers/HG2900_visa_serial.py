@@ -10,10 +10,13 @@ import math
 class HG2900_visa_serial(object):
 
     def __init__(self, spec):
+        """This driver expects to receive information on:
+        port, baud rate, read/write terms
+        It can also accept doOpen = False, which will skip the open instrument command"""
         self.spec = spec
-        self.operations = spec['operations']
-        port = spec["port"]
-        baud = spec["baudrate"]
+        self.operations = spec.get('operations', {})
+        port = spec["port"]  # Port is required and can't be generalised.
+        baud = spec.get("baudrate", 9600)
         w_term = spec.get("write_termination", '\r')
         r_term = spec.get("read_termination", '\r\n')
         doOpen = spec.get("doOpen", True)
@@ -33,15 +36,19 @@ class HG2900_visa_serial(object):
         """
         read instrument 
         """
-        operation = self.operations[operation_id]
+        try:
+            operation = self.operations[operation_id]
+        except KeyError:
+            print("Invalid operation")
+            return float("NaN"), float("NaN")
         # datatype = operation['data_type']
-        type = operation['type']
+        dtype = operation.get('type', "read_single")
         echo = self.spec.get('echo', False)
         stored = self.store.get(operation_id, (None, time.time()-(self.timeout+1)))
         if time.time() - stored[1] < self.timeout:
             data, data_trans = stored[0]
         else:
-            if type == 'read_store':
+            if dtype == 'read_store':
                 self.read_instrument(operation.get("store_id"))
                 stored = self.store.get(operation_id)
                 if time.time() - stored[1] > self.timeout:
@@ -49,13 +56,13 @@ class HG2900_visa_serial(object):
                     return -1, -1
                 data, data_trans = stored[0]
                 return data, data_trans
-            elif type == 'read_multiple':
+            elif dtype == 'read_multiple':
                 with self.lock:
-                    self.instrument.write(operation['command'])
+                    self.instrument.write(operation.get('command', ""))
                     if echo:
                         self.instrument.read()
                     data = self.instrument.read()
-                    id = operation['id']
+                    id = operation.get('id', "")
                     if id == "read_state":  # This block of code fixes the weird mode structure in the 2900
                         data = "{}".format(data[10:]).strip("\r")
                         if data == "0":
@@ -92,10 +99,10 @@ class HG2900_visa_serial(object):
                                 self.store[on] = ((d, dt), time.time())
 
                     data_trans = [self.transform(d, operation) for d in data]
-            elif type == 'read_single':
+            elif dtype == 'read_single':
                 with self.lock:
                     # print("locK")
-                    self.instrument.write(operation['command'])
+                    self.instrument.write(operation.get('command', ""))
                     data = 0
                     try:
                         while True:
@@ -108,8 +115,8 @@ class HG2900_visa_serial(object):
             else:
                 with self.lock:
                     # print("lock")
-                    print(operation['command'])
-                    self.instrument.write(operation['command'])
+                    print(operation.get('command', ""))
+                    self.instrument.write(operation.get('command', ""))
                     try:
                         while True:
                             data = self.instrument.read()
@@ -129,9 +136,17 @@ class HG2900_visa_serial(object):
             write instrument 
             """
             if float("{}".format(*values)) >= 0 and operation_id == "set_fp":
-                op = self.operations["set_dp"]  # This allows the frost point to be set above 0 °C as a dew point.
+                try:
+                    op = self.operations["set_dp"]  # This allows the frost point to be set above 0 °C as a dew point.
+                except KeyError:
+                    print("Invalid operation")
+                    return float("NaN"), float("NaN")
             else:
-                op = self.operations[operation_id]
+                try:
+                    op = self.operations[operation_id]
+                except KeyError:
+                    print("Invalid operation")
+                    return float("NaN"), float("NaN")
             command = op.get("command", "")
             command = command.format(*values)
             # response = self.instrument.query(command)
@@ -140,7 +155,7 @@ class HG2900_visa_serial(object):
             if op.get("type") == "write_action":  # This allows the autoprofile to control actions using a list
                 if 0 <= int(command) <= len(op.get("operations")):
                     self.instrument.timeout = 10000
-                    self.instrument.write(op.get("operations")["{}".format(int(command))])
+                    self.instrument.write(op.get("operations").get("{}".format(int(command)), ""))
                     try:
                         while True:
                             if response == "":
@@ -174,7 +189,11 @@ class HG2900_visa_serial(object):
     def action_instrument(self, operation_id):
         with self.lock:
             self.instrument.timeout = 10000
-            op = self.operations[operation_id]
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             # response = self.instrument.query(command,delay=1)
             response = ""

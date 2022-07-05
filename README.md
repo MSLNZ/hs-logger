@@ -74,8 +74,7 @@ PID instruments are special virtual instruments that make use of the PID driver.
 # Job Files
 Job files consist of a dictionary containing at least the following details:
 * job_name (STRING; The name the logger uses to refer to this job.)
-* out_dir_local (STRING; The local directory that this job will write to. Normally an address in I:\\. If external recording isn't required, simply put "\\" and no connection will be established.)
-* out_dir_global (STRING; The external directory that this job will write to. Normally an address in I:\\. If external recording isn't required, simply put "\\" and no connection will be established.)
+* out_dir (STRING; The local directory that this job will write to. Normally an address in I:\\.)
 * filename (STRING; the name that this job will be saved under. The files will be saved in a folder with the date, time, and filename, containing data, points, and source files for both raw and transformed data, as well as the sensor file.)
 * min_interval (INTEGER; The minimum number of minutes allowed between cycles. Can be 0.)
 * time (INTEGER; Starting time. Normally 0.)

@@ -12,13 +12,15 @@ import binascii
 class Driver_SmartTrak_pyserial(object):
 
     def __init__(self, spec):
+        """This driver expects to receive information on:
+        port, baud rate, parity, stop bits, timeout, read/write terms"""
         self.spec = spec
-        self.operations = spec['operations']
-        port = spec["port"]
-        baud = spec["baudrate"]
-        par = spec["parity"]
-        stop_b = spec["stopbits"]
-        time_out = spec["timeout"]
+        self.operations = spec.get('operations', {})
+        port = spec["port"]  # Port is required and can't be generalised.
+        baud = spec.get("baudrate", 9600)
+        par = spec.get("parity", "NONE")
+        stop_b = spec.get("stopbits", 1)
+        time_out = spec.get("timeout", 0)
         self.w_term = spec.get("write_termination", '\r')
         self.r_term = spec.get("read_termination", '\r')
 
@@ -59,9 +61,13 @@ class Driver_SmartTrak_pyserial(object):
         """
         read instrument
         """
-        operation = self.operations[operation_id]
+        try:
+            operation = self.operations[operation_id]
+        except KeyError:
+            print("Invalid operation")
+            return float("NaN"), float("NaN")
         # datatype = operation['data_type']
-        type = operation['type']
+        dtype = operation.get('type', "read_single")
         echo = self.spec.get('echo', False)
 
         stored = self.store.get(operation_id, (None, time.time() - (self.timeout + 1)))  # what is this?
@@ -69,10 +75,10 @@ class Driver_SmartTrak_pyserial(object):
         if time.time() - stored[1] < self.timeout:
             data, data_trans = stored[0]
         else:
-            if type == 'read_single':
+            if dtype == 'read_single':
                 with self.lock:
                     # print("locK")
-                    cmd = operation['command']
+                    cmd = operation.get('command', "")
                     crc = calcCRC(cmd)
                     cmd_e = cmd.encode("ascii") + crc + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
@@ -85,8 +91,8 @@ class Driver_SmartTrak_pyserial(object):
             else:
                 with self.lock:
                     # print("lock")
-                    print(operation['command'])
-                    cmd_e = (operation['command']).encode("ascii") + self.w_term.encode("ascii")
+                    print(operation.get('command', ""))
+                    cmd_e = (operation.get('command', "")).encode("ascii") + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
                     data = str(self.instrument.read_until(self.r_term))
                     print(data)
@@ -104,7 +110,11 @@ class Driver_SmartTrak_pyserial(object):
             write instrument 
             """
             # todo: check valid values for sending to instrument
-            op = self.operations[operation_id]
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             command = command.format(*values)
 
@@ -147,9 +157,8 @@ class Driver_SmartTrak_pyserial(object):
                         print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
                         transformed = float("NaN")
             elif eq[0] == 'V' or eq[0] == 'P':
-                transformed = eq[1] + eq[2] * x + eq[3] * x ** 2 + eq[
-                    4] * x ** 3  # V and P both use cubic equations. P is
-                # listed purely for record keeping purposes
+                transformed = eq[1] + eq[2] * x + eq[3] * x ** 2 + eq[4] * x ** 3
+                # V and P both use cubic equations. P is listed purely for record keeping purposes
             else:
                 print("Transform form not recognised: {}".format(eq[0]))
                 transformed = float("NaN")

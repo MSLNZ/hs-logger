@@ -20,8 +20,7 @@ class Thorlabs_stage_driver(object):
         else:
             dev_snr = devices[0][1]
         self.device = apt.Motor(dev_snr)
-        self.operations = spec['operations']
-        print(spec['operations'])
+        self.operations = spec.get('operations', {})
 
     def read_instrument(self, op_id):
         if op_id == "read_pos":  # operation = self.operations[operation_id]

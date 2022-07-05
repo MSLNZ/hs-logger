@@ -114,8 +114,8 @@ class myjobframe(job_frame):
             plt = Plot(book)
             self.Layout()
             graph = [(plt, name)]
-            xaxis = graphlist[name].get("x_axis", "time.runtime")
-            yaxes = graphlist[name].get("y_axes", ["time.runtime"])
+            xaxis = graphlist.get(name, {}).get("x_axis", "time.runtime")
+            yaxes = graphlist.get(name, {}).get("y_axes", ["time.runtime"])
             for yaxis in yaxes:
                 graph.append((xaxis, yaxis))
             self.job.generate_graph(graph)
@@ -253,7 +253,8 @@ class myjobframe(job_frame):
         for op in operations:
             inst_id, op_id = op.split('.')
             if inst_id != "time":
-                rows[op] = self.job.logger.instruments.get(inst_id).spec["operations"][op_id]["name"]
+                rows[op] = self.job.logger.instruments.get(inst_id, {}).spec.get("operations", {}).get(op_id, {}).\
+                    get("name", "")
             else:
                 rows[op] = op_id
 
@@ -327,7 +328,7 @@ class myjobframe(job_frame):
                     datum[comp] = references[ref][comp]
                 else:
                     if references[ref][comp] in data[0][0]:
-                        datum[comp] = data[-1][1].get(references[ref][comp])
+                        datum[comp] = data[-1][1].get(references[ref][comp], float("NaN"))
                     else:
                         print("Operation not found.")
                         raise ValueError
@@ -339,7 +340,7 @@ class myjobframe(job_frame):
             df1 = datum.get("df1", 0)
             df2 = datum.get("df2", 0)
             value = float("NaN")
-            if references[ref]["type"] == "dd":
+            if references[ref].get("type") == "dd":
                 if hum < -80 or hum > 95:
                     print("Dew point {} is out of range.".format(hum))
                 elif p1 < 0.9e5 or p1 > 22e5:
@@ -352,7 +353,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
-            elif references[ref]["type"] == "hd":
+            elif references[ref].get("type") == "hd":
                 if hum < -80 or hum > 95:
                     print("Dew point {} is out of range.".format(hum))
                 elif p1 < 0.9e5 or p1 > 22e5:
@@ -367,7 +368,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.h2_ex_td1(hum, p1, p2, t2, df1, df2)
-            elif references[ref]["type"] == "dh":
+            elif references[ref].get("type") == "dh":
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
                 elif p1 < 0.9e5 or p1 > 22e5:
@@ -382,7 +383,7 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.td2_ex_h1(hum, p1, p2, t1, df1, df2)
-            elif references[ref]["type"] == "hh":
+            elif references[ref].get("type") == "hh":
                 if hum < 0.005 or hum > 120:
                     print("Relative Humidity {} is out of range.".format(hum))
                 elif p1 < 0.9e5 or p1 > 22e5:
@@ -407,8 +408,8 @@ class myjobframe(job_frame):
         data = self.job.logger.storeref.copy()
         for ref in references:
             title = "reference.{}".format(ref)
-            value = self.job.logger.ref_dict[title]
-            refdata = np.array([d.get(title) for d in data])
+            value = self.job.logger.ref_dict.get(title, float("NaN"))
+            refdata = np.array([d.get(title, float("NaN")) for d in data])
             if self.job.logger.window < len(raw):
                 mean = np.mean(refdata[-self.job.logger.window:])
                 std = np.std(refdata[-self.job.logger.window:])
@@ -555,20 +556,20 @@ class MyInstPannel(inst_pannel):
         self.ctrl = ctrl
         self.inst = instrument
         self.spec = instrument.spec
-        self.SetTitle(u"{}".format(self.spec.get("instrument_name")))
-        self.com_text_ctrl = self.spec.get("port")
-        operations = self.spec.get("operations")
+        self.SetTitle(u"{}".format(self.spec.get("instrument_name", "")))
+        self.com_text_ctrl = self.spec.get("port", "")
+        operations = self.spec.get("operations", "")
         self.action_choice.Clear()
         for id, op in operations.items():
-            op_type = op.get("type")
+            op_type = op.get("type", "")
             if op_type is None:
                 pass
             elif op_type.startswith("read"):
-                self.read_op_choice.Append(op.get("id"))
+                self.read_op_choice.Append(op.get("id", ""))
             elif op_type.startswith("write"):
-                self.write_op_choice.Append(op.get("id"))
+                self.write_op_choice.Append(op.get("id", ""))
             elif op_type.startswith("action"):
-                self.action_choice.Append(op.get("id"))
+                self.action_choice.Append(op.get("id", ""))
 
     def read_op(self, event):
         op_id = self.read_op_choice.GetStringSelection()
@@ -722,8 +723,8 @@ class Controller(object):
         try:
             f = open(os.path.join(direc, fn), 'r')
             job_spec = json.load(f)
-            jn = job_spec["job_name"]
-            job_instrument_drivers = self.load_instruments(job_spec["instruments"])
+            jn = job_spec.get("job_name", "")
+            job_instrument_drivers = self.load_instruments(job_spec.get("instruments", {}))
             self.update_instruments(job_instrument_drivers)
             # logger = Logger(job_spec,job_instrument_drivers)
             jframe = myjobframe(None)
@@ -746,7 +747,7 @@ class Controller(object):
         try:
             inst = open(os.path.join(direc, fn), 'r')
             inst_spec = json.load(inst)
-            inst_name = inst_spec["instrument_name"]
+            inst_name = inst_spec.get("instrument_name", "")
             inst_driver = self.load_instruments({inst_name: "{}\\{}".format(direc, fn)})
             self.update_instruments(inst_driver)
             cb(True)
@@ -780,23 +781,23 @@ class Controller(object):
                     except (OSError, ValueError):
                         sys.stderr.write("Error Loading Instrument: {}".format(inst_id))
                         sys.exit(1)
-                inst_id = instrument["instrument_id"]
-                driver_name = instrument["driver"]
+                # inst_id = instrument["instrument_id"]
+                driver_name = instrument.get("driver", "")
                 self.check_instrument(instrument, inst_id)
 
-                itr = instrument["operations"].copy()
+                itr = instrument.get("operations", {}).copy()
                 for operation in itr:
-                    if "transducer" in instrument["operations"][operation]:
+                    if "transducer" in instrument["operations"].get(operation, {}):
                         td = json.load(open(instrument["operations"][operation]["transducer"]))
-                        t_id = td["t_id"]
+                        t_id = td.get("t_id", "")
                         self.check_instrument(td, t_id)
                         instrument["operations"][operation].update(td)
                         names = []
-                        if instrument["operations"][operation]["t_name"] != "":
+                        if instrument["operations"][operation].get("t_name", "") != "":
                             names.append(instrument["operations"][operation]["t_name"])
-                        if instrument["operations"][operation]["t_id"] != "":
+                        if instrument["operations"][operation].get("t_id", "") != "":
                             names.append(instrument["operations"][operation]["t_id"])
-                        names.append(instrument["operations"][operation]["name"])
+                        names.append(instrument["operations"][operation].get("name", ""))
                         c_name = " "
                         c_name = c_name.join(names)
                         instrument["operations"][operation]["name"] = c_name
@@ -813,13 +814,13 @@ class Controller(object):
         today = datetime.date.today()
         check_date = datetime.datetime.strptime(instrument.get("check_date", "01/01/1980"), "%d/%m/%Y").date()
         cal_date = datetime.datetime.strptime(instrument.get("cal_date", "01/01/1980"), "%d/%m/%Y").date()
-        check_freq = datetime.timedelta(instrument.get("check_freq", 9999)*365.2425)
-        cal_freq = datetime.timedelta(instrument.get("cal_freq", 9999)*365.2425)
+        check_freq = datetime.timedelta(instrument.get("check_freq", 0)*365.2425)
+        cal_freq = datetime.timedelta(instrument.get("cal_freq", 0)*365.2425)
         message = ""
-        if cal_freq == 0:
-            cal_freq = 9999*365.2425
-        if check_freq == 0:
-            check_freq = 9999 * 365.2425
+        if cal_freq == datetime.timedelta(0):
+            cal_freq = datetime.timedelta(9999*365.2425)
+        if check_freq == datetime.timedelta(0):
+            check_freq = datetime.timedelta(9999*365.2425)
         if today - cal_date > cal_freq:  # Device is out of calibration. Confirm before proceeding.
             message = "Error: {} out of calibration.".format(id)
         elif today - cal_date + cal_freq/18 > cal_freq:  # Give a warning a few months ahead of calibration expiration

@@ -10,13 +10,15 @@ from threading import Lock
 class generic_driver_py_serial(object):
 
     def __init__(self, spec):
+        """This driver expects to receive information on:
+        port, baud rate, parity, stop bits, timeout, read/write terms"""
         self.spec = spec
-        self.operations = spec['operations']
-        port = spec["port"]
-        baud = spec["baudrate"]
-        par = spec["parity"]
-        stop_B = spec["stopbits"]
-        time_out = spec["timeout"]
+        self.operations = spec.get('operations', {})
+        port = spec["port"]  # Port is required and can't be generalised.
+        baud = spec.get("baudrate", 9600)
+        par = spec.get("parity", "NONE")
+        stop_B = spec.get("stopbits", 1)
+        time_out = spec.get("timeout", 0)
         self.w_term = spec.get("write_termination", '\r')
         self.r_term = spec.get("read_termination", '\r')
 
@@ -59,9 +61,13 @@ class generic_driver_py_serial(object):
         """
         read instrument
         """
-        operation = self.operations[operation_id]
+        try:
+            operation = self.operations[operation_id]
+        except KeyError:
+            print("Invalid operation")
+            return float("NaN"), float("NaN")
         # datatype = operation['data_type']
-        type = operation['type']
+        dtype = operation.get('type', "read_single")
         echo = self.spec.get('echo', False)
 
         stored = self.store.get(operation_id, (None, time.time() - (self.timeout + 1))) #what is this?
@@ -69,10 +75,10 @@ class generic_driver_py_serial(object):
         if time.time() - stored[1] < self.timeout:
             data, data_trans = stored[0]
         else:
-            if type == 'read_single':
+            if dtype == 'read_single':
                 with self.lock:
                     # print("locK")
-                    cmd_e = (operation['command']).encode("ascii") + self.w_term.encode("ascii")
+                    cmd_e = (operation.get('command', "")).encode("ascii") + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
                     data = self.instrument.read_until(self.r_term)
                     #print(data)
@@ -90,8 +96,8 @@ class generic_driver_py_serial(object):
             else:
                 with self.lock:
                     # print("lock")
-                    print(operation['command'])
-                    cmd_e = (operation['command']).encode("ascii") + self.w_term.encode("ascii")
+                    print(operation.get('command', ""))
+                    cmd_e = (operation.get('command', "")).encode("ascii") + self.w_term.encode("ascii")
                     self.instrument.write(cmd_e)
                     data = str(self.instrument.read_until(self.r_term))
                     print(data)
@@ -109,7 +115,11 @@ class generic_driver_py_serial(object):
             write instrument 
             """
             # todo: check valid values for sending to instrument
-            op = self.operations[operation_id]
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             # command = command.format(*values)
             command = command.format(*values)

@@ -10,13 +10,15 @@ from threading import Lock
 class julabo_py_serial(object):
 
     def __init__(self, spec):
+        """This driver expects to receive information on:
+        port, baud rate, parity, stop bits, timeout, read/write terms"""
         self.spec = spec
-        self.operations = spec['operations']
-        port = spec["port"]
-        baud = spec["baudrate"]
-        par = spec["parity"]
-        stop_B = spec["stopbits"]
-        time_out = spec["timeout"]
+        self.operations = spec.get('operations', {})
+        port = spec["port"]  # Port is required and can't be generalised.
+        baud = spec.get("baudrate", 9600)
+        par = spec.get("parity", "NONE")
+        stop_B = spec.get("stopbits", 1)
+        time_out = spec.get("timeout", 0)
         self.w_term = spec.get("write_termination", '\r')
         self.r_term = spec.get("read_termination", '\r')
 
@@ -59,7 +61,11 @@ class julabo_py_serial(object):
         """
         read instrument
         """
-        operation = self.operations[operation_id]
+        try:
+            operation = self.operations[operation_id]
+        except KeyError:
+            print("Invalid operation")
+            return float("NaN"), float("NaN")
         # datatype = operation['data_type']
         type = operation['type']
         echo = self.spec.get('echo', False)
@@ -106,7 +112,11 @@ class julabo_py_serial(object):
             write instrument 
             """
             # todo: check valid values for sending to instrument
-            op = self.operations[operation_id]
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             # command = command.format(*values)
             command = command.format(*values)

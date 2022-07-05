@@ -16,9 +16,9 @@ class F250Bridge_K705Scanner(object):
         self.bridge.read_termination = '\r\n'
 
     def read_instrument(self, op_id):
-        op = self.spec["operations"][op_id]
-        channel = op["channel"]
-        prt = op["bridge_prt"]
+        op = self.spec.get("operations", {}).get(op_id, "")
+        channel = op.get("channel", 0)
+        prt = op.get("bridge_prt", "A")
         self.switch_bridge_prt(prt)
 
         val = self.read_channel(channel)

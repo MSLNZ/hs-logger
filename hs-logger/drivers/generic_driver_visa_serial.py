@@ -10,10 +10,13 @@ import math
 class generic_driver_visa_serial(object):
 
     def __init__(self, spec):
+        """This driver expects to receive information on:
+        port, baud rate, read/write terms
+        It can also accept doOpen = False, which will skip the open instrument command"""
         self.spec = spec
-        self.operations = spec['operations']
-        port = spec["port"]
-        baud = spec["baudrate"]
+        self.operations = spec.get('operations', {})
+        port = spec["port"]  # Port is required and can't be generalised.
+        baud = spec.get("baudrate", 9600)
         w_term = spec.get("write_termination", '\r')
         r_term = spec.get("read_termination", '\r\n')
         doOpen = spec.get("doOpen", True)
@@ -33,15 +36,19 @@ class generic_driver_visa_serial(object):
         """
         read instrument 
         """
-        operation = self.operations[operation_id]
+        try:
+            operation = self.operations[operation_id]
+        except KeyError:
+            print("Invalid operation")
+            return float("NaN"), float("NaN")
         # datatype = operation['data_type']
-        type = operation['type']
+        dtype = operation.get('type', "read_single")
         echo = self.spec.get('echo', False)
         stored = self.store.get(operation_id, (None, time.time()-(self.timeout+1)))
         if time.time() - stored[1] < self.timeout:
             data, data_trans = stored[0]
         else:
-            if type == 'read_store':
+            if dtype == 'read_store':
                 self.read_instrument(operation.get("store_id"))
                 stored = self.store.get(operation_id)
                 if time.time() - stored[1] > self.timeout:
@@ -49,10 +56,10 @@ class generic_driver_visa_serial(object):
                     return -1, -1
                 data, data_trans = stored[0]
                 return data, data_trans
-            elif type == 'read_multiple':
+            elif dtype == 'read_multiple':
                 with self.lock:
                     # print("locK")
-                    self.instrument.write(operation['command'])
+                    self.instrument.write(operation.get('command', ""))
                     if echo:
                         self.instrument.read()
                     data = self.instrument.read()
@@ -80,15 +87,15 @@ class generic_driver_visa_serial(object):
 
                     data_trans = [self.transform(d, operation) for d in data]
                 # print('unlocK')
-            elif type == 'read_single':
+            elif dtype == 'read_single':
                 with self.lock:
                     # print("locK")
-                    self.instrument.write(operation['command'])
+                    self.instrument.write(operation.get('command', ""))
                     data = float("NaN")
                     try:
                         while True:
                             data = self.instrument.read()
-                            print("{}: {}".format(operation['command'], data))
+                            print("{}: {}".format(operation.get('command', ""), data))
                     except visa.errors.VisaIOError as e:
                         print(e)
                     try:
@@ -100,7 +107,7 @@ class generic_driver_visa_serial(object):
             else:
                 with self.lock:
                     # print("lock")
-                    self.instrument.write(operation['command'])
+                    self.instrument.write(operation.get('command', ""))
                     try:
                         while True:
                             data = self.instrument.read()
@@ -119,7 +126,11 @@ class generic_driver_visa_serial(object):
             """
             write instrument 
             """
-            op = self.operations[operation_id]
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             command = command.format(*values)
             # response = self.instrument.query(command)
@@ -129,9 +140,12 @@ class generic_driver_visa_serial(object):
                 if command in op.get("operations"):
                     self.instrument.timeout = 10000
                     action_id = op.get("operations").get(command)
-
-                    act = self.operations[action_id]
-                    command2 = act.get("command", "")
+                    try:
+                        act = self.operations[action_id]
+                        command2 = act.get("command", "")
+                    except KeyError:
+                        print("write action error")
+                        return ""
                     command2 = command2.format(*values)
                     self.instrument.write(command2)
                     try:
@@ -164,7 +178,11 @@ class generic_driver_visa_serial(object):
     def action_instrument(self, operation_id):
         with self.lock:
             self.instrument.timeout = 10000
-            op = self.operations[operation_id]
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             # response = self.instrument.query(command,delay=1)
             response = ""

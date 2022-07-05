@@ -13,9 +13,9 @@ class Job(object):
         frame_log = Text_Log(frame.job_disp_log)
         self.logger = Logger(self, inst_drivers, frame_log)
         self.frame = frame
-        self.frame.SetTitle(u"{}".format(spec.get("job_name")))
+        self.frame.SetTitle(u"{}".format(spec.get("job_name", "")))
         self.graphs = []
-        self.frame.add_table(4, len(spec["logged_operations"])+len(spec.get("references", {}))-1)
+        self.frame.add_table(4, len(spec.get("logged_operations", {}))+len(spec.get("references", {}))-1)
         self.auto_profile = AutoProfile(self)
         self.frame.add_profile_table(self.auto_profile)
         self.n = 0
@@ -42,7 +42,7 @@ class Job(object):
             self.frame.current_reading.SetLabel(u"{} = {}".format(inst_op, val))
             if inst_op != "":
                 i_id, op_id = inst_op.split(".")
-                op_check = self.logger.instruments.get(i_id).spec["operations"][op_id].get("check_set", "")
+                op_check = self.logger.instruments.get(i_id).spec.get("operations", {}).get(op_id, {}).get("check_set", "")
                 inst_driver = self.inst_drivers.get(i_id)
                 try:
                     if op_check == "":
@@ -394,8 +394,8 @@ class AutoProfile(object):
                 self.transtime = u"{}".format(timeleft)
         else:
             inst, ops = self.h_set[index].split('.')
-            opc = self.job.logger.instruments.get(inst).spec["operations"][ops].get("check_set", "")
-            opa = self.job.logger.instruments.get(inst).spec["operations"][ops].get("check_actual", "")
+            opc = self.job.logger.instruments.get(inst).spec.get("operations", {}).get(ops, {}).get("check_set", "")
+            opa = self.job.logger.instruments.get(inst).spec.get("operations", {}).get(ops, {}).get("check_actual", "")
             # inst, opc = self.h_check[index].split('.')
             # inst, opa = self.h_actual[index].split('.')
             if opc == "" or opa == "":

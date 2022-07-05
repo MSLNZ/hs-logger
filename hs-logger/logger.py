@@ -19,12 +19,12 @@ class Logger(Thread):
 
         filename = self.job_spec.get("filename", "TEST")
         hs_address = os.getcwd()
-        self.out_dir_local = self.job_spec.get("out_dir_local", "{}\\data_files\\".format(hs_address))
-        if not self.out_dir_local.endswith("\\"):
-            self.out_dir_local = "{}\\".format(self.out_dir_local)
-        self.out_dir_local = "{}{}_{}\\".format(self.out_dir_local, t, filename)
-        if not os.path.exists(self.out_dir_local):
-            os.makedirs(self.out_dir_local)
+        self.out_dir = self.job_spec.get("out_dir", "{}\\data_files\\".format(hs_address))
+        if not self.out_dir.endswith("\\"):
+            self.out_dir = "{}\\".format(self.out_dir)
+        self.out_dir = "{}{}_{}\\".format(self.out_dir, t, filename)
+        if not os.path.exists(self.out_dir):
+            os.makedirs(self.out_dir)
 
         # self.out_dir_global = self.job_spec.get("out_dir_global", "C:\\datasync\\TEST\\")
         # if not self.out_dir_global.endswith("\\"):
@@ -40,7 +40,7 @@ class Logger(Thread):
         self.rawsourcename = t + "e_" + filename + "_source_raw.dat"
         self.transsourcename = t + "f_" + filename + "_source_trans.dat"
         self.sensorname = t + "s_" + filename + "_sensor.dat"
-        self.op_names = self.job_spec["logged_operations"]
+        self.op_names = self.job_spec.get("logged_operations", {})
 
         # Ben's variables
         self.opref = []
@@ -131,14 +131,14 @@ class Logger(Thread):
             time.sleep(ttnc)
 
     def read_instrument(self, inst_id, operation_id):
-        inst = self.instruments.get(inst_id)
+        inst = self.instruments.get(inst_id, "")
         result = inst.read_instrument(operation_id)
         self.raw_dict["{}.{}".format(inst_id, operation_id)] = result[0]
         self.trans_dict["{}.{}".format(inst_id, operation_id)] = result[1]
 
     def file_setup(self):
-        self.opref = self.job_spec["logged_operations"].copy()
-        for ref in self.job_spec["references"].keys():
+        self.opref = self.job_spec.get("logged_operations", {}).copy()
+        for ref in self.job_spec.get("references", {}).keys():
             ref = "reference.{}".format(ref)
             self.opref.append(ref)
         datafiles = [[self.rawfilename, self.transfilename],
@@ -158,7 +158,7 @@ class Logger(Thread):
             elif inst_id == "reference":
                 names[i] = op_id
             else:
-                names[i] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
+                names[i] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
             i = i+1
 
         namess = names.copy()
@@ -180,7 +180,7 @@ class Logger(Thread):
 
         for i in range(len(datafiles)):
             for datafile in datafiles[i]:
-                with open(self.out_dir_local + datafile, "w+") as outfile:
+                with open(self.out_dir + datafile, "w+") as outfile:
                     for k, v in self.job_spec.items():
                         if k == "job_name":
                             outfile.write(datafile + "\n")
@@ -199,7 +199,7 @@ class Logger(Thread):
         # Create "sensor file" Todo change for instrument fix
         titles = ['Device', 'ChannelList', 'ID', 'Name', 'Description', 'A', 'B', 'C', 'R(0)/D', 'Date', 'ReportNo']
         info = {}
-        with open(self.out_dir_local + self.sensorname, "w+") as outfile:
+        with open(self.out_dir + self.sensorname, "w+") as outfile:
             outfile.write(self.sensorname + "\n")
             outfile.write(self.job_spec["job_notes"] + "\n")
             writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
@@ -212,7 +212,7 @@ class Logger(Thread):
                 elif inst_id == "reference":
                     info['Device'] = inst_id
                     info['ChannelList'] = op_id
-                    info['ID'] = self.job_spec["references"][op_id]["type"]
+                    info['ID'] = self.job_spec["references"][op_id].get("type", "")
                     info['Name'] = ""
                     info['Description'] = self.job_spec["references"][op_id].get("h1", "-")
                     info['A'] = self.job_spec["references"][op_id].get("p1", "-")
@@ -224,22 +224,29 @@ class Logger(Thread):
                     writer.writerow(info)
                 else:
                     info['Device'] = inst_id
-                    info['ChannelList'] = self.instruments.get(inst_id).spec["operations"][op_id]["id"]
-                    info['ID'] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
-                    info['Name'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][0]
+                    info['ChannelList'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                        get("id", "")
+                    info['ID'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                        get("name", "")
+                    info['Name'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                        get("transform_eq", ["V", 0, 1, 0, 0])[0]
                     try:
                         info['Description'] = self.job_spec["details"][inst_id][op_id]
                     except KeyError:
-                        info['Description'] = self.instruments.get(inst_id).spec["operations"][op_id].get("details",
-                                                                                                          "No details.")
-                    info['A'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][1]
-                    info['B'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][2]
-                    info['C'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][3]
-                    info['R(0)/D'] = self.instruments.get(inst_id).spec["operations"][op_id]["transform_eq"][4]
-                    info['Date'] = self.instruments.get(inst_id).spec["operations"][op_id].get("check_date",
-                                                                                               "No last check")
-                    info['ReportNo'] = self.instruments.get(inst_id).spec["operations"][op_id].get("rep_num",
-                                                                                                   "No report")
+                        info['Description'] = self.instruments.get(inst_id).spec.get("operations", {}).\
+                            get(op_id, {}).get("details", "No details.")
+                    info['A'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("transform_eq", ["V", 0, 1, 0, 0])[1]
+                    info['B'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                        get("transform_eq", ["V", 0, 1, 0, 0])[2]
+                    info['C'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                        get("transform_eq", ["V", 0, 1, 0, 0])[3]
+                    info['R(0)/D'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                        get("transform_eq", ["V", 0, 1, 0, 0])[4]
+                    info['Date'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                        get("check_date", "No last check")
+                    info['ReportNo'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                        get("rep_num", "No report")
                     writer.writerow(info)
 
     def setup_operations(self):
@@ -249,8 +256,8 @@ class Logger(Thread):
 
     def log_to_file(self):
         self.logf(self.raw_dict.values())
-        titles = self.job_spec["logged_operations"].copy()
-        for ref in self.job_spec["references"].keys():
+        titles = self.job_spec.get("logged_operations", {}).copy()
+        for ref in self.job_spec.get("references", {}).keys():
             ref = "reference.{}".format(ref)
             titles.append(ref)
         titles.insert(0, 'no.')  # Add the no. column title
@@ -265,26 +272,26 @@ class Logger(Thread):
             elif inst_id == "reference":
                 names[i] = op_id
             else:
-                names[i] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
+                names[i] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
             i = i + 1
         self.datanum = self.datanum + 1  # Increment the data number
         dataline = self.raw_dict.copy()
         dataline.update(self.ref_dict)
         dataline['no.'] = self.datanum
-        with open(self.out_dir_local + self.rawfilename, "a") as outfile:
+        with open(self.out_dir + self.rawfilename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline)
 
         dataline = self.trans_dict.copy()
         dataline.update(self.ref_dict)
         dataline['no.'] = self.datanum
-        with open(self.out_dir_local + self.transfilename, "a") as outfile:
+        with open(self.out_dir + self.transfilename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline)
 
     def point_to_file(self):
-        titles = self.job_spec["logged_operations"].copy()
-        for ref in self.job_spec["references"].keys():
+        titles = self.job_spec.get("logged_operations", {}).copy()
+        for ref in self.job_spec.get("references", {}).keys():
             ref = "reference.{}".format(ref)
             titles.append(ref)
         titles.insert(0, 'no.')
@@ -300,7 +307,7 @@ class Logger(Thread):
             elif inst_id == "reference":
                 names[i] = op_id
             else:
-                names[i] = self.instruments.get(inst_id).spec["operations"][op_id]["name"]
+                names[i] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
             i = i + 1
         namess = names.copy()
         namess.append('comment')
@@ -327,16 +334,15 @@ class Logger(Thread):
         dataline['window'] = self.window
         dataline['comment'] = self.comment
         dataline2 = {name: dataline[name] for name in namesp}
-        with open(self.out_dir_local + self.rawpointsname, "a") as outfile:
+        with open(self.out_dir + self.rawpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline2)
 
-        self.rsources["no."] = [self.pointsnum for i in range(len(self.rsources["datetime"]))]
-        self.rsources["comment"] = [self.comment for i in range(len(self.rsources["datetime"]))]
-        with open(self.out_dir_local + self.rawsourcename, "a") as outfile:
+        self.rsources["comment"] = [self.comment for i in range(len(self.rsources.get("datetime", {})))]
+        with open(self.out_dir + self.rawsourcename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel", delimiter='\t')
             rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
-            for i in range(len(self.rsources["datetime"])):
+            for i in range(len(self.rsources.get("datetime", {}))):
                 writer.writerow(rows[i])
 
         dataline = self.trans_dict.copy()
@@ -348,16 +354,16 @@ class Logger(Thread):
         dataline['window'] = self.window
         dataline['comment'] = self.comment
         dataline2 = {title: dataline[title] for title in namesp}
-        with open(self.out_dir_local + self.transpointsname, "a") as outfile:
+        with open(self.out_dir + self.transpointsname, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
             writer.writerow(dataline2)
 
-        self.tsources["no."] = [self.pointsnum for i in range(len(self.tsources["datetime"]))]
-        self.tsources["comment"] = [self.comment for i in range(len(self.tsources["datetime"]))]
-        with open(self.out_dir_local + self.transsourcename, "a") as outfile:
+        self.tsources["no."] = [self.pointsnum for i in range(len(self.tsources.get("datetime", {})))]
+        self.tsources["comment"] = [self.comment for i in range(len(self.tsources.get("datetime", {})))]
+        with open(self.out_dir + self.transsourcename, "a") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel", delimiter='\t')
             rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
-            for i in range(len(self.tsources["datetime"])):
+            for i in range(len(self.tsources.get("datetime", {}))):
                 writer.writerow(rows[i])
 
         self.job.frame.comment_input.Clear()

@@ -2,7 +2,7 @@
     "job_name": "220504TEST3900",
     "job_id": 1,
     "job_notes": "comment",
-    "out_dir_global": "C:\\datasync\\280422_test_valve_temperature\\",
+    "out_dir": "C:\\datasync\\",
     "filename": "220504TEST3900",
     "min_interval": 1,
     "time": 0,

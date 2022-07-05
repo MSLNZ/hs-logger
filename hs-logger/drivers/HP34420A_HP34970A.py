@@ -12,9 +12,9 @@ class HP34420A_HP34970A(object):
         self.hp970a = rm.open_resource(spec['port_scanner'])
 
     def read_instrument(self, op_id):
-        op = self.spec["operations"][op_id]
-        channel = op["channel"]
-        nplc = op["nplc"]
+        op = self.spec.get("operations", {}).get(op_id, "")
+        channel = op.get("channel", 0)
+        nplc = op.get("nplc", 20)
         self.configure_nlpc(nplc)
         val = self.read_channel(channel)
         val = np.float64(val)

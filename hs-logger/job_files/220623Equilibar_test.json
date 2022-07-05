@@ -2,7 +2,7 @@
     "job_name":"Equilibar_test",
     "job_id":2,
     "job_notes":"comment",
-    "out_dir_global": "C:\\datasync\\220623Equilibar_test\\",
+    "out_dir": "C:\\datasync\\",
     "filename": "Equilibar_test",
     "min_interval": 0,
     "time":0,

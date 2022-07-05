@@ -2,7 +2,7 @@
     "job_name": "pressure_calibration",
     "job_id": 0,
     "job_notes": "This job is for use by pressure standards to run their calibration of the humidity standards pressure sensors.",
-    "out_dir_local": "C:\\data\\pressure",
+    "out_dir": "C:\\datasync\\",
     "filename": "PRESSURE",
     "min_interval": 0,
     "time": 0,

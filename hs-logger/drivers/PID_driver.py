@@ -37,7 +37,7 @@ class PID_driver(object):
             inst_w = self.write[0]
             if init in instrument["operations"]:
                 self.u = inst_w.read_instrument(init)[1]  # Write the control variable
-        except (OSError, ValueError):
+        except (OSError, ValueError, KeyError):
             sys.stderr.write("Error loading instrument: {}".format(spec.get("control")[0]))
             sys.exit(1)
 
@@ -99,22 +99,22 @@ class PID_driver(object):
                 except (OSError, ValueError):
                     sys.stderr.write("Error loading instrument: {}".format(op_spec[i]))
                     sys.exit(1)
-                driver_name = instrument["driver"]
+                driver_name = instrument.get("driver", "")
 
                 # Check if op is in inst
                 if operation in instrument["operations"]:
-                    if "transducer" in instrument["operations"][operation]:
-                        td = json.load(open(instrument["operations"][operation]["transducer"]))
-                        instrument["operations"][operation].update(td)
+                    if "transducer" in instrument.get("operations", {}).get(operation, {}):
+                        td = json.load(open(instrument.get("operations", {}).get(operation, {}).get("transducer", "")))
+                        instrument.get("operations", {}).get(operation, {}).update(td)
                         names = []
-                        if instrument["operations"][operation]["t_name"] != "":
-                            names.append(instrument["operations"][operation]["t_name"])
-                        if instrument["operations"][operation]["t_id"] != "":
-                            names.append(instrument["operations"][operation]["t_id"])
-                        names.append(instrument["operations"][operation]["name"])
+                        if instrument.get("operations", {}).get(operation, {}).get("t_name", "") != "":
+                            names.append(instrument.get("operations", {}).get(operation, {})["t_name"])
+                        if instrument.get("operations", {}).get(operation, {}).get("t_id", "") != "":
+                            names.append(instrument.get("operations", {}).get(operation, {}).get("t_id", ""))
+                        names.append(instrument.get("operations", {}).get(operation, {}).get("name", ""))
                         c_name = " "
                         c_name = c_name.join(names)
-                        instrument["operations"][operation]["name"] = c_name
+                        instrument.get("operations", {})[operation]["name"] = c_name
                 else:
                     sys.stderr.write("Operation not in instrument: {}".format(op_spec[i]))
                     sys.exit(1)

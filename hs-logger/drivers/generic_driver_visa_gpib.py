@@ -10,9 +10,12 @@ import math
 class generic_driver_visa_gpib(object):
 
     def __init__(self, spec):
+        """This driver expects to receive information on:
+        port, read/write terms
+        It can also accept doOpen = False, which will skip the open instrument command"""
         self.spec = spec
-        self.operations = spec['operations']
-        port = spec["port"]
+        self.operations = spec.get('operations', {})
+        port = spec["port"]  # Port is required and can't be generalised.
         w_term = spec.get("write_termination", '\r')
         r_term = spec.get("read_termination", '\r\n')
         doOpen = spec.get("doOpen", True)
@@ -31,15 +34,19 @@ class generic_driver_visa_gpib(object):
         """
         read instrument
         """
-        operation = self.operations[operation_id]
+        try:
+            operation = self.operations[operation_id]
+        except KeyError:
+            print("Invalid operation")
+            return float("NaN"), float("NaN")
         # datatype = operation['data_type']
-        type = operation['type']
+        dtype = operation.get('type', "read_single")
         echo = self.spec.get('echo', False)
         stored = self.store.get(operation_id, (None, time.time()-(self.timeout+1)))
         if time.time() - stored[1] < self.timeout:
             data, data_trans = stored[0]
         else:
-            if type == 'read_store':
+            if dtype == 'read_store':
                 self.read_instrument(operation.get("store_id"))
                 stored = self.store.get(operation_id)
                 if time.time() - stored[1] > self.timeout:
@@ -47,10 +54,10 @@ class generic_driver_visa_gpib(object):
                     return -1, -1
                 data, data_trans = stored[0]
                 return data, data_trans
-            elif type == 'read_multiple':
+            elif dtype == 'read_multiple':
                 with self.lock:
                     # print("locK")
-                    self.instrument.write(operation['command'])
+                    self.instrument.write(operation.get('command', ""))
                     if echo:
                         self.instrument.read()
                     data = self.instrument.read()
@@ -76,10 +83,10 @@ class generic_driver_visa_gpib(object):
 
                     data_trans = [self.transform(d, operation) for d in data]
                 # print('unlocK')
-            elif type == 'read_single':
+            elif dtype == 'read_single':
                 with self.lock:
                     # print("locK")
-                    self.instrument.write(operation['command'])
+                    self.instrument.write(operation.get('command', ""))
                     data = 0
                     try:
                         while True:
@@ -93,7 +100,7 @@ class generic_driver_visa_gpib(object):
                 with self.lock:
                     # print("lock")
                     print(operation['command'])
-                    self.instrument.write(operation['command'])
+                    self.instrument.write(operation.get('command', ""))
                     try:
                         while True:
                             data = self.instrument.read()
@@ -113,7 +120,11 @@ class generic_driver_visa_gpib(object):
             write instrument 
             """
             # todo: check valid values for sending to instrument
-            op = self.operations[operation_id]
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             command = command.format(*values)
 
@@ -137,7 +148,11 @@ class generic_driver_visa_gpib(object):
     def action_instrument(self, operation_id):
         with self.lock:
             self.instrument.timeout = 10000
-            op = self.operations[operation_id]
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             # response = self.instrument.query(command,delay=1)
             response = ""
@@ -226,76 +241,14 @@ if __name__ == '__main__':
     main()
 
 
-# import visa
-# import json
-# import time
-# from decimal import Decimal
+# #testing
+# def main():
+#     instr = generic_driver_visa(json.load(open('../instruments/HG3900_visa.json')))
+#     print (instr.read_instrument('read_default'))
+#     print (instr.read_instrument('read_default'))
+#     time.sleep(2)
+#     print (instr.read_instrument('read_default'))
 #
-# class generic_driver_visa_gpib(object):
 #
-#     def __init__(self, spec):
-#         # self.spec =spec
-#         # self.operations = spec['operations']
-#         #self.operations =[ ]
-#         port = spec["port"]
-#         # baud = spec["baudrate"]
-#         w_term = spec.get("write_termination", '\r')
-#         r_term = spec.get("read_termination", '\r\n')
-#         rm = visa.ResourceManager()
-#         # self.store = {}
-#         # self.timeout = 2
-#         self.instrument = rm.open_resource(port,
-#                                            write_termination=w_term,
-#                                            read_termination=r_term)
-#         #self.instrument.open() is needed?
-#
-#     def read_instrument(self,command):
-#         """
-#         read instrument
-#         """
-#         return self.instrument.q
-#
-#         return data, data_trans
-#
-#     def query(self,request):
-#         return self.instrument.query(request)
-#
-#     def write(self):
-#         pass
-#     #todo writing to instruments
-#     def write_instrument(self,operation_id,values):
-#         """
-#         write instrument
-#         """
-#         return "not working yet"
-#
-#     def decimals(self,data,operation):
-#         d_shift = operation.get('decimal_shift',0)
-#         return Decimal(data).scaleb(d_shift)
-#
-#     def transform(self,data,operation):
-#         x = data
-#         eq = operation.get("transform_eq",'x')
-#         c = operation.get("transform_coeff",None)
-#         result = eval(eq)
-#         return result
-#
-#     def convert_to(self,data,datatype):
-#         if datatype == 'int':
-#             return int(data)
-#         elif datatype == 'float':
-#             return float(data)
-#         else:
-#             return data
-#
-# # #testing
-# # def main():
-# #     instr = generic_driver_visa(json.load(open('../instruments/HG3900_visa.json')))
-# #     print (instr.read_instrument('read_default'))
-# #     print (instr.read_instrument('read_default'))
-# #     time.sleep(2)
-# #     print (instr.read_instrument('read_default'))
-# #
-# #
-# # if __name__ == '__main__':
-# #     main()
+# if __name__ == '__main__':
+#     main()
