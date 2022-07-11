@@ -7,8 +7,8 @@
     "transform_eq":["T", 3.928500E-03,-7.2230E-07,9.3270E-12,99.947955],
     "check_date": "15/08/2016",
     "cal_date": "09/08/2016",
-    "check_freq": 0.5,
-    "cal_freq": 5,
+    "check_freq": 0,
+    "cal_freq": 0,
     "rep_num": "Temperature/2016/593, 9 August 2016",
     "uncertainty": 9E-03
 }

@@ -3,7 +3,7 @@
     "instrument_name": "Isotech microK with attached microsKanner",
     "driver": "generic_driver_visa_gpib",
     "interface": "visa",            
-    "port": "GPIB0::13::INSTR",
+    "port": "GPIB1::13::INSTR",
     "baudrate":9600,
     "write_termination": "\n",
     "read_termination": "\n",
@@ -32,7 +32,7 @@
             "name": "C02",
             "id": "read_2",
             "command": "MEAS:FRES2:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/DP30.json"
+            "transducer": "instruments/transducers/temperature/SIL010.json"
         },
         "read_3": {
             "type": "read_single",
@@ -102,7 +102,7 @@
             "name":"C18",
             "id": "read_18",
             "command": "MEAS:FRES18:REF204? 200,1",
-            "transducer": "instruments/transducers/temperature/DP30.json"
+            "transducer": "instruments/transducers/temperature/SIL010.json"
         },
         "read_19": {
             "type": "read_single",
@@ -110,13 +110,13 @@
             "id": "read_19",
             "command": "MEAS:FRES19:REF204? 200,1",
             "transducer": "instruments/transducers/temperature/SIL038.json"
-        }
+        },
         "read_2_r2": {
             "type": "read_single",
             "name": "C02_r2",
             "id": "read_2_r2",
             "command": "MEAS:FRES2:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/DP30.json"
+            "transducer": "instruments/transducers/temperature/SIL010.json"
         },
         "read_3_r2": {
             "type": "read_single",
@@ -186,7 +186,7 @@
             "name":"C18_r2",
             "id": "read_18_r2",
             "command": "MEAS:FRES18:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/DP30.json"
+            "transducer": "instruments/transducers/temperature/SIL010.json"
         },
         "read_19_r2": {
             "type": "read_single",

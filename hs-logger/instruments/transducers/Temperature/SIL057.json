@@ -1,11 +1,11 @@
 {
     "t_name": "",
     "t_id": "SIL057",
-    "details": "3mmx150mm",
+    "details": "3mmx150mm, has drifted significantly",
     "data_type": "float",
     "unit": "",
     "transform_eq":["T", 3.912140E-03,-5.9650E-07,-4.9040E-12,99.7975523597],
-    "check_date": "30/06/2021",
+    "check_date": "30/06/2022",
     "cal_date": "16/09/2019",
     "check_freq": 0.5,
     "cal_freq": 5,

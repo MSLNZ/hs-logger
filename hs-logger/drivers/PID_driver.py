@@ -6,8 +6,9 @@ import os
 
 class PID_driver(object):
 
-    def __init__(self, spec):
+    def __init__(self, spec, insts):
         self.spec = spec
+        self.insts = insts
 
         # Create variables for PID control.
         self.hs_address = os.getcwd()
@@ -31,15 +32,10 @@ class PID_driver(object):
         self.read, self.write = self.load_operations([spec.get("measure"), spec.get("control")])
 
         # Initialize self.u
-        try:
-            instrument = json.load(open(self.hs_address + "\\instruments\\" + spec.get("control")[0]))
-            init = instrument["operations"][self.write[1]].get("check_set", "")
-            inst_w = self.write[0]
-            if init in instrument["operations"]:
-                self.u = inst_w.read_instrument(init)[1]  # Write the control variable
-        except (OSError, ValueError, KeyError):
-            sys.stderr.write("Error loading instrument: {}".format(spec.get("control")[0]))
-            sys.exit(1)
+        init = self.write[0].spec.get("operations", {}).get(self.write[1], {}).get("check_actual", "")
+        inst_w = self.write[0]
+        if init in self.write[0].spec.get("operations", {}):
+            self.u = inst_w.read_instrument(init)[1]  # Write the control variable
 
     def read_instrument(self, op_id):
         # In this section, read the instrument, update the control settings, and write to the control.
@@ -69,7 +65,7 @@ class PID_driver(object):
                 output = self.min
             inst_w = self.write[0]
             inst_w.write_instrument(self.write[1], [output])  # Write the control variable
-            # print("Y:{}, R:{}, E:{}, P:{}, I:{}, D:{}, U:{}".format(self.y, self.r, self.e, p, i, d, self.u))
+            print("Y:{}, R:{}, E:{}, P:{}, I:{}, D:{}, U:{}".format(self.y, self.r, self.e, p, i, d, self.u))
             return output, self.y
 
     def write_instrument(self, op_id, message):
@@ -87,15 +83,13 @@ class PID_driver(object):
     def load_operations(self, op_spec):
         # op_spec is a 2x2 array of the specific instrument and operation that should be read or written.
         operations = []
-        instruments = {}
+        instruments = self.insts
         for i in range(len(op_spec)):
             inst_id = op_spec[i][0]
             operation = op_spec[i][1]
-            if inst_id in instruments:
-                instrument = instruments[inst_id]
-            else:
+            if inst_id not in instruments:
                 try:
-                    instrument = json.load(open(self.hs_address + "\\instruments\\" + op_spec[i][0]))
+                    instrument = json.load(open(self.hs_address + "\\instruments\\" + op_spec[i][0] + ".json"))
                 except (OSError, ValueError):
                     sys.stderr.write("Error loading instrument: {}".format(op_spec[i]))
                     sys.exit(1)
@@ -122,8 +116,9 @@ class PID_driver(object):
                 driver = getattr(__import__("drivers." + driver_name), driver_name)
                 klass = getattr(driver, driver_name)
                 inst_driver = klass(instrument)
-                instruments[inst_id] = [inst_driver, instrument]
-            operations.append([instruments[inst_id][0], operation])
+                instruments[inst_id] = inst_driver
+
+            operations.append([instruments[inst_id], operation])
 
         return operations
 

@@ -400,6 +400,14 @@ class myjobframe(job_frame):
                     print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
                 else:
                     value = refcalc.h2_ex_h1(hum, p1, p2, t1, t2, df1, df2)
+            elif references[ref].get("type") == "ms":
+                value = (t1*df1)+(t2*df2)
+            elif references[ref].get("type") == "mm":
+                try:
+                    value = (t1**df1)*(t2**df2)
+                except ZeroDivisionError:
+                    print("Division by zero")
+                    value = float("NaN")
             else:
                 print("Invalid reference.")
                 raise ValueError()
@@ -777,7 +785,6 @@ class Controller(object):
                 if isinstance(instrument, str):
                     try:
                         instrument = json.load(open(instrument))
-
                     except (OSError, ValueError):
                         sys.stderr.write("Error Loading Instrument: {}".format(inst_id))
                         sys.exit(1)
@@ -805,7 +812,10 @@ class Controller(object):
                 # if str.startswith(driver_name, "generic"):  # else  ## These two statements did the same thing
                 driver = getattr(__import__("drivers." + driver_name), driver_name)
                 klass = getattr(driver, driver_name)
-                inst_driver = klass(instrument)
+                if driver_name == "PID_driver":
+                    inst_driver = klass(instrument, instruments)
+                else:
+                    inst_driver = klass(instrument)
                 instruments[inst_id] = inst_driver
 
         return instruments

@@ -8,7 +8,6 @@
     "time": 0,
     "instruments": {
         "Julabo_HL": "instruments/Julabo_HL_Serial.json",
-        "microK": "instruments/microK-microsKanner.json",
         "PID_julabo": "instruments/PID_inst_test_JULABO.json"
     },
     "logged_operations": [
@@ -16,8 +15,8 @@
         "time.datetime",
         "Julabo_HL.read_Tm",
         "Julabo_HL.read_Tsp1",
-        "microK.read_3",
-        "PID_inst_test.read_control"
+        "PID_julabo.setpoint_check",
+        "PID_julabo.read_control"
     ],
     "references": {
     },
@@ -28,8 +27,7 @@
                 "Julabo_HL.read_Tm",
                 "Julabo_HL.read_Tsp1",
                 "PID_julabo.setpoint_check",
-                "PID_julabo.read_control",
-                "microK.read_3"
+                "PID_julabo.read_control"
             ]
         }
     }
