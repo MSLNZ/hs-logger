@@ -13,7 +13,7 @@ class Job(object):
         frame_log = Text_Log(frame.job_disp_log)
         self.logger = Logger(self, inst_drivers, frame_log)
         self.frame = frame
-        self.frame.SetTitle(u"{}".format(spec.get("job_name", "")))
+        self.frame.SetTitle(f"{spec.get('job_name', '')}")  # Was u""
         self.graphs = []
         self.frame.add_table(4, len(spec.get("logged_operations", {}))+len(spec.get("references", {}))-1)
         self.auto_profile = AutoProfile(self)
@@ -36,10 +36,10 @@ class Job(object):
         pass
 
     def auto_profile_actions(self, actions):
-        self.frame.reading_text.SetLabel(u"Writing:")
+        self.frame.reading_text.SetLabel("Writing:")  # Was u""
         for inst_op, val in actions:
             # inst_op = inst_op.split(".")
-            self.frame.current_reading.SetLabel(u"{} = {}".format(inst_op, val))
+            self.frame.current_reading.SetLabel(f"{inst_op} = {val}")  # Was u""
             if inst_op != "":
                 i_id, op_id = inst_op.split(".")
                 op_check = self.logger.instruments.get(i_id).spec.get("operations", {}).get(op_id, {}).get("check_set", "")
@@ -52,22 +52,22 @@ class Job(object):
                         i = 0
                         while curset != float(val) and i < 5:
                             i = i + 1
-                            print("Write attempt {}".format(i))
+                            print(f"Write attempt {i}")
                             inst_driver.write_instrument(op_id, [val])
                             curset = self.auto_profile.check_instrument(i_id, op_check)
-                            print("{} = {}?".format(float(val), curset))
+                            print(f"{float(val)} = {curset}?")
                 except:
                     print("auto profile action error")
-        self.frame.reading_text.SetLabel(u"Waiting...")
-        self.frame.current_reading.SetLabel(u"")
+        self.frame.reading_text.SetLabel("Waiting...")  # Was u""
+        self.frame.current_reading.SetLabel("")  # Was u""
 
     def update_autoprofile(self):
         self.auto_profile.update()
 
     def new_autoprofile_col(self):
-        name, inst_ops, inst_opc, inst_opr = self.frame.get_autoprofile_new_action_dlg()
+        name, inst_ops = self.frame.get_autoprofile_new_action_dlg()
         if name != "cancelled":
-            self.auto_profile.new_set_op(name, inst_ops, inst_opc, inst_opr)
+            self.auto_profile.new_set_op(name, inst_ops)
 
     def next_point(self):
         self.auto_profile.next_point()
@@ -141,7 +141,7 @@ class Job(object):
                 self.graphs[index].append((x, y))
                 self.update_graphs()
             else:
-                print("{} already in {}.".format(y, self.graphs[index][0][1]))
+                print(f"{y} already in {self.graphs[index][0][1]}.")
 
     def detract_graph(self, plt):  # Removes a line from the selected graph
         graph_choices = []
@@ -190,7 +190,10 @@ class Job(object):
                     else:
                         y_val = [d[1].get(y) for d in self.logger.store]
                         if inst_y != "time":
-                            y_name = self.logger.instruments.get(inst_y).spec["operations"][op]["name"]
+                            try:
+                                y_name = self.logger.job_spec["details"][inst_y][op]
+                            except KeyError:
+                                y_name = self.logger.instruments.get(inst_y).spec["operations"][op]["name"]
                         else:
                             y_name = op
                     leg.append(y_name)
@@ -227,7 +230,7 @@ class AutoProfile(object):
 
         self.current_point = 0
         self.point_start_time = time.time() / 60
-        self.transtime = u""
+        self.transtime = ""  # Was u""
 
     def reset(self):
         self.profile_header = ["Points", "Soak", "Assured"]
@@ -298,14 +301,12 @@ class AutoProfile(object):
         # self.job.frame.add_profile_table(self)
         self.move_to_point(self.current_point)
 
-    def new_set_op(self, name, inst_ops, inst_opc, inst_opr, default=0):
+    def new_set_op(self, name, inst_ops, default=0):
         points = [0 for _ in range(self.points)]
         self.operations[name] = (inst_ops, points)
         self.h_name.append(name)
         self.profile_header = self.h_name.copy()
         self.h_set.append(inst_ops)
-        # self.h_actual.append(inst_opr)
-        # self.h_check.append(inst_opc)
         grid = self.job.frame.grid_auto_profile
         # msg = wx.grid.GridTableMessage(grid.table,
         #                                wx.grid.GRIDTABLE_NOTIFY_COLS_APPENDED, 1)
@@ -387,11 +388,11 @@ class AutoProfile(object):
         timeleft = (t1 - (time.time()/60))
         if index < 3:
             if timeleft < 0:
-                self.transtime = u"Now"
+                self.transtime = "Now"  # Was u""
                 self.next_point()
             else:
                 timeleft = round(timeleft, 1)
-                self.transtime = u"{}".format(timeleft)
+                self.transtime = f"{timeleft}"  # Was u""
         else:
             inst, ops = self.h_set[index].split('.')
             opc = self.job.logger.instruments.get(inst).spec.get("operations", {}).get(ops, {}).get("check_set", "")
@@ -400,11 +401,11 @@ class AutoProfile(object):
             # inst, opa = self.h_actual[index].split('.')
             if opc == "" or opa == "":
                 if timeleft < 0:
-                    self.transtime = u"Now"
+                    self.transtime = "Now"  # Was u""
                     self.next_point()
                 else:
                     timeleft = round(timeleft, 1)
-                    self.transtime = u"{}".format(timeleft)
+                    self.transtime = f"{timeleft}"  # Was u""
             else:
                 value1 = self.check_instrument(inst, opc)
                 value2 = self.check_instrument(inst, opa)
@@ -419,14 +420,14 @@ class AutoProfile(object):
                     std = self.stdev()
                     if abs(dif) < self.a_dif:
                         if std < self.a_std:
-                            self.transtime = u"Now"
+                            self.transtime = "Now"  # Was u""
                             self.next_point()
                         else:
-                            self.transtime = u"When stdev ({}) is less than {}.".format(std, self.a_std)
+                            self.transtime = f"When stdev ({std}) is less than {self.a_std}."  # Was u""
                     else:
-                        self.transtime = u"When difference ({}) is less than {}.".format(dif, self.a_dif)
+                        self.transtime = f"When difference ({dif}) is less than {self.a_dif}."  # Was u""
                 else:
-                    self.transtime = u"{}".format(timeleft)
+                    self.transtime = f"{timeleft}"  # Was u""
 
     def check_instrument(self, inst_id, operation_id):
         inst = self.job.logger.instruments.get(inst_id)

@@ -184,7 +184,7 @@ class generic_driver_visa_gpib(object):
         if self.isfloat(data):  # Check that the data can be transformed
             if eq[0] == 'T':  # Callendar-Van Dusen equation
                 if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
-                    print("{} with transform {} is out of range.".format(x,eq))
+                    print(f"{x} with transform {eq} is out of range.")
                     transformed = float("NaN")
                 else:
                     if x < eq[4]:
@@ -200,13 +200,13 @@ class generic_driver_visa_gpib(object):
                                 transformed = np.real(j)  # If the roots are same magnitude, give positive root
                     if math.isinf(transformed):
                         print("Invalid Callendar–Van Dusen equation: No real solutions for")
-                        print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
+                        print(f"R = {x}, R0 = {eq[4]}, A = {eq[1]}, B = {eq[2]}, C = {eq[3]}")
                         transformed = float("NaN")
             elif eq[0] == 'V' or eq[0] == 'P':
                 transformed = eq[1] + eq[2]*x + eq[3]*x**2 + eq[4]*x**3  # V and P both use cubic equations. P is
                 # listed purely for record keeping purposes
             else:
-                print("Transform form not recognised: {}".format(eq[0]))
+                print(f"Transform form not recognised: {eq[0]}")
                 transformed = float("NaN")
         else:
             transformed = float("NaN")  # The data can't be transformed

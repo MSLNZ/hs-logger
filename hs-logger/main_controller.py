@@ -3,7 +3,8 @@ import json
 import os
 import sys
 import numpy as np
-from wx_gui import ctrl_frame, job_frame, add_graph_dialog, append_graph_dialog, detract_graph_graph_dialog, detract_graph_axis_dialog, remove_graph_dialog, inst_pannel, new_action_autoprofile_dlg, Load_profile_dialog, continue_dialog
+from wx_gui import ctrl_frame, job_frame, add_graph_dialog, append_graph_dialog, detract_graph_graph_dialog, \
+    detract_graph_axis_dialog, remove_graph_dialog, inst_pannel, new_action_autoprofile_dlg, continue_dialog
 from job import Job
 import refcalc
 import datetime
@@ -286,8 +287,8 @@ class myjobframe(job_frame):
                 else:
                     rsource = raw
                     tsource = trans
-                self.job.logger.rsources["{}".format(rows[r])] = rsource
-                self.job.logger.tsources["{}".format(rows[r])] = tsource
+                self.job.logger.rsources[f"{rows[r]}"] = rsource
+                self.job.logger.tsources[f"{rows[r]}"] = tsource
             else:
                 raw = np.array([d[0].get(r) for d in data], np.float64)
                 trans = np.array([d[1].get(r) for d in data], np.float64)
@@ -309,21 +310,21 @@ class myjobframe(job_frame):
                     points.append([rows[r], trans[-1], tmean, tstd])
                 else:
                     points.append([rows[r], raw[-1], rmean, rstd])
-                self.job.logger.rmeans["{}".format("m" + rows[r])] = rmean
-                self.job.logger.rstds["{}".format("s" + rows[r])] = rstd
-                self.job.logger.rsources["{}".format(rows[r])] = rsource
-                self.job.logger.tmeans["{}".format("m" + rows[r])] = tmean
-                self.job.logger.tstds["{}".format("s" + rows[r])] = tstd
-                self.job.logger.tsources["{}".format(rows[r])] = tsource
+                self.job.logger.rmeans[f"m{rows[r]}"] = rmean
+                self.job.logger.rstds[f"s{rows[r]}"] = rstd
+                self.job.logger.rsources[f"{rows[r]}"] = rsource
+                self.job.logger.tmeans[f"m{rows[r]}"] = tmean
+                self.job.logger.tstds[f"s{rows[r]}"] = tstd
+                self.job.logger.tsources[f"{rows[r]}"] = tsource
 
         references = self.job.spec.get("references", {})
         self.job.logger.ref_dict = {}
         for ref in references:
-            title = "reference.{}".format(ref)
+            title = f"reference.{ref}"
             datum = {}
             for comp in references[ref]:
                 if comp == "type":
-                    eq = "{}: {}".format(comp, references[ref][comp])
+                    eq = f"{comp}: {references[ref][comp]}"
                 elif comp == "df1" or comp == "df2":
                     datum[comp] = references[ref][comp]
                 else:
@@ -342,67 +343,67 @@ class myjobframe(job_frame):
             value = float("NaN")
             if references[ref].get("type") == "dd":
                 if hum < -80 or hum > 95:
-                    print("Dew point {} is out of range.".format(hum))
+                    print(f"Dew point {hum} is out of range.")
                 elif p1 < 0.9e5 or p1 > 22e5:
-                    print("Pressure 1 {} is out of range.".format(p1))
+                    print(f"Pressure 1 {p1} is out of range.")
                 elif p2 < 0.9e5 or p2 > 22e5:
-                    print("Pressure 2 {} is out of range.".format(p2))
+                    print(f"Pressure 2 {p2} is out of range.")
                 elif df1 not in [0, 1]:
-                    print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
+                    print(f"Dew/Frost 1 {df1} is not 0 or 1.")
                 elif df2 not in [0, 1]:
-                    print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
+                    print(f"Dew/Frost 2 {df2} is not 0 or 1.")
                 else:
                     value = refcalc.td2_ex_td1(hum, p1, p2, df1, df2)
             elif references[ref].get("type") == "hd":
                 if hum < -80 or hum > 95:
-                    print("Dew point {} is out of range.".format(hum))
+                    print(f"Dew point {hum} is out of range.")
                 elif p1 < 0.9e5 or p1 > 22e5:
-                    print("Pressure 1 {} is out of range.".format(p1))
+                    print(f"Pressure 1 {p1} is out of range.")
                 elif p2 < 0.9e5 or p2 > 22e5:
-                    print("Pressure 2 {} is out of range.".format(p2))
+                    print(f"Pressure 2 {p2} is out of range.")
                 elif t2 < -80 or t2 > 150:
-                    print("Temperature 2 {} is out of range.".format(t2))
+                    print(f"Temperature 2 {t2} is out of range.")
                 elif df1 not in [0, 1]:
-                    print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
+                    print(f"Dew/Frost 1 {df1} is not 0 or 1.")
                 elif df2 not in [0, 1]:
-                    print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
+                    print(f"Dew/Frost 2 {df2} is not 0 or 1.")
                 else:
                     value = refcalc.h2_ex_td1(hum, p1, p2, t2, df1, df2)
             elif references[ref].get("type") == "dh":
                 if hum < 0.005 or hum > 120:
-                    print("Relative Humidity {} is out of range.".format(hum))
+                    print(f"Relative Humidity {hum} is out of range.")
                 elif p1 < 0.9e5 or p1 > 22e5:
-                    print("Pressure 1 {} is out of range.".format(p1))
+                    print(f"Pressure 1 {p1} is out of range.")
                 elif p2 < 0.9e5 or p2 > 22e5:
-                    print("Pressure 2 {} is out of range.".format(p2))
+                    print(f"Pressure 2 {p2} is out of range.")
                 elif t1 < -80 or t1 > 150:
-                    print("Temperature 1 {} is out of range.".format(t1))
+                    print(f"Temperature 1 {t1} is out of range.")
                 elif df1 not in [0, 1]:
-                    print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
+                    print(f"Dew/Frost 1 {df1} is not 0 or 1.")
                 elif df2 not in [0, 1]:
-                    print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
+                    print(f"Dew/Frost 2 {df2} is not 0 or 1.")
                 else:
                     value = refcalc.td2_ex_h1(hum, p1, p2, t1, df1, df2)
             elif references[ref].get("type") == "hh":
                 if hum < 0.005 or hum > 120:
-                    print("Relative Humidity {} is out of range.".format(hum))
+                    print(f"Relative Humidity {hum} is out of range.")
                 elif p1 < 0.9e5 or p1 > 22e5:
-                    print("Pressure 1 {} is out of range.".format(p1))
+                    print(f"Pressure 1 {p1} is out of range.")
                 elif p2 < 0.9e5 or p2 > 22e5:
-                    print("Pressure 2 {} is out of range.".format(p2))
+                    print(f"Pressure 2 {p2} is out of range.")
                 elif t1 < -80 or t1 > 150:
-                    print("Temperature 1 {} is out of range.".format(t1))
+                    print(f"Temperature 1 {t1} is out of range.")
                 elif t2 < -80 or t2 > 150:
-                    print("Temperature 2 {} is out of range.".format(t2))
+                    print(f"Temperature 2 {t2} is out of range.")
                 elif df1 not in [0, 1]:
-                    print("Dew/Frost 1 {} is not 0 or 1.".format(df1))
+                    print(f"Dew/Frost 1 {df1} is not 0 or 1.")
                 elif df2 not in [0, 1]:
-                    print("Dew/Frost 2 {} is not 0 or 1.".format(df2))
+                    print(f"Dew/Frost 2 {df2} is not 0 or 1.")
                 else:
                     value = refcalc.h2_ex_h1(hum, p1, p2, t1, t2, df1, df2)
             elif references[ref].get("type") == "ms":
                 value = (t1*df1)+(t2*df2)
-            elif references[ref].get("type") == "mm":
+            elif references[ref].get("type") == "mp":
                 try:
                     value = (t1**df1)*(t2**df2)
                 except ZeroDivisionError:
@@ -415,10 +416,10 @@ class myjobframe(job_frame):
         self.job.logger.storeref.append(self.job.logger.ref_dict)
         data = self.job.logger.storeref.copy()
         for ref in references:
-            title = "reference.{}".format(ref)
+            title = f"reference.{ref}"
             value = self.job.logger.ref_dict.get(title, float("NaN"))
             refdata = np.array([d.get(title, float("NaN")) for d in data])
-            if self.job.logger.window < len(raw):
+            if self.job.logger.window < len(refdata):
                 mean = np.mean(refdata[-self.job.logger.window:])
                 std = np.std(refdata[-self.job.logger.window:])
                 source = refdata[-self.job.logger.window:]
@@ -426,28 +427,27 @@ class myjobframe(job_frame):
                 mean = np.mean(refdata)
                 std = np.std(refdata)
                 source = refdata
-            self.job.logger.rmeans["{}".format("m" + ref)] = mean
-            self.job.logger.rstds["{}".format("s" + ref)] = std
-            self.job.logger.rsources["{}".format(ref)] = source
-            self.job.logger.tmeans["{}".format("m" + ref)] = mean
-            self.job.logger.tstds["{}".format("s" + ref)] = std
-            self.job.logger.tsources["{}".format(ref)] = source
+            self.job.logger.rmeans[f"m{ref}"] = mean
+            self.job.logger.rstds[f"s{ref}"] = std
+            self.job.logger.rsources[f"{ref}"] = source
+            self.job.logger.tmeans[f"m{ref}"] = mean
+            self.job.logger.tstds[f"s{ref}"] = std
+            self.job.logger.tsources[f"{ref}"] = source
             points.append([ref, value, mean, std])
 
         if len(self.job.logger.store)-len(self.job.logger.storeref) != 0:
-            raise ValueError("References are {} long, rather than {}.".format(len(self.job.logger.storeref),
-                                                                              len(self.job.logger.store)))
+            raise ValueError(f"References are {len(self.job.logger.storeref)} long, rather than {len(self.job.logger.store)}.")
 
         num = int(self.reading_number.GetLabel()) + 1
-        self.reading_number.SetLabel(u"{}".format(num))
+        self.reading_number.SetLabel(f"{num}")  # Was u""
         self.next_point_time.SetLabel(self.job.auto_profile.transtime)
         if self.countdown > -1:
             if self.countdown - num < 1:
                 self.countdown = -1
                 self.job.save_points()
-                self.countdown_number.SetLabel(u"")
+                self.countdown_number.SetLabel("")  # Was u""
             else:
-                self.countdown_number.SetLabel(u"{}".format(self.countdown - num))
+                self.countdown_number.SetLabel(f"{self.countdown - num}")  # Was u""
         if self.resumewait:
             self.resumewait = False
             self.resume_b.Enable(True)
@@ -490,17 +490,13 @@ class myjobframe(job_frame):
         name = "cancelled"
         inst = "time"
         ops = "runtime"
-        opc = "runtime"
-        opr = "runtime"
         res = dlg.ShowModal()
         if res == wx.ID_OK:
             name = dlg.profile_name_ctrl.GetValue()
             inst = dlg.profile_inst_ctrl.GetValue()
             ops = dlg.profile_set_ctrl.GetValue()
-            opc = dlg.profile_check_ctrl.GetValue()
-            opr = dlg.profile_read_ctrl.GetValue()
         dlg.Destroy()
-        return name, "{}.{}".format(inst, ops), "{}.{}".format(inst, opc, "{}.{}".format(inst, opr))
+        return name, f"{inst}.{ops}"
 
     def new_profile_action(self, event):
         self.job.new_autoprofile_col()
@@ -564,7 +560,7 @@ class MyInstPannel(inst_pannel):
         self.ctrl = ctrl
         self.inst = instrument
         self.spec = instrument.spec
-        self.SetTitle(u"{}".format(self.spec.get("instrument_name", "")))
+        self.SetTitle(f"{self.spec.get('instrument_name', '')}")  # Was u""
         self.com_text_ctrl = self.spec.get("port", "")
         operations = self.spec.get("operations", "")
         self.action_choice.Clear()
@@ -728,8 +724,8 @@ class Controller(object):
         self.app.MainLoop()
 
     def open_job_file(self, direc, fn, cb, err):
+        f = open(os.path.join(direc, fn), 'r')
         try:
-            f = open(os.path.join(direc, fn), 'r')
             job_spec = json.load(f)
             jn = job_spec.get("job_name", "")
             job_instrument_drivers = self.load_instruments(job_spec.get("instruments", {}))
@@ -752,11 +748,11 @@ class Controller(object):
             f.close()
 
     def open_inst_file(self, direc, fn, cb, err):
+        inst = open(os.path.join(direc, fn), 'r')
         try:
-            inst = open(os.path.join(direc, fn), 'r')
             inst_spec = json.load(inst)
             inst_name = inst_spec.get("instrument_name", "")
-            inst_driver = self.load_instruments({inst_name: "{}\\{}".format(direc, fn)})
+            inst_driver = self.load_instruments({inst_name: f"{direc}\\{fn}"})
             self.update_instruments(inst_driver)
             cb(True)
         except ValueError as e:
@@ -786,7 +782,7 @@ class Controller(object):
                     try:
                         instrument = json.load(open(instrument))
                     except (OSError, ValueError):
-                        sys.stderr.write("Error Loading Instrument: {}".format(inst_id))
+                        sys.stderr.write(f"Error Loading Instrument: {inst_id}")
                         sys.exit(1)
                 # inst_id = instrument["instrument_id"]
                 driver_name = instrument.get("driver", "")
@@ -832,13 +828,13 @@ class Controller(object):
         if check_freq == datetime.timedelta(0):
             check_freq = datetime.timedelta(9999*365.2425)
         if today - cal_date > cal_freq:  # Device is out of calibration. Confirm before proceeding.
-            message = "Error: {} out of calibration.".format(id)
+            message = f"Error: {id} out of calibration."
         elif today - cal_date + cal_freq/18 > cal_freq:  # Give a warning a few months ahead of calibration expiration
-            message = "{} will require calibration soon.".format(id)
+            message = f"{id} will require calibration soon."
         elif today - check_date > check_freq:  # Device requires checking. Confirm before proceeding.
-            message = "{} requires checking.".format(id)
+            message = f"{id} requires checking."
         elif today - check_date + check_freq/12 > check_freq:  # Give a warning about a week before a check is required
-            message = "{} will require checking soon.".format(id)
+            message = f"{id} will require checking soon."
         if message != "":
             print(message)
             if message.startswith("Error"):
@@ -848,7 +844,7 @@ class Controller(object):
 
     def get_continue_dialog(self, message):
         dlg = continue_dialog(self.frame)
-        dlg.Message.SetLabel(u"{}".format(message))
+        dlg.Message.SetLabel(f"{message}")  # Was u""
         res = dlg.ShowModal()
         dlg.Destroy()
         return res

@@ -2,7 +2,7 @@
     "job_name": "dummy_inst_job",
     "job_id": 1,
     "job_notes": "comment",
-    "out_dir": "C:\\datasync\\",
+    "out_dir": "C:\\datasync\\TEST",
     "filename": "dummy",
     "min_interval": 1,
     "time": 0,
@@ -20,7 +20,7 @@
     ],
     "details": {
         "dummy_inst": {
-            "read_test": "Test details"
+            "read_test": "THIS ONE IS DIFFERENT"
         }
     },
     "references": {
@@ -52,7 +52,7 @@
             "t2": "dummy_inst_2.read_test",
             "df1": 1,
             "df2": -1,
-            "type": "mm"
+            "type": "mp"
         },
         "multiplicative_average": {
             "hum": "dummy_inst.read_test",
@@ -62,7 +62,7 @@
             "t2": "dummy_inst_2.read_test",
             "df1": 0.5,
             "df2": 0.5,
-            "type": "mm"
+            "type": "mp"
         }
     },
     "graphs": {

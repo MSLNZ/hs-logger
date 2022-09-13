@@ -10,6 +10,7 @@
     "databits":8,
     "stopbits":2,
     "flowcontrol":"None",
+    "reverse": true,
     "notes": "some register addresses may be incorrect as modbus reference in manual appears to have errors will confirm with testing",
     "operations": {
         "read_signed_int_test":{

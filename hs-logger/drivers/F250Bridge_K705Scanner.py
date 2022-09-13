@@ -58,12 +58,12 @@ class F250Bridge_K705Scanner(object):
                             transformed = np.real(j)
                 if np.isinf(transformed):
                     print("Invalid Callendar–Van Dusen equation: No real solutions for")
-                    print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
+                    print(f"R = {x}, R0 = {eq[4]}, A = {eq[1]}, B = {eq[2]}, C = {eq[3]}")
                     transformed = float("NaN")
         elif eq[0] == 'V' or eq[0] == 'P':
             transformed = eq[1] + eq[2]*x + eq[3]*x**2 + eq[4]*x**3
         else:
-            print("Transform form not recognised: {}".format(eq[0]))
+            print(f"Transform form not recognised: {eq[0]}")
             raise ValueError
         # c = operation.get("transform_coeff", None)
         # transformed = eval(eq)
@@ -92,12 +92,12 @@ class F250Bridge_K705Scanner(object):
     def switch_scanner_channel(self, channel):
         assert channel in range(11, 21)
         self.open_all_channels()
-        # self.scanner.write("N{}X".format(self.active_channel))
+        # self.scanner.write(f"N{self.active_channel}X")
         # SCANNER WAIT TIME NEEDED
         time.sleep(1)
 
-        self.scanner.write("C{}X".format(channel))
-        self.scanner.write("B{}X".format(channel))
+        self.scanner.write(f"C{channel}X")
+        self.scanner.write(f"B{channel}X")
         time.sleep(4)
         self.active_channel = channel
 
@@ -111,14 +111,14 @@ class F250Bridge_K705Scanner(object):
         self.bridge.write('U3')
 
     def open_channel(self, channel):
-        self.write("N{}X".format(channel))
+        self.write(f"N{channel}X")
 
     def read_scanner_channel(self):
         return self.scanner.query("G0")
 
     def switch_bridge_prt(self, prt):
         # assert prt in ['A','B','C','D','I','J','K','L']
-        self.bridge.write("M{}".format(prt))
+        self.bridge.write(f"M{prt}")
 
 
 def main():

@@ -19,17 +19,17 @@ class Logger(Thread):
 
         filename = self.job_spec.get("filename", "TEST")
         hs_address = os.getcwd()
-        self.out_dir = self.job_spec.get("out_dir", "{}\\data_files\\".format(hs_address))
+        self.out_dir = self.job_spec.get("out_dir", f"{hs_address}\\data_files\\")
         if not self.out_dir.endswith("\\"):
-            self.out_dir = "{}\\".format(self.out_dir)
-        self.out_dir = "{}{}_{}\\".format(self.out_dir, t, filename)
+            self.out_dir = f"{self.out_dir}\\"
+        self.out_dir = f"{self.out_dir}{t}_{filename}\\"
         if not os.path.exists(self.out_dir):
             os.makedirs(self.out_dir)
 
         # self.out_dir_global = self.job_spec.get("out_dir_global", "C:\\datasync\\TEST\\")
         # if not self.out_dir_global.endswith("\\"):
-        #     self.out_dir_global = "{}\\".format(self.out_dir_global)
-        # self.out_dir_global = "{}{}_{}\\".format(self.out_dir_global, t, filename)
+        #     self.out_dir_global = f"{self.out_dir_global}\\"
+        # self.out_dir_global = "{self.out_dir_global}{t}_{filename}\\"
         # if not os.path.exists(self.out_dir_global):
         #     os.makedirs(self.out_dir_global)
 
@@ -111,12 +111,12 @@ class Logger(Thread):
         ls_time = time.time() / 60
         self.raw_dict = {}
         self.trans_dict = {}
-        self.job.frame.reading_text.SetLabel(u"Reading:")
+        self.job.frame.reading_text.SetLabel("Reading:")  # Was u""
         for inst, op in self.operations:
-            self.job.frame.current_reading.SetLabel(u"{}.{}".format(inst, op))
+            self.job.frame.current_reading.SetLabel(f"{inst}.{op}")  # Was u""
             self.read_instrument(inst, op)
-        self.job.frame.reading_text.SetLabel(u"Waiting...")
-        self.job.frame.current_reading.SetLabel(u"")
+        self.job.frame.reading_text.SetLabel("Waiting...")  # Was u""
+        self.job.frame.current_reading.SetLabel("")  # Was u""
         a = list(self.raw_dict.values())
         a.extend(list(self.trans_dict.values()))
         self.np_store = np.append(self.np_store, [a], axis=0)
@@ -133,13 +133,13 @@ class Logger(Thread):
     def read_instrument(self, inst_id, operation_id):
         inst = self.instruments.get(inst_id, "")
         result = inst.read_instrument(operation_id)
-        self.raw_dict["{}.{}".format(inst_id, operation_id)] = result[0]
-        self.trans_dict["{}.{}".format(inst_id, operation_id)] = result[1]
+        self.raw_dict[f"{inst_id}.{operation_id}"] = result[0]
+        self.trans_dict[f"{inst_id}.{operation_id}"] = result[1]
 
     def file_setup(self):
         self.opref = self.job_spec.get("logged_operations", {}).copy()
         for ref in self.job_spec.get("references", {}).keys():
-            ref = "reference.{}".format(ref)
+            ref = f"reference.{ref}"
             self.opref.append(ref)
         datafiles = [[self.rawfilename, self.transfilename],
                       [self.rawsourcename, self.transsourcename],
@@ -169,85 +169,93 @@ class Logger(Thread):
             if name == "no." or name == "datetime" or name == "runtime":
                 namesp.append(name)
             else:
-                namesp.append("m{}".format(name))
+                namesp.append(f"m{name}")
         for name in names:
             if name == "no." or name == "datetime" or name == "runtime":
                 pass
             else:
-                namesp.append("s{}".format(name))
+                namesp.append(f"s{name}")
         namesp.append('window')
         namesp.append('comment')
 
         for i in range(len(datafiles)):
             for datafile in datafiles[i]:
-                with open(self.out_dir + datafile, "w+") as outfile:
-                    for k, v in self.job_spec.items():
-                        if k == "job_name":
-                            outfile.write(datafile + "\n")
-                        elif k == "job_notes":
-                            outfile.write("Hash: {}; {}".format(self.hash, v) + "\n")
-                    if i == 0:
-                        writer = csv.writer(outfile, names, lineterminator='\n', delimiter='\t')
-                        writer.writerow(names)
-                    elif i == 1:
-                        writer = csv.writer(outfile, namess, lineterminator='\n', delimiter='\t')
-                        writer.writerow(namess)
-                    else:
-                        writer = csv.writer(outfile, 'excel', lineterminator='\n', delimiter='\t')
-                        writer.writerow(namesp)
+                try:
+                    with open(self.out_dir + datafile, "w+") as outfile:
+                        for k, v in self.job_spec.items():
+                            if k == "job_name":
+                                outfile.write(datafile + "\n")
+                            elif k == "job_notes":
+                                outfile.write(f"Hash: {self.hash}; {v}" + "\n")
+                        if i == 0:
+                            writer = csv.writer(outfile, names, lineterminator='\n', delimiter='\t')
+                            writer.writerow(names)
+                        elif i == 1:
+                            writer = csv.writer(outfile, namess, lineterminator='\n', delimiter='\t')
+                            writer.writerow(namess)
+                        else:
+                            writer = csv.writer(outfile, 'excel', lineterminator='\n', delimiter='\t')
+                            writer.writerow(namesp)
+                except FileNotFoundError:
+                    print("initiation error")
+                    raise FileNotFoundError
 
         # Create "sensor file" Todo change for instrument fix
         titles = ['Device', 'ChannelList', 'ID', 'Name', 'Description', 'A', 'B', 'C', 'R(0)/D', 'Date', 'ReportNo']
         info = {}
-        with open(self.out_dir + self.sensorname, "w+") as outfile:
-            outfile.write(self.sensorname + "\n")
-            outfile.write(self.job_spec["job_notes"] + "\n")
-            writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
-            writer.writerow(titles)
-            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', delimiter='\t')
-            for op in self.opref:  # Todo move this outside "with", iterate through a list of lists instead.
-                inst_id, op_id = op.split('.')
-                if inst_id == "time":
-                    pass
-                elif inst_id == "reference":
-                    info['Device'] = inst_id
-                    info['ChannelList'] = op_id
-                    info['ID'] = self.job_spec["references"][op_id].get("type", "")
-                    info['Name'] = ""
-                    info['Description'] = self.job_spec["references"][op_id].get("h1", "-")
-                    info['A'] = self.job_spec["references"][op_id].get("p1", "-")
-                    info['B'] = self.job_spec["references"][op_id].get("p2", "-")
-                    info['C'] = self.job_spec["references"][op_id].get("t1", "-")
-                    info['R(0)/D'] = self.job_spec["references"][op_id].get("t2", "-")
-                    info['Date'] = self.job_spec["references"][op_id].get("df1", "-")
-                    info['ReportNo'] = self.job_spec["references"][op_id].get("df2", "-")
-                    writer.writerow(info)
-                else:
-                    info['Device'] = inst_id
-                    info['ChannelList'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
-                        get("id", "")
-                    info['ID'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
-                        get("name", "")
-                    info['Name'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
-                        get("transform_eq", ["V", 0, 1, 0, 0])[0]
-                    try:
-                        info['Description'] = self.job_spec["details"][inst_id][op_id]
-                    except KeyError:
-                        info['Description'] = self.instruments.get(inst_id).spec.get("operations", {}).\
-                            get(op_id, {}).get("details", "No details.")
-                    info['A'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+        try:
+            with open(self.out_dir + self.sensorname, "w+") as outfile:
+                outfile.write(self.sensorname + "\n")
+                outfile.write(self.job_spec["job_notes"] + "\n")
+                writer = csv.writer(outfile, "excel", lineterminator='\n', delimiter='\t')
+                writer.writerow(titles)
+                writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', delimiter='\t')
+                for op in self.opref:  # Todo move this outside "with", iterate through a list of lists instead.
+                    inst_id, op_id = op.split('.')
+                    if inst_id == "time":
+                        pass
+                    elif inst_id == "reference":
+                        info['Device'] = inst_id
+                        info['ChannelList'] = op_id
+                        info['ID'] = self.job_spec["references"][op_id].get("type", "")
+                        info['Name'] = ""
+                        info['Description'] = self.job_spec["references"][op_id].get("h1", "-")
+                        info['A'] = self.job_spec["references"][op_id].get("p1", "-")
+                        info['B'] = self.job_spec["references"][op_id].get("p2", "-")
+                        info['C'] = self.job_spec["references"][op_id].get("t1", "-")
+                        info['R(0)/D'] = self.job_spec["references"][op_id].get("t2", "-")
+                        info['Date'] = self.job_spec["references"][op_id].get("df1", "-")
+                        info['ReportNo'] = self.job_spec["references"][op_id].get("df2", "-")
+                        writer.writerow(info)
+                    else:
+                        info['Device'] = inst_id
+                        info['ChannelList'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("id", "")
+                        info['ID'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("name", "")
+                        info['Name'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("transform_eq", ["V", 0, 1, 0, 0])[0]
+                        try:
+                            info['Description'] = self.job_spec["details"][inst_id][op_id]
+                        except KeyError:
+                            info['Description'] = self.instruments.get(inst_id).spec.get("operations", {}).\
+                                get(op_id, {}).get("details", "No details.")
+                        info['A'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
                             get("transform_eq", ["V", 0, 1, 0, 0])[1]
-                    info['B'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
-                        get("transform_eq", ["V", 0, 1, 0, 0])[2]
-                    info['C'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
-                        get("transform_eq", ["V", 0, 1, 0, 0])[3]
-                    info['R(0)/D'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
-                        get("transform_eq", ["V", 0, 1, 0, 0])[4]
-                    info['Date'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
-                        get("check_date", "No last check")
-                    info['ReportNo'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
-                        get("rep_num", "No report")
-                    writer.writerow(info)
+                        info['B'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("transform_eq", ["V", 0, 1, 0, 0])[2]
+                        info['C'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("transform_eq", ["V", 0, 1, 0, 0])[3]
+                        info['R(0)/D'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("transform_eq", ["V", 0, 1, 0, 0])[4]
+                        info['Date'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("check_date", "No last check")
+                        info['ReportNo'] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).\
+                            get("rep_num", "No report")
+                        writer.writerow(info)
+        except FileNotFoundError:
+            print("initiation error")
+            raise FileNotFoundError
 
     def setup_operations(self):
         for operation in self.op_names:
@@ -258,7 +266,7 @@ class Logger(Thread):
         self.logf(self.raw_dict.values())
         titles = self.job_spec.get("logged_operations", {}).copy()
         for ref in self.job_spec.get("references", {}).keys():
-            ref = "reference.{}".format(ref)
+            ref = f"reference.{ref}"
             titles.append(ref)
         titles.insert(0, 'no.')  # Add the no. column title
         names = titles.copy()
@@ -278,21 +286,36 @@ class Logger(Thread):
         dataline = self.raw_dict.copy()
         dataline.update(self.ref_dict)
         dataline['no.'] = self.datanum
-        with open(self.out_dir + self.rawfilename, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
-            writer.writerow(dataline)
+        try:
+            with open(self.out_dir + self.rawfilename, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline)
+        except FileNotFoundError:
+            d = time.time()
+            with open(self.out_dir + f"{d}_dropped_data_raw", "w+") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline)
 
         dataline = self.trans_dict.copy()
         dataline.update(self.ref_dict)
         dataline['no.'] = self.datanum
-        with open(self.out_dir + self.transfilename, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
-            writer.writerow(dataline)
+        try:
+            with open(self.out_dir + self.transfilename, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel", delimiter='\t')
+                writer.writerow(dataline)
+        except FileNotFoundError:
+            d = time.time()
+            with open(self.out_dir + f"{d}_dropped_data_trans", "w+") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=titles, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline)
 
     def point_to_file(self):
         titles = self.job_spec.get("logged_operations", {}).copy()
         for ref in self.job_spec.get("references", {}).keys():
-            ref = "reference.{}".format(ref)
+            ref = f"reference.{ref}"
             titles.append(ref)
         titles.insert(0, 'no.')
         # Get names from titles
@@ -316,12 +339,12 @@ class Logger(Thread):
             if name == "no." or name == "datetime" or name == "runtime":
                 namesp.append(name)
             else:
-                namesp.append("m{}".format(name))
+                namesp.append(f"m{name}")
         for name in names:
             if name == "no." or name == "datetime" or name == "runtime":
                 pass
             else:
-                namesp.append("s{}".format(name))
+                namesp.append(f"s{name}")
         namesp.append('window')
         namesp.append('comment')
         self.pointsnum = self.pointsnum + 1  # Increment the data number
@@ -334,16 +357,35 @@ class Logger(Thread):
         dataline['window'] = self.window
         dataline['comment'] = self.comment
         dataline2 = {name: dataline[name] for name in namesp}
-        with open(self.out_dir + self.rawpointsname, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
-            writer.writerow(dataline2)
+        try:
+            with open(self.out_dir + self.rawpointsname, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline2)
+        except FileNotFoundError:
+            d = time.time()
+            with open(self.out_dir + f"{d}_dropped_points_raw", "w+") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline2)
 
+        self.rsources["no."] = [self.pointsnum for i in range(len(self.rsources.get("datetime", {})))]
         self.rsources["comment"] = [self.comment for i in range(len(self.rsources.get("datetime", {})))]
-        with open(self.out_dir + self.rawsourcename, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel", delimiter='\t')
-            rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
-            for i in range(len(self.rsources.get("datetime", {}))):
-                writer.writerow(rows[i])
+        try:
+            with open(self.out_dir + self.rawsourcename, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
+                for i in range(len(self.rsources.get("datetime", {}))):
+                    writer.writerow(rows[i])
+        except FileNotFoundError:
+            d = time.time()
+            with open(self.out_dir + f"{d}_dropped_source_raw", "w+") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
+                for i in range(len(self.rsources.get("datetime", {}))):
+                    writer.writerow(rows[i])
 
         dataline = self.trans_dict.copy()
         dataline.update(self.tmeans)
@@ -354,17 +396,35 @@ class Logger(Thread):
         dataline['window'] = self.window
         dataline['comment'] = self.comment
         dataline2 = {title: dataline[title] for title in namesp}
-        with open(self.out_dir + self.transpointsname, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel", delimiter='\t')
-            writer.writerow(dataline2)
+        try:
+            with open(self.out_dir + self.transpointsname, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline2)
+        except FileNotFoundError:
+            d = time.time()
+            with open(self.out_dir + f"{d}_dropped_points_trans", "w+") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namesp, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                writer.writerow(dataline2)
 
         self.tsources["no."] = [self.pointsnum for i in range(len(self.tsources.get("datetime", {})))]
         self.tsources["comment"] = [self.comment for i in range(len(self.tsources.get("datetime", {})))]
-        with open(self.out_dir + self.transsourcename, "a") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel", delimiter='\t')
-            rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
-            for i in range(len(self.tsources.get("datetime", {}))):
-                writer.writerow(rows[i])
+        try:
+            with open(self.out_dir + self.transsourcename, "a") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
+                for i in range(len(self.tsources.get("datetime", {}))):
+                    writer.writerow(rows[i])
+        except FileNotFoundError:
+            d = time.time()
+            with open(self.out_dir + f"{d}_dropped_source_trans", "w+") as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel",
+                                        delimiter='\t')
+                rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
+                for i in range(len(self.tsources.get("datetime", {}))):
+                    writer.writerow(rows[i])
 
         self.job.frame.comment_input.Clear()
 

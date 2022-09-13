@@ -36,11 +36,11 @@ class generic_driver_pymodbus(ModbusClient):
             retry = 0
             while rr.isError():
                 retry += 1
-                print("modbus error retrying {}".format(retry))
+                print(f"modbus error retrying {retry}")
                 rr = self.read_holding_registers(op['register'], op['num_reg'], unit=self.address)
                 time.sleep(2)
                 if retry >= 10:
-                    print("Modbus operation {} failed".format(op.get('id','')))
+                    print(f"Modbus operation {op.get('id','')} failed")
                     return 'error'
             data = converter(rr.registers)
             data = self.decimals(data,op)
@@ -80,12 +80,12 @@ class generic_driver_pymodbus(ModbusClient):
                             transformed = np.real(j)
                 if math.isinf(transformed):
                     print("Invalid Callendar–Van Dusen equation: No real solutions for")
-                    print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
+                    print(f"R = {x}, R0 = {eq[4]}, A = {eq[1]}, B = {eq[2]}, C = {eq[3]}")
                     transformed = float("NaN")
         elif eq[0] == 'V' or eq[0] == 'P':
             transformed = eq[1] + eq[2] * x + eq[3] * x ** 2 + eq[4] * x ** 3
         else:
-            print("Transform form not recognised: {}".format(eq[0]))
+            print(f"Transform form not recognised: {eq[0]}")
             raise ValueError
         return transformed
 
@@ -102,7 +102,10 @@ class generic_driver_pymodbus(ModbusClient):
             return self.to_uint
 
     def uint_to_float(self, data):
-        mp = struct.pack('!HH', data[0], data[1])  # Reverse this for HMPs (figure out how to do this)
+        if self.spec.get("reverse", False):
+            mp = struct.pack('!HH', data[1], data[0])
+        else:
+            mp = struct.pack('!HH', data[0], data[1])
         test = struct.unpack('!f', mp)[0]
         return test
 

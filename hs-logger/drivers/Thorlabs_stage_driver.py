@@ -1,8 +1,5 @@
-import random
 import json
 import time
-import numpy as np
-import math
 import thorlabs_apt as apt
 # install apt user from the thorlabs website.  Select correct one
 
@@ -17,6 +14,7 @@ class Thorlabs_stage_driver(object):
         nr_devices = len(devices)
         if nr_devices == 0:
             print("Not recognised a device.  Unplug USB and try again.  Use APT user to check if device shows up.")
+            raise ValueError
         else:
             dev_snr = devices[0][1]
         self.device = apt.Motor(dev_snr)
@@ -40,6 +38,7 @@ class Thorlabs_stage_driver(object):
             in_motion = True
 
         else:
+            val = float("NaN")
             in_motion = False
 
         while in_motion:

@@ -11,6 +11,7 @@
     "stopbits":2,
     "flowcontrol":"None",
     "notes": "some register addresses may be incorrect as modbus reference in manual appears to have errors will confirm with testing",
+    "reverse": true,
     "operations": {
         "read_signed_int_test":{
             "type": "read",

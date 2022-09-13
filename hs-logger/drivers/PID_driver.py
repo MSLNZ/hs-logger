@@ -65,7 +65,7 @@ class PID_driver(object):
                 output = self.min
             inst_w = self.write[0]
             inst_w.write_instrument(self.write[1], [output])  # Write the control variable
-            print("Y:{}, R:{}, E:{}, P:{}, I:{}, D:{}, U:{}".format(self.y, self.r, self.e, p, i, d, self.u))
+            print(f"Y:{self.y}, R:{self.r}, E:{self.e}, P:{p}, I:{i}, D:{d}, U:{self.u}")
             return output, self.y
 
     def write_instrument(self, op_id, message):
@@ -74,10 +74,10 @@ class PID_driver(object):
         self.r = float(command)
         if self.r > self.max:
             self.r = self.max
-            print("{} is the maximum control value".format(self.max))
+            print(f"{self.max} is the maximum control value")
         if self.r < self.min:
             self.r = self.min
-            print("{} is the minimum control value".format(self.min))
+            print(f"{self.min} is the minimum control value")
         self.history = []  # This prevents integral buildup and derivative spikes
 
     def load_operations(self, op_spec):
@@ -91,7 +91,7 @@ class PID_driver(object):
                 try:
                     instrument = json.load(open(self.hs_address + "\\instruments\\" + op_spec[i][0] + ".json"))
                 except (OSError, ValueError):
-                    sys.stderr.write("Error loading instrument: {}".format(op_spec[i]))
+                    sys.stderr.write(f"Error loading instrument: {op_spec[i]}")
                     sys.exit(1)
                 driver_name = instrument.get("driver", "")
 
@@ -110,7 +110,7 @@ class PID_driver(object):
                         c_name = c_name.join(names)
                         instrument.get("operations", {})[operation]["name"] = c_name
                 else:
-                    sys.stderr.write("Operation not in instrument: {}".format(op_spec[i]))
+                    sys.stderr.write(f"Operation not in instrument: {op_spec[i]}")
                     sys.exit(1)
 
                 driver = getattr(__import__("drivers." + driver_name), driver_name)

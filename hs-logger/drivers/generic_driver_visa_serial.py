@@ -5,6 +5,7 @@ from decimal import Decimal
 from threading import Lock
 import numpy as np
 import math
+import re
 
 
 class generic_driver_visa_serial(object):
@@ -68,7 +69,7 @@ class generic_driver_visa_serial(object):
                             data = data + operation.get("split", " ") + self.instrument.read()
                     except visa.errors.VisaIOError:
                         pass
-                    data = data.split(operation.get("split", " "))
+                    data = re.split(data, operation.get("split", r'\s+'))  # TEST RegEx for 1 or more whitespace chars.
                     for i, d in enumerate(data):
                         if self.isfloat(d):
                             data[i] = self.decimals(d, operation)
@@ -95,7 +96,7 @@ class generic_driver_visa_serial(object):
                     try:
                         while True:
                             data = self.instrument.read()
-                            print("{}: {}".format(operation.get('command', ""), data))
+                            print(f"{operation.get('command', '')}: {data}")
                     except visa.errors.VisaIOError as e:
                         print(e)
                     try:
@@ -158,7 +159,7 @@ class generic_driver_visa_serial(object):
                         pass
                     self.instrument.timeout = 2000
                 else:
-                    print("Action {} does not exist.".format(command))
+                    print(f"Action {command} does not exist.")
             else:
                 self.instrument.write(command)
                 try:
@@ -217,7 +218,7 @@ class generic_driver_visa_serial(object):
             x = eqb[0] + (1 + eqb[1]) * data
             if eq[0] == 'T':  # Callendar-Van Dusen equation
                 if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
-                    print("{} with transform {} is out of range.".format(x, eq))
+                    print(f"{x} with transform {eq} is out of range.")
                     transformed = float("NaN")
                 else:
                     if x < eq[4]:
@@ -233,13 +234,13 @@ class generic_driver_visa_serial(object):
                                 transformed = np.real(j)  # If the roots are same magnitude, give positive root
                     if math.isinf(transformed):
                         print("Invalid Callendar–Van Dusen equation: No real solutions for")
-                        print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
+                        print(f"R = {x}, R0 = {eq[4]}, A = {eq[1]}, B = {eq[2]}, C = {eq[3]}")
                         transformed = float("NaN")
             elif eq[0] == 'V' or eq[0] == 'P':
                 transformed = eq[1] + eq[2]*x + eq[3]*x**2 + eq[4]*x**3  # V and P both use cubic equations. P is
                 # listed purely for record keeping purposes
             else:
-                print("Transform form not recognised: {}".format(eq[0]))
+                print(f"Transform form not recognised: {eq[0]}")
                 transformed = float("NaN")
         else:
             transformed = float("NaN")  # The data can't be transformed

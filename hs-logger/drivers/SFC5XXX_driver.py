@@ -118,7 +118,7 @@ class SFC5XXX_driver(object):
         if self.isfloat(data):  # Check that the data can be transformed
             if eq[0] == 'T':  # Callendar-Van Dusen equation
                 if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
-                    print("{} with transform {} is out of range.".format(x,eq))
+                    print(f"{x} with transform {eq[0]} is out of range.")
                     transformed = float("NaN")
                 else:
                     if x < eq[4]:
@@ -134,13 +134,13 @@ class SFC5XXX_driver(object):
                                 transformed = np.real(j)  # If the roots are same magnitude, give positive root
                     if math.isinf(transformed):
                         print("Invalid Callendar–Van Dusen equation: No real solutions for")
-                        print("R = {}, R0 = {}, A = {}, B = {}, C = {}".format(x, eq[4], eq[1], eq[2], eq[3]))
+                        print(f"R = {x}, R0 = {eq[4]}, A = {eq[1]}, B = {eq[2]}, C = {eq[3]}")
                         transformed = float("NaN")
             elif eq[0] == 'V' or eq[0] == 'P':
                 transformed = eq[1] + eq[2]*x + eq[3]*x**2 + eq[4]*x**3  # V and P both use cubic equations. P is
                 # listed purely for record keeping purposes
             else:
-                print("Transform form not recognised: {}".format(eq[0]))
+                print(f"Transform form not recognised: {eq[0]}")
                 transformed = float("NaN")
         else:
             transformed = float("NaN")  # The data can't be transformed
@@ -177,7 +177,7 @@ class SFC5XXX_driver(object):
                 elif framelist[i + 1] == 51:
                     temp.append(19)
                 else:
-                    print("byte stuffing wrong: {} not an acceptable next character".format(framelist[i + 1]))
+                    print(f"byte stuffing wrong: {framelist[i + 1]} not an acceptable next character")
                     raise ValueError
             else:
                 if skip:
@@ -192,7 +192,7 @@ class SFC5XXX_driver(object):
         LSB = framesum % 256
         checksum = 255 - LSB
         if chk != checksum:
-            print("checksum wrong: {} != {}".format(chk, checksum))
+            print(f"checksum wrong: {chk} != {checksum}")
             raise ValueError
         # extract variables
         adr = framelist[0]
@@ -206,17 +206,17 @@ class SFC5XXX_driver(object):
         # check the length
         length = len(framelist)
         if l != length:
-            print("length wrong: {} != {}".format(l, length))
+            print(f"length wrong: {l} != {length}")
             raise ValueError
         # check state if required
         if 127 < state:
             state = state - 128
-            print("state wrong: device error {}".format(state))
+            print(f"state wrong: device error {state}")
         if 0 < state < 32:
-            print("state wrong: common error {}".format(state))
+            print(f"state wrong: common error {state}")
             raise ValueError
         elif 31 < state < 128:
-            print("state wrong: specific error {}".format(state))
+            print(f"state wrong: specific error {state}")
             raise ValueError
         # convert data from bytes to appropriate data type
         temp = []
@@ -259,7 +259,7 @@ class SFC5XXX_driver(object):
                         break
                 temp.append(string)
             else:
-                print("dtype wrong: {} is not a valid data type".format(dtype))
+                print(f"dtype wrong: {dtype} is not a valid data type")
                 raise ValueError
         framelist = temp
         data = []
@@ -290,7 +290,7 @@ class SFC5XXX_driver(object):
             elif dtype[i].startswith("i64t"):  # Data is a signed integer of length 8
                 n = struct.unpack('>q', b)[0]
             else:
-                print("dtype wrong: {} is not a valid data type".format(dtype))
+                print(f"dtype wrong: {dtype} is not a valid data type")
                 raise ValueError
             data.append(n)
         return data
@@ -326,7 +326,7 @@ class SFC5XXX_driver(object):
             elif dtype[i].startswith("i64t"):  # Data is a signed integer of length 8
                 framelist.append(list(struct.pack('>q', int(data[i]))))
             else:
-                print("dtype wrong: {} is not a valid data type".format(dtype))
+                print(f"dtype wrong: {dtype} is not a valid data type")
                 raise ValueError
         temp = []
         for f in framelist:
@@ -389,9 +389,9 @@ def main():
         frame = bytes(frame)
         redata = instr.miso(frame, dtype)
         if data == redata:
-            print("Pass {}".format(dtype))
+            print(f"Pass {dtype}")
         else:
-            print("Fail {}: {} is not equal to {}".format(dtype, data, redata))  # Float will fail because NaN != NaN
+            print(f"Fail {dtype}: {data} is not equal to {redata}")  # Float will fail because NaN != NaN
 
 
 if __name__ == '__main__':
