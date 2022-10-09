@@ -51,7 +51,7 @@
             "channel": 104,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["V", -40, 100, 0, 0],
+            "transform_eq": ["V", 0, 1, 0, 0],
             "details": ""
         },
         "read_px105": {
@@ -61,7 +61,7 @@
             "channel": 105,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["V", 0, 100, 0, 0],
+            "transform_eq": ["V", 0, 1, 0, 0],
             "details": ""
         },
         "read_px106": {

@@ -331,7 +331,7 @@ class myjobframe(job_frame):
                     if references[ref][comp] in data[0][0]:
                         datum[comp] = data[-1][1].get(references[ref][comp], float("NaN"))
                     else:
-                        print("Operation not found.")
+                        print(f"Operation {references[ref][comp]} not found.")
                         raise ValueError
             hum = datum.get("hum", 1)
             p1 = datum.get("p1", 1)*1e5  # Convert bar to pascal

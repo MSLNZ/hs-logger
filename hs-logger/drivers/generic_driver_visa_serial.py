@@ -64,6 +64,7 @@ class generic_driver_visa_serial(object):
                     if echo:
                         self.instrument.read()
                     data = self.instrument.read()
+
                     try:
                         while True:
                             data = data + operation.get("split", " ") + self.instrument.read()
@@ -77,6 +78,14 @@ class generic_driver_visa_serial(object):
                             data[i] = self.decimals(d[operation.get("offset", 0):], operation)
                         else:
                             pass
+                    # # Remove all non np float64 data types
+                    # new = []
+                    # for d in data:
+                    #     if type(d) == (np.float64):
+                    #         new.append(d)
+                    # print(new)
+                    # data = new
+
                     o_ops = operation.get("operations")
                     if o_ops is not None:
                         for on in o_ops:
@@ -85,6 +94,7 @@ class generic_driver_visa_serial(object):
                             d = data[oi]
                             dt = self.transform(d, o)
                             self.store[on] = ((d, dt), time.time())
+                    # print(data)
 
                     data_trans = [self.transform(d, operation) for d in data]
                 # print('unlocK')
@@ -112,7 +122,7 @@ class generic_driver_visa_serial(object):
                     try:
                         while True:
                             data = self.instrument.read()
-                            print(data)
+                            #print(data)
                     except visa.errors.VisaIOError:
                         pass
                     data = []
@@ -228,7 +238,7 @@ class generic_driver_visa_serial(object):
                     transformed = float("inf")  # Create a maximum value
                     for j in fulltransformed:
                         if np.imag(j) == 0:  # Remove imaginary roots
-                            if abs(j) < transformed:
+                            if abs(j) < abs(transformed):
                                 transformed = np.real(j)  # Find most reasonable real root
                             elif abs(j) == transformed and j > transformed:
                                 transformed = np.real(j)  # If the roots are same magnitude, give positive root

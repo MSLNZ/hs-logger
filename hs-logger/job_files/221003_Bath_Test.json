@@ -1,0 +1,71 @@
+{
+    "job_name":"220927_Bath_Test",
+    "job_id":2,
+    "job_notes":"Testing the performance of the A40 for use in the air temperature comparison.",
+    "out_dir": "C:\\Data\\jobs_2022\\",
+    "filename": "220927_Bath_Test",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "SFC5500_22030201_10slm":"instruments/SFC5500_22030201_10slm.json",
+        "Julabo_HL":"instruments/Julabo_HL_Serial.json",
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_13",
+        "milliK-millisKanner_40152.read_14",
+        "milliK-millisKanner_40152.read_15",
+        "milliK-millisKanner_40152.read_17",
+        "Julabo_HL.read_Tex",
+        "Julabo_HL.read_Tm",
+        "SFC5500_22030201_10slm.read_q",
+        "S8000RS.read_dewpoint"
+    ],
+    "details": {
+    },
+    "references": {
+        "DP_buffer": {
+            "hum": "time.runtime",
+            "p1": "time.runtime",
+            "p2": "time.runtime",
+            "t1": "Julabo_HL.read_Tm",
+            "t2": "S8000RS.read_dewpoint",
+            "df1": 1,
+            "df2": -1,
+            "type": "ms"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_10",
+                "milliK-millisKanner_40152.read_11",
+                "milliK-millisKanner_40152.read_12",
+                "milliK-millisKanner_40152.read_13",
+                "milliK-millisKanner_40152.read_14",
+                "milliK-millisKanner_40152.read_15",
+                "Julabo_HL.read_Tex",
+                "Julabo_HL.read_Tm"
+            ]
+        },
+        "Q": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "SFC5500_22030201_10slm.read_q"
+            ]
+        },
+        "DP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "S8000RS.read_dewpoint"
+            ]
+        }
+    }
+}

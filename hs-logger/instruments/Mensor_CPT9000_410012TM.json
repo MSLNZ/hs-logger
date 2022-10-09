@@ -21,7 +21,13 @@
             "data_type": "float",
             "unit": "",
             "command": "PRESS?",
-            "transform_eq": ["P", 0, 1, 0, 0]
+            "transform_eq": ["P", 8.4E-4, 9.9976E-1, 5E-6, 0],
+            "check_date": "23/09/2022",
+            "cal_date": "23/09/2022",
+            "check_freq": 0.25,
+            "cal_freq": 5,
+            "rep_num": "Pressure/2022/655, 23 September 2022",
+            "uncertainty": [1.4E-4, 5.10E-7]
         }
     }
 }

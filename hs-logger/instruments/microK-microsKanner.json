@@ -1,7 +1,7 @@
 {
     "instrument_id": "microK",
     "instrument_name": "Isotech microK with attached microsKanner",
-    "driver": "generic_driver_visa_gpib",
+    "driver": "visa_gpib_microK",
     "interface": "visa",            
     "port": "GPIB1::13::INSTR",
     "baudrate":9600,
@@ -22,7 +22,7 @@
             "details": "",
             "data_type": "float",
             "unit": "",
-            "command": "MEAS:FRES1:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 1",
             "transform_eq": ["T", 4e-3, -6e-7, 0, 100],
             "check_date": "",
             "rep_num": ""
@@ -31,169 +31,93 @@
             "type": "read_single",
             "name": "C02",
             "id": "read_2",
-            "command": "MEAS:FRES2:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 2",
             "transducer": "instruments/transducers/temperature/SIL010.json"
         },
         "read_3": {
             "type": "read_single",
             "name": "C03",
             "id": "read_3",
-            "command": "MEAS:FRES3:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 3",
             "transducer": "instruments/transducers/temperature/SIL055.json"
         },
         "read_10": {
             "type": "read_single",
             "name": "C10",
             "id": "read_10",
-            "command": "MEAS:FRES10:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 10",
             "transducer": "instruments/transducers/temperature/SIL035.json"
         },
         "read_11": {
             "type": "read_single",
             "name": "C11",
             "id": "read_11",
-            "command": "MEAS:FRES11:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 11",
             "transducer": "instruments/transducers/temperature/SIL036.json"
         },
         "read_12": {
             "type": "read_single",
             "name": "C12",
             "id": "read_12",
-            "command": "MEAS:FRES12:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 12",
             "transducer": "instruments/transducers/temperature/SIL042.json"
         },
         "read_13": {
             "type": "read_single",
             "name": "C13",
             "id": "read_13",
-            "command": "MEAS:FRES13:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 13",
             "transducer": "instruments/transducers/temperature/SIL050.json"
         },
         "read_14": {
             "type": "read_single",
             "name": "C14",
             "id": "read_14",
-            "command": "MEAS:FRES14:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 14",
             "transducer": "instruments/transducers/temperature/SIL051.json"
         },
         "read_15": {
             "type": "read_single",
             "name": "C15",
             "id": "read_15",
-            "command": "MEAS:FRES15:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 15",
             "transducer": "instruments/transducers/temperature/SIL049.json"
         },
         "read_16": {
             "type": "read_single",
             "name": "C16",
             "id": "read_16",
-            "command": "MEAS:FRES16:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 16",
             "transducer": "instruments/transducers/temperature/SIL046.json"
         },
         "read_17": {
             "type": "read_single",
             "name": "C17",
             "id": "read_17",
-            "command": "MEAS:FRES17:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 17",
             "transducer": "instruments/transducers/temperature/SIL047.json"
         },
         "read_18": {
             "type": "read_single",
             "name":"C18",
             "id": "read_18",
-            "command": "MEAS:FRES18:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 18",
             "transducer": "instruments/transducers/temperature/SIL010.json"
         },
         "read_19": {
             "type": "read_single",
             "name": "C19",
             "id": "read_19",
-            "command": "MEAS:FRES19:REF204? 200,1",
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 19",
             "transducer": "instruments/transducers/temperature/SIL038.json"
         },
-        "read_2_r2": {
-            "type": "read_single",
-            "name": "C02_r2",
-            "id": "read_2_r2",
-            "command": "MEAS:FRES2:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL010.json"
-        },
-        "read_3_r2": {
-            "type": "read_single",
-            "name": "C03_r2",
-            "id": "read_3_r2",
-            "command": "MEAS:FRES3:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL055.json"
-        },
-        "read_10_r2": {
-            "type": "read_single",
-            "name": "C10_r2",
-            "id": "read_10_r2",
-            "command": "MEAS:FRES10:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL035.json"
-        },
-        "read_11_r2": {
-            "type": "read_single",
-            "name": "C11_r2",
-            "id": "read_11_r2",
-            "command": "MEAS:FRES11:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL036.json"
-        },
-        "read_12_r2": {
-            "type": "read_single",
-            "name": "C12_r2",
-            "id": "read_12",
-            "command": "MEAS:FRES12:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL042.json"
-        },
-        "read_13_r2": {
-            "type": "read_single",
-            "name": "C13_r2",
-            "id": "read_13_r2",
-            "command": "MEAS:FRES13:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL050.json"
-        },
-        "read_14_r2": {
-            "type": "read_single",
-            "name": "C14_r2",
-            "id": "read_14_r2",
-            "command": "MEAS:FRES14:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL051.json"
-        },
-        "read_15_r2": {
-            "type": "read_single",
-            "name": "C15_r2",
-            "id": "read_15_r2",
-            "command": "MEAS:FRES15:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL049.json"
-        },
-        "read_16_r2": {
-            "type": "read_single",
-            "name": "C16_r2",
-            "id": "read_16_r2",
-            "command": "MEAS:FRES16:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL046.json"
-        },
-        "read_17_r2": {
-            "type": "read_single",
-            "name": "C17_r2",
-            "id": "read_17_r2",
-            "command": "MEAS:FRES17:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL047.json"
-        },
-        "read_18_r2": {
-            "type": "read_single",
-            "name":"C18_r2",
-            "id": "read_18_r2",
-            "command": "MEAS:FRES18:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL010.json"
-        },
-        "read_19_r2": {
-            "type": "read_single",
-            "name": "C19_r2",
-            "id": "read_19_r2",
-            "command": "MEAS:FRES19:REF204? 200,1.41421356237",
-            "transducer": "instruments/transducers/temperature/SIL038.json"
+        "write_current": {
+            "type": "write",
+            "name": "Sets the sensing current",
+            "id": "write_current",
+            "command": "CURR {}",
+            "check_set": "",
+            "check_actual": ""
         }
     }
 }

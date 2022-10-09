@@ -1,9 +1,9 @@
 {
-  "instrument_id": "Julabo_HL",
+    "instrument_id": "Julabo_HL",
     "instrument_name": "Julabo HL",
     "driver": "julabo_py_serial",
     "interface": "pyserial",
-    "port": "COM35",
+    "port": "COM11",
     "baudrate": 4800,
     "parity": "PARITY_EVEN",
     "stopbits": "STOPBITS_ONE",
@@ -22,6 +22,16 @@
             "data_type": "float",
             "unit": "deg C",
             "details": "Tm is internal temperature"
+        },
+        "read_Tex": {
+            "type": "read_single",
+            "name": "Tex Julabo HL",
+            "id": "read_Tex",
+            "command": "IN_PV_02",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Tex is external temperature"
         },
         "read_Tsp1": {
             "type": "read_single",

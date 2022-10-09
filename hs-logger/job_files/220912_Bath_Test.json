@@ -1,0 +1,55 @@
+{
+    "job_name":"220912_Bath_Test",
+    "job_id":2,
+    "job_notes":"Testing the performance of the A40 for use in the air temperature comparison.",
+    "out_dir": "C:\\Data\\jobs_2022\\",
+    "filename": "220912_Bath_Test",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "PC200":"instruments/PC200_serial.json",
+        "SFC5500_22030201_10slm":"instruments/SFC5500_22030201_10slm.json",
+        "Equilibar_EPR":"instruments/Equilibar_EPR.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_13",
+        "milliK-millisKanner_40152.read_14",
+        "milliK-millisKanner_40152.read_15",
+        "milliK-millisKanner_40152.read_16",
+        "milliK-millisKanner_40152.read_17",
+        "PC200.read_Tm",
+        "SFC5500_22030201_10slm.read_q",
+        "Equilibar_EPR.read_p"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_10",
+                "milliK-millisKanner_40152.read_11",
+                "milliK-millisKanner_40152.read_12",
+                "milliK-millisKanner_40152.read_13",
+                "milliK-millisKanner_40152.read_14",
+                "milliK-millisKanner_40152.read_15",
+                "milliK-millisKanner_40152.read_16",
+                "PC200.read_Tm"
+            ]
+        },
+        "Q": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "SFC5500_22030201_10slm.read_q"
+            ]
+        }
+    }
+}

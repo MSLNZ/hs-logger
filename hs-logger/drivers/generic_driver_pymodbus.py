@@ -74,7 +74,7 @@ class generic_driver_pymodbus(ModbusClient):
                 transformed = float("inf")  # Create a maximum value
                 for j in fulltransformed:
                     if np.imag(j) == 0:
-                        if abs(j) < transformed:
+                        if abs(j) < abs(transformed):
                             transformed = np.real(j)
                         elif abs(j) == transformed and j > transformed:
                             transformed = np.real(j)

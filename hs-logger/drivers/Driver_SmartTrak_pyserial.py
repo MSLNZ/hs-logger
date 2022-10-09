@@ -147,7 +147,7 @@ class Driver_SmartTrak_pyserial(object):
                     transformed = float("inf")  # Create a maximum value
                     for j in fulltransformed:
                         if np.imag(j) == 0:  # Remove imaginary roots
-                            if abs(j) < transformed:
+                            if abs(j) < abs(transformed):
                                 transformed = np.real(j)  # Find most reasonable real root
                             elif abs(j) == transformed and j > transformed:
                                 transformed = np.real(j)  # If the roots are same magnitude, give positive root

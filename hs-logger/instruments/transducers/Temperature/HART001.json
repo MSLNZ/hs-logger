@@ -1,7 +1,7 @@
 {
     "t_name": "",
     "t_id": "HART001",
-    "details": "-40°C-100°C 0.5mmx100mm",
+    "details": "-40°C-100°C 0.5mmx100mm (C term may be wrong)",
     "data_type": "float",
     "unit": "",
     "transform_eq":["T", 3.90960E-3, -5.884E-7, 7.874E-11, 99.9910692405],

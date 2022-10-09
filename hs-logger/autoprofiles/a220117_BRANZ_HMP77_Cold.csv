@@ -1,4 +1,4 @@
-a220117_BRANZ_HMP77_bath.csv
+a220117_BRANZ_HMP77_bath.csv,,,,,,
 Points,Soak,Assured,t_2500,rH_2500,Q_2500,t_PC200
 ,,,HG2500.set_ts,HG2500.set_rh_pctc,HG2500.set_q,PC200.SS
 1,30,4,0.1,10,15,-0.25

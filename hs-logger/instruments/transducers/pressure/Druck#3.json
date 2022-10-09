@@ -4,11 +4,11 @@
     "details": "SN: 1761888 0-3 bara",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["P", -1.267E-3, 3.47863E-1, 4.07E-4, 0],
-    "check_date": "03/06/2021",
-    "cal_date": "03/06/2021",
+    "transform_eq":["P", -6.15E-3, 3.5111E-1, 1.29E-4, 0],
+    "check_date": "16/09/2022",
+    "cal_date": "16/09/2022",
     "check_freq": 0.25,
     "cal_freq": 5,
-    "rep_num": "Pressure/2021/637, 3 June 2021",
-    "uncertainty": 1.3E-4
+    "rep_num": "Pressure/2022/653, 16 September 2022",
+    "uncertainty": [7.5E-5, 6.3E-8]
 }

@@ -3,7 +3,7 @@
     "instrument_name": "PC200",
     "driver": "generic_driver_py_serial",
     "interface": "pyserial",
-    "port": "COM16",
+    "port": "COM9",
     "baudrate": 19200,
     "parity": "PARITY_NONE",
     "stopbits": "STOPBITS_ONE",
@@ -22,6 +22,16 @@
             "data_type": "float",
             "unit": "deg C",
             "details": "Tm is internal temperature"
+        },
+        "read_Tex": {
+            "type": "read_single",
+            "name": "Tex PC200",
+            "id": "read_Tex",
+            "command": "RT2 ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Tex is external temperature"
         },
         "read_DS": {
             "type": "read_single",
