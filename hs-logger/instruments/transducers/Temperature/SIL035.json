@@ -1,5 +1,5 @@
 {
-    "t_name": "Ts",
+    "t_name": "Ts2900",
     "t_id": "SIL035",
     "details": "",
     "data_type": "float",
@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2017/683, 16 August 2017",
-    "uncertainty": 6.8E-03
+    "uncertainty": 6.8E-03,
+    "range": " °C"
 }

@@ -10,5 +10,6 @@
     "check_freq": 1,
     "cal_freq": 2,
     "rep_num": "",
-    "uncertainty": null
+    "uncertainty": null,
+    "range": ""
 }

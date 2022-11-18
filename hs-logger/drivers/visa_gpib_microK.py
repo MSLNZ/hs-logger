@@ -5,19 +5,17 @@ from decimal import Decimal
 from threading import Lock
 import numpy as np
 import math
-import re
 
 
-class generic_driver_visa_serial(object):
+class visa_gpib_microK(object):
 
     def __init__(self, spec):
         """This driver expects to receive information on:
-        port, baud rate, read/write terms
+        port, read/write terms
         It can also accept doOpen = False, which will skip the open instrument command"""
         self.spec = spec
         self.operations = spec.get('operations', {})
         port = spec["port"]  # Port is required and can't be generalised.
-        baud = spec.get("baudrate", 9600)
         w_term = spec.get("write_termination", '\r')
         r_term = spec.get("read_termination", '\r\n')
         doOpen = spec.get("doOpen", True)
@@ -25,7 +23,6 @@ class generic_driver_visa_serial(object):
         self.store = {}
         self.timeout = spec.get("store_timeout", 2)
         self.instrument = rm.open_resource(port,
-                                           baud_rate=baud,
                                            write_termination=w_term,
                                            read_termination=r_term)
         if doOpen:
@@ -35,7 +32,7 @@ class generic_driver_visa_serial(object):
 
     def read_instrument(self, operation_id):
         """
-        read instrument 
+        read instrument
         """
         try:
             operation = self.operations[operation_id]
@@ -49,66 +46,20 @@ class generic_driver_visa_serial(object):
         if time.time() - stored[1] < self.timeout:
             data, data_trans = stored[0]
         else:
-            if dtype == 'read_store':
-                self.read_instrument(operation.get("store_id"))
-                stored = self.store.get(operation_id)
-                if time.time() - stored[1] > self.timeout:
-                    print('store not updating')
-                    return -1, -1
-                data, data_trans = stored[0]
-                return data, data_trans
-            elif dtype == 'read_multiple':
+            if dtype == 'read_single':
                 with self.lock:
                     # print("locK")
-                    self.instrument.write(operation.get('command', ""))
-                    if echo:
-                        self.instrument.read()
-                    data = self.instrument.read()
-
-                    try:
-                        while True:
-                            data = data + operation.get("split", " ") + self.instrument.read()
-                    except visa.errors.VisaIOError:
-                        pass
-                    data = re.split(operation.get("split", r'\s+'), data)  # TEST RegEx for 1 or more whitespace chars.
-                    for i, d in enumerate(data):
-                        if self.isfloat(d):
-                            data[i] = self.decimals(d, operation)
-                        elif self.isfloat(d[operation.get("offset", 0):]):
-                            data[i] = self.decimals(d[operation.get("offset", 0):], operation)
-                        else:
-                            pass
-                    # # Remove all non np float64 data types
-                    # new = []
-                    # for d in data:
-                    #     if type(d) == (np.float64):
-                    #         new.append(d)
-                    # print(new)
-                    # data = new
-
-                    o_ops = operation.get("operations")
-                    if o_ops is not None:
-                        for on in o_ops:
-                            o = self.operations.get(on)
-                            oi = o.get("store_index")
-                            d = data[oi]
-                            dt = self.transform(d, o)
-                            self.store[on] = ((d, dt), time.time())
-                    # print(data)
-
-                    data_trans = [self.transform(d, operation) for d in data]
-                # print('unlocK')
-            elif dtype == 'read_single':
-                with self.lock:
-                    # print("locK")
-                    self.instrument.write(operation.get('command', ""))
+                    commands = operation.get('command', "").split(";")
+                    for command in commands:
+                        self.instrument.write(command)
+                    self.instrument.write("READ?")
                     data = float("NaN")
                     try:
                         while True:
                             data = self.instrument.read()
-                            print(f"{operation.get('command', '')}: {data}")
+                            print(f"{commands}: {data}")
                     except visa.errors.VisaIOError as e:
-                        print(e)
+                        pass
                     try:
                         data = float(data)
                     except ValueError:
@@ -118,11 +69,12 @@ class generic_driver_visa_serial(object):
             else:
                 with self.lock:
                     # print("lock")
+                    print(operation['command'])
                     self.instrument.write(operation.get('command', ""))
                     try:
                         while True:
                             data = self.instrument.read()
-                            #print(data)
+                            print(data)
                     except visa.errors.VisaIOError:
                         pass
                     data = []
@@ -137,6 +89,7 @@ class generic_driver_visa_serial(object):
             """
             write instrument 
             """
+            # todo: check valid values for sending to instrument
             try:
                 op = self.operations[operation_id]
             except KeyError:
@@ -144,42 +97,18 @@ class generic_driver_visa_serial(object):
                 return float("NaN"), float("NaN")
             command = op.get("command", "")
             command = command.format(*values)
+
             # response = self.instrument.query(command)
             response = ""
-
-            if op.get("type") == "write_action":  # This allows the autoprofile to control actions using a list
-                if command in op.get("operations"):
-                    self.instrument.timeout = 10000
-                    action_id = op.get("operations").get(command)
-                    try:
-                        act = self.operations[action_id]
-                        command2 = act.get("command", "")
-                    except KeyError:
-                        print("write action error")
-                        return ""
-                    command2 = command2.format(*values)
-                    self.instrument.write(command2)
-                    try:
-                        while True:
-                            if response == "":
-                                response = self.instrument.read()
-                            else:
-                                response = response + ", " + self.instrument.read()
-                    except visa.errors.VisaIOError:
-                        pass
-                    self.instrument.timeout = 2000
-                else:
-                    print(f"Action {command} does not exist.")
-            else:
-                self.instrument.write(command)
-                try:
-                    while True:
-                        if response == "":
-                            response = self.instrument.read()
-                        else:
-                            response = response + ", " + self.instrument.read()
-                except visa.errors.VisaIOError:
-                    pass
+            self.instrument.write(command)
+            try:
+                while True:
+                    if response == "":
+                        response = self.instrument.read()
+                    else:
+                        response = response + ", " + self.instrument.read()
+            except visa.errors.VisaIOError:
+                pass
             if response != "":
                 print(response)
             else:
@@ -206,7 +135,7 @@ class generic_driver_visa_serial(object):
                         response = response + ", " + self.instrument.read()
             except visa.errors.VisaIOError:
                 pass
-            self.instrument.timeout = 2000
+            self.timeout = 2000
             if response != "":
                 print(response)
             else:
@@ -220,12 +149,9 @@ class generic_driver_visa_serial(object):
         return f
 
     def transform(self, data, operation):
-        # Bridge transform
-        eqb = self.spec.get("bridge_transform", [0, 0])
-        # x = data
+        x = data
         eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
         if self.isfloat(data):  # Check that the data can be transformed
-            x = eqb[0] + (1 + eqb[1]) * data
             if eq[0] == 'T':  # Callendar-Van Dusen equation
                 if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
                     print(f"{x} with transform {eq} is out of range.")
@@ -276,10 +202,23 @@ class generic_driver_visa_serial(object):
 
 # testing
 def main():
-    instr = generic_driver_visa_serial(json.load(open('../instruments/Vaisala_HMT337.json')))
+    instr = visa_gpib_microK(json.load(open('../instruments/Vaisala_HMT337.json')))
     print(instr.read_instrument('read_default'))
     print(instr.read_instrument('read_rh'))
 
 
 if __name__ == '__main__':
     main()
+
+
+# #testing
+# def main():
+#     instr = generic_driver_visa(json.load(open('../instruments/HG3900_visa.json')))
+#     print (instr.read_instrument('read_default'))
+#     print (instr.read_instrument('read_default'))
+#     time.sleep(2)
+#     print (instr.read_instrument('read_default'))
+#
+#
+# if __name__ == '__main__':
+#     main()

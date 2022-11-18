@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2020/933, 20 July 2020",
-    "uncertainty": 5.10E-03
+    "uncertainty": 5.10E-03,
+    "range": " °C"
 }

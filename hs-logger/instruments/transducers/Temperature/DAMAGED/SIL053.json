@@ -1,7 +1,7 @@
 {
-    "t_name": "",
+    "t_name": "DAMAGED: DO NOT USE",
     "t_id": "SIL053",
-    "details": "3mmx100mm-2mmx50mm",
+    "details": "This transducer is damaged. Do not use it.",
     "data_type": "float",
     "unit": "",
     "transform_eq":["T", 3.911550E-03,-5.9420E-07,-6.6860E-12,99.9915612393],
@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2019/852, 16 September 2019",
-    "uncertainty": 7.60E-03
+    "uncertainty": 7.60E-03,
+    "range": "-40 to 100 °C"
 }

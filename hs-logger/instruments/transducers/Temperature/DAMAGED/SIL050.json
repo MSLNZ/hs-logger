@@ -1,7 +1,7 @@
 {
-    "t_name": "Tc3 (mini)",
+    "t_name": "DAMAGED: DO NOT USE",
     "t_id": "SIL050",
-    "details": "2mmx150m",
+    "details": "This transducer is damaged. Do not use it.",
     "data_type": "float",
     "unit": "",
     "transform_eq":["T", 3.911030E-03,-5.9430E-07,-3.5700E-12,100.055400927],
@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2019/849, 16 September 2019",
-    "uncertainty": 5.90E-03
+    "uncertainty": 5.90E-03,
+    "range": "-40 to 100 °C"
 }

@@ -1,5 +1,5 @@
 {
-    "t_name": "Ts2500#1",
+    "t_name": "Ts2500",
     "t_id": "SIL010",
     "details": "",
     "data_type": "float",
@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2020/890, 31 January 2020",
-    "uncertainty": 5.8E-03
+    "uncertainty": 5.8E-03,
+    "range": " °C"
 }

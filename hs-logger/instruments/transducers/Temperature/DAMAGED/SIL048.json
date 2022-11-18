@@ -1,7 +1,7 @@
 {
-    "t_name": "",
+    "t_name": "DAMAGED: DO NOT USE",
     "t_id": "SIL048",
-    "details": "2mmx150m (Gold plated)",
+    "details": "This transducer is damaged. Do not use it.",
     "data_type": "float",
     "unit": "",
     "transform_eq":["T", 3.911200E-03,-5.9280E-07,-2.9690E-12,100.046680992],
@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2019/847, 16 September 2019",
-    "uncertainty": 5.70E-03
+    "uncertainty": 5.70E-03,
+    "range": "-40 to 100 °C"
 }

@@ -8,7 +8,7 @@ import math
 import re
 
 
-class generic_driver_visa_serial(object):
+class visa_serial_milliK(object):
 
     def __init__(self, spec):
         """This driver expects to receive information on:
@@ -49,66 +49,21 @@ class generic_driver_visa_serial(object):
         if time.time() - stored[1] < self.timeout:
             data, data_trans = stored[0]
         else:
-            if dtype == 'read_store':
-                self.read_instrument(operation.get("store_id"))
-                stored = self.store.get(operation_id)
-                if time.time() - stored[1] > self.timeout:
-                    print('store not updating')
-                    return -1, -1
-                data, data_trans = stored[0]
-                return data, data_trans
-            elif dtype == 'read_multiple':
+            if dtype == 'read_single':
                 with self.lock:
                     # print("locK")
-                    self.instrument.write(operation.get('command', ""))
-                    if echo:
-                        self.instrument.read()
-                    data = self.instrument.read()
-
-                    try:
-                        while True:
-                            data = data + operation.get("split", " ") + self.instrument.read()
-                    except visa.errors.VisaIOError:
-                        pass
-                    data = re.split(operation.get("split", r'\s+'), data)  # TEST RegEx for 1 or more whitespace chars.
-                    for i, d in enumerate(data):
-                        if self.isfloat(d):
-                            data[i] = self.decimals(d, operation)
-                        elif self.isfloat(d[operation.get("offset", 0):]):
-                            data[i] = self.decimals(d[operation.get("offset", 0):], operation)
-                        else:
-                            pass
-                    # # Remove all non np float64 data types
-                    # new = []
-                    # for d in data:
-                    #     if type(d) == (np.float64):
-                    #         new.append(d)
-                    # print(new)
-                    # data = new
-
-                    o_ops = operation.get("operations")
-                    if o_ops is not None:
-                        for on in o_ops:
-                            o = self.operations.get(on)
-                            oi = o.get("store_index")
-                            d = data[oi]
-                            dt = self.transform(d, o)
-                            self.store[on] = ((d, dt), time.time())
-                    # print(data)
-
-                    data_trans = [self.transform(d, operation) for d in data]
-                # print('unlocK')
-            elif dtype == 'read_single':
-                with self.lock:
-                    # print("locK")
-                    self.instrument.write(operation.get('command', ""))
+                    commands = operation.get('command', "").split(";")
+                    for command in commands:
+                        self.instrument.write(command)
+                    self.instrument.write("INIT")
+                    self.instrument.write("FETC?")
                     data = float("NaN")
                     try:
                         while True:
                             data = self.instrument.read()
-                            print(f"{operation.get('command', '')}: {data}")
+                            print(f"{commands}: {data}")
                     except visa.errors.VisaIOError as e:
-                        print(e)
+                        pass
                     try:
                         data = float(data)
                     except ValueError:
@@ -122,7 +77,7 @@ class generic_driver_visa_serial(object):
                     try:
                         while True:
                             data = self.instrument.read()
-                            #print(data)
+                            print(data)
                     except visa.errors.VisaIOError:
                         pass
                     data = []
@@ -276,7 +231,7 @@ class generic_driver_visa_serial(object):
 
 # testing
 def main():
-    instr = generic_driver_visa_serial(json.load(open('../instruments/Vaisala_HMT337.json')))
+    instr = visa_serial_milliK(json.load(open('../instruments/Vaisala_HMT337.json')))
     print(instr.read_instrument('read_default'))
     print(instr.read_instrument('read_rh'))
 

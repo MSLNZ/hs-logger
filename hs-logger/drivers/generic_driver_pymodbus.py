@@ -121,7 +121,7 @@ class generic_driver_pymodbus(ModbusClient):
 
 #testing
 def main():
-    instr = generic_driver_pymodbus(json.load(open('../instruments/Vaisala_HMP7_modbus_02.json')))
+    instr = generic_driver_pymodbus(json.load(open('../instruments/Vaisala_HMP7_376.json')))
 
     print(instr.read_instrument('read_rh'))
     print(instr.read_instrument('read_dew_point_temp'))
