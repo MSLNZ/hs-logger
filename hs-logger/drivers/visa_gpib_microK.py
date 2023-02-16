@@ -52,12 +52,12 @@ class visa_gpib_microK(object):
                     commands = operation.get('command', "").split(";")
                     for command in commands:
                         self.instrument.write(command)
+                        time.sleep(0.05)
                     self.instrument.write("READ?")
                     data = float("NaN")
                     try:
                         while True:
                             data = self.instrument.read()
-                            print(f"{commands}: {data}")
                     except visa.errors.VisaIOError as e:
                         pass
                     try:

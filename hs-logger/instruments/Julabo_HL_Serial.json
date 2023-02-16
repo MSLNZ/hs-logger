@@ -75,6 +75,27 @@
             "id": "write_pump_stage",
             "command": "OUT_SP_07 {}",
             "details": "Set pump stage to an integer from 1 to 4."
+        },
+        "write_control_Xp": {
+            "type": "write",
+            "name": "Xp control parameter",
+            "id": "write_control_Xp",
+            "command": "OUT_PAR_06 {}",
+            "details": "Set Xp control parameter to a number from 0.1 to 99.9."
+        },
+        "write_control_Tn": {
+            "type": "write",
+            "name": "Tn control parameter",
+            "id": "write_control_Tn",
+            "command": "OUT_PAR_07 {}",
+            "details": "Set Tn control parameter to a number from 3 to 9999."
+        },
+        "write_control_Tv": {
+            "type": "write",
+            "name": "Tv control parameter",
+            "id": "write_control_Tv",
+            "command": "OUT_PAR_08 {}",
+            "details": "Set Tv control parameter to a number from 0 to 999."
         }
     }
 }
