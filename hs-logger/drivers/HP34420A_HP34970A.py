@@ -49,7 +49,7 @@ class HP34420A_HP34970A(object):
         elif eq[0] == 'V' or eq[0] == 'P':
             transformed = eq[1] + eq[2]*x + eq[3]*x**2 + eq[4]*x**3
         else:
-            print(f"Transform form not recognised: {rq[0]}")
+            print(f"Transform form not recognised: {eq[0]}")
             raise ValueError
         # c = operation.get("transform_coeff", None)
         # transformed = eval(eq)
