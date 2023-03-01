@@ -1,0 +1,65 @@
+{
+    "job_name":"220330 Testing TS3900",
+    "job_id":1,
+    "job_notes":"Testing TS3900 and monitoring using S8000",
+    "out_dir": "C:\\datasync\\220330 Test ts3900\\",
+    "datafile_raw": "220330 Testing TS3900_raw.dat",
+    "datafile_trans": "220330 Testing TS3900_trans.dat",
+    "points_file_raw": "220330 Testing TS3900_raw.dat",
+    "points_file_trans": "220330 Testing TS3900_trans.dat",
+    "source_file_raw": "220330 Testing TS3900_source_raw.dat",
+    "source_file_trans": "220330 Testing TS3900_source_trans.dat",
+    "sensor_file": "220330 Testing TS3900_sensor_file.dat",
+    "min_interval": 5,
+    "time": 0,
+    "instruments":{
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json",
+        "milliK": "instruments/milliK-millisKanner_40152.json",
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
+        "HG3900":"instruments/HG3900_visa.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow",
+        "S8000RS.read_mirror_cond",
+        "HP34420A_HP34970A.read_px111",
+        "HP34420A_HP34970A.read_px112",
+        "HP34420A_HP34970A.read_px113",
+        "HP34420A_HP34970A.read_px114",
+        "HP34420A_HP34970A.read_px117",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "HG3900.read_fp",
+        "HG3900.read_ps",
+        "HG3900.read_ts",
+        "HG3900.read_pc",
+        "HG3900.read_q",
+        "HG3900.read_status",
+        "milliK.read_14",
+        "milliK.read_15",
+        "milliK.read_17"
+    ],
+    "details": {
+        "HP34420A_HP34970A": {
+            "read_px111": "PsHi Inside TS3900",
+            "read_px112": "PsLo Inside TS3900",
+            "read_px113": "Pg Inside TS3900",
+            "read_px114": "Pc Inlet of S8000",
+            "read_px117": "Q DUT",
+            "read_px118": "Ps TS3900",
+            "read_px119": "Pamb",
+            "read_px120": "Inlet of DP30"
+        },
+        "milliK": {
+            "read_15": "Ts 3900",
+            "read_16": "Tamb",
+            "read_17": "SPRT"
+        }
+    },
+    "references": {
+    }
+}

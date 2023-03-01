@@ -4,11 +4,12 @@
     "details": "3mmx100mm",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["T", 3.910580E-03,-6.0190E-07,-2.0410E-12,100.014450141999],
-    "check_date": "30/06/2022",
+    "transform_eq":["T", 3.910580E-03,-6.0190E-07,-2.0410E-12,100.013670006],
+    "check_date": "07/02/2023",
     "cal_date": "20/07/2020",
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2020/939, 20 July 2020",
-    "uncertainty": 1.80E-02
+    "uncertainty": 1.80E-02,
+    "range": "-90 to 100 °C"
 }

@@ -10,5 +10,6 @@
     "check_freq": 0,
     "cal_freq": 0,
     "rep_num": "Temperature/2016/593, 9 August 2016",
-    "uncertainty": 9E-03
+    "uncertainty": 9E-03,
+    "range": " °C"
 }

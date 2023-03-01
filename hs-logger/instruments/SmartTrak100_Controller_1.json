@@ -13,7 +13,7 @@
     "write_termination": "\r",
     "read_termination": "\r",
     "echo": false,
-    "notes": " ",
+    "notes": "",
     "operations": {
         "read_flow": {
             "type": "read_single",

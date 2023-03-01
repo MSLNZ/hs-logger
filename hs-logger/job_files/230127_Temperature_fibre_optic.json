@@ -1,0 +1,51 @@
+{
+    "job_name":"270123_Temperature_fibre_optic",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2022\\270123_Temperature_fibre_optic\\",
+    "filename": "270123_Temperature_fibre_optic",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "Julabo_HL": "instruments/Julabo_HL_Serial.json",
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json",
+        "SFC5500_22030201_10slm":"instruments/SFC5500_22030201_10slm.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_13",
+        "milliK-millisKanner_40152.read_14",
+        "milliK-millisKanner_40152.read_15",
+        "milliK-millisKanner_40152.read_17",
+        "Julabo_HL.read_Tm",
+        "Julabo_HL.read_Tex",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow",
+        "S8000RS.read_mirror_cond",
+        "SFC5500_22030201_10slm.read_q"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_11",
+                "milliK-millisKanner_40152.read_12",
+                "milliK-millisKanner_40152.read_13",
+                "milliK-millisKanner_40152.read_14",
+                "milliK-millisKanner_40152.read_15",
+                "Julabo_HL.read_Tm",
+                "Julabo_HL.read_Tex"
+            ]
+        }
+    }
+}

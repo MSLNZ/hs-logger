@@ -3,7 +3,7 @@
     "instrument_name": "Isotech milliK with attached millisKanner",
     "driver": "visa_serial_milliK",
     "interface": "visa",            
-    "port": "ASRL3::INSTR",
+    "port": "ASRL5::INSTR",
     "baudrate":9600,
     "write_termination": "\r",
     "read_termination": "\r",
@@ -30,49 +30,49 @@
             "name": "c10",
             "id": "read_10",
             "command": "SENS:FUNC RES;SENS:WIR 4;SENS:RES:RANG 200;SENS:CHAN 10",
-            "transducer": "instruments/transducers/temperature/HART001.json"
+            "transducer": "instruments/transducers/temperature/SIL034.json"
         },
         "read_11": {
             "type": "read_single",
             "name": "c11",
             "id": "read_11",
             "command": "SENS:FUNC RES;SENS:WIR 4;SENS:RES:RANG 200;SENS:CHAN 11",
-            "transducer": "instruments/transducers/temperature/HART006.json"
+            "transducer": "instruments/transducers/temperature/SIL064.json"
         },
         "read_12": {
             "type": "read_single",
             "name": "c12",
             "id": "read_12",
             "command": "SENS:FUNC RES;SENS:WIR 4;SENS:RES:RANG 200;SENS:CHAN 12",
-            "transducer": "instruments/transducers/temperature/SIL046.json"
+            "transducer": "instruments/transducers/temperature/SIL065.json"
         },
         "read_13": {
             "type": "read_single",
             "name": "c13",
             "id": "read_13",
             "command": "SENS:FUNC RES;SENS:WIR 4;SENS:RES:RANG 200;SENS:CHAN 13",
-            "transducer": "instruments/transducers/temperature/SIL048.json"
+            "transducer": "instruments/transducers/temperature/SIL060.json"
         },
         "read_14": {
             "type": "read_single",
             "name": "c14",
             "id": "read_14",
             "command": "SENS:FUNC RES;SENS:WIR 4;SENS:RES:RANG 200;SENS:CHAN 14",
-            "transducer": "instruments/transducers/temperature/SIL050.json"
+            "transducer": "instruments/transducers/temperature/SIL061.json"
         },
         "read_15": {
             "type": "read_single",
             "name": "c15",
             "id": "read_15",
             "command": "SENS:FUNC RES;SENS:WIR 4;SENS:RES:RANG 200;SENS:CHAN 15",
-            "transducer": "instruments/transducers/temperature/SIL053.json"
+            "transducer": "instruments/transducers/temperature/SIL062.json"
         },
         "read_16": {
             "type": "read_single",
             "name": "c16",
             "id": "read_16",
             "command": "SENS:FUNC RES;SENS:WIR 4;SENS:RES:RANG 200;SENS:CHAN 16",
-            "transducer": "instruments/transducers/temperature/SIL038.json"
+            "transducer": "instruments/transducers/temperature/SIL033.json"
         },
         "read_17": {
             "type": "read_single",
@@ -92,6 +92,22 @@
             "name": "Current = SQRT2 mA",
             "id": "action_root2",
             "command": "SENS:CURR ROOT2"
+        },
+        "read_current":{
+            "type": "read_single",
+            "name": "Read sense current",
+            "id":   "read_current",
+            "details": "reports current setting in mA",
+            "command": "SENS:CURR?",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_current":{
+            "type": "write_action",
+            "name": "Set current",
+            "id":   "set_current",
+            "details": "0 for 1 mA, 1 for sqrt(2) mA",
+            "operations": {"0": "action_norm","1": "action_root2"},
+            "command": "{}"
         }
     }
 }

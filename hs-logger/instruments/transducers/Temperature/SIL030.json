@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2021/040, 20 September 2021",
-    "uncertainty": 7E-03
+    "uncertainty": 7E-03,
+    "range": " °C"
 }

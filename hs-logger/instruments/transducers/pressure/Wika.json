@@ -1,7 +1,7 @@
 {
-    "t_name": "WIKA",
+    "t_name": "",
     "t_id": "Wika",
-    "details": "SN: 2958428 0-6 barg",
+    "details": "SN: 2958428",
     "data_type": "float",
     "unit": "",
     "transform_eq":["P", -1.70717, 1.69977, 5.71E-3, -4.08E-4],
@@ -10,5 +10,6 @@
     "check_freq": 0.25,
     "cal_freq": 5,
     "rep_num": "Pressure/2021/633, 3 May 2021",
-    "uncertainty": 1.5E-3
+    "uncertainty": 1.5E-3,
+    "range": "0 to 6 barg"
 }

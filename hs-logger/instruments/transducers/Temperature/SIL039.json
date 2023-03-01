@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2020/894, 31 January 2020",
-    "uncertainty": 6.8E-03
+    "uncertainty": 6.8E-03,
+    "range": " °C"
 }

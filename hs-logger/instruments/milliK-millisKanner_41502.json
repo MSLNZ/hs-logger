@@ -92,6 +92,14 @@
             "name": "Current = SQRT2 mA",
             "id": "action_root2",
             "command": "SENS:CURR ROOT2"
+        },
+        "set_current":{
+            "type": "write_action",
+            "name": "Set current",
+            "id":   "set_current",
+            "details": "0 for 1 mA, 1 for sqrt(2) mA",
+            "operations": {"0": "action_norm","1": "action_root2"},
+            "command": "{}"
         }
     }
 }

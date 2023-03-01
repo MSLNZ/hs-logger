@@ -1,5 +1,5 @@
 {
-    "t_name": "Tc1",
+    "t_name": "",
     "t_id": "SIL051",
     "details": "2mmx150mm",
     "data_type": "float",
@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2019/850, 16 September 2019",
-    "uncertainty": 6.20E-03
+    "uncertainty": 6.20E-03,
+    "range": "-40 to 100 °C"
 }

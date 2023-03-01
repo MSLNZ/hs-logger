@@ -88,7 +88,6 @@ class myjobframe(job_frame):
         job_frame.__init__(self, None)
         self.job = job
         self.resume_b.Enable(False)
-        self.resumewait = True
 
         self.countdown = -1
 
@@ -98,7 +97,7 @@ class myjobframe(job_frame):
     def pause_log(self, event):
         self.job.pause()
         self.pause_b.Enable(False)
-        self.resumewait = True
+        self.resume_b.Enable(True)
 
     def resume_log(self, event):
         self.job.resume()
@@ -448,9 +447,6 @@ class myjobframe(job_frame):
                 self.countdown_number.SetLabel("")  # Was u""
             else:
                 self.countdown_number.SetLabel(f"{self.countdown - num}")  # Was u""
-        if self.resumewait:
-            self.resumewait = False
-            self.resume_b.Enable(True)
         self.job.logger.comment = self.comment_input.GetValue()
         self.m_grid2.table.data = points
         self.m_grid2.AutoSize()

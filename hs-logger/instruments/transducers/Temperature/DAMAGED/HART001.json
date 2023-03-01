@@ -1,0 +1,15 @@
+{
+    "t_name": "DAMAGED: DO NOT USE",
+    "t_id": "HART001",
+    "details": "This transducer is damaged. Do not use it.",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.90960E-3, -5.884E-7, 7.874E-11, 99.9910692405],
+    "check_date": "30/06/2022",
+    "cal_date": "20/09/2021",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2021/031, 20 September 2021",
+    "uncertainty": 9E-2,
+    "range": " °C"
+}

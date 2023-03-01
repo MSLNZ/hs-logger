@@ -1,7 +1,7 @@
 {
-    "t_name": "P473",
+    "t_name": "",
     "t_id": "Druck#2",
-    "details": "SN: 1192020 0-3 bara",
+    "details": "SN: 1192020",
     "data_type": "float",
     "unit": "",
     "transform_eq":["P", -2.60E-3, 3.5143E-1, -8.4E-5, 0],
@@ -10,5 +10,6 @@
     "check_freq": 0.25,
     "cal_freq": 5,
     "rep_num": "Pressure/2022/652, 16 September 2022",
-    "uncertainty": [8E-5, 6.0E-8]
+    "uncertainty": [8E-5, 6.0E-8],
+    "range": "0 to 3 bara"
 }

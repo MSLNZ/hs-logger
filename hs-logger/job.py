@@ -415,19 +415,37 @@ class AutoProfile(object):
                     self.current_stdev = opa[index]  # Otherwise, start a new array for the new operation.
                     self.stdev_list = []
                     self.stdev_list.append(value2)
-                if timeleft < 0:
-                    dif = value2 - value1
+
+                # if timeleft < 0:  # Modify this order so that time is after checks, for constant delay after settling.
+                #     dif = value2 - value1
+                #     std = self.stdev()
+                #     if abs(dif) < self.a_dif:
+                #         if std < self.a_std:
+                #             self.transtime = "Now"  # Was u""
+                #             self.next_point()
+                #         else:
+                #             self.transtime = f"Waiting till stdev ({std}) is less than {self.a_std}."  # Was u""
+                #     else:
+                #         self.transtime = f"Waiting till ({dif}) is less than {self.a_dif}."  # Was u""
+                # else:
+                #     self.transtime = f"{timeleft}"  # Was u""
+
+                dif = value2 - value1
+                if abs(dif) < self.a_dif:  # Check if the value is relatively accurate
                     std = self.stdev()
-                    if abs(dif) < self.a_dif:
-                        if std < self.a_std:
+                    if std < self.a_std:  # Check if the value is relatively precise
+                        if timeleft < 0:  # Check if the value has been accurate and precise for long enough
                             self.transtime = "Now"  # Was u""
                             self.next_point()
                         else:
-                            self.transtime = f"When stdev ({std}) is less than {self.a_std}."  # Was u""
+                            self.transtime = f"{timeleft}"  # Was u""
                     else:
-                        self.transtime = f"When difference ({dif}) is less than {self.a_dif}."  # Was u""
+                        self.point_start_time = time.time() / 60
+                        self.transtime = f"Waiting till stdev ({std}) is less than {self.a_std}."  # Was u""
                 else:
-                    self.transtime = f"{timeleft}"  # Was u""
+                    self.point_start_time = time.time() / 60
+                    self.transtime = f"Waiting till ({dif}) is less than {self.a_dif}."  # Was u""
+
 
     def check_instrument(self, inst_id, operation_id):
         inst = self.job.logger.instruments.get(inst_id)

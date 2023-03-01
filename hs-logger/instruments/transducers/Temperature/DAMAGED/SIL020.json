@@ -1,0 +1,15 @@
+{
+    "t_name": "DAMAGED: DO NOT USE",
+    "t_id": "SIL020",
+    "details": "This transducer is damaged. Do not use it.",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.910300E-03,-5.9550E-07,-2.9350E-12,100.024866891],
+    "check_date": "30/06/2022",
+    "cal_date": "31/01/2020",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2020/893, 31 January 2020",
+    "uncertainty": 5E-03,
+    "range": "-40 to 100 °C"
+}

@@ -10,5 +10,6 @@
     "check_freq": 1,
     "cal_freq": 5,
     "rep_num": "INTA No. 4661",
-    "uncertainty": null
+    "uncertainty": null,
+    "range": " °C"
 }

@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2019/856, 16 September 2019",
-    "uncertainty": 6.10E-03
+    "uncertainty": 6.10E-03,
+    "range": "-40 to 100 °C"
 }

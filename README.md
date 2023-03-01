@@ -110,7 +110,7 @@ Autoprofile files consist of comma delineated lines containing the following:
 
 Values should be as follows:
 * Points (The number associated with this point. The first one should be "1", second "2", and so on.)
-* Soak (The time, in minutes, that the logger should wait before trying to move to the next point. If Assured isn't set, this will be approximately how long the logger waits between points. If Assured is set, this will be how long the logger waits before checking Assured.)
+* Soak (The time, in minutes, that the logger should wait before trying to move to the next point. If Assured isn't set, this will be approximately how long the logger waits between points. If Assured is set, this will be how long the logger waits after Assured is reached.)
 * Assured (The operation that Assured is trying to wait for. "0" or less is no Assured, "1" is the first instrument operation, "2" is the second, and so on. Only one value can be assured against at a time.)
 * additional operations (The value that will be written to the instrument using this write command.)
 
@@ -178,7 +178,7 @@ Two numbers sit between the Resume button and the Reading line, though normally 
 This line lists what is currently being read in the form of {instrument}.{operation}. If the cycle has finished reading the instruments, this will instead say "waiting..."
 
 ### Next Point In:
-This line estimates how long it will be before the next point is taken. The time is approximate, based on how long the cycles have previously taken. If it says "now", the logger is currently moving to the next point. If assured is being used, this line may inform when time is up but the controlled variable is not at it's desired value. This is expressed by "When" and the condition it is looking to correct.
+This line estimates how long it will be before the next point is taken. The time is approximate, based on how long the cycles have previously taken. If it says "now", the logger is currently moving to the next point. If assured is being used, this line will inform if one of the assured conditions hasn't been reached.
 
 ## LOG TAB
 This tab contains a written log of each cycle as it's recorded. It can be hard to read, especially if the logger is still running, but it can be useful for bug-fixing if something goes wrong.
@@ -214,7 +214,7 @@ This button allows you to open autoprofile files. It defaults to opening from th
 These two buttons allow you to manually modify the autoprofile. New Set creates a new column, and asks for three inputs: "Name", the name of the column; "Instrument", the instrument that will be set; and "Set" the write operation to be performed on said instrument. New point creates a new row, which is completely blank.
 
 ### Error and STDev values
-These two input boxes define the precision desired for the Assured function. Error defines how close to the set value the program is willing to accept, and STDev defines how stable a response the program is willing to accept. Unfortunately, due to a bug, the labels for these boxes are currently invisible.
+These two input boxes define the precision desired for the Assured function. Error defines the desired accuracy (how close to the set point the value is at), and STDev defines the desired precision (how stable the readings are). Unfortunately, due to a bug, the labels for these boxes are currently invisible.
 
 ## GRAPH TABS
 Each of these tabs contains one graph. These graphs automatically update when new data is recorded or when the traces are changed. The buttons available at the bottom of the graphs are automatically put their by the plugin, but should operate as desired. The traces show the transformed data of each operation listed in the legend.

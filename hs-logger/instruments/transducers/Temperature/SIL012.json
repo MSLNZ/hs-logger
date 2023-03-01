@@ -1,5 +1,5 @@
 {
-    "t_name": "Tc1",
+    "t_name": "",
     "t_id": "SIL012",
     "details": "",
     "data_type": "float",
@@ -10,5 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2020/891, 31 January 2020",
-    "uncertainty": 1.1E-02
+    "uncertainty": 1.1E-02,
+    "range": "-40 to 100 °C"
 }

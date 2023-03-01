@@ -1,14 +1,15 @@
 {
-    "t_name": "Pc2500",
+    "t_name": "",
     "t_id": "Druck#3",
-    "details": "SN: 1761888 0-3 bara",
+    "details": "SN: 1761888",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["P", -6.15E-3, 3.5111E-1, 1.29E-4, 0],
+    "transform_eq":["P", -6.15E-3, 3.5111E-1, -1.29E-4, 0],
     "check_date": "16/09/2022",
     "cal_date": "16/09/2022",
     "check_freq": 0.25,
     "cal_freq": 5,
     "rep_num": "Pressure/2022/653, 16 September 2022",
-    "uncertainty": [7.5E-5, 6.3E-8]
+    "uncertainty": [7.5E-5, 6.3E-8],
+    "range": "0 to 3 bara"
 }

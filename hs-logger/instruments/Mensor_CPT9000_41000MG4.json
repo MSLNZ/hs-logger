@@ -3,14 +3,15 @@
     "instrument_name": "Mensor 0MG4",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM5",
+    "port": "COM33",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",
     "timeout": 3,
     "write_termination": "\r\n",
     "read_termination": "\r\n",
-    "notes": "Range: 0-11 bar",
+    "notes": "",
+    "range": "0 to 11 bara",
     "doOpen": false,
     "operations": {
         "read_pressure": {

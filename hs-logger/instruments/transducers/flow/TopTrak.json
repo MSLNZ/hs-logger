@@ -1,7 +1,7 @@
 {
     "t_name": "Q ",
     "t_id": "TopTrak",
-    "details": "SN: 42111 0-2 SLPM",
+    "details": "SN: 42111",
     "data_type": "float",
     "unit": "",
     "transform_eq":["V", 0, 1, 0, 0],
@@ -10,5 +10,6 @@
     "check_freq": 1,
     "cal_freq": 9999,
     "rep_num": "",
-    "uncertainty": null
+    "uncertainty": null,
+    "range": "0 to 2 SLPM"
 }

@@ -1,0 +1,6 @@
+a_SelfHeatingCheck.csv
+Points,Soak,Assured,Current
+,,,microK.write_current
+1,15,0,1
+2,15,0,1.4142135623730950488016887242097
+3,15,0,1
