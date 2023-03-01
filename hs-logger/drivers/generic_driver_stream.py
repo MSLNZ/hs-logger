@@ -53,6 +53,7 @@ class generic_driver_stream(object):
                 try:
                     while True:
                         data = self.instrument.read()
+                        print(data)
                 except visa.errors.VisaIOError as e:
                     # print(e)
                     pass
@@ -61,7 +62,7 @@ class generic_driver_stream(object):
                     d = regx.search(data)
                     data = d.group()
                     data = float(data)
-                except ValueError or TypeError:
+                except (ValueError, TypeError, AttributeError):
                     data = float("NaN")
                 data_trans = self.transform(data, operation)
                 # print('unlocK')
