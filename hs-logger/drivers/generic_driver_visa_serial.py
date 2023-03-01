@@ -71,20 +71,15 @@ class generic_driver_visa_serial(object):
                     except visa.errors.VisaIOError:
                         pass
                     data = re.split(operation.get("split", r'\s+'), data)  # TEST RegEx for 1 or more whitespace chars.
+                    if data[0] == "":
+                        data = data[1:]
                     for i, d in enumerate(data):
                         if self.isfloat(d):
                             data[i] = self.decimals(d, operation)
                         elif self.isfloat(d[operation.get("offset", 0):]):
                             data[i] = self.decimals(d[operation.get("offset", 0):], operation)
                         else:
-                            pass
-                    # # Remove all non np float64 data types
-                    # new = []
-                    # for d in data:
-                    #     if type(d) == (np.float64):
-                    #         new.append(d)
-                    # print(new)
-                    # data = new
+                            data[i] = float("NaN")
 
                     o_ops = operation.get("operations")
                     if o_ops is not None:
@@ -106,9 +101,8 @@ class generic_driver_visa_serial(object):
                     try:
                         while True:
                             data = self.instrument.read()
-                            print(f"{operation.get('command', '')}: {data}")
-                    except visa.errors.VisaIOError as e:
-                        print(e)
+                    except visa.errors.VisaIOError:
+                        pass
                     try:
                         data = float(data)
                     except ValueError:
@@ -125,8 +119,8 @@ class generic_driver_visa_serial(object):
                             #print(data)
                     except visa.errors.VisaIOError:
                         pass
-                    data = []
-                    data_trans = []
+                    data = float("NaN")
+                    data_trans = float("NaN")
                 # print('unlock')
             self.store[operation_id] = ((data, data_trans), time.time())
 

@@ -1,0 +1,6 @@
+a221128_Benchmark_Dewmaster_Climate20C,,,,,
+Points,Soak,Assured,t_2900,fp_2900,Q_2900
+,,,HG2900.set_ts,HG2900.set_fp,HG2900.set_q
+1,300,0,5,-20.8,30
+2,90,0,5,-11.4,30
+3,90,0,5,3.2,30

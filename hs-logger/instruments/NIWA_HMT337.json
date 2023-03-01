@@ -3,7 +3,7 @@
     "instrument_name": "Vaisala HMT337",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM22",
+    "port": "COM18",
     "baudrate": 19200,
     "write_termination": "\r",
     "read_termination": "\r\n",

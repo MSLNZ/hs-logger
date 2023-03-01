@@ -61,7 +61,6 @@ class visa_serial_milliK(object):
                     try:
                         while True:
                             data = self.instrument.read()
-                            print(f"{commands}: {data}")
                     except visa.errors.VisaIOError as e:
                         pass
                     try:

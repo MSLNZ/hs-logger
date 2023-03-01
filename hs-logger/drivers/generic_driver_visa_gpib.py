@@ -107,8 +107,8 @@ class generic_driver_visa_gpib(object):
                             print(data)
                     except visa.errors.VisaIOError:
                         pass
-                    data = []
-                    data_trans = []
+                    data = float("NaN")
+                    data_trans = float("NaN")
                 # print('unlock')
             self.store[operation_id] = ((data, data_trans), time.time())
 
