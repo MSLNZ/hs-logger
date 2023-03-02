@@ -739,7 +739,7 @@ class Controller(object):
             err('not a valid job file (ValueError)')
         except OSError as e:
             print(e)
-            err('not a valid job file (OSError')
+            err('not a valid job file (OSError)')
         finally:
             f.close()
 
@@ -753,10 +753,10 @@ class Controller(object):
             cb(True)
         except ValueError as e:
             print(e)
-            err('not a valid inst file')
+            err('not a valid inst file (ValueError)')
         except OSError as e:
             print(e)
-            err('not a valid inst file')
+            err('not a valid inst file (OSError)')
         finally:
             try:
                 inst.close()
