@@ -1,0 +1,52 @@
+{
+    "job_name":"230216_S17DUT_holder_withcap_highT_run1",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2022\\230216_S17DUT_holder_withcap_highT_run1\\",
+    "filename": "230216_S17DUT_holder_withcap_highT_run1",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "microK": "instruments/microK-microsKanner.json",
+        "Julabo_HL": "instruments/Julabo_HL_Serial.json",
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json",
+        "SFC5500_22030201_10slm":"instruments/SFC5500_22030201_10slm.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "microK.read_10",
+        "microK.read_11",
+        "microK.read_12",
+        "microK.read_13",
+        "microK.read_15",
+        "microK.read_18",
+        "microK.read_19",
+        "Julabo_HL.read_Tm",
+        "Julabo_HL.read_Tex",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow",
+        "S8000RS.read_mirror_cond",
+        "SFC5500_22030201_10slm.read_q"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "microK.read_11",
+                "microK.read_12",
+                "microK.read_13",
+                "microK.read_15",
+                "microK.read_18",
+                "microK.read_19",
+                "Julabo_HL.read_Tm",
+                "Julabo_HL.read_Tex"
+            ]
+        }
+    }
+}

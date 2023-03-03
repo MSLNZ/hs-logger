@@ -1,0 +1,113 @@
+{
+    "job_name":"230228_Edgetech",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\230228_Edgetech",
+    "filename": "Edgetech_Dewmaster",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "HG3900":"instruments/HG3900_visa.json",
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "CPT9000_4100OMG4":"instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM":"instruments/Mensor_CPT9000_410012TM.json",
+        "Edgetech_Dewmaster": "instruments/Edgetech_Dewmaster.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG3900.read_fp",
+        "HG3900.read_dp",
+        "HG3900.read_ppmv",
+        "HG3900.read_ppmw",
+        "HG3900.read_rh",
+        "HG3900.read_ps",
+        "HG3900.read_ts",
+        "HG3900.read_pc",
+        "HG3900.read_tc",
+        "HG3900.read_q",
+        "HP34420A_HP34970A.read_px119",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_14",
+        "milliK-millisKanner_40152.read_15",
+        "milliK-millisKanner_40152.read_16",
+        "milliK-millisKanner_40152.read_17",
+        "CPT9000_4100OMG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "Edgetech_Dewmaster.read_DP"
+    ],
+    "details": {
+        "details": {
+            "milliK-millisKanner_40152": {
+                "read_10": "Ts 3900",
+                "read_11": "Chamber below",
+                "read_12": "DP30",
+                "read_14": "Chamber left",
+                "read_15": "Chamber above",
+                "read_16": "Tamb",
+                "read_17": "SPPRT"
+            }
+        }
+    },
+    "references": {
+        "FP_at_DUT": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_4100OMG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_11",
+            "t2": "milliK-millisKanner_40152.read_11",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_4100OMG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_11",
+            "t2": "milliK-millisKanner_40152.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "RH_at_DUT": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_4100OMG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_11",
+            "t2": "milliK-millisKanner_40152.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Ts": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_10",
+                "milliK-millisKanner_40152.read_17"
+            ]
+        },
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_11",
+                "milliK-millisKanner_40152.read_14",
+                "milliK-millisKanner_40152.read_15"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG3900.read_fp",
+                "milliK-millisKanner_40152.read_12",
+	            "reference.FP_at_DUT",
+                "Edgetech_Dewmaster.read_DP"
+            ]
+        }
+    }
+}

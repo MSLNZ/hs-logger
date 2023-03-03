@@ -12,33 +12,25 @@
     "logged_operations": [
         "time.runtime",
         "time.datetime",
-        "microK.read_2",
-        "microK.read_3",
         "microK.read_10",
         "microK.read_11",
         "microK.read_12",
         "microK.read_13",
         "microK.read_14",
         "microK.read_15",
-        "microK.read_16",
-        "microK.read_17",
         "microK.read_18",
         "microK.read_19"
     ],
     "details": {
         "microK": {
-            "read_2": "NONE",
-            "read_3": "NONE",
-            "read_10": "HART01",
-            "read_11": "SIL050",
-            "read_12": "SIL057",
-            "read_13": "NONE",
-            "read_14": "NONE",
-            "read_15": "NONE",
-            "read_16": "NONE",
-            "read_17": "NONE",
-            "read_18": "NONE",
-            "read_19": "NONE"
+            "read_10": "SIL047",
+            "read_11": "SIL064",
+            "read_12": "SIL065",
+            "read_13": "SIL060",
+            "read_14": "SIL061",
+            "read_15": "SIL062",
+            "read_18": "S17-PRT-1",
+            "read_19": "S17-PRT-2"
         }
     },
     "references": {}
