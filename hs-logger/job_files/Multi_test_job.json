@@ -1,0 +1,38 @@
+{
+    "job_name":"Multi_test_job",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "MT",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "F250Bridge_K705Scanner":"instruments/F250Bridge_K705Scanner.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "HG2500":"instruments/HG2500_visa.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "F250Bridge_K705Scanner.read_tx11",
+        "F250Bridge_K705Scanner.read_tx12",
+        "F250Bridge_K705Scanner.read_tx13",
+        "F250Bridge_K705Scanner.read_tx14",
+        "F250Bridge_K705Scanner.read_tx15",
+        "F250Bridge_K705Scanner.read_tx17",
+        "F250Bridge_K705Scanner.read_tx18",
+        "F250Bridge_K705Scanner.read_tx19",
+        "F250Bridge_K705Scanner.read_tx20",
+        "HP34420A_HP34970A.read_px116",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_sat_pres",
+        "HG2500.read_chamber_press",
+        "HG2500.read_sat_temp",
+        "HG2500.read_chamber_temp",
+        "HG2500.read_flowrate"
+    ]
+}

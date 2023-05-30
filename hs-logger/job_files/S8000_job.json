@@ -1,0 +1,27 @@
+{
+    "job_name":"S8000_RS_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "S8000",
+    "min_interval": 30,
+    "time":0,
+    "instruments":{
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_ambtemp",
+        "S8000RS.read_rh",
+        "S8000RS.read_ppmv",
+        "S8000RS.read_ppmw",
+        "S8000RS.read_gm3",
+        "S8000RS.read_gkg",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow"
+    ],
+    "details": {},
+    "references": {}
+}

@@ -1,0 +1,23 @@
+{
+    "job_name":"Homersham_HMP9_210118",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+	"filename": "Homersham_HMP9",
+    "interval": 10,
+    "time":0,
+    "instruments":{
+        "Vaisala_HMP7_376":"instruments/Vaisala_HMP7_376_mb01.json",
+        "Vaisala_HMP9_574":"instruments/Vaisala_HMP9_574_mb01.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "Vaisala_HMP7_376.read_temp",
+        "Vaisala_HMP7_376.read_rh",
+        "Vaisala_HMP7_376.read_dew_frost_point_temp",
+        "Vaisala_HMP9_574.read_temp",
+        "Vaisala_HMP9_574.read_rh",
+        "Vaisala_HMP9_574.read_dew_frost_point_temp"
+    ]
+}

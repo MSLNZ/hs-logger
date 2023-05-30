@@ -1,0 +1,28 @@
+{
+    "job_name":"HG3900 Characterization",
+    "job_id":1,
+    "job_notes":"Characterization of the Thunder Scientific HG3900.",
+    "out_dir": "C:\\datasync\\",
+    "filename": "HG3900",
+    "min_interval": 60,
+    "time": 0,
+    "instruments":{
+        "HG3900":"instruments/HG3900_visa.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG3900.read_fp",
+        "HG3900.read_dp",
+        "HG3900.read_ppmv",
+        "HG3900.read_ppmw",
+        "HG3900.read_rh",
+        "HG3900.read_ps",
+        "HG3900.read_ts",
+        "HG3900.read_pc",
+        "HG3900.read_tc",
+        "HG3900.read_q",
+        "HG3900.read_status"
+    ],
+    "references": {}
+}

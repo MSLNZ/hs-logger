@@ -1,0 +1,35 @@
+{
+    "job_name": "pressure_test_job",
+    "job_id": 0,
+    "job_notes": "This job can be used and modified for doing atmospheric pressure test.",
+    "out_dir": "C:\\datasync\\",
+    "filename": "PT",
+    "min_interval": 0,
+    "time": 0,
+    "instruments": {
+        "HG2500": "instruments/HG2500_visa.json",
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
+        "MSL473_SH2": "instruments/MSL473_SH2.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json"
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "MSL473_SH2.read_P",
+        "CPT9000_410012TM.read_pressure",
+        "CPT9000_4100133U.read_pressure"
+    ],
+    "references": {
+    }
+}

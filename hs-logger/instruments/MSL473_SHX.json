@@ -1,0 +1,184 @@
+{
+  "instrument_id": "MSL473_SHX",
+    "instrument_name": "MSL473_SHX",
+    "driver": "generic_driver_visa_serial",
+    "interface": "visa",
+    "port": "COM32",
+    "baudrate": 9600,
+    "write_termination": "\r",
+    "read_termination": "\r\n",
+    "echo": true,
+    "notes": "this should also work for 373 series",
+    "operations": {
+        "read_Tm": {
+            "type": "read_single",
+            "name": "Tm MSL473_SHX",
+            "id": "read_Tm",
+            "command": "Tm?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Tm is measured mirror temperature"
+        },
+        "read_DP": {
+            "type": "read_single",
+            "name": "DP MSL473_SHX",
+            "id": "read_DP",
+            "command": "DP?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "DP is calculated if Tm=FP"
+        },
+        "read_FP": {
+            "type": "read_single",
+            "name": "FP MSL473_SHX",
+            "id": "read_FP",
+            "command": "FP?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "FP is calculated if Tm=DP"
+        },
+        "read_RH": {
+            "type": "read_single",
+            "name": "RH MSL473_SHX",
+            "id": "read_RH",
+            "command": "RH?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "RH calc ex DP & assumes sat. at Tx over ice"
+        },
+        "read_RHw": {
+            "type": "read_single",
+            "name": "RHw MSL473_SHX",
+            "id": "read_RHw",
+            "command": "RHw?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "RH(WMO) calc ex DP & assumes sat. at Tx over liq"
+        },
+        "read_Tx": {
+            "type": "read_single",
+            "name": "Tx MSL473_SHX",
+            "id": "read_Tx",
+            "command": "Tx?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "define where placed"
+        },
+        "read_P": {
+            "type": "read_single",
+            "name": "P MSL473_SHX",
+            "id": "read_P",
+            "command": "P?",
+            "transform_eq":["P",0,1,0,0],
+            "data_type": "float",
+            "unit": "b",
+            "details": " "
+        },
+        "read_VP": {
+            "type": "read_single",
+            "name": "VP MSL473_SHX",
+            "id": "read_VP",
+            "command": "VP?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "Pa",
+            "details": "vapour pressure"
+        },
+        "read_Flow": {
+            "type": "read_single",
+            "name": "Flow MSL473_SHX",
+            "id": "read_Flow",
+            "command": "Flow?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "SLPM",
+            "details": "standard litres per minute"
+        },
+        "read_Th": {
+            "type": "read_single",
+            "name": "Th MSL473_SHX",
+            "id": "read_Th",
+            "command": "Th?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "head temperature"
+        },
+        "read_Stable": {
+            "type": "read_single",
+            "name": "Stable MSL473_SHX",
+            "id": "read_Stable",
+            "command": "Stable?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "",
+            "details": "is stable?"
+        },
+        "read_PPMv": {
+            "type": "read_single",
+            "name": "PPMv MSL473_SH2",
+            "id": "read_PPMv",
+            "command": "PPMv?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "PPMv",
+            "details": "Volume Ratio"
+        },
+        "read_PPMw": {
+            "type": "read_single",
+            "name": "PPMw MSL473_SH2",
+            "id": "read_PPMw",
+            "command": "PPMw?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "PPMw",
+            "details": "Weight Ratio"
+        },
+        "read_ah": {
+            "type": "read_single",
+            "name": "AH MSL473_SH2",
+            "id": "read_ah",
+            "command": "AH?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "g/m3",
+            "details": "Absolute Humidity"
+        },
+        "read_sh": {
+            "type": "read_single",
+            "name": "SH MSL473_SH2",
+            "id": "read_sh",
+            "command": "SH?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "g/kg",
+            "details": "Specific Humidity"
+        },
+        "read_Om": {
+            "type": "read_single",
+            "name": "Om MSL473_SH2",
+            "id": "read_Om",
+            "command": "Om?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "Ohms",
+            "details": "Mirror PRT Resistance"
+        },
+        "read_Ox": {
+            "type": "read_single",
+            "name": "Ox MSL473_SH2",
+            "id": "read_Ox",
+            "command": "Ox?",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "Ohms",
+            "details": "External PRT Resistance"
+        }
+    }
+}

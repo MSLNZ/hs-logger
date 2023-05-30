@@ -1,0 +1,27 @@
+{
+    "instrument_id": "CPT9000",
+    "instrument_name": "Mensor CPT9000 Template",
+    "driver": "generic_driver_py_serial",
+    "interface": "visa",            
+    "port": "COM222",
+    "baudrate":57600,
+    "parity": "NONE",
+    "stopbits": "1",
+    "timeout": 3,
+    "write_termination": "\r\n",
+    "read_termination": "\r\n",
+    "notes": "",
+    "doOpen": false,
+    "operations": {
+        "read_pressure": {
+            "type": "read_single",
+            "name": "Ps 2900 Mensor",
+            "id": "read_pressure",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "PRESS?",
+            "transform_eq": ["P", 4.415718e-4, 9.99849e-1, 0, 0]
+        }
+    }
+}

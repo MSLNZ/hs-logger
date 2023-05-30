@@ -1,0 +1,25 @@
+{
+    "job_name": "pressure_calibration",
+    "job_id": 0,
+    "job_notes": "This job is for use by pressure standards to run their calibration of the humidity standards pressure sensors.",
+    "out_dir": "C:\\datasync\\",
+    "filename": "PRESSURE",
+    "min_interval": 0,
+    "time": 0,
+    "instruments": {
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json",
+        "CPT9000_4100OMG4": "instruments/Mensor_CPT9000_41000MG4.json"
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "CPT9000_410012TM.read_pressure",
+        "CPT9000_4100133U.read_pressure",
+        "CPT9000_41000MG4.read_pressure"
+    ]
+}

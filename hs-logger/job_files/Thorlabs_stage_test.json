@@ -1,0 +1,46 @@
+{
+    "job_name":"Thorlabs_stage",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "Thorlabs_stage",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "Thorlabs_stage":"instruments/Thorlabs_stage_45843029.json",
+        "HG2900":"instruments/HG2900_visa.json",
+        "milliK": "instruments/milliK-millisKanner.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "Thorlabs_stage.read_pos",
+        "milliK.read_10",
+        "milliK.read_17",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl"
+    ],
+    "details": {
+        "Thorlabs_stage": {
+            "read_pos": "In situ."
+        },
+         "milliK": {
+            "read_10": "Ts 2900 SIL 35",
+             "read_17": "ambient SIL 39"
+        }
+    },
+    "references": {}
+}

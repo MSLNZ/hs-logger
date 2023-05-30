@@ -1,0 +1,165 @@
+{
+    "instrument_id": "Optidew",
+    "instrument_name": "Michell Optidew",
+    "driver":"generic_driver_visa_serial",
+    "interface": "visa",
+    "port": "COM22",
+    "baudrate":9600,
+    "write_termination":"\r",
+    "read_termination":"\r\n",
+    "notes": "",
+    "operations": {
+        "read_dps":{
+            "type": "read_single",
+            "name": "Optidew DP",
+            "id": "read_dps",
+            "details":"",
+            "command":"gdp",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tambs":{
+            "type": "read_single",
+            "name": "Optidew Tamb",
+            "id": "read_tambs",
+            "details":"",
+            "command":"gtp",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_rhs":{
+            "type": "read_single",
+            "name": "Optidew rh",
+            "id": "read_rhs",
+            "details":"",
+            "command":"grh",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_default":{
+            "type": "read_multiple",
+            "name": "Actual/generated values",
+            "id": "read_default",
+            "details":"",
+            "command":"y",
+            "operations":["read_dp", "read_tamb", "read_rh", "read_msl", "read_hp", "read_status", "read_gm3", "read_gkg", "read_tunit", "read_state"],
+            "data_type": "list",
+            "split":",",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_dp":{
+            "type": "read_store",
+            "name": "Optidew DP",
+            "id": "read_dp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tamb":{
+            "type": "read_store",
+            "name": "Optidew Tamb",
+            "id": "read_tamb",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_rh":{
+            "type": "read_store",
+            "name": "Optidew rh",
+            "id": "read_rh",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_msl":{
+            "type": "read_store",
+            "name": "Optidew mirror signal level",
+            "id": "read_msl",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_hp":{
+            "type": "read_store",
+            "name": "Optidew heat pump",
+            "id": "read_hp",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_status":{
+            "type": "read_store",
+            "name": "Optidew status",
+            "id": "read_status",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_gm3":{
+            "type": "read_store",
+            "name": "Optidew gm3",
+            "id": "read_gm3",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_gkg":{
+            "type": "read_store",
+            "name": "Optidew gkg",
+            "id": "read_gkg",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tunit":{
+            "type": "read_store",
+            "name": "Optidew Temperature Unit",
+            "id": "read_tunit",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_state":{
+            "type": "read_store",
+            "name": "Optidew state",
+            "id": "read_state",
+            "details":"",
+            "store_id": "read_setpoints",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        }
+    }
+}

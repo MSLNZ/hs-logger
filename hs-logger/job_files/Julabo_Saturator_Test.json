@@ -1,0 +1,50 @@
+{
+    "job_name":"Julabo_Saturator_Test",
+    "job_id":1,
+    "job_notes":"Experiment testing the performance of the FP89 and connected saturator.",
+    "out_dir": "C:\\datasync\\",
+    "filename": "JST",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "milliK":"instruments/milliK-millisKanner.json",
+        "CPT9000_4100133U":"instruments/Mensor_CPT9000_4100133U.json",
+        "CPT9000_410012TM":"instruments/Mensor_CPT9000_410012TM.json",
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json",
+        "ST100_M_1":"instruments/SmartTrak100_Meter_1.json",
+        "ST100_C_1":"instruments/SmartTrak100_Controller_1.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "milliK.read_10",
+        "milliK.read_17",
+        "CPT9000_4100133U.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "ST100_M_1.read_flow",
+        "ST100_C_1.read_flow",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_flow",
+        "S8000RS.read_pressure"
+    ],
+    "details": {
+    },
+    "references": {
+        "pressureFP_DP30": {
+         "hum": "milliK.read_10",
+         "p1": "CPT9000_410012TM.read_pressure",
+         "p2": "CPT9000_4100133U.read_pressure",
+         "df1": 0,
+         "df2": 0,
+         "type": "dd"
+         },
+        "pressureFP_S8000": {
+         "hum": "S8000RS.read_dewpoint",
+         "p1": "CPT9000_410012TM.read_pressure",
+         "p2": "CPT9000_4100133U.read_pressure",
+         "df1": 0,
+         "df2": 0,
+         "type": "dd"
+         }
+    }
+}

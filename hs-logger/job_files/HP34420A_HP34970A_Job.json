@@ -1,0 +1,36 @@
+{
+    "job_name":"HP34420A_HP34970A_Job",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "HP34420A_HP34970A",
+    "min_interval": 10,
+    "time":0,
+    "instruments":{
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HP34420A_HP34970A.read_px101",
+        "HP34420A_HP34970A.read_px102",
+        "HP34420A_HP34970A.read_px103",
+        "HP34420A_HP34970A.read_px104",
+        "HP34420A_HP34970A.read_px105",
+        "HP34420A_HP34970A.read_px106",
+        "HP34420A_HP34970A.read_px107",
+        "HP34420A_HP34970A.read_px108",
+        "HP34420A_HP34970A.read_px109",
+        "HP34420A_HP34970A.read_px110",
+        "HP34420A_HP34970A.read_px111",
+        "HP34420A_HP34970A.read_px112",
+        "HP34420A_HP34970A.read_px113",
+        "HP34420A_HP34970A.read_px114",
+        "HP34420A_HP34970A.read_px115",
+        "HP34420A_HP34970A.read_px116",
+        "HP34420A_HP34970A.read_px117",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120"
+    ]
+}

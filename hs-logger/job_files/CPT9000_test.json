@@ -1,0 +1,18 @@
+{
+    "job_name": "CPT9000_test",
+    "job_id": 2,
+    "job_notes": "comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "CPT9000",
+    "min_interval": 20,
+    "time": 0,
+    "instruments": {
+        "CPT9000": "instruments/Mensor_CPT9000.json"
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "CPT9000.read_pressure"
+    ],
+    "references": {}
+}

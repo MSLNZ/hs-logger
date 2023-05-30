@@ -1,0 +1,23 @@
+{
+    "job_name":"Julabo_HL_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "JHL",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "Julabo_HL":"instruments/Julabo_HL_serial.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "Julabo_HL.read_Tm"
+        ],
+    "details": {
+        "Julabo_HL": {
+            "read_Tm": "In situ."
+        }
+    },
+    "references": {}
+}

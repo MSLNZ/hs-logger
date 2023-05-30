@@ -1,0 +1,25 @@
+{
+    "job_name": "milliK-millisKanner_testjob",
+    "job_id": 2,
+    "job_notes": "comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "mK",
+    "min_interval": 20,
+    "time": 0,
+    "instruments": {
+        "milliK": "instruments/milliK-millisKanner.json"
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "milliK.read_10",
+        "milliK.read_11",
+        "milliK.read_12",
+        "milliK.read_13",
+        "milliK.read_14",
+        "milliK.read_15",
+        "milliK.read_16",
+        "milliK.read_17"
+    ],
+    "references": {}
+}

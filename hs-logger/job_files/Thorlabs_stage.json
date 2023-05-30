@@ -1,0 +1,25 @@
+{
+    "job_name":"Thorlabs_stage",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "Thorlabs_stage",
+    "min_interval": 20,
+    "time":0,
+    "instruments":{
+        "Thorlabs_stage":"instruments/Thorlabs_stage_45843029.json",
+        "microK": "instruments/microK-microsKanner.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "Thorlabs_stage.read_pos",
+        "microK.read_11"
+    ],
+    "details": {
+        "Thorlabs_stage": {
+            "read_pos": "In situ."
+        }
+    },
+    "references": {}
+}

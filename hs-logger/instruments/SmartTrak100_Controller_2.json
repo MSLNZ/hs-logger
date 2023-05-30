@@ -1,0 +1,171 @@
+{
+    "instrument_id": "ST100_C_2",
+    "instrument_name": "SmartTrak100 Mass Flow Controller 2",
+    "driver": "Driver_SmartTrak_pyserial",
+    "interface": "pyserial",
+    "type": "Controller",
+    "Serialnumber": "Srnm305564",
+    "port": "COM32",
+    "baudrate": 9600,
+    "parity": "PARITY_NONE",
+    "stopbits": "STOPBITS_ONE",
+    "timeout": 3,
+    "write_termination": "\r",
+    "read_termination": "\r",
+    "echo": false,
+    "notes": "",
+    "operations": {
+        "read_flow": {
+            "type": "read_single",
+            "name": "read_flow C2",
+            "id": "read_flow",
+            "command": "?Sinv",
+            "transform_eq": [
+                "V",
+                0,
+                1,
+                0,
+                0
+            ],
+            "data_type": "float",
+            "unit": "slm default, can be different",
+            "details": "measured flow"
+        },
+        "read_setpoint": {
+            "type": "read_single",
+            "name": "read_setpoint C2",
+            "id": "read_setpoint",
+            "command": "?Sinv",
+            "transform_eq": [
+                "V",
+                0,
+                1,
+                0,
+                0
+            ],
+            "data_type": "float",
+            "unit": "slm",
+            "details": "read setpoint of flow"
+        },
+        "read_unit_index": {
+            "type": "read_single",
+            "name": "read_unit_index C2",
+            "id": "read_unit",
+            "command": "?Unti",
+            "transform_eq": [
+                "V",
+                0,
+                1,
+                0,
+                0
+            ],
+            "data_type": "int",
+            "unit": "unit",
+            "details": "scc/s = 1, scc/m = 2, scc/H = 3, Ncc/s = 4, Ncc/m = 5, Ncc/H = 6, SCF/s = 7, SCF/m = 8, SCF/H = 9, NM3/s = 10, NM3/m = 11, NM3/H = 12, SM3/s = 13, SM3/m = 14, SM3/H = 15, sl/s = 16, sl/m = 17, sl/H = 18, NL/s = 19, NL/m = 20, NL/H = 21, g/s = 22, g/m = 23, g/H = 24, kg/s = 25, kg/m = 26, kg/H = 27, lb/s = 28, lb/m = 29, lb/H = 30"
+        },
+        "read_valve_index": {
+            "type": "read_single",
+            "name": "read_valve C2",
+            "id": "read_valve_index",
+            "command": "?Vlvi",
+            "transform_eq": [
+                "V",
+                0,
+                1,
+                0,
+                0
+            ],
+            "data_type": "int",
+            "unit": "index",
+            "details": "Automatic = 1, Closed = 2, Purge = 3"
+        },
+        "read_Gas_index": {
+            "type": "read_single",
+            "name": "Gas_index C2",
+            "id": "read_Gas_index",
+            "command": "?Gasi",
+            "transform_eq": [
+                "V",
+                0,
+                1,
+                0,
+                0
+            ],
+            "data_type": "int",
+            "unit": "index",
+            "details": "Read setpoint 3"
+        },
+        "read_stream_mode": {
+            "type": "read_single",
+            "name": "Stream_mode C2",
+            "id": "Stream_mode",
+            "command": "?Strm ",
+            "transform_eq": [
+                "V",
+                0,
+                1,
+                0,
+                0
+            ],
+            "data_type": "float",
+            "unit": "string",
+            "details": "streamString = \"On\", \"Off\", \"Echo\""
+        },
+        "write_flow": {
+            "type": "write",
+            "name": "q C2",
+            "id": "write_flow",
+            "command": "!FLOW{}",
+            "data_type": "float",
+            "unit": "slm default, can be different",
+            "details": "write flow"
+        },
+        "write_setpoint": {
+            "type": "write",
+            "name": "write_setpoint C2",
+            "id": "write_setpoint",
+            "command": "!Sinv{}",
+            "data_type": "float",
+            "unit": "slm",
+            "details": "write setpoint of flow",
+            "check_set": "read_setpoint",
+            "check_actual": "read_flow"
+        },
+        "write_unit_index": {
+            "type": "write",
+            "name": "write_unit C2",
+            "id": "write_unit",
+            "command": "!Unti{}",
+            "data_type": "int",
+            "unit": "unit",
+            "details": "scc/s = 1, scc/m = 2, scc/H = 3, Ncc/s = 4, Ncc/m = 5, Ncc/H = 6, SCF/s = 7, SCF/m = 8, SCF/H = 9, NM3/s = 10, NM3/m = 11, NM3/H = 12, SM3/s = 13, SM3/m = 14, SM3/H = 15, sl/s = 16, sl/m = 17, sl/H = 18, NL/s = 19, NL/m = 20, NL/H = 21, g/s = 22, g/m = 23, g/H = 24, kg/s = 25, kg/m = 26, kg/H = 27, lb/s = 28, lb/m = 29, lb/H = 30"
+        },
+        "write_Valve_index": {
+            "type": "write",
+            "name": "write_valve C2",
+            "id": "write_Valve_index",
+            "command": "!Vlvi{}",
+            "data_type": "int",
+            "unit": "index",
+            "details": "Automatic = 1, Closed = 2, Purge = 3"
+        },
+        "write_Gas_index": {
+            "type": "write",
+            "name": "Gas_index C2",
+            "id": "Gas_index",
+            "command": "!Gasi{}",
+            "data_type": "int",
+            "unit": "index",
+            "details": "write gas index ->see manual 1 - Air \n\t\t2 - Argon\n\t\t3 - CO2\n\t\t4 - CO\n\t\t5 - He\n\t\t6 - H\n\t\t7 - CH4\n\t\t8 - N\n\t\t9 - NO\n\t\t10 - O"
+        },
+        "write_stream_mode": {
+            "type": "write",
+            "name": "Stream_mode C2",
+            "id": "Stream_mode",
+            "command": "!Strm{}",
+            "data_type": "string",
+            "unit": "string",
+            "details": "streamString = \"On\", \"Off\", \"Echo\""
+        }
+    }
+}

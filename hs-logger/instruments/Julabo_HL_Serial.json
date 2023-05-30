@@ -1,0 +1,200 @@
+{
+    "instrument_id": "Julabo_HL",
+    "instrument_name": "Julabo HL",
+    "driver": "julabo_py_serial",
+    "interface": "pyserial",
+    "port": "COM22",
+    "baudrate": 4800,
+    "parity": "PARITY_EVEN",
+    "stopbits": "STOPBITS_ONE",
+    "timeout": 3,
+    "write_termination":"\r",
+    "read_termination":"\r\n",
+    "echo": false,
+    "notes": " ",
+    "operations": {
+        "read_Tm": {
+            "type": "read_single",
+            "name": "Tb Julabo HL",
+            "id": "read_Tm",
+            "command": "IN_PV_00",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Tm is internal temperature"
+        },
+        "read_Tex": {
+            "type": "read_single",
+            "name": "Tex Julabo HL",
+            "id": "read_Tex",
+            "command": "IN_PV_02",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Tex is external temperature"
+        },
+        "read_Tsp1": {
+            "type": "read_single",
+            "name": "Tsp1 Julabo HL",
+            "id": "read_Tsp1",
+            "command": "IN_SP_00",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Tsp1 is set point temperature"
+        },
+        "read_cospeed": {
+            "type": "read_single",
+            "name": "CoSpeed",
+            "id": "read_cospeed",
+            "command": "IN_PAR_04",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float"
+        },
+        "read_control_Xp": {
+            "type": "read_single",
+            "name": "Xp control parameter",
+            "id": "read_control_Xp",
+            "command": "IN_PAR_06",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float"
+        },
+        "read_control_Tn": {
+            "type": "read_single",
+            "name": "Tn control parameter",
+            "id": "read_control_Tn",
+            "command": "IN_PAR_07",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float"
+        },
+        "read_control_Tv": {
+            "type": "read_single",
+            "name": "Tv control parameter",
+            "id": "read_control_Tv",
+            "command": "IN_PAR_08",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float"
+        },
+        "read_cascade_Xp": {
+            "type": "read_single",
+            "name": "Xp cascade parameter",
+            "id": "read_cascade_Xp",
+            "command": "IN_PAR_09",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float"
+        },
+        "read_cascade_P": {
+            "type": "read_single",
+            "name": "P cascade parameter",
+            "id": "read_cascade_P",
+            "command": "IN_PAR_10",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float"
+        },
+        "read_cascade_Tn": {
+            "type": "read_single",
+            "name": "Tn cascade parameter",
+            "id": "read_cascade_Tn",
+            "command": "IN_PAR_11",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float"
+        },
+        "read_cascade_Tv": {
+            "type": "read_single",
+            "name": "Tv cascade parameter",
+            "id": "read_cascade_Tv",
+            "command": "IN_PAR_12",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float"
+        },
+        "read_Unit_on": {
+            "type": "read_single",
+            "name": "Julabo HL On",
+            "id": "read_Unit_on",
+            "command": "IN_MODE_05",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "bit",
+            "unit": "NA",
+            "details": "Read unit on state"
+        },
+        "write_Tsp1": {
+            "type": "write",
+            "name": "Tsp1 Julabo HL",
+            "id": "write_Tsp1",
+            "command": "OUT_SP_00 {}",
+            "details": "Tsp1 is set point temperature",
+            "check_set": "read_Tsp1",
+            "check_actual": "read_Tm"
+        },
+        "write_unit_on": {
+            "type": "write",
+            "name": "Julabo HL on",
+            "id": "write_unit_on",
+            "command": "OUT_MODE_05 {}",
+            "details": "Set Unit On Status, 1 on and 0 off"
+        },
+        "write_pump_stage": {
+            "type": "write",
+            "name": "Julabo Pump Stage",
+            "id": "write_pump_stage",
+            "command": "OUT_SP_07 {}",
+            "details": "Set pump stage to an integer from 1 to 4."
+        },
+        "write_cospeed": {
+            "type": "write",
+            "name": "CoSpeed",
+            "id": "write_cospeed",
+            "command": "OUT_PAR_04 {}",
+            "details": "Set CoSpeed to a number from 0 to 5.0."
+        },
+        "write_control_Xp": {
+            "type": "write",
+            "name": "Xp control parameter",
+            "id": "write_control_Xp",
+            "command": "OUT_PAR_06 {}",
+            "details": "Set Xp control parameter to a number from 0.1 to 99.9."
+        },
+        "write_control_Tn": {
+            "type": "write",
+            "name": "Tn control parameter",
+            "id": "write_control_Tn",
+            "command": "OUT_PAR_07 {}",
+            "details": "Set Tn control parameter to a number from 3 to 9999."
+        },
+        "write_control_Tv": {
+            "type": "write",
+            "name": "Tv control parameter",
+            "id": "write_control_Tv",
+            "command": "OUT_PAR_08 {}",
+            "details": "Set Tv control parameter to a number from 0 to 999."
+        },
+        "write_cascade_Xp": {
+            "type": "write",
+            "name": "Xp cascade parameter",
+            "id": "write_cascade_Xp",
+            "command": "OUT_PAR_09 {}",
+            "details": "Set Xp cascade parameter to a number from 0.1 to 99.9."
+        },
+        "write_cascade_P": {
+            "type": "write",
+            "name": "P cascade parameter",
+            "id": "write_cascade_P",
+            "command": "OUT_PAR_10 {}",
+            "details": "Set P cascade parameter to a number from 1 to 99.9."
+        },
+        "write_cascade_Tn": {
+            "type": "write",
+            "name": "Tn cascade parameter",
+            "id": "write_cascade_Tn",
+            "command": "OUT_PAR_11 {}",
+            "details": "Set Tn cascade parameter to a number from 3 to 9999."
+        },
+        "write_cascade_Tv": {
+            "type": "write",
+            "name": "Tv cascade parameter",
+            "id": "write_cascade_Tv",
+            "command": "OUT_PAR_12 {}",
+            "details": "Set Tv cascade parameter to a number from 0 to 999."
+        }
+    }
+}

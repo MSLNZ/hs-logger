@@ -1,0 +1,33 @@
+{
+    "job_name":"HG2900_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "HG2900",
+    "min_interval": 20,
+    "time":0,
+    "instruments":{
+        "HG2900":"instruments/HG2900_visa.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl"
+        ],
+    "details": {},
+    "references": {}
+}

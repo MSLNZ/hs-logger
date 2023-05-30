@@ -1,0 +1,33 @@
+{
+    "job_name":"210621_iPAC_473_RP2",
+    "job_id":1,
+    "job_notes":"comment",
+    "datafile_raw": "TEST_473_data_raw.csv",
+    "datafile_trans": "TEST_473_data_trans.csv",
+    "points_file_raw": "TEST_473_points_raw.csv",
+    "points_file_trans": "TEST_473_points_trans.csv",
+    "source_file_raw": "TEST_473_source_raw.csv",
+    "source_file_trans": "TEST_473_source_trans.csv",
+    "sensor_file": "TEST_473_sensor_file.csv",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "F250Bridge_K705Scanner":"instruments/F250Bridge_K705Scanner.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SHX":"instruments/MSL473_SHX.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json",
+        "DUT473_RP2":"instruments/DUT473_RP2.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_sat_temp",
+        "HG2500.read_chamber_temp",
+        "HG2500.read_sat_press",
+        "HG2500.read_chamber_press",
+        "HG2500.read_flowrate",
+        "HP34420A_HP34970A.read_px118"
+    ]
+}

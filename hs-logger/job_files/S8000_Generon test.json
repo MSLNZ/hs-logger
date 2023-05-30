@@ -1,0 +1,48 @@
+{
+    "job_name":"S8000__Generon test_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "Generon_S8000",
+    "min_interval": 5,
+    "time":0,
+    "instruments":{
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json",
+        "ST100_M1":"instruments/SmartTrak100_Meter_1.json",
+        "microK": "instruments/microK-microsKanner.json",
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_rh",
+        "S8000RS.read_ppmv",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow",
+        "ST100_M1.read_flow",
+        "ST100_M1.read_setpoint",
+        "microK.read_18",
+        "HP34420A_HP34970A.read_px117",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119"
+    ],
+     "references": {
+       "pressureFP_S8000": {
+            "hum": "S8000RS.read_dewpoint",
+            "p1": "S8000RS.read_pressure",
+            "p2": "HP34420A_HP34970A.read_px118",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+       "pressureFP_DP30": {
+            "hum": "microK.read_18",
+            "p1": "HP34420A_HP34970A.read_px119",
+            "p2": "HP34420A_HP34970A.read_px118",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        }
+     }
+ }

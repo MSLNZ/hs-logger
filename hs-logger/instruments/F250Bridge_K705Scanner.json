@@ -1,0 +1,129 @@
+{
+    "instrument_id": "F250Bridge_K705Scanner",
+    "instrument_name": "Keithley 705 Scanner and F250 mk2 Bridge",
+    "driver":"F250Bridge_K705Scanner",
+    "interface": "visa",
+    "port_bridge": "GPIB0::3::INSTR",
+    "port_scanner": "GPIB0::17::INSTR",
+    "baudrate":9600,
+    "write_termination":"\r",
+    "read_termination":"\n",
+    "notes": "",
+    "check_date": "18/10/2021",
+    "cal_date": "18/10/2021",
+    "check_freq": 1,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2021/046, 18 October 2021",
+    "operations":{
+            "read_tx11": {
+                "name":"Ts2500#1 SIL010 c11",
+                "type":"read",
+                "id":"read_tx11",
+                "channel":11,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.91E-3,-6.04E-7,-4.59E-12,100.0184547],
+                "details":"",
+                "check_date": "3/05/2021",
+                "rep_num": "Temperature/2020/890, 31 January 2020"
+            },
+            "read_tx12": {
+                "name":"Tc SIL019 c12",
+                "type":"read",
+                "id":"read_tx12",
+                "channel": 12,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.93E-3,-6.42E-7,-7.29E-11,99.96977551],
+                "details":"",
+                "check_date": "3/05/2021",
+                "rep_num": "Temperature/2020/892, 31 January 2020"
+            },
+            "read_tx13": {
+                "name":"Tc SIL057 c13",
+                "type":"read",
+                "id":"read_tx13",
+                "channel": 13,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.91214E-3,-5.965E-7,-4.904E-12,99.98841519],
+                "details":"",
+                "check_date": "3/05/2021",
+                "rep_num": "Temperature/2019/856, 16 September 2019"
+            },
+            "read_tx14": {
+                "name":"Tc SIL058 c14",
+                "type":"read",
+                "id":"read_tx14",
+                "channel": 14,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.9036E-3,-5.698E-7,-4.48E-12,100.000505],
+                "details":"",
+                "check_date": "3/05/2021",
+                "rep_num": "Temperature/2019/857, 16 September 2019"
+            },
+            "read_tx15": {
+                "name":"Tc SIL020 c15",
+                "type":"read",
+                "id":"read_tx15",
+                "channel": 15,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.91E-3,-5.96E-7,-2.94E-11,100.0224146],
+                "details":"",
+                "check_date": "3/05/2021",
+                "rep_num": "Temperature/2020/893, 31 January 2020"
+            },
+            "read_tx16": {
+                "name":"Tb SIL023G c16",
+                "type":"read",
+                "id":"read_tx16",
+                "channel": 16,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.908544E-03,-5.805512E-07,-1.1642100E-11,99.94731],
+                "details":"",
+                "check_date": "15/08/2016",
+                "rep_num": "Temperature/2016/593, 9 August 2016"
+            },
+            "read_tx17": {
+                "name":"Tc SIL012 c17",
+                "type":"read",
+                "id":"read_tx17",
+                "channel": 17,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.91E-3,-5.99E-7,-6.39E-11,100.0150747],
+                "details":"",
+                "check_date": "3/05/2021",
+                "rep_num": "Temperature/2020/891, 31 January 2020"
+            },
+            "read_tx18": {
+                "name":"Tm DP30 c18",
+                "type":"read",
+                "id":"read_tx18",
+                "channel": 18,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.908544E-03, -5.805512E-07, -1.16421E-11, 99.94731],
+                "details":"",
+                "check_date": "12/02/2001",
+                "rep_num": "INTA No. 4661"
+            },
+            "read_tx19": {
+                "name":"Ts2500#2 SIL035 c19",
+                "type":"read",
+                "id":"read_tx19",
+                "channel": 19,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.90971E-3,-6.128E-7,-1.97E-12,100.0880834],
+                "details":"",
+                "check_date": "3/05/2021",
+                "rep_num": "Temperature/2017/683, 16 August 2017"
+            },
+            "read_tx20": {
+                "name":"Tamb SIL039 c20",
+                "type":"read",
+                "id":"read_tx20",
+                "channel": 20,
+                "bridge_prt":"A",
+                "transform_eq":["T", 3.91246E-3,-5.96E-7,-6.775E-12,99.97356],
+                "details":"",
+                "check_date": "13/03/2020",
+                "rep_num": "Temperature/2020/894, 31 January 2020"
+            }
+    }
+}

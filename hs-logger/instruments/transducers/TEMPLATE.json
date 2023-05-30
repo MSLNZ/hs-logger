@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "TEMPLATE",
+    "details": "",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq": ["V", 0, 1, 0, 0],
+    "check_date": "",
+    "cal_date": "",
+    "check_freq": 1,
+    "cal_freq": 2,
+    "rep_num": "",
+    "uncertainty": null,
+    "range": ""
+}

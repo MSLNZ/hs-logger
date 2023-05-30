@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "SIL051",
+    "details": "2mmx150mm",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.911330E-03,-5.9390E-07,-2.1520E-12,100.060230269],
+    "check_date": "30/06/2022",
+    "cal_date": "16/09/2019",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2019/850, 16 September 2019",
+    "uncertainty": 6.20E-03,
+    "range": "-40 to 100 °C"
+}

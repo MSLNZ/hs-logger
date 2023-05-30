@@ -1,0 +1,21 @@
+{
+    "job_name":"SmartTrak100_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "SmartTrak100",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "ST100_M_2":"instruments/SmartTrak100_Meter_2.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "ST100_M_2.read_flow",
+        "ST100_M_2.read_setpoint"
+        ],
+    "details": {
+    },
+    "references": {}
+}

@@ -1,0 +1,34 @@
+{
+    "instrument_id": "PID_inst_template",
+    "instrument_name": "PID_inst_template",
+    "driver": "PID_driver",
+    "notes": "comment",
+    "measure": ["",""],
+    "control": ["",""],
+    "Proportional": 0.5,
+    "Integral": 0,
+    "Derivative": 0,
+    "positive_feedback": true,
+    "operations": {
+        "read_control":{
+            "type": "read",
+            "name": "Controlled Instrument",
+            "id": "read_control",
+            "details": "Reads measured value (and runs the control loop).",
+            "transform_eq": ["V",0,1,0,0]
+        },
+        "setpoint_check":{
+            "type": "read",
+            "name": "Control Setpoint",
+            "id": "setpoint_check",
+            "details": "Returns current setpoint.",
+            "transform_eq": ["V",0,1,0,0]
+        },
+        "write_setpoint":{
+            "type": "write",
+            "name": "Set Control",
+            "id": "write_setpoint",
+            "details": "Sets current setpoint (and clears control history)."
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "job_name":"F250Bridge_K705Scanner_Job",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "F250_K705",
+    "min_interval": 10,
+    "time":0,
+    "instruments":{
+        "F250Bridge_K705Scanner":"instruments/F250Bridge_K705Scanner.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "F250Bridge_K705Scanner.read_tx11",
+        "F250Bridge_K705Scanner.read_tx12",
+        "F250Bridge_K705Scanner.read_tx13",
+        "F250Bridge_K705Scanner.read_tx14",
+        "F250Bridge_K705Scanner.read_tx15",
+        "F250Bridge_K705Scanner.read_tx16",
+        "F250Bridge_K705Scanner.read_tx17",
+        "F250Bridge_K705Scanner.read_tx18",
+        "F250Bridge_K705Scanner.read_tx19",
+        "F250Bridge_K705Scanner.read_tx20"
+    ]
+}

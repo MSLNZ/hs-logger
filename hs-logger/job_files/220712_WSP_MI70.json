@@ -1,0 +1,117 @@
+{
+    "job_name":"220712_WSP",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "WSP_MI70",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "MSL473_SH2": "instruments/MSL473_SH2.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_q",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_13",
+        "milliK-millisKanner_40152.read_14",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_RHw",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_Stable"
+    ],
+    "details": {
+        "details": {
+            "milliK-millisKanner_40152": {
+                "read_10": "Ts 2500",
+                "read_11": "Tc Separate minichamber",
+                "read_12": "Tc Separate minichamber",
+                "read_13": "Tc Separate minichamber",
+                "read_14": "ambient"
+
+            },
+            "HG2500": {
+                "read_chamber_temp": "Tc Front-Center"
+            }
+        }
+    },
+    "references": {
+        "FP_at_DUT": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK-millisKanner_40152.read_13",
+            "t2": "milliK-millisKanner_40152.read_13",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK-millisKanner_40152.read_13",
+            "t2": "milliK-millisKanner_40152.read_13",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "RH_at_DUT": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK-millisKanner_40152.read_13",
+            "t2": "milliK-millisKanner_40152.read_13",
+            "df1": 0,
+            "df2": 0,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2500.read_tc",
+                "milliK-millisKanner_40152.read_10",
+                "milliK-millisKanner_40152.read_11",
+                "milliK-millisKanner_40152.read_12",
+                "milliK-millisKanner_40152.read_13",
+                "milliK-millisKanner_40152.read_14",
+                "MSL473_SH2.read_Tx"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "MSL473_SH2.read_FP",
+	            "reference.FP_at_DUT"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2500.read_rh_pctc",
+                "MSL473_SH2.read_RH",
+	            "reference.RH_at_DUT"
+            ]
+        }
+    }
+}

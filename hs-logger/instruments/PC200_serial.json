@@ -1,0 +1,189 @@
+{
+  "instrument_id": "PC200",
+    "instrument_name": "PC200",
+    "driver": "generic_driver_py_serial",
+    "interface": "pyserial",
+    "port": "COM9",
+    "baudrate": 19200,
+    "parity": "PARITY_NONE",
+    "stopbits": "STOPBITS_ONE",
+    "timeout": 3,
+    "write_termination":"\r",
+    "read_termination":"\r",
+    "echo": false,
+    "notes": " ",
+    "operations": {
+        "read_Tm": {
+            "type": "read_single",
+            "name": "Tb PC200",
+            "id": "read_Tm",
+            "command": "RT ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Tm is internal temperature"
+        },
+        "read_Tex": {
+            "type": "read_single",
+            "name": "Tex PC200",
+            "id": "read_Tex",
+            "command": "RT2 ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Tex is external temperature"
+        },
+        "read_DS": {
+            "type": "read_single",
+            "name": "DS PC200",
+            "id": "read_DS",
+            "command": "RS ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "DS is displayed setpoint"
+        },
+        "read_RS1": {
+            "type": "read_single",
+            "name": "RS1 PC200",
+            "id": "read_RS1",
+            "command": "RS1 ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Read setpoint 1"
+        },
+        "read_RS2": {
+            "type": "read_single",
+            "name": "RS2 PC200",
+            "id": "read_RS2",
+            "command": "RS2 ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Read setpoint 2"
+        },
+        "read_RS3": {
+            "type": "read_single",
+            "name": "RS3 PC200",
+            "id": "read_RS3",
+            "command": "RS3 ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Read setpoint 3"
+        },
+        "read_RS4": {
+            "type": "read_single",
+            "name": "RS4 PC200",
+            "id": "read_RS4",
+            "command": "RS4 ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Read setpoint 4"
+        },
+        "read_RS5": {
+            "type": "read_single",
+            "name": "RS5 PC200",
+            "id": "read_RS5",
+            "command": "RS5 ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Read setpoint 5"
+        },
+        "read_Unit_on": {
+            "type": "read_single",
+            "name": "RO DUT473_RP2",
+            "id": "read_Unit_on",
+            "command": "RO ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "bit",
+            "unit": "NA",
+            "details": "Read unit on state"
+        },
+        "read_RRS": {
+            "type": "read_single",
+            "name": "Ramp status PC200",
+            "id": "read_RRS",
+            "command": "RRS ",
+            "transform_eq":["V",0,1,0,0],
+            "data_type": "float",
+            "unit": "deg C",
+            "details": "Read ramp status"
+        },
+        "SS": {
+            "type": "write",
+            "name": "Set Displayed Setpoint PC200",
+            "id": "SS",
+            "command": "SS {}",
+            "details": "Set Displayed Setpoint",
+            "check_set": "read_DS",
+            "check_actual": "read_Tm"
+        },
+        "SS1": {
+            "type": "write",
+            "name": "PC200 Set Setpoint",
+            "id": "SS1",
+            "command": "SS1 {}",
+            "details": "Set Setpoint 1",
+            "check_set": "",
+            "check_actual": ""
+        },
+        "SS2": {
+            "type": "write",
+            "name": "PC200 Set Setpoint",
+            "id": "SS2",
+            "command": "SS2 {}",
+            "details": "Set Setpoint 2",
+            "check_set": "",
+            "check_actual": ""
+        },
+        "SS3": {
+            "type": "write",
+            "name": "PC200 Set Setpoint",
+            "id": "SS3",
+            "command": "SS3 {}",
+            "details": "Set Setpoint 3",
+            "check_set": "",
+            "check_actual": ""
+        },
+        "SS4": {
+            "type": "write",
+            "name": "PC200 Set Setpoint",
+            "id": "SS4",
+            "command": "SS4 {}",
+            "details": "Set Setpoint 4",
+            "check_set": "",
+            "check_actual": ""
+        },
+        "SS5": {
+            "type": "write",
+            "name": "PC200 Set Setpoint",
+            "id": "SS5",
+            "command": "SS5 {}",
+            "details": "Set Setpoint 5",
+            "check_set": "",
+            "check_actual": ""
+        },
+        "Set_on": {
+            "type": "write",
+            "name": "PC 200 on",
+            "id": "Set_on",
+            "command": "SO {}",
+            "details": "Set Unit On Status, 1 on and 0 off",
+            "check_set": "read_Unit_on",
+            "check_actual": "read_Unit_on"
+        },
+        "Set_Pump_Speed": {
+            "type": "write",
+            "name": "PC200 pump",
+            "id": "Set_Pump_Speed",
+            "command": "SPS {}",
+            "details": "Set pump speed Low, medium, high",
+            "check_set": "",
+            "check_actual": ""
+        }
+    }
+}

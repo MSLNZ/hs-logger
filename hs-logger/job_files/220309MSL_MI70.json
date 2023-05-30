@@ -1,0 +1,90 @@
+{
+    "job_name":"220309MSL_MI70",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "MSL_MI70",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "milliK": "instruments/milliK-millisKanner.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "milliK.read_10",
+        "milliK.read_11",
+        "milliK.read_12",
+        "milliK.read_13",
+        "milliK.read_17",
+        "MSL473_SH2.read_P",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_Tm",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_Ox"
+
+    ],
+    "details": {
+        "milliK": {
+            "read_10": "SIL010_TS2500",
+            "read_11": "SIL012",
+            "read_12": "SIL019",
+            "read_13": "SIL020",
+            "read_17": "Tamb"
+        },
+        "HG2500": {
+            "read_chamber_temp": "Tc Front-Center"
+        },
+        "MSL473_SH2": {
+            "read_Tx": "Tc Front"
+        }
+    },
+    "references": {
+        "DP_at_dut": {
+            "hum": "milliK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "milliK.read_12",
+            "t2": "milliK.read_12",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP_at_473": {
+            "hum": "milliK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px119",
+            "t1": "milliK.read_12",
+            "t2": "milliK.read_12",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RHw_at_473": {
+            "hum": "milliK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px119",
+            "t1": "milliK.read_12",
+            "t2": "milliK.read_12",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    }
+}

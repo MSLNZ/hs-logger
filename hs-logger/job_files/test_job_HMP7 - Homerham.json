@@ -1,0 +1,25 @@
+{
+    "job_name":"HMP7_test_job2",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+	"filename": "HMP7_test",
+    "interval": 10,
+    "time":0,
+    "instruments":{
+        "Vaisala_HMP9_574":"instruments/Vaisala_HMP7_modbus_02.json",
+        "Vaisala_HMP7_03":"instruments/Vaisala_HMP7_modbus_03.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "Vaisala_HMP7_02.read_temp",
+        "Vaisala_HMP7_02.read_rh",
+        "Vaisala_HMP7_02.read_dew_point_temp",
+        "Vaisala_HMP7_02.read_dew_frost_point_temp",
+        "Vaisala_HMP7_03.read_temp",
+        "Vaisala_HMP7_03.read_rh",
+        "Vaisala_HMP7_03.read_dew_point_temp",
+        "Vaisala_HMP7_03.read_dew_frost_point_temp"
+    ]
+}

@@ -1,0 +1,221 @@
+{
+    "instrument_id": "HP34420A_HP34970A",
+    "instrument_name": "HP34420A and HP34970A",
+    "driver":"HP34420A_HP34970A",
+    "interface": "GPIB",
+    "port_bridge": "GPIB0::22::INSTR",
+    "port_scanner": "GPIB0::1::INSTR",
+    "baudrate":9600,
+    "write_termination":"\r",
+    "read_termination":"\r\n",
+    "notes": "",
+    "check_date": "18/03/2020",
+    "cal_date": "18/03/2020",
+    "check_freq": 1,
+    "cal_freq": 5,
+    "operations":{
+        "read_px101": {
+            "name": "T T0510886",
+            "type":"read",
+            "id":"read_px101",
+            "channel": 101,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["V", -40, 100, 0, 0],
+            "details": ""
+        },
+        "read_px102": {
+            "name": "RH T0510886",
+            "type":"read",
+            "id":"read_px102",
+            "channel": 102,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["V", 0, 100, 0, 0],
+            "details": ""
+        },
+        "read_px103": {
+            "name": "UNSUED",
+            "type":"read",
+            "id":"read_px103",
+            "channel": 103,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["V", 0, -1, 0, 0],
+            "details": ""
+        },
+        "read_px104": {
+            "name": "T M0530876",
+            "type":"read",
+            "id":"read_px104",
+            "channel": 104,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["V", 0, 1, 0, 0],
+            "details": ""
+        },
+        "read_px105": {
+            "name": "RH M0530876",
+            "type":"read",
+            "id":"read_px105",
+            "channel": 105,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["V", 0, 1, 0, 0],
+            "details": ""
+        },
+        "read_px106": {
+            "name": "Read Channel 106",
+            "type":"read",
+            "id":"read_px106",
+            "channel": 106,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 0, -1, 0, 0],
+            "details": ""
+        },
+        "read_px107": {
+            "name": "Read Channel 107",
+            "type":"read",
+            "id":"read_px107",
+            "channel": 107,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 0, -1, 0, 0],
+            "details": ""
+        },
+        "read_px108": {
+            "name": "Read Channel 108",
+            "type":"read",
+            "id":"read_px108",
+            "channel": 108,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 0, -1, 0, 0],
+            "details": ""
+        },
+        "read_px109": {
+            "name": "Read Channel 109",
+            "type":"read",
+            "id":"read_px109",
+            "channel": 109,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 0, -1, 0, 0],
+            "details": ""
+        },
+        "read_px110": {
+            "name": "Read Channel 110",
+            "type":"read",
+            "id":"read_px110",
+            "channel": 110,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 0, -1, 0, 0],
+            "details": ""
+        },
+        "read_px111": {
+            "name": "PsHi 3900 0-20.7 h111",
+            "type":"read",
+            "id":"read_px111",
+            "channel": 111,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 1.1235e-1, 4.12633, 1.049e-3, 1.36e-4],
+            "details": "",
+            "check_date": "19/05/2021",
+            "rep_num": "Pressure/2021/640, 19 May 2021"
+        },
+        "read_px112": {
+            "name": "PsLo 3900 0-3.4 h112",
+            "type":"read",
+            "id":"read_px112",
+            "channel": 112,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 4.582e-3, 6.988e-1, 4.27e-4, 5.35e-5],
+            "details": "",
+            "check_date": "11/05/2021",
+            "rep_num": "Pressure/2021/635, 11 May 2021"
+        },
+        "read_px113": {
+            "name": "Pg 3900 0-21 h113",
+            "type":"read",
+            "id":"read_px113",
+            "channel": 113,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", -5.59828, 6.89923, 7.08e-3, 0],
+            "details": "",
+            "check_date": "03/06/2021",
+            "rep_num": "Pressure/2021/639, 3 June 2021"
+        },
+        "read_px114": {
+            "name": "Pc 3900 0-3.4 h114",
+            "type":"read",
+            "id":"read_px114",
+            "channel": 114,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 4.331e-3, 6.91126e-1, 5.57e-4, 5.23e-5],
+            "details": "",
+            "check_date": "03/06/2021",
+            "rep_num": "Pressure/2021/638, 3 June 2021"
+        },
+        "read_px115": {
+            "name": "Read Channel 115",
+            "type":"read",
+            "id":"read_px115",
+            "channel": 115,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transform_eq": ["P", 0, -1, 0, 0],
+            "details": ""
+        },
+        "read_px116": {
+            "name": "h116",
+            "type":"read",
+            "id":"read_px116",
+            "channel": 116,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transducer": "instruments/transducers/pressure/Wika.json"
+        },
+        "read_px117": {
+            "name": "h117",
+            "type":"read",
+            "id":"read_px117",
+            "channel": 117,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transducer": "instruments/transducers/flow/TopTrak.json"
+        },
+        "read_px118": {
+            "name": "h118",
+            "type":"read",
+            "id":"read_px118",
+            "channel": 118,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transducer": "instruments/transducers/pressure/Druck#1.json"
+        },
+        "read_px119": {
+            "name": "h119",
+            "type":"read",
+            "id":"read_px119",
+            "channel": 119,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transducer": "instruments/transducers/pressure/Druck#2.json"
+        },
+        "read_px120": {
+            "name": "h120",
+            "type":"read",
+            "id":"read_px120",
+            "channel": 120,
+            "hp420A_ch": 1,
+            "nplc": 20,
+            "transducer": "instruments/transducers/pressure/Druck#3.json"
+        }
+    }
+}

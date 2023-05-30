@@ -1,0 +1,20 @@
+{
+    "job_name":"LHG3900_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+	"filename": "LHG3900",
+    "min_interval": 30,
+    "time":0,
+    "instruments":{
+        "LHG3900":"instruments/LHG3900_visa.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "LHG3900.read_frost_point",
+        "LHG3900.read_saturation_temp",
+        "LHG3900.read_saturation_pressure",
+        "LHG3900.read_flow_rate"
+    ]
+}

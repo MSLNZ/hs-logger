@@ -1,0 +1,31 @@
+{
+    "job_name":"Equilibar_test",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "Equilibar_test",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "ST100_C_1":"instruments/SmartTrak100_Controller_1.json",
+        "Equilibar_EPR":"instruments/Equilibar_EPR.json",
+        "CPT9000_41000MG4": "instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json"
+
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "ST100_C_1.read_flow",
+        "Equilibar_EPR.read_p",
+        "Equilibar_EPR.read_pset",
+        "CPT9000_41000MG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "CPT9000_4100133U.read_pressure"
+    ],
+    "details": {
+    },
+    "references": {},
+    "graphs": {}
+}

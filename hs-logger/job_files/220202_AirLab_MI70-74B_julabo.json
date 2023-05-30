@@ -1,0 +1,75 @@
+{
+    "job_name":"220202_AirLab_MI70-74B",
+    "job_id":1,
+    "job_notes":"Calibration of AirLab's Vaisala MI70 and 74B",
+    "out_dir": "C:\\datasync\\",
+    "filename": "AirLab_data",
+    "min_interval": 5,
+    "time": 0,
+    "instruments":{
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json",
+        "milliK": "instruments/milliK-millisKanner.json",
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json",
+        "ST100_C_1": "instruments/SmartTrak100_Controller_1.json",
+        "ST100_M_1": "instruments/SmartTrak100_Meter_1.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow",
+        "S8000RS.read_mirror_cond",
+        "HP34420A_HP34970A.read_px111",
+        "HP34420A_HP34970A.read_px112",
+        "HP34420A_HP34970A.read_px113",
+        "HP34420A_HP34970A.read_px114",
+        "HP34420A_HP34970A.read_px117",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "CPT9000_4100133U.read_pressure",
+        "ST100_C_1.read_flow",
+        "ST100_M_1.read_flow",
+        "milliK.read_14",
+        "milliK.read_16",
+        "milliK.read_17"
+    ],
+    "details": {
+        "HP34420A_HP34970A": {
+            "read_px111": "PsHi Inside TS3900",
+            "read_px112": "PsLo Inside TS3900",
+            "read_px113": "Pg Inside TS3900",
+            "read_px114": "Pc Inlet of S8000",
+            "read_px117": "Q DUT",
+            "read_px118": "Pc Inlet of S8000",
+            "read_px119": "Pamb",
+            "read_px120": "Inlet of DP30"
+        },
+        "CPT9000_4100133U": {
+            "read_pressure": "Ps Inlet of DUT"
+        },
+        "ST100_C_1": {
+            "read_px111": "Q S8000"
+        },
+        "ST100_M_1": {
+            "read_px111": "Qexh"
+        },
+        "milliK": {
+            "read_14": "Ts Julabo",
+            "read_16": "Tdp DP30",
+            "read_17": "Tamb"
+        }
+    },
+    "references": {
+        "pressureFP_DUT": {
+            "hum": "milliK.read_14",
+            "p1": "CPT9000_4100133U.read_pressure",
+            "p2": "HP34420A_HP34970A.read_px118",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        }
+    }
+}

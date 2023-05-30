@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "SIL066",
+    "details": "3mmx300mm",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.909920E-03,-6.0380E-07,-2.7990E-13,100.014792638999],
+    "check_date": "30/06/2022",
+    "cal_date": "20/07/2020",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2020/943, 20 July 2020",
+    "uncertainty": 1.70E-02,
+    "range": "-90 to 100 °C"
+}

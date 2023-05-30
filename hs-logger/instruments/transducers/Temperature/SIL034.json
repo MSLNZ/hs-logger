@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "SIL034",
+    "details": "-80°C-30°C 4mmx390mm",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.909600E-03,-6.166000E-07,-1.870000E-12,100.062506685],
+    "check_date": "30/06/2022",
+    "cal_date": "20/09/2021",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2021/039, 20 September 2021",
+    "uncertainty": 6.7E-03,
+    "range": " °C"
+}

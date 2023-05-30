@@ -1,0 +1,36 @@
+{
+    "job_name":"Flowmeter_test",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "Flowmeter_test",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "ST100_M_1":"instruments/SmartTrak100_Meter_1.json",
+        "ST100_C_1":"instruments/SmartTrak100_Controller_1.json",
+        "ST100_C_2":"instruments/SmartTrak100_Controller_2.json",
+        "SFC5500_22030201_10slm":"instruments/SFC5500_22030201_10slm.json",
+        "SFC5500_21470114_05slm":"instruments/SFC5500_21470114_05slm.json",
+        "Equilibar_EPR":"instruments/Equilibar_EPR.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "ST100_M_1.read_flow",
+        "ST100_C_1.read_flow",
+        "ST100_C_2.read_flow",
+        "ST100_C_1.read_setpoint",
+        "ST100_C_2.read_setpoint",
+        "SFC5500_22030201_10slm.read_q",
+        "SFC5500_22030201_10slm.read_qset",
+        "SFC5500_21470114_05slm.read_q",
+        "SFC5500_21470114_05slm.read_qset",
+        "Equilibar_EPR.read_p",
+        "Equilibar_EPR.read_pset"
+    ],
+    "details": {
+    },
+    "references": {},
+    "graphs": {}
+}

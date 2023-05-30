@@ -1,0 +1,34 @@
+{
+    "instrument_id": "CPT9000_4100133U",
+    "instrument_name": "Mensor 133U",
+    "driver": "generic_driver_py_serial",
+    "interface": "visa",            
+    "port": "COM20",
+    "baudrate":57600,
+    "parity": "NONE",
+    "stopbits": "1",
+    "timeout": 3,
+    "write_termination": "\r\n",
+    "read_termination": "\r\n",
+    "notes": "",
+    "range": "0 to 11 bara",
+    "doOpen": false,
+    "operations": {
+        "read_pressure": {
+            "type": "read_single",
+            "name": "Mensor 133U P",
+            "id": "read_pressure",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "PRESS?",
+            "transform_eq": ["P", 1.9E-4, 9.9991E-1, 6E-6, 0],
+            "check_date": "23/09/2022",
+            "cal_date": "23/09/2022",
+            "check_freq": 0.25,
+            "cal_freq": 5,
+            "rep_num": "Pressure/2022/656, 23 September 2022",
+            "uncertainty": [1.3E-4, 5.10E-7]
+        }
+    }
+}

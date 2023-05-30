@@ -1,0 +1,21 @@
+{
+    "job_name": "pressure_test_julabo",
+    "job_id": 0,
+    "job_notes": "This job can be used and modified for doing a pressure test.",
+    "out_dir": "C:\\datasync\\",
+    "filename": "PT",
+    "min_interval": 1,
+    "time": 0,
+    "instruments": {
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json"
+
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "CPT9000_4100133U.read_pressure"
+    ],
+    "details": {
+    },
+    "references": {}
+}

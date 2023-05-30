@@ -1,0 +1,34 @@
+{
+    "instrument_id": "CPT9000_410012TM",
+    "instrument_name": "Mensor 12TM",
+    "driver": "generic_driver_py_serial",
+    "interface": "visa",            
+    "port": "COM20",
+    "baudrate":57600,
+    "parity": "NONE",
+    "stopbits": "1",
+    "timeout": 3,
+    "write_termination": "\r\n",
+    "read_termination": "\r\n",
+    "notes": "",
+    "range": "0 to 3 bara",
+    "doOpen": false,
+    "operations": {
+        "read_pressure": {
+            "type": "read_single",
+            "name": "Mensor 12TM P",
+            "id": "read_pressure",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "PRESS?",
+            "transform_eq": ["P", 8.4E-4, 9.9976E-1, 5E-6, 0],
+            "check_date": "23/09/2022",
+            "cal_date": "23/09/2022",
+            "check_freq": 0.25,
+            "cal_freq": 5,
+            "rep_num": "Pressure/2022/655, 23 September 2022",
+            "uncertainty": [1.4E-4, 5.10E-7]
+        }
+    }
+}

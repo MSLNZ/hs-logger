@@ -1,0 +1,26 @@
+{
+    "job_name": "pressure_test_job_(just_1)",
+    "job_id": 0,
+    "job_notes": "This job can be used and modified for doing atmospheric pressure test.",
+    "out_dir": "\\",
+    "datafile_raw": "PT_dr.dat",
+    "datafile_trans": "PT_dt.dat",
+    "points_file_raw": "PT_pr_USE_THIS_ONE.dat",
+    "points_file_trans": "PT_pt.dat",
+    "source_file_raw": "PT_sr.dat",
+    "source_file_trans": "PT_st.dat",
+    "sensor_file": "PT_sf.dat",
+    "min_interval": 5,
+    "time": 0,
+    "instruments": {
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json"
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "HP34420A_HP34970A.read_px118"
+    ],
+    "details": {
+    },
+    "references": {}
+}

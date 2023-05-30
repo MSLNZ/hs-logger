@@ -1,0 +1,89 @@
+{
+    "job_name":"210726_Biotec_HMP75",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "Biotec_HMP75",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "F250Bridge_K705Scanner":"instruments/F250Bridge_K705Scanner.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SHX":"instruments/MSL473_SHX.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_sat_temp",
+        "HG2500.read_chamber_temp",
+        "HG2500.read_sat_press",
+        "HG2500.read_chamber_press",
+        "HG2500.read_flowrate",
+        "F250Bridge_K705Scanner.read_tx11",
+        "F250Bridge_K705Scanner.read_tx19",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "MSL473_SH2.read_P",
+        "F250Bridge_K705Scanner.read_tx12",
+        "F250Bridge_K705Scanner.read_tx13",
+        "F250Bridge_K705Scanner.read_tx14",
+        "F250Bridge_K705Scanner.read_tx15",
+        "F250Bridge_K705Scanner.read_tx17",
+        "MSL473_SHX.read_Tx",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_Tm",
+        "MSL473_SHX.read_Th",
+        "F250Bridge_K705Scanner.read_tx20"
+    ],
+    "details": {
+        "F250Bridge_K705Scanner": {
+            "read_tx12": "Front (Inwards)",
+            "read_tx13": "Top-Front (Inwards)",
+            "read_tx14": "Bottom-Front (Outwards)",
+            "read_tx15": "Bottom-Back (Inwards)",
+            "read_tx17": "Top-Back (Outwards"
+        },
+        "HG2500": {
+            "read_chamber_temp": "Top-Back (Inwards)"
+        },
+        "MSL473_SHX": {
+            "read_Tx": "Bottom-Front (Inwards)"
+        }
+    },
+    "references": {"DP_at_dut": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP_at_473": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px119",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RHw_at_473": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px119",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    }
+}

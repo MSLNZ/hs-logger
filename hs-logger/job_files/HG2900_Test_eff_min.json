@@ -1,0 +1,102 @@
+{
+    "job_name":"HG2900 Characterization_eff_A",
+    "job_id":1,
+    "job_notes":"Characterization of the Thunder Scientific HG2900: Efficiency test",
+    "out_dir": "C:\\datasync\\",
+    "filename": "HG2900",
+    "min_interval": 10,
+    "time": 0,
+    "instruments":{
+        "HG2900":"instruments/HG2900_visa.json",
+        "MSL473_SHX":"instruments/MSL473_SHX.json",
+        "Vaisala_HMP7_375":"instruments/Vaisala_HMP7_modbus_01.json",
+        "Vaisala_HMP7_376":"instruments/Vaisala_HMP7_modbus_02.json",
+        "Vaisala_HMP7_377":"instruments/Vaisala_HMP7_modbus_03.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl",
+        "MSL473_SHX.read_FP",
+        "MSL473_SHX.read_RHw",
+        "MSL473_SHX.read_Tx",
+        "Vaisala_HMP7_375.read_temp",
+        "Vaisala_HMP7_375.read_rh",
+        "Vaisala_HMP7_375.read_dew_frost_point_temp"
+    ],
+    "details": {
+        "MSL473_SHX": {
+            "read_DP": "",
+            "read_FP": "",
+            "read_Tm": "",
+            "read_RH": "",
+            "read_RHw": "",
+            "read_Tx": "",
+            "read_Th": "",
+            "read_Flow": "",
+            "read_Stable": ""
+        },
+        "F250Bridge_K705Scanner": {
+            "read_tx19": "Saturation temperature of HG2900.",
+            "read_tx20": "Ambient temperature."
+        },
+        "HP34420A_HP34970A": {
+            "read_px119": ""
+        },
+        "CPT9000": {
+            "read_pressure": ""
+        },
+        "milliK": {
+            "read_10": "",
+            "read_11": "",
+            "read_12": "",
+            "read_13": "",
+            "read_15": "",
+            "read_16": "",
+            "read_17": ""
+        },
+        "Vaisala_HMP7_375": {
+            "read_temp": "",
+            "read_rh": "",
+            "read_dew_point_temp": "",
+            "read_dew_frost_point_temp": ""
+        },
+        "Vaisala_HMP7_376": {
+            "read_temp": "",
+            "read_rh": "",
+            "read_dew_point_temp": "",
+            "read_dew_frost_point_temp": ""
+        },
+        "Vaisala_HMP7_377": {
+            "read_temp": "",
+            "read_rh": "",
+            "read_dew_point_temp": "",
+            "read_dew_frost_point_temp": ""
+        }
+    },
+    "references": {        "Tfps_ex_DUT": {
+            "hum": "MSL473_SHX.read_FP",
+            "p1": "HG2900.read_pc",
+            "p2": "HG2900.read_ps",
+            "t1": "HG2900.read_tc",
+            "t2": "HG2900.read_ts",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        }
+    }
+}

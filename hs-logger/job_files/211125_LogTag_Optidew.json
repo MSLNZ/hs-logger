@@ -1,0 +1,89 @@
+{
+    "job_name":"211125_LogTag_Optidew",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "LogTag_Optidew",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "microK": "instruments/microK-microsKanner.json",
+        "HP34420A_HP34970A":"instruments/HP34420A_HP34970A.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "microK.read_10",
+        "HP34420A_HP34970A.read_px118",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "MSL473_SH2.read_P",
+        "microK.read_11",
+        "microK.read_12",
+        "microK.read_13",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_Tm",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_Ox",
+        "microK.read_19"
+    ],
+    "details": {
+        "microK": {
+            "read_10": "Ts 2500",
+            "read_11": "Tc Back",
+            "read_12": "Tc Front",
+            "read_13": "Tc Bottom",
+            "read_19": "Tamb"
+        },
+        "HG2500": {
+            "read_chamber_temp": "Tc Front Center"
+        },
+        "MSL473_SH2": {
+            "read_Tx": "Tc Back Center"
+        }
+    },
+    "references": {
+        "DP_at_dut": {
+            "hum": "microK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px120",
+            "t1": "microK.read_12",
+            "t2": "microK.read_12",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP_at_473": {
+            "hum": "microK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px119",
+            "t1": "microK.read_12",
+            "t2": "microK.read_12",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RHw_at_473": {
+            "hum": "microK.read_10",
+            "p1": "HP34420A_HP34970A.read_px118",
+            "p2": "HP34420A_HP34970A.read_px119",
+            "t1": "microK.read_12",
+            "t2": "microK.read_12",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "job_name": "pressure_test_heatsink",
+    "job_id": 0,
+    "job_notes": "This job can be used and modified for doing a pressure test.",
+    "out_dir": "C:\\datasync\\",
+    "filename": "PT",
+    "min_interval": 1,
+    "time": 0,
+    "instruments": {
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json",
+        "ST100_M_2":"instruments/SmartTrak100_Meter_1.json"
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "CPT9000_4100133U.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "ST100_M_1.read_flow"
+    ],
+    "details": {
+    },
+    "references": {}
+}

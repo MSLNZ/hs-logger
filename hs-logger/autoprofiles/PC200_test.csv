@@ -1,0 +1,9 @@
+﻿Points,Soak,Assured,t,On
+,,,PC200.SS,PC200.Set_on
+,,,PC200.read_DS,PC200.read_Unit_on
+,,,PC200.read_Tm,PC200.read_Unit_on
+1,1,1,21,1
+2,1,1,0,1
+3,1,1,-25,1
+4,1,1,21,1
+5,180,2,21,0

@@ -1,0 +1,127 @@
+{
+    "job_name": "HG2900 MSL3xCMH",
+    "job_id": 1,
+    "job_notes": "Using Thunder Scientific HG2900 to calibrate MSLs 473SHX, 473SH2, DP30",
+    "out_dir": "C:\\datasync\\",
+    "filename": "HG2900",
+    "min_interval": 10,
+    "time": 0,
+    "instruments": {
+        "HG2900":"instruments/HG2900_visa.json",
+        "milliK": "instruments/milliK-millisKanner.json",
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
+        "F250Bridge_K705Scanner": "instruments/F250Bridge_K705Scanner.json",
+        "MSL473_SHX": "instruments/MSL473_SHX.json",
+        "MSL473_SH2": "instruments/MSL473_SH2.json",
+        "CPT9000": "instruments/Mensor_CPT9000.json",
+        "Vaisala_HMP7_375": "instruments/Vaisala_HMP7_modbus_01.json",
+        "Vaisala_HMP7_376": "instruments/Vaisala_HMP7_modbus_02.json",
+        "Vaisala_HMP7_377": "instruments/Vaisala_HMP7_modbus_03.json"
+    },
+    "logged_operations": [
+        "time.datetime",
+        "time.runtime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl",
+        "F250Bridge_K705Scanner.read_tx19",
+        "CPT9000.read_pressure",
+        "HP34420A_HP34970A.read_px117",
+        "HP34420A_HP34970A.read_px119",
+        "HP34420A_HP34970A.read_px120",
+        "F250Bridge_K705Scanner.read_tx12",
+        "F250Bridge_K705Scanner.read_tx15",
+        "F250Bridge_K705Scanner.read_tx17",
+        "milliK.read_10",
+        "milliK.read_11",
+        "milliK.read_12",
+        "milliK.read_13",
+        "F250Bridge_K705Scanner.read_tx18",
+        "MSL473_SHX.read_DP",
+        "MSL473_SHX.read_FP",
+        "MSL473_SHX.read_RH",
+        "MSL473_SHX.read_RHw",
+        "MSL473_SHX.read_Tx",
+        "MSL473_SHX.read_Th",
+        "MSL473_SHX.read_Stable",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_Stable",
+        "Vaisala_HMP7_375.read_temp",
+        "Vaisala_HMP7_375.read_rh",
+        "Vaisala_HMP7_375.read_dew_frost_point_temp",
+        "Vaisala_HMP7_376.read_temp",
+        "Vaisala_HMP7_376.read_rh",
+        "Vaisala_HMP7_376.read_dew_frost_point_temp",
+        "Vaisala_HMP7_377.read_temp",
+        "Vaisala_HMP7_377.read_rh",
+        "Vaisala_HMP7_377.read_dew_frost_point_temp",
+        "F250Bridge_K705Scanner.read_tx20"
+    ],
+    "details": {
+        "MSL473_SHX": {
+            "read_DP": "",
+            "read_FP": "",
+            "read_RH": "",
+            "read_RHw": "",
+            "read_Tx": "",
+            "read_Th": "",
+            "read_Stable": ""
+        },
+        "MSL473_SH2": {
+            "read_DP": "",
+            "read_FP": "",
+            "read_Th": "",
+            "read_Stable": ""
+        },
+        "F250Bridge_K705Scanner": {
+            "read_tx12": "SIL019.",
+            "read_tx15": "sil020.",
+            "read_tx17": "sil012.",
+            "read_tx18": "MBW DP30 SHIII mirror PRT.",
+            "read_tx19": "Saturation temperature of HG2900.",
+            "read_tx20": "Ambient temperature."
+        },
+        "HP34420A_HP34970A": {
+            "read_px117": "TopTrak Q through DP30.",
+            "read_px119": "PoDruck#2 in TS2900chamber.",
+            "read_px120": "PoDruck#3 through DP30."
+        },
+        "milliK": {
+            "read_10": "SIL046.",
+            "read_11": "SIL047.",
+            "read_12": "SIL049.",
+            "read_13": "SIL050."
+        },
+        "Vaisala_HMP7_375": {
+            "read_temp": "",
+            "read_rh": "",
+            "read_dew_frost_point_temp": ""
+        },
+        "Vaisala_HMP7_376": {
+            "read_temp": "",
+            "read_rh": "",
+            "read_dew_frost_point_temp": ""
+        },
+        "Vaisala_HMP7_377": {
+            "read_temp": "",
+            "read_rh": "",
+            "read_dew_frost_point_temp": ""
+        }
+    },
+    "references": {
+    }
+}

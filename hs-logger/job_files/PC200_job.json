@@ -1,0 +1,25 @@
+{
+    "job_name":"PC200_job",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\datasync\\",
+    "filename": "PC200",
+    "min_interval": 20,
+    "time":0,
+    "instruments":{
+        "PC200":"instruments/PC200_serial.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "PC200.read_Tm",
+        "PC200.read_DS",
+        "PC200.read_Unit_on"
+        ],
+    "details": {
+        "PC200": {
+            "read_Tm": "In situ."
+        }
+    },
+    "references": {}
+}
