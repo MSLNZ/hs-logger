@@ -52,8 +52,8 @@ class visa_gpib_microK(object):
                     commands = operation.get('command', "").split(";")
                     for command in commands:
                         self.instrument.write(command)
-                        # print(command)
-                    # self.instrument.write("READ?")
+                        time.sleep(0.05)
+                    self.instrument.write("READ?")
                     data = float("NaN")
                     try:
                         while True:

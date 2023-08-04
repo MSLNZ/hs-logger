@@ -3,7 +3,7 @@
     "instrument_name": "PC200",
     "driver": "generic_driver_py_serial",
     "interface": "pyserial",
-    "port": "COM9",
+    "port": "COM23",
     "baudrate": 19200,
     "parity": "PARITY_NONE",
     "stopbits": "STOPBITS_ONE",

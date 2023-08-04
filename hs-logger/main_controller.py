@@ -330,7 +330,7 @@ class myjobframe(job_frame):
                     if references[ref][comp] in data[0][0]:
                         datum[comp] = data[-1][1].get(references[ref][comp], float("NaN"))
                     else:
-                        print(f"Operation {references[ref][comp]} not found.")
+                        print(f"Operation {ref}:{references[ref][comp]} not found.")
                         raise ValueError
             hum = datum.get("hum", 1)
             p1 = datum.get("p1", 1)*1e5  # Convert bar to pascal
@@ -777,8 +777,8 @@ class Controller(object):
                 if isinstance(instrument, str):
                     try:
                         instrument = json.load(open(instrument))
-                    except (OSError, ValueError):
-                        sys.stderr.write(f"Error Loading Instrument: {inst_id}")
+                    except (OSError, ValueError) as e:
+                        sys.stderr.write(f"Error Loading Instrument {inst_id}: {e}")
                         sys.exit(1)
                 # inst_id = instrument["instrument_id"]
                 driver_name = instrument.get("driver", "")

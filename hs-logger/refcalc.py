@@ -296,16 +296,16 @@ def h2_ex_h1(h1, p1, p2, t1, t2, df1, df2):
 
 # testing
 def main():
-    df1 = 0
-    df2 = 0
-    td1 = -70
-    pd1 = 1e5
-    pd2 = 9.2e5
-    p1 = 1e5
-    p2 = 6.5e5
-    t1 = 20
-    t2 = 20
-    h1 = 50
+    df1 = 1
+    df2 = 1
+    td1 = 21
+    pd1 = 12e5
+    pd2 = 1e5
+    p1 = 12e5
+    p2 = 1e5
+    t1 = 21
+    t2 = 21
+    h1 = 100
     print("df1={} df2={} td1={} pd1={} pd2={} p1={} p2={} t1={} t2={} h1={}".format(
         df1, df2, td1, pd1, pd2, p1, p2, t1, t2, h1))
 

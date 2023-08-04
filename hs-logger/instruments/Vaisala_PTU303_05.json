@@ -1,0 +1,68 @@
+{
+    "instrument_id": "PTU303_K1510011",
+    "instrument_name": "Vaisala PTU303 K1510011 AX10005",
+    "driver":"generic_driver_visa_serial",
+    "interface": "visa",            
+    "port": "COM19",
+    "baudrate":9600,
+    "write_termination":"\r\n",
+    "read_termination":"\r\n",
+    "data_bits": 7,
+    "parity": "even",
+    "operations": {
+        "read_default":{
+            "type": "read_multiple",
+            "name": "P_T_RH_SN",
+            "id": "read_default",
+            "operations": ["read_p","read_t","read_rh","read_sn"],
+            "details": "",
+            "command": "SEND",
+            "data_type": "list",
+            "unit": ""
+        },
+        "read_p":{
+            "type": "read_store",
+            "name": "K1510011 Pressure",
+            "id": "read_p",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_t":{
+            "type": "read_store",
+            "name": "K1510011 Temperature",
+            "id": "read_t",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_rh":{
+            "type": "read_store",
+            "name": "K1510011 Relative Humidity",
+            "id": "read_rh",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_sn":{
+            "type": "read_store",
+            "name": "K1510011 Serial Number",
+            "id": "read_sn",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 3,
+            "data_type": "string",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        }
+    }
+}

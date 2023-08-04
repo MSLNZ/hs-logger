@@ -85,6 +85,7 @@ class generic_driver_py_serial(object):
                     try:
                         data = float(floats_data[0][0] + floats_data[0][2])
                     except IndexError:
+                        print(data, floats_data)
                         data = float("NaN")
 
                     data_trans = self.transform(data, operation)
