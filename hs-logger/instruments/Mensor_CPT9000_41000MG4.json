@@ -3,7 +3,7 @@
     "instrument_name": "Mensor 0MG4",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM33",
+    "port": "COM22",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",
@@ -16,7 +16,7 @@
     "operations": {
         "read_pressure": {
             "type": "read_single",
-            "name": "Mensor 0MG4 Ps 2900",
+            "name": "Mensor 0MG4 Ps",
             "id": "read_pressure",
             "details": "",
             "data_type": "float",

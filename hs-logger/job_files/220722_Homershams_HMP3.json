@@ -37,7 +37,7 @@
         "MSL473_SH2.read_RHw",
         "MSL473_SH2.read_Tx",
         "MSL473_SH2.read_Th",
-        "MSL473_SH2.read_Stable"
+        "MSL473_SH2.read_Stable",
     ],
     "details": {
         "details": {

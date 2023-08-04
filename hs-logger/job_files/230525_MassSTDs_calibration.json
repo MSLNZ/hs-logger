@@ -1,0 +1,129 @@
+{
+    "job_name":"230525_MassSTDs_calibration",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\230525_Mass",
+    "filename": "230525_MassSTDs_calibration",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "microK": "instruments/microK-microsKanner.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SH2": "instruments/MSL473_SH2.json",
+        "CPT9000_41000MG4": "instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "PTU303_K1510011": "instruments/Vaisala_PTU303_05.json",
+        "PTU303_M2430306": "instruments/Vaisala_PTU303_06.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_q",
+        "microK.read_10",
+        "microK.read_11",
+        "microK.read_12",
+        "microK.read_13",
+        "microK.read_14",
+        "microK.read_15",
+        "microK.read_16",
+        "microK.read_19",
+        "CPT9000_41000MG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_RHw",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_P",
+        "MSL473_SH2.read_Stable",
+        "PTU303_K1510011.read_t",
+        "PTU303_K1510011.read_rh",
+        "PTU303_M2430306.read_t",
+        "PTU303_M2430306.read_rh"
+    ],
+    "details": {
+    },
+    "references": {
+        "FP_at_DUT": {
+            "hum": "microK.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "microK.read_11",
+            "t2": "microK.read_11",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum": "microK.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "microK.read_11",
+            "t2": "microK.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "RH_at_DUT_frost": {
+            "hum": "microK.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "microK.read_11",
+            "t2": "microK.read_11",
+            "df1": 0,
+            "df2": 0,
+            "type": "hd"
+        },
+        "RH_at_DUT_water": {
+            "hum": "microK.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "microK.read_11",
+            "t2": "microK.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2500.read_tc",
+                "microK.read_11",
+                "microK.read_12",
+                "microK.read_13",
+                "microK.read_14",
+                "microK.read_15",
+                "microK.read_16",
+                "PTU303_K1510011.read_t",
+                "PTU303_M2430306.read_t"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "MSL473_SH2.read_FP",
+	            "reference.FP_at_DUT"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2500.read_rh_pc",
+                "MSL473_SH2.read_RH",
+	            "reference.RH_at_DUT_frost",
+                "reference.RH_at_DUT_water",
+                "PTU303_K1510011.read_rh",
+                "PTU303_M2430306.read_rh"
+            ]
+        }
+    }
+}

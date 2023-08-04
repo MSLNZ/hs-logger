@@ -3,7 +3,7 @@
     "instrument_name": "Julabo HL",
     "driver": "julabo_py_serial",
     "interface": "pyserial",
-    "port": "COM22",
+    "port": "COM16",
     "baudrate": 4800,
     "parity": "PARITY_EVEN",
     "stopbits": "STOPBITS_ONE",
