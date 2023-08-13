@@ -1,9 +1,9 @@
 {
-    "job_name":"310725_LightSTDs_Vaisala",
+    "job_name":"230814_WSP",
     "job_id":2,
     "job_notes":"comment",
-    "out_dir": "C:\\Data\\jobs_2023\\310725_LightSTDs_Vaisala",
-    "filename": "310725_LightSTDs_Vaisala",
+    "out_dir": "C:\\Data\\jobs_2023\\230814_WSP",
+    "filename": "230814_WSP",
     "min_interval": 1,
     "time":0,
     "instruments":{

@@ -3,7 +3,7 @@
     "instrument_name": "Mensor 12TM",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM18",
+    "port": "COM33",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",

@@ -1,6 +1,6 @@
 a230731_LightSTDs_Vaisala,,,,,
-Points,Soak,Assured,t_2500,rH_2500,Q_2500
-,,,HG2500.set_ts,HG2500.set_rh_pctc,HG2500.set_q
+Points,Soak,Assured,t_2900,rH_2900,Q_2900
+,,,HG2900.set_ts,HG2900.set_rh,HG2900.set_q
 1,300,0,0.1,10,15
 2,50,0,0.1,27,15
 3,50,0,0.1,44,15
