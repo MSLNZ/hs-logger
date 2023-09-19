@@ -1,5 +1,5 @@
 {
-  "instrument_id": "MSL473_SHX",
+    "instrument_id": "MSL473_SHX",
     "instrument_name": "MSL473_SHX",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",

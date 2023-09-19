@@ -148,6 +148,7 @@ class Logger(Thread):
         titles.insert(0, 'no.')
 
         names = titles.copy()
+
         i = 0
         while i < len(titles):
             inst_id, op_id = titles[i].split('.')
