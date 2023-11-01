@@ -3,7 +3,7 @@
     "instrument_name": "Vaisala HMT330 N2730101 (_1)",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM18",
+    "port": "COM21",
     "baudrate":19200,
     "write_termination":"\r",
     "read_termination":"\r\n",

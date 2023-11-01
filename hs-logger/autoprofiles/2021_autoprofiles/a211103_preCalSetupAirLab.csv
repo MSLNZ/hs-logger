@@ -1,0 +1,8 @@
+a211111_preCalSetupAirLab.csv,,,
+Points,Soak,Assured,FP_3900
+,,,HG3900.set_fp
+1,30,0,1
+2,240,0,1
+3,1080,0,-60
+4,1080,0,-55
+5,600,0,-50

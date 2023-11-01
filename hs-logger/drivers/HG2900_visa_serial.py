@@ -71,7 +71,6 @@ class HG2900_visa_serial(object):
                             data = [0, 1]
                         elif data == "1":
                             data = [1, 1]
-
                         elif data == "1.1":
                             data = [1, 0]
                         else:
