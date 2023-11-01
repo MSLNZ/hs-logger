@@ -1,9 +1,9 @@
 {
-    "instrument_id": "CPT9000_4100133U",
-    "instrument_name": "Mensor 133U",
+    "instrument_id": "CPT9000_41001GMQ",
+    "instrument_name": "Mensor 1GMQ",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM20",
+    "port": "COM16",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",
@@ -11,24 +11,24 @@
     "write_termination": "\r\n",
     "read_termination": "\r\n",
     "notes": "",
-    "range": "0 to 11 bara",
+    "range": "0 to 3 bara",
     "doOpen": false,
     "operations": {
         "read_pressure": {
             "type": "read_single",
-            "name": "Mensor 133U P",
+            "name": "Mensor 1GMQ P",
             "id": "read_pressure",
             "details": "",
             "data_type": "float",
             "unit": "",
             "command": "PRESS?",
-            "transform_eq": ["P", -6.1E-5, 9.99966E-1, 2.8E-6, 0],
+            "transform_eq": ["P", -3.42E-4, 1.0000105, 0, 0],
             "check_date": "14/08/2023",
             "cal_date": "14/08/2023",
             "check_freq": 0.25,
             "cal_freq": 5,
-            "rep_num": "Pressure/2023/674, 14 August 2023",
-            "uncertainty": [6.6E-4]
+            "rep_num": "Pressure/2023/673, 14 August 2023",
+            "uncertainty": [6E-6]
         }
     }
 }

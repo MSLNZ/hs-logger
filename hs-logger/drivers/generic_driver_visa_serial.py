@@ -263,6 +263,7 @@ class generic_driver_visa_serial(object):
                 print(f"Transform form not recognised: {eq[0]}")
                 transformed = float("NaN")
         else:
+            print(f"{data} could not be transformed.")
             transformed = float("NaN")  # The data can't be transformed
         # c = operation.get("transform_coeff", None)
         # transformed = eval(eq)

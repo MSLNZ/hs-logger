@@ -3,7 +3,7 @@
     "instrument_name": "DUT473_SH2",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",
-    "port": "COM6",
+    "port": "COM18",
     "baudrate": 9600,
     "write_termination": "\r",
     "read_termination": "\r\n",
