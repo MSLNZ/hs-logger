@@ -1,0 +1,127 @@
+{
+    "job_name":"H96140241 S8000 and dp30 high range",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\H96140241 S8000 and dp30 high range",
+    "filename": "H96140241 S8000 and dp30 high range",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "F250Bridge_K705Scanner": "instruments/F250Bridge_K705Scanner.json",
+        "HG2900": "instruments/HG2900_visa.json",
+        "MSL473_SHX": "instruments/MSL473_SHX.json",
+        "CPT9000_41000MG4": "instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "CPT9000_41001GMQ": "instruments/Mensor_CPT9000_41001GMQ.json",
+        "S8000RS": "instruments/Michell_S8000rs_modbus.json"
+
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl",
+        "F250Bridge_K705Scanner.read_tx11",
+        "F250Bridge_K705Scanner.read_tx12",
+        "F250Bridge_K705Scanner.read_tx13",
+        "F250Bridge_K705Scanner.read_tx14",
+        "F250Bridge_K705Scanner.read_tx15",
+        "F250Bridge_K705Scanner.read_tx16",
+        "F250Bridge_K705Scanner.read_tx20",
+        "CPT9000_41000MG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "CPT9000_41001GMQ.read_pressure",
+        "MSL473_SHX.read_DP",
+        "MSL473_SHX.read_FP",
+        "MSL473_SHX.read_RH",
+        "MSL473_SHX.read_RHw",
+        "MSL473_SHX.read_Tx",
+        "MSL473_SHX.read_Th",
+        "MSL473_SHX.read_Stable",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow",
+        "S8000RS.read_mirror_cond",
+        "S8000RS.read_sensor_temp"
+    ],
+    "details": {
+    },
+    "references": {
+        "FP_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+
+        "RH_at_DUT_water": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_tc",
+                "F250Bridge_K705Scanner.read_tx11",
+                "F250Bridge_K705Scanner.read_tx12",
+                "F250Bridge_K705Scanner.read_tx13",
+                "F250Bridge_K705Scanner.read_tx14",
+                "F250Bridge_K705Scanner.read_tx15",
+                "F250Bridge_K705Scanner.read_tx16",
+                "MSL473_SHX.read_Tx"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_fp",
+	            "reference.FP_at_DUT",
+                "MSL473_SHX.read_FP",
+                "S8000RS.read_dewpoint"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_rh",
+                "reference.RH_at_DUT_water",
+                "MSL473_SHX.read_RH"
+            ]
+        }
+    }
+}

@@ -1,0 +1,109 @@
+{
+    "job_name":"230303_SGSWool_HygroPalm",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\230303_SGSWool\\",
+    "filename": "SGS_HP",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "CPT9000_41000MG4":"instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM":"instruments/Mensor_CPT9000_410012TM.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "CPT9000_41000MG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "MSL473_SH2.read_P",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_13",
+        "milliK-millisKanner_40152.read_14",
+        "milliK-millisKanner_40152.read_15",
+        "milliK-millisKanner_40152.read_16",
+        "milliK-millisKanner_40152.read_17",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_Tm",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_Ox"
+    ],
+    "details": {
+    },
+    "references": {
+        "DP": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_15",
+            "t2": "milliK-millisKanner_40152.read_15",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_15",
+            "t2": "milliK-millisKanner_40152.read_15",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RH": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_15",
+            "t2": "milliK-millisKanner_40152.read_15",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_12",
+                "milliK-millisKanner_40152.read_13",
+                "milliK-millisKanner_40152.read_14",
+                "milliK-millisKanner_40152.read_15",
+                "milliK-millisKanner_40152.read_16",
+                "milliK-millisKanner_40152.read_17",
+                "HG2500.read_tc",
+                "MSL473_SH2.read_Tx"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+	            "reference.FP",
+                "MSL473_SH2.read_FP"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2500.read_rh_pc",
+                "reference.RH",
+                "MSL473_SH2.read_RH"
+            ]
+        }
+    }
+}

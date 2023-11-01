@@ -1,0 +1,142 @@
+{
+    "job_name":"H96140237_ElectricalSTDs_HMTs_R2",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\H96140237_ElectricalSTDs_HMTs_R2",
+    "filename": "H96140237_ElectricalSTDs_HMTs_R2",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "F250Bridge_K705Scanner": "instruments/F250Bridge_K705Scanner.json",
+        "HG2900": "instruments/HG2900_visa.json",
+        "MSL473_SHX": "instruments/MSL473_SHX.json",
+        "CPT9000_41000MG4": "instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "HMT331_S0530221": "instruments/Clients/MSL/Vaisala_HMT331_S0530221.json",
+        "HMT331_S0530213": "instruments/Clients/MSL/Vaisala_HMT331_S0530213.json",
+        "HMT331_R1310162": "instruments/Clients/MSL/Vaisala_HMT331_R1310162.json",
+        "Vaisala_HMP7_375": "instruments/Vaisala_HMP7_375.json",
+        "Vaisala_HMP4_377": "instruments/Vaisala_HMP4_377.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl",
+        "F250Bridge_K705Scanner.read_tx11",
+        "F250Bridge_K705Scanner.read_tx12",
+        "F250Bridge_K705Scanner.read_tx13",
+        "F250Bridge_K705Scanner.read_tx14",
+        "F250Bridge_K705Scanner.read_tx15",
+        "F250Bridge_K705Scanner.read_tx16",
+        "F250Bridge_K705Scanner.read_tx20",
+        "CPT9000_41000MG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "MSL473_SHX.read_DP",
+        "MSL473_SHX.read_FP",
+        "MSL473_SHX.read_RH",
+        "MSL473_SHX.read_RHw",
+        "MSL473_SHX.read_Tx",
+        "MSL473_SHX.read_Th",
+        "MSL473_SHX.read_Stable",
+        "HMT331_S0530221.read_t",
+        "HMT331_S0530221.read_rh",
+        "HMT331_S0530213.read_t",
+        "HMT331_S0530213.read_rh",
+        "HMT331_R1310162.read_t",
+        "HMT331_R1310162.read_rh",
+        "Vaisala_HMP7_375.read_rh",
+        "Vaisala_HMP7_375.read_temp",
+        "Vaisala_HMP7_375.read_dew_point_temp",
+        "Vaisala_HMP7_375.read_dew_frost_point_temp",
+        "Vaisala_HMP4_377.read_rh",
+        "Vaisala_HMP4_377.read_temp",
+        "Vaisala_HMP4_377.read_dew_point_temp",
+        "Vaisala_HMP4_377.read_dew_frost_point_temp"
+    ],
+    "details": {
+    },
+    "references": {
+        "FP_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+
+        "RH_at_DUT_water": {
+            "hum": "F250Bridge_K705Scanner.read_tx11",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "F250Bridge_K705Scanner.read_tx12",
+            "t2": "F250Bridge_K705Scanner.read_tx12",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_tc",
+                "F250Bridge_K705Scanner.read_tx11",
+                "F250Bridge_K705Scanner.read_tx12",
+                "F250Bridge_K705Scanner.read_tx13",
+                "F250Bridge_K705Scanner.read_tx14",
+                "F250Bridge_K705Scanner.read_tx15",
+                "F250Bridge_K705Scanner.read_tx16",
+                "MSL473_SHX.read_Tx",
+                "HMT331_S0530221.read_t",
+                "HMT331_S0530213.read_t",
+                "HMT331_R1310162.read_t"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_fp",
+	            "reference.FP_at_DUT",
+                "MSL473_SHX.read_FP"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_rh",
+                "reference.RH_at_DUT_water",
+                "MSL473_SHX.read_RH",
+                "HMT331_S0530221.read_rh",
+                "HMT331_S0530213.read_rh",
+                "HMT331_R1310162.read_rh"
+            ]
+        }
+    }
+}

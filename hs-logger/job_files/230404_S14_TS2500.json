@@ -1,0 +1,145 @@
+{
+    "job_name":"230404_S14_TS2500",
+    "job_id":1,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\230404_S14_TS2500\\",
+    "filename": "230404_S14_TS2500",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "milliK-millisKanner_40152": "instruments/milliK-millisKanner_40152.json",
+        "CPT9000_41000MG4":"instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM":"instruments/Mensor_CPT9000_410012TM.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json",
+        "Vaisala_HMT330_comparison1":"instruments/Vaisala_HMT330_comparison1.json",
+        "Vaisala_HMT330_comparison2":"instruments/Vaisala_HMT330_comparison2.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "CPT9000_41000MG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "MSL473_SH2.read_P",
+        "milliK-millisKanner_40152.read_10",
+        "milliK-millisKanner_40152.read_11",
+        "milliK-millisKanner_40152.read_12",
+        "milliK-millisKanner_40152.read_13",
+        "milliK-millisKanner_40152.read_14",
+        "milliK-millisKanner_40152.read_15",
+        "milliK-millisKanner_40152.read_16",
+        "milliK-millisKanner_40152.read_17",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_Tm",
+        "MSL473_SH2.read_Th",
+        "MSL473_SH2.read_Ox",
+       "Vaisala_HMT330_comparison1.read_rh",
+        "Vaisala_HMT330_comparison1.read_sens_t",
+        "Vaisala_HMT330_comparison1.read_fp",
+        "Vaisala_HMT330_comparison2.read_rh",
+        "Vaisala_HMT330_comparison2.read_sens_t",
+        "Vaisala_HMT330_comparison2.read_fp"
+    ],
+    "details": {
+    },
+    "references": {
+        "DP_at_DUT": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_15",
+            "t2": "milliK-millisKanner_40152.read_15",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "FP_at_DUT": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_15",
+            "t2": "milliK-millisKanner_40152.read_15",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "RH_near_wall_062": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_15",
+            "t2": "milliK-millisKanner_40152.read_14",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        },
+        "RH_at_centre_047": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_15",
+            "t2": "milliK-millisKanner_40152.read_12",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        },
+        "RH_at_mid_060": {
+            "hum": "milliK-millisKanner_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK-millisKanner_40152.read_15",
+            "t2": "milliK-millisKanner_40152.read_13",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK-millisKanner_40152.read_13",
+                "milliK-millisKanner_40152.read_14",
+                "milliK-millisKanner_40152.read_15",
+                "milliK-millisKanner_40152.read_16",
+                "milliK-millisKanner_40152.read_17",
+                "HG2500.read_tc",
+                "MSL473_SH2.read_Tx",
+                "Vaisala_HMT330_comparison1.read_sens_t",
+                "Vaisala_HMT330_comparison2.read_sens_t"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+	            "reference.FP_at_DUT",
+                "MSL473_SH2.read_FP",
+                "milliK-millisKanner_40152.read_11",
+                "Vaisala_HMT330_comparison1.read_fp",
+                "Vaisala_HMT330_comparison2.read_fp"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "reference.RH_at_centre_047",
+                "reference.RH_at_mid_060",
+                "reference.RH_near_wall_062",
+                "HG2500.read_rh_pc",
+                "MSL473_SH2.read_RH",
+                "Vaisala_HMT330_comparison1.read_rh",
+                "Vaisala_HMT330_comparison2.read_rh"
+            ]
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "job_name": "20230704_Pressure_Cal_0-20bar",
+    "job_id": 0,
+    "job_notes": "This job can be used and modified for doing atmospheric pressure test.",
+    "out_dir": "C:\\Data\\pressure_cal\\",
+    "filename": "PT",
+    "min_interval": 0,
+    "time": 0,
+    "instruments": {
+        "CPT9000_410016D2": "instruments/Mensor_CPT9000_410016D2.json",
+        "CPT9000_410013AX": "instruments/Mensor_CPT9000_410013AX.json"
+    },
+    "logged_operations": [
+        "time.datetime",
+        "time.runtime",
+        "CPT9000_410016D2.read_pressure",
+        "CPT9000_410013AX.read_pressure"
+    ],
+    "references": {
+    }
+}
