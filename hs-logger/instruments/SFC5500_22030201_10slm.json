@@ -4,7 +4,7 @@
     "driver": "SFC5XXX_driver",
     "interface": "pyserial",
     "Serialnumber": "22030201",
-    "port": "COM23",
+    "port": "COM41",
     "address": 0,
     "baudrate": 115200,
     "parity": "none",

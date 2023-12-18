@@ -1,9 +1,9 @@
 {
-  "instrument_id": "MSL473_SHX",
+    "instrument_id": "MSL473_SHX",
     "instrument_name": "MSL473_SHX",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",
-    "port": "COM32",
+    "port": "COM31",
     "baudrate": 9600,
     "write_termination": "\r",
     "read_termination": "\r\n",

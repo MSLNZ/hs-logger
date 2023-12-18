@@ -1,4 +1,5 @@
 import pyvisa as visa
+import serial
 import json
 import time
 from decimal import Decimal
@@ -20,6 +21,8 @@ class generic_driver_visa_serial(object):
         baud = spec.get("baudrate", 9600)
         w_term = spec.get("write_termination", '\r')
         r_term = spec.get("read_termination", '\r\n')
+        databits = spec.get("data_bits", 8)
+        par = spec.get("parity", "NONE")
         doOpen = spec.get("doOpen", True)
         rm = visa.ResourceManager()
         self.store = {}
@@ -27,7 +30,20 @@ class generic_driver_visa_serial(object):
         self.instrument = rm.open_resource(port,
                                            baud_rate=baud,
                                            write_termination=w_term,
-                                           read_termination=r_term)
+                                           read_termination=r_term,
+                                           data_bits=databits)
+
+        if par == "odd":
+            self.instrument.parity = visa.constants.Parity.odd
+        elif par == "even":
+            self.instrument.parity = visa.constants.Parity.even
+        elif par == "mark":
+            self.instrument.parity = visa.constants.Parity.mark
+        elif par == "space":
+            self.instrument.parity = visa.constants.Parity.space
+        else:
+            self.instrument.parity = visa.constants.Parity.none
+
         if doOpen:
             self.instrument.open()
         self.instrument.timeout = 2000
@@ -247,6 +263,7 @@ class generic_driver_visa_serial(object):
                 print(f"Transform form not recognised: {eq[0]}")
                 transformed = float("NaN")
         else:
+            print(f"{data} could not be transformed.")
             transformed = float("NaN")  # The data can't be transformed
         # c = operation.get("transform_coeff", None)
         # transformed = eval(eq)

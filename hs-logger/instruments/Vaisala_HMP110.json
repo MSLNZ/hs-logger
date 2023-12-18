@@ -1,0 +1,97 @@
+{
+    "instrument_id": "Vaisala_HMP110",
+    "instrument_name": "Vaisala HMP110",
+    "driver":"generic_driver_pymodbus",
+    "interface": "modbus_rtu",
+    "address": 1,
+    "port": "COM32",
+    "baudrate":19200,
+    "parity":"None",
+    "databits":8,
+    "stopbits":2,
+    "flowcontrol":"None",
+    "notes": "comment",
+    "data_registers":[[0,20]],
+    "update_time":10,
+    "operations": {
+        "read_rh":{
+            "type": "read",
+            "name": "HMP110 Relative Humidity",
+            "details":"",
+            "id": "read_rh",
+            "register":1,
+            "num_reg":2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_t":{
+            "type": "read",
+            "name": "HMP110 Temperature",
+            "details":"",
+            "id": "read_t",
+            "register":3,
+            "num_reg":2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_dp":{
+            "type": "read",
+            "name": "HMP110 Dew Point",
+            "details":"",
+            "id": "read_dp",
+            "register":9,
+            "num_reg":1,
+            "data_type": "int",
+            "decimal_shift": -2,
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_ah":{
+            "type": "read",
+            "name": "HMP110 Absolute Humidity",
+            "details":"",
+            "id": "read_ah",
+            "register":15,
+            "num_reg":1,
+            "decimal_shift": -1,
+            "data_type": "int",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_mr":{
+            "type": "read",
+            "name": "HMP110 Mixing Ration",
+            "details":"",
+            "id": "read_mr",
+            "register":17,
+            "num_reg":2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_wbt":{
+            "type": "read",
+            "name": "HMP110 Wet Bulb Temperature",
+            "details":"",
+            "id": "read_wbt",
+            "register":19,
+            "num_reg":2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_enthalpy":{
+            "type": "read",
+            "name": "HMP110 Enthalpy",
+            "details":"",
+            "id": "read_enthalpy",
+            "register":27,
+            "num_reg":2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        }
+    }
+}

@@ -429,15 +429,16 @@ class job_frame ( wx.Frame ):
 		self.graph_m = wx.Menu()
 		self.add_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Add Graph", wx.EmptyString, wx.ITEM_NORMAL )
 		self.graph_m.Append( self.add_graph_m )
+
+		self.remove_graph_m = wx.MenuItem(self.graph_m, wx.ID_ANY, u"Remove Graph", wx.EmptyString, wx.ITEM_NORMAL)
+		self.graph_m.Append(self.remove_graph_m)
 		
-		self.append_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Append Graph", wx.EmptyString, wx.ITEM_NORMAL )
+		self.append_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Append Trace", wx.EmptyString, wx.ITEM_NORMAL )
 		self.graph_m.Append( self.append_graph_m )
 		
-		self.detract_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Detract Graph", wx.EmptyString, wx.ITEM_NORMAL )
+		self.detract_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Detract Trace", wx.EmptyString, wx.ITEM_NORMAL )
 		self.graph_m.Append( self.detract_graph_m )
-		
-		self.remove_graph_m = wx.MenuItem( self.graph_m, wx.ID_ANY, u"Remove Graph", wx.EmptyString, wx.ITEM_NORMAL )
-		self.graph_m.Append( self.remove_graph_m )
+
 		
 		self.m_menubar2.Append( self.graph_m, u"Graph" ) 
 		

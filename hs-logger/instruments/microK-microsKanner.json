@@ -45,74 +45,70 @@
             "name": "C10",
             "id": "read_10",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 10",
-            "transducer": "instruments/transducers/temperature/SIL047.json"
+            "transducer": "instruments/transducers/temperature/SIL010.json"
         },
         "read_11": {
             "type": "read_single",
             "name": "C11",
             "id": "read_11",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 11",
-            "transducer": "instruments/transducers/temperature/SIL064.json"
+            "transducer": "instruments/transducers/temperature/SIL049.json"
         },
         "read_12": {
             "type": "read_single",
             "name": "C12",
             "id": "read_12",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 12",
-            "transducer": "instruments/transducers/temperature/SIL065.json"
+            "transducer": "instruments/transducers/temperature/SIL054.json"
         },
         "read_13": {
             "type": "read_single",
             "name": "C13",
             "id": "read_13",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 13",
-            "transducer": "instruments/transducers/temperature/SIL060.json"
+            "transducer": "instruments/transducers/temperature/SIL055.json"
         },
         "read_14": {
             "type": "read_single",
             "name": "C14",
             "id": "read_14",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 14",
-            "transducer": "instruments/transducers/temperature/SIL061.json"
+            "transducer": "instruments/transducers/temperature/SIL056.json"
         },
         "read_15": {
             "type": "read_single",
             "name": "C15",
             "id": "read_15",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 15",
-            "transducer": "instruments/transducers/temperature/SIL062.json"
+            "transducer": "instruments/transducers/temperature/SIL057.json"
         },
         "read_16": {
             "type": "read_single",
             "name": "C16",
             "id": "read_16",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 16",
-            "transducer": "instruments/transducers/temperature/SIL051.json"
+            "transducer": "instruments/transducers/temperature/SIL061.json"
         },
         "read_17": {
             "type": "read_single",
             "name": "C17",
             "id": "read_17",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 17",
-            "transducer": "instruments/transducers/temperature/DP30.json"
+            "transducer": "instruments/transducers/temperature/SIL055.json"
         },
         "read_18": {
             "type": "read_single",
-            "name":"S17-PRT-1 C18",
+            "name": "C18",
             "id": "read_18",
-            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 18",
-            "transform_eq": ["T", 3.908e-3, -5.775e-7, -4.183e-12, 99.92433004],
-            "check_date": "",
-            "rep_num": ""
+            "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 17",
+            "transducer": "instruments/transducers/temperature/SIL045.json"
         },
         "read_19": {
             "type": "read_single",
             "name": "S17-PRT-2 C19",
             "id": "read_19",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 19",
-            "transform_eq": ["T", 3.908e-3, -5.775e-7, -4.183e-12, 99.945348582],
-            "check_date": "",
-            "rep_num": ""
+            "transducer": "instruments/transducers/temperature/SIL064.json"
         },
         "write_current": {
             "type": "write",

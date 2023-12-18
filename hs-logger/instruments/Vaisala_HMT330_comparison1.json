@@ -1,0 +1,133 @@
+{
+    "instrument_id": "HMT330_N2730101",
+    "instrument_name": "Vaisala HMT330 N2730101 (_1)",
+    "driver":"generic_driver_visa_serial",
+    "interface": "visa",            
+    "port": "COM21",
+    "baudrate":19200,
+    "write_termination":"\r",
+    "read_termination":"\r\n",
+    "notes": "This should also work for HMT337 and probably others",
+    "operations": {
+        "read_default":{
+            "type": "read_multiple",
+            "name": "T_rh_FP_C_raw_corr_Tx",
+            "id": "read_default",
+            "operations": ["read_time","read_probe_state","read_probe_value","read_sens_t","read_rh","read_fp","read_c","read_raw_rh","read_corr_rh","read_tx"],
+            "details": "",
+            "command": "SEND D",
+            "data_type": "list",
+            "unit": ""
+        },
+        "read_time":{
+            "type": "read_store",
+            "name": "HMT330_1 monitor time",
+            "id": "read_time",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_probe_state":{
+            "type": "read_store",
+            "name": "HMT330_1 probe state",
+            "id": "read_probe_state",
+            "store_id": "read_default",
+            "details": "n = normal operation, x = sensor heating, h = chemical purge, s = sensor cooling after purge",
+            "store_index": 0,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_probe_value":{
+            "type": "read_store",
+            "name": "HMT330_1 probe heat power/sensor temperature",
+            "id": "read_probe_value",
+            "store_id": "read_default",
+            "details": "is probe heat power is state = n, otherwise is sensor temperature",
+            "store_index": 1,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_sens_t":{
+            "type": "read_store",
+            "name": "HMT330_1 sens temp",
+            "id": "read_sens_t",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 2,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_rh":{
+            "type": "read_store",
+            "name": "HMT330_1 rh",
+            "id": "read_rh",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 3,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0,1,0,0]
+        },
+        "read_fp":{
+            "type": "read_store",
+            "name": "HMT330_1 frost point",
+            "id": "read_fp",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 4,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_c":{
+            "type": "read_store",
+            "name": "HMT330_1 capacitance",
+            "id": "read_c",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 5,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_raw_rh":{
+            "type": "read_store",
+            "name": "HMT330_1 raw rh",
+            "id": "read_raw_rh",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 6,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_corr_rh":{
+            "type": "read_store",
+            "name": "HMT330_1 corr rh",
+            "id": "read_corr_rh",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 7,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tx":{
+            "type": "read_store",
+            "name": "HMT330_1 tx",
+            "id": "read_tx",
+            "store_id": "read_default",
+            "details": "",
+            "store_index": 8,
+            "data_type": "",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        }
+    }
+}

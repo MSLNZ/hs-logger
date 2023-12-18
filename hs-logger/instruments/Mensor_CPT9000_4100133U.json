@@ -3,7 +3,7 @@
     "instrument_name": "Mensor 133U",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM20",
+    "port": "COM19",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",
@@ -22,13 +22,13 @@
             "data_type": "float",
             "unit": "",
             "command": "PRESS?",
-            "transform_eq": ["P", 1.9E-4, 9.9991E-1, 6E-6, 0],
-            "check_date": "23/09/2022",
-            "cal_date": "23/09/2022",
+            "transform_eq": ["P", -6.1E-5, 9.99966E-1, 2.8E-6, 0],
+            "check_date": "14/08/2023",
+            "cal_date": "14/08/2023",
             "check_freq": 0.25,
             "cal_freq": 5,
-            "rep_num": "Pressure/2022/656, 23 September 2022",
-            "uncertainty": [1.3E-4, 5.10E-7]
+            "rep_num": "Pressure/2023/674, 14 August 2023",
+            "uncertainty": [6.6E-4]
         }
     }
 }

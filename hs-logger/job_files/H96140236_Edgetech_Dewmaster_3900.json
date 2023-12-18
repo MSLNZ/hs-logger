@@ -1,0 +1,93 @@
+{
+    "job_name":"H96140236_Edgetech_Dewmaster_3900",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\H96140236_Edgetech_Dewmaster",
+    "filename": "H96140236_Edgetech_Dewmaster",
+    "min_interval": 60,
+    "time":0,
+    "instruments":{
+        "HG3900": "instruments/HG3900_visa.json",
+        "milliK": "instruments/milliK-millisKanner_41502.json",
+        "CPT9000_410016D2": "instruments/Mensor_CPT9000_410016D2.json",
+        "CPT9000_41001GMQ": "instruments/Mensor_CPT9000_41001GMQ.json",
+        "MSL473_SH2": "instruments/MSL473_SH2.json",
+        "S8000RS": "instruments/Michell_S8000rs_modbus.json",
+        "Edgetech_Dewmaster": "instruments/Edgetech_Dewmaster.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG3900.read_fp",
+        "HG3900.read_ps",
+        "HG3900.read_ts",
+        "HG3900.read_pc",
+        "HG3900.read_q",
+        "HG3900.read_status",
+        "milliK.read_10",
+        "milliK.read_11",
+        "milliK.read_12",
+        "milliK.read_14",
+        "milliK.read_15",
+        "milliK.read_16",
+        "milliK.read_17",
+        "CPT9000_410016D2.read_pressure",
+        "CPT9000_41001GMQ.read_pressure",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow",
+        "S8000RS.read_mirror_cond",
+        "S8000RS.read_sensor_temp",
+        "Edgetech_Dewmaster.read_DP"
+    ],
+    "references": {
+        "FP_at_DUT": {
+            "hum": "milliK.read_10",
+            "p1": "CPT9000_410016D2.read_pressure",
+            "p2": "CPT9000_41001GMQ.read_pressure",
+            "t1": "milliK.read_11",
+            "t2": "milliK.read_11",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum": "milliK.read_10",
+            "p1": "CPT9000_410016D2.read_pressure",
+            "p2": "CPT9000_41001GMQ.read_pressure",
+            "t1": "milliK.read_11",
+            "t2": "milliK.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "RH_at_DUT": {
+            "hum": "milliK.read_10",
+            "p1": "CPT9000_410016D2.read_pressure",
+            "p2": "CPT9000_41001GMQ.read_pressure",
+            "t1": "milliK.read_11",
+            "t2": "milliK.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK.read_12",
+                "milliK.read_15",
+                "milliK.read_16"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+	            "reference.FP_at_DUT",
+                "S8000RS.read_dewpoint",
+                "Edgetech_Dewmaster.read_DP"
+            ]
+        }
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "instrument_id": "HMT331_S0530221",
+    "instrument_name": "Vaisala HMT331",
+    "driver":"generic_driver_telnet",
+    "interface": "visa",
+    "host": "10.12.97.6",
+    "notes": "",
+    "operations": {
+        "read_default":{
+            "type": "read_multiple",
+            "name": "S0530221 T_RH",
+            "id": "read_default",
+            "details":"",
+            "operations":["read_t", "read_rh"],
+            "data_type": "list",
+            "unit": ""
+        },
+        "read_t":{
+            "type": "read_store",
+            "name": "S0530221 Read Temperature",
+            "id": "read_t",
+            "details":"",
+            "store_id": "read_default",
+            "store_index":0,
+            "data_type": "",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_rh":{
+            "type": "read_store",
+            "name": "S0530221 Read RH",
+            "id": "read_rh",
+            "details":"",
+            "store_id": "read_default",
+            "store_index":1,
+            "data_type": "",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        }
+    }
+}

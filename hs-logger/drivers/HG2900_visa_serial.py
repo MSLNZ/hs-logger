@@ -71,7 +71,6 @@ class HG2900_visa_serial(object):
                             data = [0, 1]
                         elif data == "1":
                             data = [1, 1]
-
                         elif data == "1.1":
                             data = [1, 0]
                         else:
@@ -83,7 +82,20 @@ class HG2900_visa_serial(object):
                                 data = data + operation.get("split") + self.instrument.read()
                         except visa.errors.VisaIOError:
                             pass
+                        except UnicodeDecodeError as e:
+                            print(e)
                         data = data.split(operation.get("split"))
+                        expect = len(operation.get("operations", []))
+                        try:
+                            if len(data) < expect:
+                                print(f"Data connection lost at {len(data)}/{expect}.")
+                                while len(data) < expect:
+                                    data.append(float("NaN"))
+                                    print(data)
+                        except TypeError:
+                            data = []
+                            while len(data) < expect:
+                                data.append(float("NaN"))
                         for i, d in enumerate(data):
                             if self.isfloat(d):
                                 data[i] = self.decimals(d, operation)

@@ -1,0 +1,9 @@
+a231019_Benchmark_Dewmaster_Climate20Cand60C,,,,
+Points,Soak,Assured,fp_3900,Q_3900
+,,,HG3900.set_fp,HG3900.set_q
+1,120,0,-20.8,2
+2,100,0,-11.4,2
+3,100,0,3.2,2
+4,300,0,7,2
+5,180,0,19,2
+6,180,0,19,2

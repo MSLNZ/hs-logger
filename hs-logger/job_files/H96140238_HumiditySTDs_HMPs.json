@@ -1,0 +1,130 @@
+{
+    "job_name":"H96140235_HumiditySTDs_HMPs",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\H96140234_MSL_humidity_standards",
+    "filename": "H96140234_MSL_humidity_standards",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "milliK_40152": "instruments/milliK-millisKanner_40152.json",
+        "HG2900":"instruments/HG2900_visa.json",
+        "MSL473_SHX": "instruments/MSL473_SHX.json",
+        "CPT9000_41000MG4": "instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "Vaisala_HMP4_377": "instruments/Vaisala_HMP4_377.json",
+        "Vaisala_HMP7_375": "instruments/Vaisala_HMP7_375.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl",
+        "milliK_40152.read_10",
+        "milliK_40152.read_11",
+        "milliK_40152.read_12",
+        "milliK_40152.read_13",
+        "milliK_40152.read_14",
+        "milliK_40152.read_15",
+        "milliK_40152.read_17",
+        "CPT9000_41000MG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "MSL473_SHX.read_DP",
+        "MSL473_SHX.read_FP",
+        "MSL473_SHX.read_RH",
+        "MSL473_SHX.read_RHw",
+        "MSL473_SHX.read_Tx",
+        "MSL473_SHX.read_Th",
+        "MSL473_SHX.read_Stable",
+        "Vaisala_HMP7_375.read_rh",
+        "Vaisala_HMP7_375.read_temp",
+        "Vaisala_HMP7_375.read_dew_point_temp",
+        "Vaisala_HMP7_375.read_dew_frost_point_temp",
+        "Vaisala_HMP4_377.read_dew_frost_point_temp"
+    ],
+    "details": {
+    },
+    "references": {
+        "FP_at_DUT": {
+            "hum": "milliK_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK_40152.read_11",
+            "t2": "milliK_40152.read_11",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum":"milliK_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK_40152.read_11",
+            "t2": "milliK_40152.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+
+        "RH_at_DUT_water": {
+            "hum": "milliK_40152.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK_40152.read_11",
+            "t2": "milliK_40152.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_tc",
+                "milliK_40152.read_11",
+                "milliK_40152.read_12",
+                "milliK_40152.read_13",
+                "milliK_40152.read_14",
+                "milliK_40152.read_15",
+                "milliK_40152.read_16",
+                "MSL473_SHX.read_Tx",
+                "Vaisala_HMP7_375.read_temp",
+                "Vaisala_HMP4_377.read_temp"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_fp",
+                "MSL473_SHX.read_FP",
+	            "reference.FP_at_DUT",
+                "Vaisala_HMP7_375.read_dew_frost_point_temp",
+                "Vaisala_HMP4_377.read_dew_frost_point_temp"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_rh",
+                "MSL473_SHX.read_RH",
+                "reference.RH_at_DUT_water",
+                "Vaisala_HMP7_375.read_rh",
+                "Vaisala_HMP4_377.read_rh"
+            ]
+        }
+    }
+}

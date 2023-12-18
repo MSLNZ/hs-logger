@@ -50,12 +50,12 @@ class Job(object):
                     else:
                         curset = self.auto_profile.check_instrument(i_id, op_check)
                         i = 0
-                        while curset != float(val) and i < 5:
+                        while float(curset) != float(val) and i < 5:
                             i = i + 1
                             print(f"Write attempt {i}")
                             inst_driver.write_instrument(op_id, [val])
                             curset = self.auto_profile.check_instrument(i_id, op_check)
-                            print(f"{float(val)} = {curset}?")
+                            print(f"{float(val)} = {float(curset)}?")
                 except:
                     print("auto profile action error")
         self.frame.reading_text.SetLabel("Waiting...")  # Was u""

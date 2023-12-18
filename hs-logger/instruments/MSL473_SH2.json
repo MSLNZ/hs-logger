@@ -3,7 +3,7 @@
     "instrument_name": "MSL473_SH2",
     "driver": "generic_driver_visa_serial",
     "interface": "visa",
-    "port": "COM6",
+    "port": "COM24",
     "baudrate": 9600,
     "write_termination": "\r",
     "read_termination": "\r\n",
@@ -181,6 +181,21 @@
             "details": "External PRT Resistance",
             "check_date": "09/09/2021",
             "rep_num": "RHS210909B"
+        },
+        "read_ff": {
+            "type": "read_single",
+            "name": "Force Frost MSL473_SH2",
+            "id": "read_ff",
+            "command": "ForceFrost.on?",
+            "transform_eq":["V",0,1,0,0],
+            "details": "Is force frost on?"
+        },
+        "set_ff": {
+            "type": "write",
+            "name": "Force Frost Set MSL473_SH2",
+            "id": "set_ff",
+            "command": "ForceFrost.on={}",
+            "details": "Set force frost"
         }
     }
 }

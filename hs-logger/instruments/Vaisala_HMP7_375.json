@@ -4,7 +4,7 @@
     "driver":"generic_driver_pymodbus",
     "interface": "modbus_rtu",            
     "address": 240,
-    "port": "COM17",
+    "port": "COM35",
     "baudrate":19200,
     "parity":"None",
     "databits":8,
@@ -53,7 +53,7 @@
             "decimal_shift": 0,
             "data_type": "float",
             "unit": "%RH",
-            "transform_eq":["V", 0, 1, 0, 0]
+            "transform_eq":["V", -3.01e-1, 8.616e-1, 2.2166e-3, -7.608e-6]
         },
         "read_temp":{
             "type": "read",
@@ -64,7 +64,7 @@
             "num_reg":2,
             "data_type": "float",
             "unit": "°C",
-            "transform_eq":["V", 0, 1, 0, 0]
+            "transform_eq":["V", 7.7e-2, 9.9828e-1, 2.01e-5, 0]
         },
         "read_dew_point_temp":{
             "type": "read",

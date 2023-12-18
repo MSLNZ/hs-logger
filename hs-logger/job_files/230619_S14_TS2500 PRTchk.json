@@ -1,0 +1,52 @@
+{
+    "job_name":"230619_S14_TS2500 PRTchk",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\230601_S14\\",
+    "filename": "S14_TS2500",
+    "min_interval": 10,
+    "time":0,
+    "instruments":{
+        "milliK_40152": "instruments/milliK-millisKanner_40152.json",
+        "HG2500":"instruments/HG2500_visa.json",
+        "MSL473_SH2": "instruments/MSL473_SH2.json",
+        "CPT9000_41000MG4": "instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "S14_HMT330_1": "instruments/Vaisala_HMT330_comparison1.json",
+        "S14_HMT330_2": "instruments/Vaisala_HMT330_comparison2.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2500.read_tc",
+        "milliK_40152.read_10",
+        "milliK_40152.read_11",
+        "milliK_40152.read_12",
+        "milliK_40152.read_13",
+        "milliK_40152.read_14",
+        "milliK_40152.read_15",
+        "milliK_40152.read_16",
+        "milliK_40152.read_17",
+        "MSL473_SH2.read_Tx",
+        "S14_HMT330_1.read_sens_t",
+        "S14_HMT330_2.read_sens_t"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2500.read_tc",
+                "milliK_40152.read_11",
+                "milliK_40152.read_12",
+                "milliK_40152.read_13",
+                "milliK_40152.read_14",
+                "milliK_40152.read_15",
+                "milliK_40152.read_16"
+            ]
+        }
+     }
+}
