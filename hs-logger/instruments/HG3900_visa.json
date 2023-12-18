@@ -3,7 +3,7 @@
     "instrument_name": "Thunder Scientific 3900 Humidity Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "COM34",
+    "port": "COM25",
     "baudrate":2400,
     "write_termination":"\r",
     "read_termination":"\r\n",
@@ -354,8 +354,8 @@
         },
         "set_ts":{
             "type": "write",
-            "name": "Ts 3900 set",
-            "id":   "set_ts",
+            "name": "Ts 39set_ts00 set",
+            "id":   "",
             "command": "TS={}",
             "check_set": "read_ts_sp",
             "check_actual": "read_ts"

@@ -41,16 +41,16 @@ class generic_driver_pymodbus(ModbusClient):
                 time.sleep(2)
                 if retry >= 10:
                     print(f"Modbus operation {op.get('id','')} failed")
-                    return 'error'
+                    return float("NaN"), float("NaN")
             data = converter(rr.registers)
-            data = self.decimals(data,op)
-            data_trans = self.transform(data,op)
+            data = self.decimals(data, op)
+            data_trans = self.transform(data, op)
             self.close()
-            self.store[op_id] = ((data,data_trans), time.time())
+            self.store[op_id] = ((data, data_trans), time.time())
         return data, data_trans
 
     def decimals(self,data,operation):
-        d_shift = operation.get('decimal_shift',0)
+        d_shift = operation.get('decimal_shift', 0)
         d =  Decimal(data).scaleb(d_shift)
         f = np.float64(d)
         return f

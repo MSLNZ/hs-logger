@@ -1,6 +1,6 @@
 {
     "instrument_id": "CPT9000_41001GMQ",
-    "instrument_name": "Mensor 1GMQ",
+    "instrument_name": "Mensor 16D2",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
     "port": "COM20",

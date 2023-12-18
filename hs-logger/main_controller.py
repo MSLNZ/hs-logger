@@ -289,8 +289,14 @@ class myjobframe(job_frame):
                 self.job.logger.rsources[f"{rows[r]}"] = rsource
                 self.job.logger.tsources[f"{rows[r]}"] = tsource
             else:
-                raw = np.array([d[0].get(r) for d in data], np.float64)
-                trans = np.array([d[1].get(r) for d in data], np.float64)
+                try:
+                    raw = np.array([d[0].get(r) for d in data], np.float64)
+                    trans = np.array([d[1].get(r) for d in data], np.float64)
+                except ValueError:
+                    for d in data:
+                        print(d, r)
+                        print(d[0].get(r))
+                    raise IOError("Investigate this crash. ^")
                 if self.job.logger.window < len(raw):
                     rmean = np.mean(raw[-self.job.logger.window:])
                     rstd = np.std(raw[-self.job.logger.window:])

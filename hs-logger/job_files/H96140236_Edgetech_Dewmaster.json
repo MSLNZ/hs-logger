@@ -10,7 +10,7 @@
         "HG2500":"instruments/HG2500_visa.json",
         "microK": "instruments/microK-microsKanner.json",
         "CPT9000_4100133U":"instruments/Mensor_CPT9000_4100133U.json",
-        "CPT9000_41001GMQ":"instruments/Mensor_CPT9000_41001GMQ.json",
+        "CPT9000_410013AX":"instruments/Mensor_CPT9000_410013AX.json",
         "MSL473_SH2":"instruments/MSL473_SH2.json",
         "Edgetech_Dewmaster": "instruments/Edgetech_Dewmaster.json"
     },
@@ -33,7 +33,7 @@
         "microK.read_16",
         "microK.read_17",
         "CPT9000_4100133U.read_pressure",
-        "CPT9000_41001GMQ.read_pressure",
+        "CPT9000_410013AX.read_pressure",
         "MSL473_SH2.read_DP",
         "MSL473_SH2.read_FP",
         "MSL473_SH2.read_RH",
@@ -47,7 +47,7 @@
         "FP_at_DUT": {
             "hum": "microK.read_10",
             "p1": "CPT9000_4100133U.read_pressure",
-            "p2": "CPT9000_41001GMQ.read_pressure",
+            "p2": "CPT9000_410013AX.read_pressure",
             "t1": "microK.read_11",
             "t2": "microK.read_11",
             "df1": 0,
@@ -57,7 +57,7 @@
         "DP_at_DUT": {
             "hum": "microK.read_10",
             "p1": "CPT9000_4100133U.read_pressure",
-            "p2": "CPT9000_41001GMQ.read_pressure",
+            "p2": "CPT9000_410013AX.read_pressure",
             "t1": "microK.read_11",
             "t2": "microK.read_11",
             "df1": 0,
@@ -67,7 +67,7 @@
         "RH_at_DUT": {
             "hum": "microK.read_10",
             "p1": "CPT9000_4100133U.read_pressure",
-            "p2": "CPT9000_41001GMQ.read_pressure",
+            "p2": "CPT9000_410013AX.read_pressure",
             "t1": "microK.read_11",
             "t2": "microK.read_11",
             "df1": 0,
