@@ -3,7 +3,7 @@
     "instrument_name": "Michell Optidew",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",
-    "port": "COM27",
+    "port": "COM39",
     "baudrate":9600,
     "write_termination":"\r",
     "read_termination":"\r\n",

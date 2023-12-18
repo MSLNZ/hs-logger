@@ -1,0 +1,55 @@
+{
+    "job_name":"Flowmeter_test",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\",
+    "filename": "Flowmeter_test",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
+        "HG2900": "instruments/HG2900_visa.json",
+        "Alicat_435539":"instruments/Alicat_435539.json",
+        "Alicat_435540":"instruments/Alicat_435540.json",
+        "CPT9000_41001GMQ":"instruments/Mensor_CPT9000_41001GMQ.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl",
+        "CPT9000_41001GMQ.read_pressure",
+        "Alicat_435539.read_P",
+        "Alicat_435540.read_P",
+        "Alicat_435539.read_T",
+        "Alicat_435540.read_T",
+        "Alicat_435539.read_Qm",
+        "Alicat_435540.read_Qm",
+        "Alicat_435539.read_Qv",
+        "Alicat_435540.read_Qv"
+    ],
+    "details": {
+    },
+    "references": {},
+    "graphs": {
+         "flow": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_q"
+            ]
+        }
+    }
+}

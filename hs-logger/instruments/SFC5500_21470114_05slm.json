@@ -1,10 +1,10 @@
 {
-    "instrument_id": "SFC5500_21470114_05slm",
+    "instrument_id": "",
     "instrument_name": "SFC5500_21470114_05slm",
     "driver": "SFC5XXX_driver",
     "interface": "pyserial",
     "Serialnumber": "21470114",
-    "port": "COM31",
+    "port": "COM42",
     "address": 0,
     "baudrate": 115200,
     "parity": "none",

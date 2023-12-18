@@ -1,0 +1,46 @@
+{
+    "job_name":"Flowmeter_test_lower",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2023\\",
+    "filename": "Flowmeter_test_lower",
+    "min_interval": 0,
+    "time":0,
+    "instruments":{
+        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
+        "SFC5500_22030201_10slm":"instruments/SFC5500_22030201_10slm.json",
+        "SFC5500_21470114_05slm":"instruments/SFC5500_21470114_05slm.json",
+        "Alicat_435539":"instruments/Alicat_435539.json",
+        "Alicat_435540":"instruments/Alicat_435540.json",
+        "CPT9000_41001GMQ":"instruments/Mensor_CPT9000_41001GMQ.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "SFC5500_22030201_10slm.read_q",
+        "SFC5500_22030201_10slm.read_qset",
+        "SFC5500_21470114_05slm.read_q",
+        "SFC5500_21470114_05slm.read_qset",
+        "CPT9000_41001GMQ.read_pressure",
+        "Alicat_435539.read_P",
+        "Alicat_435540.read_P",
+        "Alicat_435539.read_T",
+        "Alicat_435540.read_T",
+        "Alicat_435539.read_Qm",
+        "Alicat_435540.read_Qm",
+        "Alicat_435539.read_Qv",
+        "Alicat_435540.read_Qv",
+        "HP34420A_HP34970A.read_px117"
+    ],
+    "details": {
+    },
+    "references": {},
+    "graphs": {
+         "flow": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "SFC5500_22030201_10slm.read_q"
+            ]
+        }
+    }
+}

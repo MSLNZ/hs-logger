@@ -3,7 +3,7 @@
     "instrument_name": "Mensor 1GMQ",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM31",
+    "port": "COM33",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",

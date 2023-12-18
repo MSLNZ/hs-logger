@@ -4,7 +4,7 @@
     "details": "SN: 42111",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["V", 0, 1, 0, 0],
+    "transform_eq":["V", 0, 0.4, 0, 0],
     "check_date": "01/01/1980",
     "cal_date": "01/01/1980",
     "check_freq": 1,

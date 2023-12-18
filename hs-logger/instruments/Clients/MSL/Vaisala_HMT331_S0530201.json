@@ -8,7 +8,7 @@
     "operations": {
         "read_default":{
             "type": "read_multiple",
-            "name": "T_RH",
+            "name": "S0530201 T_RH",
             "id": "read_default",
             "details":"",
             "operations":["read_t", "read_rh"],
@@ -17,7 +17,7 @@
         },
         "read_t":{
             "type": "read_store",
-            "name": "Read Temperature",
+            "name": "S0530201 Read Temperature",
             "id": "read_t",
             "details":"",
             "store_id": "read_default",
@@ -28,7 +28,7 @@
         },
         "read_rh":{
             "type": "read_store",
-            "name": "Read RH",
+            "name": "S0530201 Read RH",
             "id": "read_rh",
             "details":"",
             "store_id": "read_default",

@@ -5,9 +5,10 @@ from decimal import Decimal
 from threading import Lock
 import numpy as np
 import math
+import re
 
 
-class HG2900_visa_serial(object):
+class Alicat_visa_serial(object):
 
     def __init__(self, spec):
         """This driver expects to receive information on:
@@ -58,85 +59,67 @@ class HG2900_visa_serial(object):
                 return data, data_trans
             elif dtype == 'read_multiple':
                 with self.lock:
-                    self.instrument.write(operation.get('command', ""))
+                    # print("locK")
+                    self.instrument.write(self.spec.get('unit_id', "")+operation.get('command', ""))
                     if echo:
                         self.instrument.read()
                     data = self.instrument.read()
-                    id = operation.get('id', "")
-                    if id == "read_state":  # This block of code fixes the weird mode structure in the 2900
-                        data = f"{data[10:]}".strip("\r")
-                        if data == "0":
-                            data = [0, 0]
-                        elif data == "0.1":
-                            data = [0, 1]
-                        elif data == "1":
-                            data = [1, 1]
-                        elif data == "1.1":
-                            data = [1, 0]
+
+                    try:
+                        while True:
+                            data = data + operation.get("split", " ") + self.instrument.read()
+                    except visa.errors.VisaIOError:
+                        pass
+                    data = re.split(operation.get("split", r'\s+'), data)  # TEST RegEx for 1 or more whitespace chars.
+                    if data[0] == "":
+                        data = data[1:]
+                    for i, d in enumerate(data):
+                        if self.isfloat(d):
+                            data[i] = self.decimals(d, operation)
+                        elif self.isfloat(d[operation.get("offset", 0):]):
+                            data[i] = self.decimals(d[operation.get("offset", 0):], operation)
                         else:
-                            print(data)
-                            data = [0, 0]
-                    else:
-                        try:
-                            while True:
-                                data = data + operation.get("split") + self.instrument.read()
-                        except visa.errors.VisaIOError:
-                            pass
-                        except UnicodeDecodeError as e:
-                            print(e)
-                        data = data.split(operation.get("split"))
-                        expect = len(operation.get("operations", []))
-                        try:
-                            if len(data) < expect:
-                                print(f"Data connection lost at {len(data)}/{expect}.")
-                                while len(data) < expect:
-                                    data.append(float("NaN"))
-                                    print(data)
-                        except TypeError:
-                            data = []
-                            while len(data) < expect:
-                                data.append(float("NaN"))
-                        for i, d in enumerate(data):
-                            if self.isfloat(d):
-                                data[i] = self.decimals(d, operation)
-                            else:
-                                pass
-                        o_ops = operation.get("operations")
-                        if o_ops is not None:
-                            for on in o_ops:
-                                o = self.operations.get(on)
-                                oi = o.get("store_index")
-                                d = data[oi]
-                                dt = self.transform(d, o)
-                                self.store[on] = ((d, dt), time.time())
+                            data[i] = float("NaN")
+                    o_ops = operation.get("operations")
+                    if o_ops is not None:
+                        for on in o_ops:
+                            o = self.operations.get(on)
+                            oi = o.get("store_index")
+                            d = data[oi]
+                            dt = self.transform(d, o)
+                            self.store[on] = ((d, dt), time.time())
+                    # print(data)
 
                     data_trans = [self.transform(d, operation) for d in data]
+                # print('unlocK')
             elif dtype == 'read_single':
                 with self.lock:
                     # print("locK")
-                    self.instrument.write(operation.get('command', ""))
-                    data = 0
+                    self.instrument.write(self.spec.get('unit_id', "")+operation.get('command', ""))
+                    data = float("NaN")
                     try:
                         while True:
                             data = self.instrument.read()
                     except visa.errors.VisaIOError:
                         pass
-                    data = float(data)
+                    try:
+                        data = float(data)
+                    except ValueError:
+                        data = float("NaN")
                     data_trans = self.transform(data, operation)
                 # print('unlocK')
             else:
                 with self.lock:
                     # print("lock")
-                    print(operation.get('command', ""))
-                    self.instrument.write(operation.get('command', ""))
+                    self.instrument.write(self.spec.get('unit_id', "")+operation.get('command', ""))
                     try:
                         while True:
                             data = self.instrument.read()
-                            print(data)
+                            #print(data)
                     except visa.errors.VisaIOError:
                         pass
-                    data = []
-                    data_trans = []
+                    data = float("NaN")
+                    data_trans = float("NaN")
                 # print('unlock')
             self.store[operation_id] = ((data, data_trans), time.time())
 
@@ -147,27 +130,28 @@ class HG2900_visa_serial(object):
             """
             write instrument 
             """
-            if float("{}".format(*values)) >= 0 and operation_id == "set_fp":
-                try:
-                    op = self.operations["set_dp"]  # This allows the frost point to be set above 0 °C as a dew point.
-                except KeyError:
-                    print("Invalid operation")
-                    return float("NaN"), float("NaN")
-            else:
-                try:
-                    op = self.operations[operation_id]
-                except KeyError:
-                    print("Invalid operation")
-                    return float("NaN"), float("NaN")
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
             command = op.get("command", "")
             command = command.format(*values)
             # response = self.instrument.query(command)
             response = ""
 
             if op.get("type") == "write_action":  # This allows the autoprofile to control actions using a list
-                if 0 <= int(command) <= len(op.get("operations")):
+                if command in op.get("operations"):
                     self.instrument.timeout = 10000
-                    self.instrument.write(op.get("operations").get(f"{int(command)}", ""))
+                    action_id = op.get("operations").get(command)
+                    try:
+                        act = self.operations[action_id]
+                        command2 = act.get("command", "")
+                    except KeyError:
+                        print("write action error")
+                        return ""
+                    command2 = command2.format(*values)
+                    self.instrument.write(self.spec.get('unit_id', "")+command2)
                     try:
                         while True:
                             if response == "":
@@ -180,10 +164,7 @@ class HG2900_visa_serial(object):
                 else:
                     print(f"Action {command} does not exist.")
             else:
-
-                # response = self.instrument.query(command)
-                response = ""
-                self.instrument.write(command)
+                self.instrument.write(self.spec.get('unit_id', "")+command)
                 try:
                     while True:
                         if response == "":
@@ -209,7 +190,7 @@ class HG2900_visa_serial(object):
             command = op.get("command", "")
             # response = self.instrument.query(command,delay=1)
             response = ""
-            self.instrument.write(command)
+            self.instrument.write(self.spec.get('unit_id', "")+command)
             try:
                 while True:
                     if response == "":
@@ -232,9 +213,12 @@ class HG2900_visa_serial(object):
         return f
 
     def transform(self, data, operation):
-        x = data
+        # Bridge transform
+        eqb = self.spec.get("bridge_transform", [0, 0])
+        # x = data
         eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
         if self.isfloat(data):  # Check that the data can be transformed
+            x = eqb[0] + (1 + eqb[1]) * data
             if eq[0] == 'T':  # Callendar-Van Dusen equation
                 if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
                     print(f"{x} with transform {eq} is out of range.")
@@ -285,7 +269,7 @@ class HG2900_visa_serial(object):
 
 # testing
 def main():
-    instr = HG2900_visa_serial(json.load(open('../instruments/HG2900_visa.json')))
+    instr = Alicat_visa_serial(json.load(open('../instruments/Vaisala_HMT337.json')))
     print(instr.read_instrument('read_default'))
     print(instr.read_instrument('read_rh'))
 
