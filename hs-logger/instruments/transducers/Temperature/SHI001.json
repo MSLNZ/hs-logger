@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "SHI001",
+    "details": "DmmxLmm",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.92166e-3,-6.677e-7,-4.266e-12,1.011e-10,99.9823],
+    "check_date": "19/06/2023",
+    "cal_date": "19/06/2023",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2023/171, 19 June 2023",
+    "uncertainty": 6.4e-3,
+    "range": "-40 °C to 200 °C"
+}

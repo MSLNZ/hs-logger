@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "SLO009",
+    "details": "DmmxLmm",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.91338e-3,-5.951e-7,-2.765e-12,100.0225],
+    "check_date": "9/06/2023",
+    "cal_date": "9/06/2023",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2023/168, 9 June 2023",
+    "uncertainty": 6.8e-3,
+    "range": "-90 °C to 100 °C"
+}
