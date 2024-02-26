@@ -298,9 +298,9 @@ def h2_ex_h1(h1, p1, p2, t1, t2, df1, df2):
 def main():
     df1 = 1
     df2 = 1
-    td1 = 21
-    pd1 = 12e5
-    pd2 = 1e5
+    td1 = 2.9
+    pd1 = 1e5
+    pd2 = 1e5+1000
     p1 = 12e5
     p2 = 1e5
     t1 = 21
