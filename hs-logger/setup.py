@@ -30,7 +30,7 @@ setup(
     ],
     setup_requires=[],
     tests_require=[],
-    install_requires=[['numpy', 'matplotlib', 'wxpython==4.0.1', 'GitPython'], ['pyvisa-py', 'serial', 'pymodbus', 'thorlabs_apt']],
+    install_requires=['numpy', 'pyvisa-py', 'matplotlib', 'wxpython==4.0.1', 'serial', 'pymodbus', 'thorlabs_apt', 'GitPython'],
     extras_require={},
     cmdclass={},
     entry_points={

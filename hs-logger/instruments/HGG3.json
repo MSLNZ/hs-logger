@@ -1,0 +1,568 @@
+{
+    "instrument_id": "HGG3",
+    "instrument_name": "RH Systems G3 Frost Point Generator",
+    "driver":"generic_driver_visa_serial",
+    "interface": "visa",            
+    "port": "ASRL5::INSTR",
+    "baudrate":9600,
+    "write_termination":"\r\n",
+    "read_termination":"\r\n",
+    "notes": "",
+    "doOpen": false,
+    "operations": {
+        "read_fp":{
+            "type": "read_single",
+            "name": "Frost Point G3",
+            "id": "read_fp",
+            "details":"",
+            "command": "FP?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_fp_sp":{
+            "type": "read_single",
+            "name": "Frost Point G3 Setpoint",
+            "id": "read_fp_sp",
+            "details":"",
+            "command": "FpSet?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_fp":{
+            "type": "write",
+            "name": "Frost Point G3 Set",
+            "id":   "set_fp",
+            "command": "FpSet = {}",
+            "check_set": "read_fp_sp",
+            "check_actual": "read_fp"
+        },
+        "read_dp":{
+            "type": "read_single",
+            "name": "Dew Point G3",
+            "id": "read_dp",
+            "details":"",
+            "command": "DP?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_dp_sp":{
+            "type": "read_single",
+            "name": "Dew Point G3 Setpoint",
+            "id": "read_dp_sp",
+            "details":"",
+            "command": "DpSet?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_dp":{
+            "type": "write",
+            "name": "Dew Point G3 Set",
+            "id":   "set_dp",
+            "command": "DpSet = {}",
+            "check_set": "read_dp_sp",
+            "check_actual": "read_dp"
+        },
+        "read_ppmv":{
+            "type": "read_single",
+            "name": "PPMv G3",
+            "id": "read_ppmv",
+            "details":"",
+            "command": "PPMv?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_ppmv_sp":{
+            "type": "read_single",
+            "name": "PPMv G3 Setpoint",
+            "id": "read_ppmv_sp",
+            "details":"",
+            "command": "PPMvSet?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_ppmv":{
+            "type": "write",
+            "name": "PPMv G3 Set",
+            "id":   "set_ppmv",
+            "command": "PPMvSet = {}",
+            "check_set": "read_ppmv_sp",
+            "check_actual": "read_ppmv"
+        },
+        "read_ppmw":{
+            "type": "read_single",
+            "name": "PPMw G3",
+            "id": "read_ppmw",
+            "details":"",
+            "command": "PPMw?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_ppmw_sp":{
+            "type": "read_single",
+            "name": "PPMw G3 Setpoint",
+            "id": "read_ppmw_sp",
+            "details":"",
+            "command": "PPMwSet?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_ppmw":{
+            "type": "write",
+            "name": "PPMw G3 Set",
+            "id":   "set_ppmw",
+            "command": "PPMwSet = {}",
+            "check_set": "read_ppmw_sp",
+            "check_actual": "read_ppmw"
+        },
+        "read_ps":{
+            "type": "read_single",
+            "name": "Saturation Pressure G3",
+            "id": "read_ps",
+            "details":"",
+            "command": "Ps?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_ps_sp":{
+            "type": "read_single",
+            "name": "Saturation Pressure G3 Setpoint",
+            "id": "read_ps_sp",
+            "details":"",
+            "command": "PsSet?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_ps":{
+            "type": "write",
+            "name": "Saturation Pressure G3 Set",
+            "id":   "set_ps",
+            "command": "PsSet = {}",
+            "check_set": "read_ps_sp",
+            "check_actual": "read_ps"
+        },
+        "read_tsu":{
+            "type": "read_single",
+            "name": "Upper Saturation Temperature G3",
+            "id": "read_tsu",
+            "details":"",
+            "command": "Tsu?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tsu_sp":{
+            "type": "read_single",
+            "name": "Upper Saturation Temperature G3 Setpoint",
+            "id": "read_tsu_sp",
+            "details":"",
+            "command": "TsuPID.setPt?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_tsu":{
+            "type": "write",
+            "name": "Upper Saturation Temperature G3 Set",
+            "id":   "set_tsu",
+            "command": "TsuPID.setPt = {}",
+            "check_set": "read_tsu_sp",
+            "check_actual": "read_tsu"
+        },
+        "read_tsl":{
+            "type": "read_single",
+            "name": "Lower Saturation Temperature G3",
+            "id": "read_tsl",
+            "details":"",
+            "command": "Tsl?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tsl_sp":{
+            "type": "read_single",
+            "name": "Lower Saturation Temperature G3 Setpoint",
+            "id": "read_tsl_sp",
+            "details":"",
+            "command": "TslPID.setPt?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_tsl":{
+            "type": "write",
+            "name": "Lower Saturation Temperature G3 Set",
+            "id":   "set_tsl",
+            "command": "TslPID.setPt = {}",
+            "check_set": "read_tsl_sp",
+            "check_actual": "read_tsl"
+        },
+        "read_tso":{
+            "type": "read_single",
+            "name": "Outlet Saturation Temperature G3",
+            "id": "read_tso",
+            "details":"",
+            "command": "Tso?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tso_sp":{
+            "type": "read_single",
+            "name": "Outlet Saturation Temperature G3 Setpoint",
+            "id": "read_tso_sp",
+            "details":"",
+            "command": "TsoPID.setPt?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_tso":{
+            "type": "write",
+            "name": "Outlet Saturation Temperature G3 Set",
+            "id":   "set_tso",
+            "command": "TsoPID.setPt = {}",
+            "check_set": "read_tso_sp",
+            "check_actual": "read_tso"
+        },
+        "read_q1":{
+            "type": "read_single",
+            "name": "Flow 1 G3",
+            "id": "read_q1",
+            "details":"",
+            "command": "F1?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_q1_sp":{
+            "type": "read_single",
+            "name": "Flow 1 G3 Setpoint",
+            "id": "read_q1_sp",
+            "details":"",
+            "command": "Fset1?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_q1":{
+            "type": "write",
+            "name": "Flow 1 G3 Set",
+            "id":   "set_q1",
+            "command": "Fset1 = {}",
+            "check_set": "read_q1_sp",
+            "check_actual": "read_q1"
+        },
+        "read_q2":{
+            "type": "read_single",
+            "name": "Flow 2 G3",
+            "id": "read_q2",
+            "details":"",
+            "command": "F2?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_q2_sp":{
+            "type": "read_single",
+            "name": "Flow 2 G3 Setpoint",
+            "id": "read_q2_sp",
+            "details":"",
+            "command": "Fset2?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_q2":{
+            "type": "write",
+            "name": "Flow 2 G3 Set",
+            "id":   "set_q2",
+            "command": "Fset2 = {}",
+            "check_set": "read_q2_sp",
+            "check_actual": "read_q2"
+        },
+        "read_q3":{
+            "type": "read_single",
+            "name": "Flow 3 G3",
+            "id": "read_q3",
+            "details":"",
+            "command": "F3?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_q3_sp":{
+            "type": "read_single",
+            "name": "Flow 3 G3 Setpoint",
+            "id": "read_q3_sp",
+            "details":"",
+            "command": "Fset3?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_q3":{
+            "type": "write",
+            "name": "Flow 3 G3 Set",
+            "id":   "set_q3",
+            "command": "Fset3 = {}",
+            "check_set": "read_q3_sp",
+            "check_actual": "read_q3"
+        },
+        "read_pump":{
+            "type": "read_single",
+            "name": "Pump Status G3",
+            "id": "read_pump",
+            "details":"",
+            "command": "Pump?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_pump":{
+            "type": "write",
+            "name": "Pump Status G3 Set",
+            "id":   "set_pump",
+            "command": "Pump = {}",
+            "check_set": "read_pump",
+            "check_actual": "read_pump"
+        },
+        "read_cool":{
+            "type": "read_single",
+            "name": "Cooling Status G3",
+            "id": "read_cool",
+            "details":"",
+            "command": "Cooling?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_cool":{
+            "type": "write",
+            "name": "Cooling Status G3 Set",
+            "id":   "set_cool",
+            "command": "Cooling = {}",
+            "check_set": "read_cool",
+            "check_actual": "read_cool"
+        },
+        "read_gen":{
+            "type": "read_single",
+            "name": "Generating Status G3",
+            "id": "read_gen",
+            "details":"",
+            "command": "Gen?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_gen":{
+            "type": "write",
+            "name": "Generating Status G3 Set",
+            "id":   "set_gen",
+            "command": "Gen = {}",
+            "check_set": "read_gen",
+            "check_actual": "read_gen"
+        },
+        "read_prg":{
+            "type": "read_single",
+            "name": "Purging Status G3",
+            "id": "read_prg",
+            "details":"",
+            "command": "Prg?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_prg":{
+            "type": "write",
+            "name": "Purging Status G3 Set",
+            "id":   "set_prg",
+            "command": "Prg = {}",
+            "check_set": "read_prg",
+            "check_actual": "read_prg"
+        },
+        "read_fill":{
+            "type": "read_single",
+            "name": "Filling Status G3",
+            "id": "read_fill",
+            "details":"",
+            "command": "Fill?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_fill":{
+            "type": "write",
+            "name": "Filling Status G3 Set",
+            "id":   "set_fill",
+            "command": "Fill = {}",
+            "check_set": "read_fill",
+            "check_actual": "read_fill"
+        },
+        "read_vent":{
+            "type": "read_single",
+            "name": "Venting Status G3",
+            "id": "read_vent",
+            "details":"",
+            "command": "Vent?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_vent":{
+            "type": "write",
+            "name": "Venting Status G3 Set",
+            "id":   "set_vent",
+            "command": "Vent = {}",
+            "check_set": "read_vent",
+            "check_actual": "read_vent"
+        },
+        "read_mode":{
+            "type": "read_single",
+            "name": "Control Mode G3",
+            "id": "read_mode",
+            "details":"",
+            "command": "CtrlMode?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "set_mode":{
+            "type": "write",
+            "name": "Control Mode G3 Set",
+            "id":   "set_mode",
+            "command": "CtrlMode = {}",
+            "check_set": "read_mode",
+            "check_actual": "read_mode"
+        },
+        "read_pt":{
+            "type": "read_single",
+            "name": "Test Pressure G3",
+            "id": "read_pt",
+            "details":"",
+            "command": "Pt?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_p":{
+            "type": "read_single",
+            "name": "Controller Pressure G3",
+            "id": "read_p",
+            "details":"",
+            "command": "P?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_ph":{
+            "type": "read_single",
+            "name": "High Range Pressure G3",
+            "id": "read_ph",
+            "details":"",
+            "command": "Ph?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pl":{
+            "type": "read_single",
+            "name": "Low Range Pressure G3",
+            "id": "read_pl",
+            "details":"",
+            "command": "Pl?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pr":{
+            "type": "read_single",
+            "name": "Regulator Pressure G3",
+            "id": "read_pr",
+            "details":"",
+            "command": "Pr?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_pv":{
+            "type": "read_single",
+            "name": "Vacuum Pressure G3",
+            "id": "read_pt",
+            "details":"",
+            "command": "Pt?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tsx":{
+            "type": "read_single",
+            "name": "Auxiliary Saturation Temperature G3",
+            "id": "read_tsx",
+            "details":"",
+            "command": "Tsx?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tx1":{
+            "type": "read_single",
+            "name": "External Temperature 1 G3",
+            "id": "read_tx1",
+            "details":"",
+            "command": "Tx1?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tx2":{
+            "type": "read_single",
+            "name": "External Temperature 2 G3",
+            "id": "read_tx2",
+            "details":"",
+            "command": "Tx2?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_tfl":{
+            "type": "read_single",
+            "name": "Flow Meter Temperature G3",
+            "id": "read_tfl",
+            "details":"",
+            "command": "Tfl?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_turbo":{
+            "type": "read_single",
+            "name": "Vacuum Turbo Pump Speed G3",
+            "id": "read_turbo",
+            "details":"",
+            "command": "Turbo?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_warn":{
+            "type": "read_single",
+            "name": "Warning Codes G3",
+            "id": "read_warn",
+            "details":"Returns error code\n0 = No Error\n1 = Insufficient Vacuum\n2 = Low Supply Pressure\n3 = Insufficient Vacuum, Low Supply Pressure\n4 = High Range Pressure fault\n8 = Low Range Pressure fault\n16 = Temp Overrange, Tsu\n32 = Temp Overrange, Tsl\n48 = Temp Overrange, Tsu&Tsl\n64 = Temp Overrange, Tso\n128 = RefOhmsHi fault\n256 = RefOhmsLow fault\n512 = Low Sat Pressure\n513 = Low Sat Pressure, Poor vacuum\n514 = No pressure\n515 = No Pressure, Poor vacuum\nSome error codes may occur simultaneously. If an error code is not listed above, find the highest listed error number within the given error code, subtract it and repeat that process until the error remaining is 0. For example, and error code 9 consists of error 8 Low Range Pressure fault, and error 1 Insufficient vacuum.\n",
+            "command": "Warning?",
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        }
+    }
+}
