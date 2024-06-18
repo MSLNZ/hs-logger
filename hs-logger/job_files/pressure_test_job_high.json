@@ -7,11 +7,8 @@
     "min_interval": 0,
     "time": 0,
     "instruments": {
-        "HP34420A_HP34970A": "instruments/HP34420A_HP34970A.json",
         "CPT9000_41000MG4": "instruments/Mensor_CPT9000_41000MG4.json",
-        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
         "CPT9000_4100133U": "instruments/Mensor_CPT9000_4100133U.json",
-        "CPT9000_41001GMQ": "instruments/Mensor_CPT9000_41001GMQ.json",
         "CPT9000_410016D2": "instruments/Mensor_CPT9000_410016D2.json",
         "CPT9000_410013AX": "instruments/Mensor_CPT9000_410013AX.json",
         "Equilibar_EPR": "instruments/Equilibar_EPR.json"
@@ -19,12 +16,8 @@
     "logged_operations": [
         "time.runtime",
         "time.datetime",
-        "HP34420A_HP34970A.read_px119",
-        "HP34420A_HP34970A.read_px120",
         "CPT9000_41000MG4.read_pressure",
-        "CPT9000_410012TM.read_pressure",
         "CPT9000_4100133U.read_pressure",
-        "CPT9000_41001GMQ.read_pressure",
         "CPT9000_410016D2.read_pressure",
         "CPT9000_410013AX.read_pressure",
         "Equilibar_EPR.read_p",
@@ -38,12 +31,8 @@
         "P": {
             "x_axis": "time.runtime",
             "y_axes": [
-                "HP34420A_HP34970A.read_px119",
-                "HP34420A_HP34970A.read_px120",
                 "CPT9000_41000MG4.read_pressure",
-                "CPT9000_410012TM.read_pressure",
                 "CPT9000_4100133U.read_pressure",
-                "CPT9000_41001GMQ.read_pressure",
                 "CPT9000_410016D2.read_pressure",
                 "CPT9000_410013AX.read_pressure",
                 "Equilibar_EPR.read_p"

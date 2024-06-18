@@ -581,7 +581,7 @@ class MyInstPannel(inst_pannel):
         op_id = self.read_op_choice.GetStringSelection()
         raw, trans = self.inst.read_instrument(op_id)
         self.read_response_ctrl.Clear()
-        self.read_response_ctrl.AppendText(str(trans))
+        self.read_response_ctrl.AppendText(str(raw))
 
     def write_op(self, event):
         op_id = self.write_op_choice.GetStringSelection()

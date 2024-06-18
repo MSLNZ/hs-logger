@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "SIL013",
+    "details": "",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 0,1,0,0],
+    "check_date": "",
+    "cal_date": "",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "",
+    "uncertainty": 0,
+    "range": " °C"
+}

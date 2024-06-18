@@ -10,6 +10,6 @@
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2023/163, 9 June 2023",
-    "uncertainty": null,
+    "uncertainty": 4.0e-3,
     "range": "-80 to 100 °C"
 }

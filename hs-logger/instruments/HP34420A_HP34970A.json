@@ -21,7 +21,7 @@
             "channel": 101,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["V", -40, 100, 0, 0],
+            "transform_eq": ["V", 0, 1, 0, 0],
             "details": ""
         },
         "read_px102": {
@@ -31,7 +31,7 @@
             "channel": 102,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["V", 0, 100, 0, 0],
+            "transform_eq": ["V", 0, 1, 0, 0],
             "details": ""
         },
         "read_px103": {
@@ -41,7 +41,7 @@
             "channel": 103,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["V", 0, -1, 0, 0],
+            "transform_eq": ["V", 0, 1, 0, 0],
             "details": ""
         },
         "read_px104": {
@@ -71,7 +71,7 @@
             "channel": 106,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["P", 0, 1, 0, 0],
             "details": ""
         },
         "read_px107": {
@@ -81,7 +81,7 @@
             "channel": 107,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["P", 0, 1, 0, 0],
             "details": ""
         },
         "read_px108": {
@@ -91,7 +91,7 @@
             "channel": 108,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["P", 0, 1, 0, 0],
             "details": ""
         },
         "read_px109": {
@@ -101,7 +101,7 @@
             "channel": 109,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["P", 0, 1, 0, 0],
             "details": ""
         },
         "read_px110": {
@@ -111,7 +111,7 @@
             "channel": 110,
             "hp420A_ch": 1,
             "nplc": 20,
-            "transform_eq": ["P", 0, -1, 0, 0],
+            "transform_eq": ["P", 0, 1, 0, 0],
             "details": ""
         },
         "read_px111": {
