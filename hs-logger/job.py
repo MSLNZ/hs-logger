@@ -197,7 +197,7 @@ class Job(object):
                         else:
                             y_name = op
                     leg.append(y_name)
-                    plt.plot(x_val, y_val)
+                    plt.plot(x_val, y_val, ".-")
             plt.legend(leg)
             g[0][0].canvas.draw()
 

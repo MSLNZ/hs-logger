@@ -36,23 +36,23 @@ def vp(ts, df):
         a5 = -15.9618719
         a6 = 1.80122502
         pc = 22064000
-        Tc = 647.096
-        torr = 1 - (ts + 273.15) / Tc
-        return pc * exp(Tc / (ts + 273.15) * (
-                a1 * torr + a2 * torr ** 1.5 + a3 * torr ** 3 + a4 * torr ** 3.5 + a5 * torr ** 4 + a6 * torr ** 7.5))
+        tc = 647.096
+        torr = 1 - (ts + 273.15) / tc
+        return pc * exp(tc / (ts + 273.15) * (a1 * torr + a2 * torr ** 1.5 + a3 * torr ** 3 + a4 *
+                                              torr ** 3.5 + a5 * torr ** 4 + a6 * torr ** 7.5))
     else:
         # 'IAPWS Sept 2008 "Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary
         # Water Substance" checked 23/03/2010: error in a1 picked up: should be  -21.2144006, not  -21.21446 as was
         # transcribed!
         theta = (ts + 273.15) / 273.16
-        Pt = 611.657  # WTP pressure in Pa
+        pt = 611.657  # WTP pressure in Pa
         a1 = -21.2144006
         a2 = 27.3203819
         a3 = -6.1059813
         b1 = 0.00333333333
         b2 = 1.20666667
         b3 = 1.70333333
-        return Pt * exp(1 / theta * (a1 * theta ** b1 + a2 * theta ** b2 + a3 * theta ** b3))
+        return pt * exp(1 / theta * (a1 * theta ** b1 + a2 * theta ** b2 + a3 * theta ** b3))
 
 
 def ef(ts, p, df):
@@ -109,7 +109,7 @@ def ef(ts, p, df):
     return temp
 
 
-def inversemagnus(vp,df):
+def inversemagnus(vp, df):
     """
     Calculate starting value for dew point using the inverse magnus equation
     :param vp:  known vapour pressure in Pa
@@ -139,7 +139,7 @@ def td_ex_vp(vp1, df):
     ct = 0
     del_vp = 1
     while abs(del_vp) > tol and ct < 10:
-        ct=ct+1
+        ct = ct+1
         vpi = vp(tdi, df)
         del_vp = vp1 - vpi
         tdi = del_vp / dedt(tdi, df) + tdi
@@ -155,7 +155,7 @@ def td_ex_pv(pvo, po, df):
     :return: dew/frost poin (deg C)
     """
 
-    tdi = td_ex_vp(pvo/1.004, df) # first guess
+    tdi = td_ex_vp(pvo/1.004, df)  # first guess
     diff = 11
     tol = 1E-10
     ct = 0
@@ -189,14 +189,15 @@ def dedt(ts, df):
     t = 273.15 + ts
     if df == 0 and ts < 0:  # If frost desired ok only if ts<0
         theta = (ts + 273.15) / 273.16
-        Pt = 611.657  # Pa
+        pt = 611.657  # Pa
         a1 = -21.2144006
         a2 = 27.3203819
         a3 = -6.1059813
         b1 = 0.00333333333
         b2 = 1.20666667
         b3 = 1.70333333
-        dvpdt = vp(ts, df) * ((b1 - 1) * a1 * theta ** (b1 - 2) + (b2 - 1) * a2 * theta ** (b2 - 2) + (b3 - 1) * a3 * theta ** (b3 - 2)) / 273.16
+        dvpdt = vp(ts, df) * ((b1 - 1) * a1 * theta ** (b1 - 2) + (b2 - 1) * a2 * theta ** (b2 - 2) +
+                              (b3 - 1) * a3 * theta ** (b3 - 2)) / 273.16
     else:  # use derivative of Wagner Pruss
         a1 = -7.85951783
         a2 = 1.84408259
@@ -205,22 +206,23 @@ def dedt(ts, df):
         a5 = -15.9618719
         a6 = 1.80122502
         pc = 22064000
-        Tc = 647.096
-        torr = 1 - (ts + 273.15) / Tc
+        tc = 647.096
+        torr = 1 - (ts + 273.15) / tc
         y = 1 / (1 - torr)
         z = (a1 * torr + a2 * torr ** 1.5 + a3 * torr ** 3 + a4 * torr ** 3.5 + a5 * torr ** 4 + a6 * torr ** 7.5)
         x = y * z
         vp1 = pc * exp(x)
-        dtorrdt = -1 / Tc
+        dtorrdt = -1 / tc
         dydtorr = y ** 2
-        dzdtorr = a1 + 1.5 * a2 * torr ** 0.5 + 3 * a3 * torr ** 2 + 3.5 * a4 * torr ** 2.5 + 4 * a5 * torr ** 3 + 7.5 * a6 * torr ** 6.5
+        dzdtorr = (a1 + (1.5 * a2 * torr ** 0.5) + (3 * a3 * torr ** 2) +
+                   (3.5 * a4 * torr ** 2.5) + (4 * a5 * torr ** 3) + (7.5 * a6 * torr ** 6.5))
         dxdtorr = z * dydtorr + y * dzdtorr
         dvpdx = vp1
         dvpdt = dvpdx * dxdtorr * dtorrdt
     return dvpdt
 
 
-def pv(td1,p1,df1):
+def pv(td1, p1, df1):
     """
     returns the vapour partial pressure for given dew-frost point at pressure
     :param td1: known dew-frost point
@@ -296,16 +298,16 @@ def h2_ex_h1(h1, p1, p2, t1, t2, df1, df2):
 
 # testing
 def main():
-    df1 = 1
-    df2 = 1
-    td1 = 2.9
+    df1 = 0
+    df2 = 0
+    td1 = -30
     pd1 = 1e5
-    pd2 = 1e5+1000
-    p1 = 12e5
+    pd2 = 1e5
+    p1 = 1e5
     p2 = 1e5
-    t1 = 21
-    t2 = 21
-    h1 = 100
+    t1 = -10
+    t2 = -20
+    h1 = 20
     print("df1={} df2={} td1={} pd1={} pd2={} p1={} p2={} t1={} t2={} h1={}".format(
         df1, df2, td1, pd1, pd2, p1, p2, t1, t2, h1))
 

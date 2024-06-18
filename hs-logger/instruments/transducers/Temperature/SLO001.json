@@ -1,15 +1,15 @@
 {
     "t_name": "",
     "t_id": "SLO001",
-    "details": "DmmxLmm",
+    "details": "3mmx150mm",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["T", 3.91036e-3,-5.937e-7,-3.068e-12,100.0040],
-    "check_date": "9/06/2023",
-    "cal_date": "9/06/2023",
+    "transform_eq":["T", 3.910360E-03, -5.9370E-07, -3.0680E-12, 100.004],
+    "check_date": "09/06/2023",
+    "cal_date": "09/06/2023",
     "check_freq": 0.5,
     "cal_freq": 5,
     "rep_num": "Temperature/2023/160, 9 June 2023",
     "uncertainty": 4.3e-3,
-    "range": "-80 °C to 100 °C"
+    "range": "-80 to 100 °C"
 }
