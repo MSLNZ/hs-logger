@@ -157,9 +157,11 @@ class Logger(Thread):
             elif inst_id == "no":
                 names[i] = "no."
             elif inst_id == "reference":
-                names[i] = op_id
+                names[i] = f"Reference {op_id}"
             else:
-                names[i] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
+                inst_name = self.instruments.get(inst_id).spec.get("instrument_id")
+                op_name = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
+                names[i] = f"{inst_name} {op_name}"
             i = i+1
 
         namess = names.copy()
@@ -279,9 +281,11 @@ class Logger(Thread):
             elif inst_id == "no":
                 names[i] = "no."
             elif inst_id == "reference":
-                names[i] = op_id
+                names[i] = f"Reference {op_id}"
             else:
-                names[i] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
+                inst_name = self.instruments.get(inst_id).spec.get("instrument_id")
+                op_name = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
+                names[i] = f"{inst_name} {op_name}"
             i = i + 1
         self.datanum = self.datanum + 1  # Increment the data number
         dataline = self.raw_dict.copy()
@@ -329,9 +333,11 @@ class Logger(Thread):
             elif inst_id == "no":
                 names[i] = "no."
             elif inst_id == "reference":
-                names[i] = op_id
+                names[i] = f"Reference {op_id}"
             else:
-                names[i] = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
+                inst_name = self.instruments.get(inst_id).spec.get("instrument_id")
+                op_name = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
+                names[i] = f"{inst_name} {op_name}"
             i = i + 1
         namess = names.copy()
         namess.append('comment')
@@ -357,6 +363,7 @@ class Logger(Thread):
         dataline['runtime'] = dataline.pop('time.runtime')
         dataline['window'] = self.window
         dataline['comment'] = self.comment
+        print(namesp, dataline)
         dataline2 = {name: dataline[name] for name in namesp}
         try:
             with open(self.out_dir + self.rawpointsname, "a") as outfile:
