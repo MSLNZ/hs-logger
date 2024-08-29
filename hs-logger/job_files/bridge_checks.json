@@ -1,9 +1,8 @@
 {
-    "job_name": "ice_point_job",
+    "job_name": "bridge_checks",
     "job_id": 0,
-    "job_notes": "This job can be used and modified for recording ice points.",
-    "out_dir": "C:\\Data\\Ice Points",
-    "datafile_raw": "ip",
+    "job_notes": "This job can be used and modified for recording bridge checks.",
+    "out_dir": "C:\\Data\\Bridges",
     "min_interval": 0,
     "time": 0,
     "instruments": {
@@ -12,7 +11,6 @@
     "logged_operations": [
         "time.runtime",
         "time.datetime",
-        "microK.read_2",
         "microK.read_10"
     ],
     "references": {}
