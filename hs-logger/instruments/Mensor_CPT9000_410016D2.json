@@ -22,12 +22,12 @@
             "data_type": "float",
             "unit": "",
             "command": "PRESS?",
-            "transform_eq": ["P", 2.6E-4, 1.000052, 0, 0],
-            "check_date": "14/08/2023",
-            "cal_date": "14/08/2023",
+            "transform_eq": ["P", 3.9E-4, 9.99939E-1, 0, 0],
+            "check_date": "13/11/2024",
+            "cal_date": "13/11/2024",
             "check_freq": 0.25,
             "cal_freq": 5,
-            "rep_num": "Pressure/2023/671, 14 August 2023",
+            "rep_num": "Pressure/2024/701, 13 November 2024",
             "uncertainty": [1.2E-3]
         }
     }

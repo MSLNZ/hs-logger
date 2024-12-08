@@ -4,12 +4,12 @@
     "details": "3mmx150mm",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["T", 3.912140E-03,-5.9650E-07,-4.9040E-12,99.7992984],
-    "check_date": "09/07/2024",
-    "cal_date": "16/09/2019",
+    "transform_eq":["T", 3.91221E-03,-5.924E-07,-5.193E-12,99.7984],
+    "check_date": "11/11/2024",
+    "cal_date": "11/11/2024",
     "check_freq": 0.5,
     "cal_freq": 5,
-    "rep_num": "Temperature/2019/856, 16 September 2019",
-    "uncertainty": 6.10E-03,
-    "range": "-40 to 100 °C"
+    "rep_num": "Temperature/2024/350, 11 November 2024",
+    "uncertainty": 6.0E-03,
+    "range": "-40 to 120 °C"
 }

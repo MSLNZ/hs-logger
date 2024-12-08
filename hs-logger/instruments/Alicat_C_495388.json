@@ -1,9 +1,9 @@
 {
-    "instrument_id": "Alicat_435540",
-    "instrument_name": "Alicat MB-5SLPM-D 435540",
+    "instrument_id": "Alicat_C_495388",
+    "instrument_name": "Alicat MCR-50SLPM-D 495388",
     "driver": "Alicat_visa_serial",
     "interface": "visa",
-    "port": "ASRL40::INSTR",
+    "port": "ASRL18::INSTR",
     "baudrate": 19200,
     "write_termination": "\r",
     "read_termination": "\r",
@@ -17,7 +17,7 @@
             "id": "read_default",
             "details":"",
             "command":"",
-            "operations":["read_UID", "read_P", "read_T", "read_Qv", "read_Qm", "read_G", "read_status"],
+            "operations":["read_UID", "read_P", "read_T", "read_Qv", "read_Qm", "read_Qset", "read_G", "read_status"],
             "data_type": "list",
             "split":" ",
             "unit": "",
@@ -25,7 +25,7 @@
         },
         "read_UID":{
             "type": "read_store",
-            "name": "Alicat MB-5SLPM",
+            "name": "ID",
             "id": "read_UID",
             "details":"",
             "store_id": "read_default",
@@ -36,7 +36,7 @@
         },
         "read_P":{
             "type": "read_store",
-            "name": "Alicat MB-5SLPM_P",
+            "name": "Pressure",
             "id": "read_P",
             "details":"",
             "store_id": "read_default",
@@ -47,7 +47,7 @@
         },
         "read_T":{
             "type": "read_store",
-            "name": "Alicat MB-5SLPM_T",
+            "name": "Temperature",
             "id": "read_T",
             "details":"",
             "store_id": "read_default",
@@ -58,7 +58,7 @@
         },
         "read_Qv":{
             "type": "read_store",
-            "name": "Alicat MB-5SLPM_Qv",
+            "name": "Volumetric Flow",
             "id": "read_Qv",
             "details":"",
             "store_id": "read_default",
@@ -69,7 +69,7 @@
         },
         "read_Qm":{
             "type": "read_store",
-            "name": "Alicat MB-5SLPM_Qm",
+            "name": "Mass Flow",
             "id": "read_Qm",
             "details":"",
             "store_id": "read_default",
@@ -78,10 +78,10 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_G":{
+        "read_Qset":{
             "type": "read_store",
-            "name": "Alicat MB-5SLPM_G",
-            "id": "read_G",
+            "name": "Flow setpoint",
+            "id": "read_Qset",
             "details":"",
             "store_id": "read_default",
             "store_index": 5,
@@ -89,13 +89,24 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_status":{
+        "read_G":{
             "type": "read_store",
-            "name": "Alicat MB-5SLPM",
-            "id": "read_status",
+            "name": "Gas Type",
+            "id": "read_G",
             "details":"",
             "store_id": "read_default",
             "store_index": 6,
+            "data_type": "float",
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_status":{
+            "type": "read_store",
+            "name": "Status",
+            "id": "read_status",
+            "details":"",
+            "store_id": "read_default",
+            "store_index": 7,
             "data_type": "float",
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
@@ -113,6 +124,14 @@
             "id":   "action_tareP",
             "details": "Zero the flow",
             "command": "pc"
+        },
+        "set_Q": {
+            "type": "write",
+            "name": "Flow setpoint",
+            "id":   "set_Q",
+            "command": "as{}",
+            "check_set": "read_Qset",
+            "check_actual": "read_Qm"
         }
     }
 }

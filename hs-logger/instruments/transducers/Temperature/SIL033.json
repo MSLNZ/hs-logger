@@ -4,12 +4,12 @@
     "details": "",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["T", 3.909080E-03,-6.1160E-07,-1.9700E-12,100.0481981],
-    "check_date": "08/07/2024",
-    "cal_date": "16/08/2017",
+    "transform_eq":["T", 3.90901E-3,-5.942E-07,-3.283E-12,100.0472],
+    "check_date": "11/11/2024",
+    "cal_date": "11/11/2014",
     "check_freq": 0.5,
     "cal_freq": 5,
-    "rep_num": "Temperature/2017/681, 16 August 2017",
-    "uncertainty": 6.3E-03,
-    "range": " °C"
+    "rep_num": "Temperature/2024/340, 11 November 2024",
+    "uncertainty": 1.1E-02,
+    "range": "-90 to 120 °C"
 }
