@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "SVAC03",
+    "details": "Vacuum sealed probe",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.91479E-3, -6.655E-07, 3.713E-12, 100.1371],
+    "check_date": "01/01/1980",
+    "cal_date": "01/01/1980",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "",
+    "uncertainty": null,
+    "range": "-90 °C to 150 °C"
+}

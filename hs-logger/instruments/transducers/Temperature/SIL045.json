@@ -1,15 +1,15 @@
 {
     "t_name": "",
-    "t_id": "SIL045_check icepoint 0.15C offset compared to other prts during humidity calibration",
+    "t_id": "SIL045",
     "details": "4mmx150mm",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["T", 3.915310E-03,-5.9700E-07,-4.8480E-12,99.9917322356],
-    "check_date": "30/06/2022",
-    "cal_date": "16/09/2019",
+    "transform_eq":["T", 3.91529E-03,-5.937E-07,-5.249E-12,99.9903],
+    "check_date": "11/11/2024",
+    "cal_date": "11/11/2024",
     "check_freq": 0.5,
     "cal_freq": 5,
-    "rep_num": "Temperature/2019/844, 16 September 2019",
-    "uncertainty": 6.10E-03,
-    "range": "-40 to 100 °C"
+    "rep_num": "Temperature/2024/343, 11 November 2024",
+    "uncertainty": 4.30E-03,
+    "range": "-40 to 120 °C"
 }

@@ -4,12 +4,12 @@
     "details": "SN: 1192020",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["P", -2.60E-3, 3.5143E-1, -8.4E-5, 0],
-    "check_date": "16/09/2022",
-    "cal_date": "16/09/2022",
+    "transform_eq":["P", -3.78E-3, 3.5113E-1, -8E-5, 0],
+    "check_date": "18/10/2024",
+    "cal_date": "18/10/2024",
     "check_freq": 0.25,
     "cal_freq": 5,
-    "rep_num": "Pressure/2022/652, 16 September 2022",
-    "uncertainty": [8.0E-5, 6.0E-8],
+    "rep_num": "Pressure/2024/694, 18 October 2024",
+    "uncertainty": [1.4E-4],
     "range": "0 to 3 bara"
 }

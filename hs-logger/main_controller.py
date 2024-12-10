@@ -253,8 +253,10 @@ class myjobframe(job_frame):
         for op in operations:
             inst_id, op_id = op.split('.')
             if inst_id != "time":
-                rows[op] = self.job.logger.instruments.get(inst_id, {}).spec.get("operations", {}).get(op_id, {}).\
+                inst_name = self.job.logger.instruments.get(inst_id, {}).spec.get("instrument_id")
+                op_name = self.job.logger.instruments.get(inst_id, {}).spec.get("operations", {}).get(op_id, {}).\
                     get("name", "")
+                rows[op] = f"{inst_name} {op_name}"
             else:
                 rows[op] = op_id
 
@@ -432,13 +434,14 @@ class myjobframe(job_frame):
                 mean = np.mean(refdata)
                 std = np.std(refdata)
                 source = refdata
-            self.job.logger.rmeans[f"m{ref}"] = mean
-            self.job.logger.rstds[f"s{ref}"] = std
-            self.job.logger.rsources[f"{ref}"] = source
-            self.job.logger.tmeans[f"m{ref}"] = mean
-            self.job.logger.tstds[f"s{ref}"] = std
-            self.job.logger.tsources[f"{ref}"] = source
-            points.append([ref, value, mean, std])
+            name = f"Reference {ref}"
+            self.job.logger.rmeans[f"m{name}"] = mean
+            self.job.logger.rstds[f"s{name}"] = std
+            self.job.logger.rsources[f"{name}"] = source
+            self.job.logger.tmeans[f"m{name}"] = mean
+            self.job.logger.tstds[f"s{name}"] = std
+            self.job.logger.tsources[f"{name}"] = source
+            points.append([name, value, mean, std])
 
         if len(self.job.logger.store)-len(self.job.logger.storeref) != 0:
             raise ValueError(f"References are {len(self.job.logger.storeref)} long, rather than {len(self.job.logger.store)}.")

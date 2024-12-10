@@ -1,5 +1,5 @@
 {
-    "instrument_id": "Alicat_435539",
+    "instrument_id": "Alicat_M_435539",
     "instrument_name": "Alicat MB-50SLPM-D 435539",
     "driver": "Alicat_visa_serial",
     "interface": "visa",
@@ -25,7 +25,7 @@
         },
         "read_UID":{
             "type": "read_store",
-            "name": "Alicat MB-50SLPM",
+            "name": "ID",
             "id": "read_UID",
             "details":"",
             "store_id": "read_default",
@@ -36,7 +36,7 @@
         },
         "read_P":{
             "type": "read_store",
-            "name": "Alicat MB-50SLPM_P",
+            "name": "Pressure",
             "id": "read_P",
             "details":"",
             "store_id": "read_default",
@@ -47,7 +47,7 @@
         },
         "read_T":{
             "type": "read_store",
-            "name": "Alicat MB-50SLPM_T",
+            "name": "Temperature",
             "id": "read_T",
             "details":"",
             "store_id": "read_default",
@@ -58,7 +58,7 @@
         },
         "read_Qv":{
             "type": "read_store",
-            "name": "Alicat MB-50SLPM_Qv",
+            "name": "Volumetric Flow",
             "id": "read_Qv",
             "details":"",
             "store_id": "read_default",
@@ -69,7 +69,7 @@
         },
         "read_Qm":{
             "type": "read_store",
-            "name": "Alicat MB-50SLPM_Qm",
+            "name": "Mass Flow",
             "id": "read_Qm",
             "details":"",
             "store_id": "read_default",
@@ -80,7 +80,7 @@
         },
         "read_G":{
             "type": "read_store",
-            "name": "Alicat MB-50SLPM_G",
+            "name": "Gas Type",
             "id": "read_G",
             "details":"",
             "store_id": "read_default",
@@ -91,7 +91,7 @@
         },
         "read_status":{
             "type": "read_store",
-            "name": "Alicat MB-50SLPM",
+            "name": "Status",
             "id": "read_status",
             "details":"",
             "store_id": "read_default",

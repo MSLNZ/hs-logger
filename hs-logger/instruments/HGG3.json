@@ -130,7 +130,7 @@
             "command": "Ps?",
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 1e-5, 0, 0]
         },
         "read_ps_sp":{
             "type": "read_single",
@@ -140,7 +140,7 @@
             "command": "PsSet?",
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 1e-5, 0, 0]
         },
         "set_ps":{
             "type": "write",
@@ -452,7 +452,7 @@
             "command": "Pt?",
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 1e-5, 0, 0]
         },
         "read_p":{
             "type": "read_single",
@@ -462,7 +462,7 @@
             "command": "P?",
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 1e-5, 0, 0]
         },
         "read_ph":{
             "type": "read_single",
@@ -472,7 +472,7 @@
             "command": "Ph?",
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 1e-5, 0, 0]
         },
         "read_pl":{
             "type": "read_single",
@@ -482,7 +482,7 @@
             "command": "Pl?",
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 1e-5, 0, 0]
         },
         "read_pr":{
             "type": "read_single",
@@ -492,7 +492,7 @@
             "command": "Pr?",
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 1e-5, 0, 0]
         },
         "read_pv":{
             "type": "read_single",
@@ -502,7 +502,7 @@
             "command": "Pt?",
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 1e-5, 0, 0]
         },
         "read_tsx":{
             "type": "read_single",
