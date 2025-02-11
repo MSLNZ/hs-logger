@@ -1,8 +1,8 @@
 {
-    "instrument_name": "Vaisala_HMP7_375",
-    "instrument_id": "Vaisala_HMP7_375",
+    "instrument_name": "Vaisala_HMP7_W3033361",
+    "instrument_id": "Vaisala_HMP7_W3033361",
     "driver":"generic_driver_pymodbus",
-    "interface": "modbus_rtu",            
+    "interface": "modbus_rtu",
     "address": 240,
     "port": "COM35",
     "baudrate":19200,
@@ -45,7 +45,7 @@
         },
         "read_rh":{
             "type": "read",
-            "name": "HMP7 375 rh",
+            "name": "Relative humidity",
             "details":"",
             "id": "read_rh",
             "register":0,
@@ -53,22 +53,22 @@
             "decimal_shift": 0,
             "data_type": "float",
             "unit": "%RH",
-            "transform_eq":["V", -3.01e-1, 8.616e-1, 2.2166e-3, -7.608e-6]
+            "transform_eq":["V", 0, 1, 0, 0]
         },
         "read_temp":{
             "type": "read",
-            "name": "HMP7 375 T",
+            "name": "Tempreature",
             "details":"",
             "id": "read_temp",
             "register":2,
             "num_reg":2,
             "data_type": "float",
             "unit": "°C",
-            "transform_eq":["V", 7.7e-2, 9.9828e-1, 2.01e-5, 0]
+            "transform_eq":["V", 0, 1, 0, 0]
         },
         "read_dew_point_temp":{
             "type": "read",
-            "name": "HMP7 375 Td",
+            "name": "Dew point temperature",
             "details":"",
             "id": "read_dew_point_temp",
             "register":6,
@@ -79,7 +79,7 @@
         },
         "read_dew_frost_point_temp":{
             "type": "read",
-            "name": "HMP7 375 Td/f",
+            "name": "Dew/Frost point temperature",
             "details":"",
             "id": "read_dew_frost_point_temp",
             "register":8,

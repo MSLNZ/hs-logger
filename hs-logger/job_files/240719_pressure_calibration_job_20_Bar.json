@@ -1,0 +1,34 @@
+{
+    "job_name": "pressure_calibration_20",
+    "job_id": 2,
+    "job_notes": "comment",
+    "out_dir": "C:\\Data\\jobs_2024\\pressure_calibration",
+    "filename": "pressure_calibration_20",
+    "min_interval": 0,
+    "time": 0,
+    "instruments": {
+        "CPT9000_410016D2": "instruments/Mensor_CPT9000_410016D2.json",
+        "CPT9000_410013AX": "instruments/Mensor_CPT9000_410013AX.json"
+
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "CPT9000_410016D2.read_pressure",
+        "CPT9000_410013AX.read_pressure"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+        "P": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "CPT9000_410016D2.read_pressure",
+                "CPT9000_410013AX.read_pressure"
+
+            ]
+        }
+    }
+}

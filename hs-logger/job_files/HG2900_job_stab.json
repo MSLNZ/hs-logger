@@ -7,7 +7,8 @@
     "min_interval": 20,
     "time":0,
     "instruments":{
-        "HG2900":"instruments/HG2900_visa.json"
+        "HG2900":"instruments/HG2900_visa.json",
+        "MSL473_SHX":"instruments/MSL473_SHX.json"
     },
     "logged_operations":[
         "time.runtime",
@@ -26,8 +27,15 @@
         "HG2900.read_texp",
         "HG2900.read_tps",
         "HG2900.read_pg",
-        "HG2900.read_wl"
-        ],
+        "HG2900.read_wl",
+        "MSL473_SHX.read_DP",
+        "MSL473_SHX.read_FP",
+        "MSL473_SHX.read_RH",
+        "MSL473_SHX.read_RHw",
+        "MSL473_SHX.read_Tx",
+        "MSL473_SHX.read_Th",
+        "MSL473_SHX.read_Stable"
+    ],
     "details": {},
     "references": {}
 }
