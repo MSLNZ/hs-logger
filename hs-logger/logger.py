@@ -108,7 +108,7 @@ class Logger(Thread):
         sys.exit(1)
 
     def read_loop(self):
-        ls_time = time.time() / 60
+        ls_time = time.time()
         self.raw_dict = {}
         self.trans_dict = {}
         self.job.frame.reading_text.SetLabel("Reading:")  # Was u""
@@ -125,7 +125,7 @@ class Logger(Thread):
         self.count += 1
         self.job.update_cycle()
         self.log_to_file()
-        cycle_time = (time.time() / 60) - ls_time
+        cycle_time = time.time() - ls_time
         ttnc = self.min_cycle_time-cycle_time
         if ttnc > 0 and not self.stopped:
             time.sleep(ttnc)
