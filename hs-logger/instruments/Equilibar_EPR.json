@@ -3,7 +3,7 @@
     "instrument_name": "Equilibar Electronic Pressure Regulator",
     "driver": "generic_driver_visa_serial",
     "Serialnumber": "305368",
-    "port": "ASRL31::INSTR",
+    "port": "ASRL5::INSTR",
     "baudrate": 19200,
     "write_termination": "\r",
     "read_termination": "\r",

@@ -3,7 +3,7 @@
     "instrument_name": "RH Systems G3 Frost Point Generator",
     "driver":"generic_driver_visa_serial",
     "interface": "visa",            
-    "port": "ASRL5::INSTR",
+    "port": "ASRL26::INSTR",
     "baudrate":9600,
     "write_termination":"\r\n",
     "read_termination":"\r\n",
@@ -497,9 +497,9 @@
         "read_pv":{
             "type": "read_single",
             "name": "Vacuum Pressure G3",
-            "id": "read_pt",
+            "id": "read_pv",
             "details":"",
-            "command": "Pt?",
+            "command": "Pv?",
             "data_type": "float",
             "unit": "",
             "transform_eq": ["P", 0, 1e-5, 0, 0]
