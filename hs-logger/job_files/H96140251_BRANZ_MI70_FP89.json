@@ -1,0 +1,42 @@
+{
+    "job_name":"H96140251_BRANZ_MI70_FP89",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2024\\H96140251_BRANZ_MI70",
+    "filename": "H96140251_BRANZ_MI70_FP89",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "milliK_41502": "instruments/milliK-millisKanner_41502.json",
+        "Julabo_HL": "instruments/Julabo_HL_Serial.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "milliK_41502.read_10",
+        "milliK_41502.read_11",
+        "milliK_41502.read_12",
+        "milliK_41502.read_13",
+        "milliK_41502.read_14",
+        "milliK_41502.read_15",
+        "milliK_41502.read_17",
+        "Julabo_HL.read_Tm"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "milliK_41502.read_11",
+                "milliK_41502.read_12",
+                "milliK_41502.read_13",
+                "milliK_41502.read_14",
+                "milliK_41502.read_15",
+                "Julabo_HL.read_Tm"
+            ]
+        }
+    }
+}

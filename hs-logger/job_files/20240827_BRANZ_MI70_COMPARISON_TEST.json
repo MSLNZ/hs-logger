@@ -1,0 +1,37 @@
+{
+    "job_name":"20240827_BRANZ_MI70_COMPARISON_TEST",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\BRANZ_COMPARISON_TEST",
+    "filename": "BRANZ_COMPARISON_TEST",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "milliK_40152": "instruments/milliK-millisKanner_40152.json",
+        "PC200": "instruments/PC200_serial.json",
+        "Vaisala_HMP7_375": "instruments/Vaisala_HMP7_375.json",
+        "Vaisala_HMP5_377": "instruments/Vaisala_HMP4_377.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "milliK_40152.read_10",
+        "milliK_40152.read_11",
+        "milliK_40152.read_12",
+        "milliK_40152.read_13",
+        "milliK_40152.read_14",
+        "milliK_40152.read_15",
+        "milliK_40152.read_16",
+        "milliK_40152.read_17",
+        "PC200.read_Tm",
+        "PC200.read_Tex",
+        "Vaisala_HMP7_375.read_temp",
+        "Vaisala_HMP5_377.read_temp"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+    }
+}

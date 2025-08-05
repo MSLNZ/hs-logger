@@ -70,6 +70,35 @@ class generic_driver_stream(object):
 
         return data, data_trans
 
+    def write_instrument(self, operation_id, values):
+        with self.lock:
+            """
+            write instrument 
+            """
+            try:
+                op = self.operations[operation_id]
+            except KeyError:
+                print("Invalid operation")
+                return float("NaN"), float("NaN")
+            command = op.get("command", "")
+            command = command.format(*values)
+            # response = self.instrument.query(command)
+            response = ""
+            self.instrument.write(command)
+            try:
+                while True:
+                    if response == "":
+                        response = self.instrument.read()
+                    else:
+                        response = response + ", " + self.instrument.read()
+            except visa.errors.VisaIOError:
+                pass
+            if response != "":
+                print(response)
+            else:
+                print("No response")
+            return response
+
     def decimals(self, data, operation):
         d_shift = operation.get('decimal_shift', 0)
         d = Decimal(data).scaleb(d_shift)
