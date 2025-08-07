@@ -1,0 +1,46 @@
+{
+    "job_name":"H96140255_Comissioning_G3_part2",
+    "job_id":1,
+    "job_notes":"H96140255_Comissioning_G3_part2",
+    "out_dir": "C:\\Data\\jobs_2024\\",
+    "filename": "H96140255_Comissioning_G3_part2",
+    "min_interval": 60,
+    "time": 0,
+    "instruments":{
+        "HGG3":"instruments/HGG3.json",
+        "S8000RS":"instruments/Michell_S8000rs_modbus.json",
+        "microK":"instruments/microK-microsKanner.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HGG3.read_fp",
+        "HGG3.read_dp",
+        "HGG3.read_ppmv",
+        "HGG3.read_ppmw",
+        "HGG3.read_ps",
+        "HGG3.read_tsu",
+        "HGG3.read_tsl",
+        "HGG3.read_tso",
+        "HGG3.read_q1",
+        "HGG3.read_q2",
+        "HGG3.read_q3",
+        "HGG3.read_pt",
+        "HGG3.read_p",
+        "HGG3.read_ph",
+        "HGG3.read_pl",
+        "HGG3.read_pr",
+        "HGG3.read_pv",
+        "HGG3.read_tsx",
+        "HGG3.read_tx1",
+        "HGG3.read_tx2",
+        "S8000RS.read_dewpoint",
+        "S8000RS.read_pressure",
+        "S8000RS.read_flow",
+        "S8000RS.read_mirror_cond",
+        "S8000RS.read_sensor_temp",
+        "microK.read_17"
+
+    ],
+    "references": {}
+}

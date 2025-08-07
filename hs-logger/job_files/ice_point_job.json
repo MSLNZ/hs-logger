@@ -4,7 +4,7 @@
     "job_notes": "This job can be used and modified for recording ice points.",
     "out_dir": "C:\\Data\\Ice Points",
     "datafile_raw": "ip",
-    "min_interval": 0,
+    "min_interval": 1,
     "time": 0,
     "instruments": {
         "microK": "instruments/microK-microsKanner.json"
@@ -12,7 +12,6 @@
     "logged_operations": [
         "time.runtime",
         "time.datetime",
-        "microK.read_2",
         "microK.read_10"
     ],
     "references": {}

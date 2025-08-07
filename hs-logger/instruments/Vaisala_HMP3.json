@@ -4,7 +4,7 @@
     "driver":"generic_driver_pymodbus",
     "interface": "modbus_rtu",            
     "address": 240,
-    "port": "COM26",
+    "port": "COM52",
     "baudrate":19200,
     "parity":"None",
     "databits":8,
@@ -45,7 +45,7 @@
         },
         "read_rh":{
             "type": "read",
-            "name": "HMP7 376 rh",
+            "name": "HMP3 rh",
             "details":"",
             "id": "read_rh",
             "register":0,
@@ -57,7 +57,7 @@
         },
         "read_temp":{
             "type": "read",
-            "name": "HMP7 376 T",
+            "name": "HMP3 T",
             "details":"",
             "id": "read_temp",
             "register":2,
@@ -68,7 +68,7 @@
         },
         "read_dew_point_temp":{
             "type": "read",
-            "name": "HMP7 376 Td",
+            "name": "HMP3 Td",
             "details":"",
             "id": "read_dew_point_temp",
             "register":6,
@@ -79,7 +79,7 @@
         },
         "read_dew_frost_point_temp":{
             "type": "read",
-            "name": "HMP7 376 Td/f",
+            "name": "HMP3 Td/f",
             "details":"",
             "id": "read_dew_frost_point_temp",
             "register":8,

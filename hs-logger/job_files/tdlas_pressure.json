@@ -1,0 +1,33 @@
+{
+    "job_name": "tdlaspressure",
+    "job_id": 2,
+    "job_notes": "comment",
+    "out_dir": "C:\\Data\\jobs_2024\\tdlas_pressure",
+    "filename": "tdlas_pressure",
+    "min_interval": 0,
+    "time": 0,
+    "instruments": {
+        "CPT9000_41001GMQ": "instruments/Mensor_CPT9000_41001GMQ.json",
+        "Equilibar_EPR": "instruments/Equilibar_EPR.json"
+    },
+    "logged_operations": [
+        "time.runtime",
+        "time.datetime",
+        "CPT9000_41001GMQ.read_pressure",
+        "Equilibar_EPR.read_p",
+        "Equilibar_EPR.read_pset"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+        "P": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "CPT9000_41001GMQ.read_pressure",
+                "Equilibar_EPR.read_p"
+            ]
+        }
+    }
+}

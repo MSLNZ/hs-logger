@@ -1,0 +1,37 @@
+{
+    "job_name":"Humidity Generator G3 Tests",
+    "job_id":1,
+    "job_notes":"Tests for the stability of the G3.",
+    "out_dir": "C:\\data\\tests\\",
+    "filename": "HGG3",
+    "min_interval": 60,
+    "time": 0,
+    "instruments":{
+        "HGG3":"instruments/HGG3.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HGG3.read_fp",
+        "HGG3.read_dp",
+        "HGG3.read_ppmv",
+        "HGG3.read_ppmw",
+        "HGG3.read_ps",
+        "HGG3.read_tsu",
+        "HGG3.read_tsl",
+        "HGG3.read_tso",
+        "HGG3.read_q1",
+        "HGG3.read_q2",
+        "HGG3.read_q3",
+        "HGG3.read_pt",
+        "HGG3.read_p",
+        "HGG3.read_ph",
+        "HGG3.read_pl",
+        "HGG3.read_pr",
+        "HGG3.read_pv",
+        "HGG3.read_tsx",
+        "HGG3.read_tx1",
+        "HGG3.read_tx2"
+    ],
+    "references": {}
+}
