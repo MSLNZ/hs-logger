@@ -13,7 +13,7 @@
     "cal_date": "17/05/2024",
     "check_freq": 1,
     "cal_freq": 5,
-    "rep_num": "Temperature/2021/045, 18 October 2021",
+    "rep_num": "Temperature/2024/311, 17 May 2024",
     "bridge_transform": "[0, -1.621e-5, 8.189e-9]",
     "operations": {
         "read_1": {
