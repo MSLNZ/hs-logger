@@ -9,11 +9,12 @@
     "read_termination": "\r",
     "notes": "",
     "doOpen": false,
-    "check_date": "18/10/2021",
-    "cal_date": "18/10/2021",
+    "check_date": "17/05/2024",
+    "cal_date": "17/05/2024",
     "check_freq": 1,
     "cal_freq": 5,
     "rep_num": "Temperature/2021/045, 18 October 2021",
+    "bridge_transform": "[0, -1.621e-5, 8.189e-9]",
     "operations": {
         "read_1": {
             "type": "read_single",

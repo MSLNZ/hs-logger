@@ -175,11 +175,11 @@ class visa_serial_milliK(object):
 
     def transform(self, data, operation):
         # Bridge transform
-        eqb = self.spec.get("bridge_transform", [0, 0])
+        eqb = self.spec.get("bridge_transform", [0, 0, 0])
         # x = data
         eq = operation.get("transform_eq", ['V', 0, 1, 0, 0])
         if self.isfloat(data):  # Check that the data can be transformed
-            x = eqb[0] + (1 + eqb[1]) * data
+            x = eqb[0] + (1+eqb[1])*data + (eqb[2])*data**2
             if eq[0] == 'T':  # Callendar-Van Dusen equation
                 if np.isnan(eq[1:4]).any() or np.isinf(eq[1:4]).any() or np.isnan(x) or np.isinf(x):
                     print(f"{x} with transform {eq} is out of range.")
