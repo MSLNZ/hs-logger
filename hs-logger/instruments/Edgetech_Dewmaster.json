@@ -2,9 +2,9 @@
     "instrument_id": "Edgetech_Dewmaster",
     "instrument_name": "Edgetech_Dewmaster",
     "driver": "generic_driver_stream",
-    "port": "ASRL19::INSTR",
+    "port": "ASRL6::INSTR",
     "baudrate": 9600,
-    "write_termination": " \r",
+    "write_termination": "\r",
     "read_termination": "\r\n",
     "notes": "",
     "operations": {

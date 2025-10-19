@@ -7,13 +7,13 @@
     "min_interval": 0,
     "time": 0,
     "instruments": {
-        "microK": "instruments/microK-microsKanner.json"
+        "milliK_41502": "instruments/milliK-millisKanner_41502.json"
     },
     "logged_operations": [
         "time.runtime",
         "time.datetime",
-        "microK.read_2",
-        "microK.read_10"
+        "milliK_41502.read_17",
+        "milliK_41502.read_10"
     ],
     "references": {}
 }
