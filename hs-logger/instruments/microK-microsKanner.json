@@ -31,14 +31,14 @@
             "name": "C02",
             "id": "read_2",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 2",
-            "transducer": "instruments/transducers/temperature/SLO001.json"
+            "transducer": "instruments/transducers/temperature/SVAC01.json"
         },
         "read_3": {
             "type": "read_single",
             "name": "C03",
             "id": "read_3",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 3",
-            "transducer": "instruments/transducers/temperature/SLO002.json"
+            "transducer": "instruments/transducers/temperature/SVAC02.json"
         },
         "read_10": {
             "type": "read_single",
@@ -96,7 +96,7 @@
             "name": "C17",
             "id": "read_17",
             "command": "SENS:FUNC FRES;SENS:FRES:REF 204;SENS:FRES:RANG 200,1;SENS:CHAN 17",
-            "transducer": "instruments/transducers/temperature/SLO010.json"
+            "transducer": "instruments/transducers/temperature/DP30.json"
         },
         "read_18": {
             "type": "read_single",

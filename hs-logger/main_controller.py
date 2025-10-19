@@ -726,6 +726,9 @@ class Controller(object):
         self.frame = Main_Frame(self)
 
         self.frame.Show()
+        self.check_procedure("MSLT.H.001")
+        self.check_procedure("MSLT.H.002")
+        self.check_procedure("MSLT.H.004")
         self.app.MainLoop()
 
     def open_job_file(self, direc, fn, cb, err):
@@ -841,6 +844,26 @@ class Controller(object):
             message = f"{id} requires checking."
         elif today - check_date + check_freq/12 > check_freq:  # Give a warning about a week before a check is required
             message = f"{id} will require checking soon."
+        if message != "":
+            print(message)
+            if message.startswith("Error"):
+                answer = self.get_continue_dialog(message)
+                if answer != wx.ID_OK:
+                    raise ValueError  # This won't actually crash, just fail the job.
+
+    def check_procedure(self, file):
+        procedure = json.load(open(f"instruments\\procedures\\{file}.json"))
+        today = datetime.date.today()
+        val_date = datetime.datetime.strptime(procedure.get("date", "01/01/1980"), "%d/%m/%Y").date()
+        val_freq = datetime.timedelta(procedure.get("freq", 5)*365.2425)
+        proc = procedure.get("id", "") + " \"" + procedure.get("name", "Unnamed Procedure") +"\""
+        message = ""
+        if today - val_date > val_freq:  # Device is out of calibration. Confirm before proceeding.
+            message = f"Error: {proc} out of validation."
+        elif today - val_date + val_freq/18 > val_freq:  # Give a warning a few months ahead of calibration expiration
+            message = f"{proc} will require validation soon."
+        else:
+            print(f"{proc} is currently valid")
         if message != "":
             print(message)
             if message.startswith("Error"):
