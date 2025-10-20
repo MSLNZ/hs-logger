@@ -736,6 +736,7 @@ class Controller(object):
         try:
             job_spec = json.load(f)
             jn = job_spec.get("job_name", "")
+
             job_instrument_drivers = self.load_instruments(job_spec.get("instruments", {}))
             self.update_instruments(job_instrument_drivers)
             # logger = Logger(job_spec,job_instrument_drivers)

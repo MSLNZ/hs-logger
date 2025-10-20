@@ -1,0 +1,7 @@
+aTS2900_valve_test.csv,,,
+Points,Soak,Assured,PS_2900
+,,,HG2900.set_ps
+1,60,0,150
+2,60,0,100
+3,60,0,50
+4,60,0,25
