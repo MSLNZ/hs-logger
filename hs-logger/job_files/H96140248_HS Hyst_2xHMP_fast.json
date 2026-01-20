@@ -1,0 +1,120 @@
+{
+    "job_name":"H96140248_HS_Hyst",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2024\\H96140248_HS_Hyst",
+    "filename": "H96140248_HS_Hyst",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "HG2500":"instruments/HG2500_visa.json",
+        "microK": "instruments/microK-microsKanner.json",
+        "CPT9000_4100133U":"instruments/Mensor_CPT9000_4100133U.json",
+        "CPT9000_41001GMQ":"instruments/Mensor_CPT9000_41001GMQ.json",
+        "CPT9000_410016D2":"instruments/Mensor_CPT9000_410016D2.json",
+        "MSL473_SH2":"instruments/MSL473_SH2.json",
+        "Vaisala_HMP7_376": "instruments/Vaisala_HMP7_376.json",
+        "Vaisala_HMP7_375": "instruments/Vaisala_HMP7_375.json"
+    },
+    "logged_operations":[
+        "time.runtime",
+        "time.datetime",
+        "HG2500.read_rh_pc",
+        "HG2500.read_rh_pctc",
+        "HG2500.read_ts",
+        "HG2500.read_tc",
+        "HG2500.read_ps",
+        "HG2500.read_pc",
+        "HG2500.read_q",
+        "microK.read_10",
+        "microK.read_11",
+        "microK.read_13",
+        "microK.read_16",
+        "CPT9000_4100133U.read_pressure",
+        "CPT9000_41001GMQ.read_pressure",
+        "CPT9000_410016D2.read_pressure",
+        "MSL473_SH2.read_DP",
+        "MSL473_SH2.read_FP",
+        "MSL473_SH2.read_RH",
+        "MSL473_SH2.read_Tx",
+        "MSL473_SH2.read_P",
+        "Vaisala_HMP7_375.read_rh",
+        "Vaisala_HMP7_375.read_temp",
+        "Vaisala_HMP7_375.read_dew_frost_point_temp",
+        "Vaisala_HMP7_376.read_rh",
+        "Vaisala_HMP7_376.read_temp",
+        "Vaisala_HMP7_376.read_dew_frost_point_temp"
+    ],
+    "references": {
+        "FP_at_DUT": {
+            "hum": "microK.read_10",
+            "p1": "CPT9000_4100133U.read_pressure",
+            "p2": "CPT9000_41001GMQ.read_pressure",
+            "t1": "microK.read_13",
+            "t2": "microK.read_13",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum": "microK.read_10",
+            "p1": "CPT9000_4100133U.read_pressure",
+            "p2": "CPT9000_41001GMQ.read_pressure",
+            "t1": "microK.read_13",
+            "t2": "microK.read_13",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+        "RH_at_DUT": {
+            "hum": "microK.read_10",
+            "p1": "CPT9000_4100133U.read_pressure",
+            "p2": "CPT9000_41001GMQ.read_pressure",
+            "t1": "microK.read_13",
+            "t2": "microK.read_13",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "microK.read_11",
+                "microK.read_13",
+                "Vaisala_HMP7_375.read_temp",
+                "Vaisala_HMP7_376.read_temp",
+                "HG2500.read_tc",
+                "MSL473_SH2.read_Tx"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2500.read_rh_pctc",
+                "MSL473_SH2.read_RH",
+                "Vaisala_HMP7_375.read_rh",
+                "Vaisala_HMP7_376.read_rh"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+	            "reference.FP_at_DUT",
+                "MSL473_SH2.read_FP",
+                "Vaisala_HMP7_375.read_dew_frost_point_temp",
+                "Vaisala_HMP7_376.read_dew_frost_point_temp",
+                "microK.read_16"
+            ]
+        },
+        "DP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+	            "reference.DP_at_DUT",
+                "MSL473_SH2.read_DP",
+                "microK.read_16"
+            ]
+        }
+    }
+}
