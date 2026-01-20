@@ -1,0 +1,58 @@
+{
+    "job_name":"H96140258_BRANZ_HMP7_Temperature2",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\H96140258_BRANZ_HMP7_Temperature2",
+    "filename": "H96140258_BRANZ_HMP7_Temperature2",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "milliK_40152": "instruments/milliK-millisKanner_40152.json",
+        "PC200": "instruments/PC200_serial.json",
+        "Vaisala_HMP7_W3033360":"instruments/Vaisala_HMP7_W3033360.json",
+        "Vaisala_HMP7_W3033361":"instruments/Vaisala_HMP7_W3033361.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "milliK_40152.read_10",
+        "milliK_40152.read_11",
+        "milliK_40152.read_12",
+        "milliK_40152.read_13",
+        "milliK_40152.read_14",
+        "milliK_40152.read_15",
+        "milliK_40152.read_16",
+        "milliK_40152.read_17",
+        "PC200.read_Tm",
+        "PC200.read_Tex",
+        "Vaisala_HMP7_W3033360.read_temp",
+        "Vaisala_HMP7_W3033360.read_rh",
+        "Vaisala_HMP7_W3033360.read_dew_point_temp",
+        "Vaisala_HMP7_W3033361.read_temp",
+        "Vaisala_HMP7_W3033361.read_rh",
+        "Vaisala_HMP7_W3033361.read_dew_point_temp"
+    ],
+    "details": {
+    },
+    "references": {
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "PC200.read_Tm",
+                "PC200.read_Tex",
+                "milliK_40152.read_10",
+                "milliK_40152.read_11",
+                "milliK_40152.read_12",
+                "milliK_40152.read_13",
+                "milliK_40152.read_14",
+                "milliK_40152.read_15",
+                "milliK_40152.read_16",
+                "milliK_40152.read_17",
+                "Vaisala_HMP7_W3033360.read_temp",
+                "Vaisala_HMP7_W3033361.read_temp"
+            ]
+        }
+    }
+}

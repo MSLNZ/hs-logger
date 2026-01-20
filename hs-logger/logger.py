@@ -5,6 +5,7 @@ import numpy as np
 from threading import Thread
 import git
 import os
+import pyvisa
 
 
 class Logger(Thread):
@@ -103,18 +104,24 @@ class Logger(Thread):
         while not self.stopped:
             while not self.paused and not self.stopped:
                 self.read_loop()
-
             time.sleep(1)
         sys.exit(1)
 
     def read_loop(self):
-        ls_time = time.time() / 60
+        ls_time = time.time()
         self.raw_dict = {}
         self.trans_dict = {}
         self.job.frame.reading_text.SetLabel("Reading:")  # Was u""
         for inst, op in self.operations:
             self.job.frame.current_reading.SetLabel(f"{inst}.{op}")  # Was u""
-            self.read_instrument(inst, op)
+            try:
+                self.read_instrument(inst, op)
+            except Exception as e:
+                self.raw_dict[f"{inst}.{op}"] = float("NaN")
+                self.trans_dict[f"{inst}.{op}"] = float("NaN")
+                print(f"Crash prevention, error encountered: {e}")
+                print(inst, op)
+                print(self.instruments)
         self.job.frame.reading_text.SetLabel("Waiting...")  # Was u""
         self.job.frame.current_reading.SetLabel("")  # Was u""
         a = list(self.raw_dict.values())
@@ -125,7 +132,7 @@ class Logger(Thread):
         self.count += 1
         self.job.update_cycle()
         self.log_to_file()
-        cycle_time = (time.time() / 60) - ls_time
+        cycle_time = time.time() - ls_time
         ttnc = self.min_cycle_time-cycle_time
         if ttnc > 0 and not self.stopped:
             time.sleep(ttnc)

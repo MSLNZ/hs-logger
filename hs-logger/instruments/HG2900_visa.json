@@ -3,7 +3,7 @@
     "instrument_name": "Thunder Scientific 2900 Humidity Generator",
     "driver":"HG2900_visa_serial",
     "interface": "visa",            
-    "port": "COM31",
+    "port": "COM51",
     "baudrate":57600,
     "write_termination":"\r\n",
     "read_termination":"\n",
@@ -270,7 +270,7 @@
             "store_index": 5,
             "data_type": "float",
             "unit": "",
-            "transform_eq": ["V", 0, 1, 0, 0]
+            "transform_eq": ["P", 0, 0.0689476, 0, 0]
         },
         "read_ts_sp":{
             "type": "read_store",
@@ -396,7 +396,7 @@
             "id":   "set_ps",
             "command": "set saturation pressure {}",
             "check_set": "read_ps_sp",
-            "check_actual": "read_rh"
+            "check_actual": "read_ps"
         },
         "set_ts":{
             "type": "write",
@@ -404,7 +404,7 @@
             "id":   "set_ts",
             "command": "set saturation temperature {}",
             "check_set": "read_ts_sp",
-            "check_actual": "read_rh"
+            "check_actual": "read_ts"
         },
         "set_q":{
             "type": "write",

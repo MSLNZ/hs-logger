@@ -1,0 +1,119 @@
+{
+    "job_name":"H96140250_MassSTDs_Omegas",
+    "job_id":2,
+    "job_notes":"comment",
+    "out_dir": "C:\\Data\\jobs_2024\\H96140250_MassSTDs_Omegas",
+    "filename": "H96140250_MassSTDs_Omegas",
+    "min_interval": 1,
+    "time":0,
+    "instruments":{
+        "milliK_41502": "instruments/milliK-millisKanner_41502.json",
+        "HG2900":"instruments/HG2900_visa.json",
+        "MSL473_SHX": "instruments/MSL473_SHX.json",
+        "CPT9000_41000MG4": "instruments/Mensor_CPT9000_41000MG4.json",
+        "CPT9000_410012TM": "instruments/Mensor_CPT9000_410012TM.json",
+        "CPT9000_410013AX": "instruments/Mensor_CPT9000_410013AX.json"
+    },
+    "logged_operations":[
+        "time.datetime",
+        "time.runtime",
+        "HG2900.read_rh",
+        "HG2900.read_fp",
+        "HG2900.read_dp",
+        "HG2900.read_ppmv",
+        "HG2900.read_ppmw",
+        "HG2900.read_ps",
+        "HG2900.read_pc",
+        "HG2900.read_ts",
+        "HG2900.read_tc",
+        "HG2900.read_q",
+        "HG2900.read_tcab",
+        "HG2900.read_texp",
+        "HG2900.read_tps",
+        "HG2900.read_pg",
+        "HG2900.read_wl",
+        "milliK_41502.read_10",
+        "milliK_41502.read_11",
+        "milliK_41502.read_12",
+        "milliK_41502.read_13",
+        "milliK_41502.read_14",
+        "milliK_41502.read_15",
+        "milliK_41502.read_17",
+        "CPT9000_41000MG4.read_pressure",
+        "CPT9000_410012TM.read_pressure",
+        "CPT9000_410013AX.read_pressure",
+        "MSL473_SHX.read_DP",
+        "MSL473_SHX.read_FP",
+        "MSL473_SHX.read_RH",
+        "MSL473_SHX.read_RHw",
+        "MSL473_SHX.read_Tx",
+        "MSL473_SHX.read_Th",
+        "MSL473_SHX.read_Stable"
+    ],
+    "details": {
+    },
+    "references": {
+        "FP_at_DUT": {
+            "hum": "milliK_41502.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK_41502.read_11",
+            "t2": "milliK_41502.read_11",
+            "df1": 0,
+            "df2": 0,
+            "type": "dd"
+        },
+        "DP_at_DUT": {
+            "hum": "milliK_41502.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK_41502.read_11",
+            "t2": "milliK_41502.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "dd"
+        },
+
+        "RH_at_DUT_water": {
+            "hum": "milliK_41502.read_10",
+            "p1": "CPT9000_41000MG4.read_pressure",
+            "p2": "CPT9000_410012TM.read_pressure",
+            "t1": "milliK_41502.read_11",
+            "t2": "milliK_41502.read_11",
+            "df1": 0,
+            "df2": 1,
+            "type": "hd"
+        }
+    },
+    "graphs": {
+        "Tc": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_tc",
+                "milliK_41502.read_11",
+                "milliK_41502.read_12",
+                "milliK_41502.read_13",
+                "milliK_41502.read_14",
+                "milliK_41502.read_15",
+                "milliK_41502.read_16",
+                "MSL473_SHX.read_Tx"
+            ]
+        },
+        "FP": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_fp",
+                "MSL473_SHX.read_FP",
+	            "reference.FP_at_DUT"
+            ]
+        },
+        "RH": {
+            "x_axis": "time.runtime",
+            "y_axes": [
+                "HG2900.read_rh",
+                "MSL473_SHX.read_RH",
+                "reference.RH_at_DUT_water"
+            ]
+        }
+    }
+}

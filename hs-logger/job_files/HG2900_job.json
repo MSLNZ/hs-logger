@@ -2,7 +2,7 @@
     "job_name":"HG2900_job",
     "job_id":2,
     "job_notes":"comment",
-    "out_dir": "C:\\datasync\\",
+    "out_dir": "C:\\data\\",
     "filename": "HG2900",
     "min_interval": 20,
     "time":0,

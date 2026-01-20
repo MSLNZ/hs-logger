@@ -1,9 +1,9 @@
 {
-    "instrument_id": "CPT9000_41001GMQ",
+    "instrument_id": "CPT9000_410013AX",
     "instrument_name": "Mensor 13AX",
     "driver": "generic_driver_py_serial",
     "interface": "visa",            
-    "port": "COM14",
+    "port": "COM50",
     "baudrate":57600,
     "parity": "NONE",
     "stopbits": "1",
