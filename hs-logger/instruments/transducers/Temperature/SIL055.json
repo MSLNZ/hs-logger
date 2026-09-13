@@ -4,7 +4,7 @@
     "details": "3mmx100mm-2mmx50mm",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["T", 3.91320E-03,-5.916E-07,-4.674E-12,100.0517],
+    "transform_eq":["T", 3.91320E-03,-5.916E-07,-4.674E-12,100.053946611],
     "check_date": "16/12/2025",
     "cal_date": "11/11/2024",
     "check_freq": 0.5,

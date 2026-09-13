@@ -3,6 +3,8 @@ import wx
 import time
 import numpy as np
 import os
+import matplotlib.cm as cm
+import math
 # from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -10,8 +12,7 @@ class Job(object):
     def __init__(self, spec, inst_drivers, frame):
         self.inst_drivers = inst_drivers
         self.spec = spec
-        frame_log = Text_Log(frame.job_disp_log)
-        self.logger = Logger(self, inst_drivers, frame_log)
+        self.logger = Logger(self, inst_drivers)
         self.frame = frame
         self.frame.SetTitle(f"{spec.get('job_name', '')}")  # Was u""
         self.graphs = []
@@ -45,14 +46,14 @@ class Job(object):
                 op_check = self.logger.instruments.get(i_id).spec.get("operations", {}).get(op_id, {}).get("check_set", "")
                 inst_driver = self.inst_drivers.get(i_id)
                 try:
-                    if op_check == "":
-                        inst_driver.write_instrument(op_id, [val])
-                    else:
+                    inst_driver.write_instrument(op_id, [val])
+                    if op_check != "":
                         curset = self.auto_profile.check_instrument(i_id, op_check)
                         i = 0
-                        while float(curset) != float(val) and i < 5:
+                        print(f"{float(val)} = {float(curset)}?")
+                        while i < 5 and not math.isclose(val, curset):
                             i = i + 1
-                            print(f"Write attempt {i}")
+                            print(f"Rewrite attempt {i}")
                             inst_driver.write_instrument(op_id, [val])
                             curset = self.auto_profile.check_instrument(i_id, op_check)
                             print(f"{float(val)} = {float(curset)}?")
@@ -171,9 +172,12 @@ class Job(object):
 
     def update_graphs(self):  # Updates the data depicted in the graphs
         for g in self.graphs:  # g in form of [[graph object, name], [x1, y1], [x2, y2], etc...]
-            leg = []
             plt = g[0][0].figure.gca()
             plt.clear()
+            max_len = 18000  # Tweak this number if crashing still occurs
+            transform = 0
+            if self.frame.transformed.GetValue():
+                transform = 1
             for i in range(len(g)):
                 if i != 0:
                     x = g[i][0]
@@ -181,14 +185,18 @@ class Job(object):
                     inst_x, op = x.split('.')
                     if inst_x == "reference":
                         x_val = [d.get(x) for d in self.logger.storeref]
+                        x_point = [p[transform].get(x) for p in self.logger.storepoints]
                     else:
-                        x_val = [d[1].get(x) for d in self.logger.store]
+                        x_val = [d[transform].get(x) for d in self.logger.store]
+                        x_point = [p[transform].get(x) for p in self.logger.storepoints]
                     inst_y, op = y.split('.')
                     if inst_y == "reference":
                         y_val = [d.get(y) for d in self.logger.storeref]
+                        y_point = [p[transform].get(y) for p in self.logger.storepoints]
                         y_name = op
                     else:
-                        y_val = [d[1].get(y) for d in self.logger.store]
+                        y_val = [d[transform].get(y) for d in self.logger.store]
+                        y_point = [p[transform].get(y) for p in self.logger.storepoints]
                         if inst_y != "time":
                             try:
                                 y_name = self.logger.job_spec["details"][inst_y][op]
@@ -196,9 +204,21 @@ class Job(object):
                                 y_name = self.logger.instruments.get(inst_y).spec["operations"][op]["name"]
                         else:
                             y_name = op
-                    leg.append(y_name)
-                    plt.plot(x_val, y_val, ".-")
-            plt.legend(leg)
+                    # cutoff points before max_len
+                    if len(x_val) > max_len:
+                        x_val = x_val[-max_len:]
+                        y_val = y_val[-max_len:]
+                    plt.plot(x_val, y_val, ".-", label=y_name)
+                    plt.plot(x_point, y_point, "x", label='', zorder=2)  # Label removes from legend, zorder draws above
+            # Use a colormap to ensure that each point is the same colour as its corresponding line.
+            colormap = cm.get_cmap("viridis")
+            lines = plt.lines
+            N = len(lines)
+            for n in range(0, N, 2):
+                color = colormap(n / N)
+                lines[n].set_color(color)
+                lines[n + 1].set_color(color)
+            plt.legend()
             g[0][0].canvas.draw()
 
     def generate_graph(self, graph):
@@ -487,7 +507,7 @@ class AutoProfile(object):
         #     grid.DeleteCols(descols - 1, curcols - descols)
         # Refresh the table
         grid.AutoSizeRows()
-        # grid.AutoSizeColumns() TODO
+        # grid.AutoSizeColumns()
         grid.ForceRefresh()
 
 

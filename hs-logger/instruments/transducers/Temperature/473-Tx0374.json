@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "473-Tx0374",
+    "details": "",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 99.9518, 3.91168E-03, -5.7123E-07, -3.784E-12],
+    "check_date": "16/06/2020",
+    "cal_date": "16/06/2020",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "RHS200617D",
+    "uncertainty": 0.02,
+    "range": "0 °C to 70 °C"
+}

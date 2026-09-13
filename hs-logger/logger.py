@@ -1,3 +1,4 @@
+import datetime
 import time
 import sys
 import csv
@@ -10,11 +11,10 @@ import pyvisa
 
 class Logger(Thread):
 
-    def __init__(self, job, inst_drivers, f_log=sys.stdout):
+    def __init__(self, job, inst_drivers):
         Thread.__init__(self)
         self.job = job
         self.job_spec = job.spec
-        self.f_log = f_log
         # log file name
         t = time.strftime("%Y%m%d_%H%M%S", time.localtime())
 
@@ -73,6 +73,7 @@ class Logger(Thread):
         self.ref_dict = {}
         self.store = []
         self.storeref = []
+        self.storepoints = []
 
         repo = git.Repo(search_parent_directories=True)
         self.hash = repo.head.object.hexsha
@@ -154,39 +155,18 @@ class Logger(Thread):
         titles = self.opref.copy()
         titles.insert(0, 'no.')
 
-        names = titles.copy()
-
-        i = 0
-        while i < len(titles):
-            inst_id, op_id = titles[i].split('.')
-            if inst_id == "time":
-                names[i] = op_id
-            elif inst_id == "no":
-                names[i] = "no."
-            elif inst_id == "reference":
-                names[i] = f"Reference {op_id}"
-            else:
-                inst_name = self.instruments.get(inst_id).spec.get("instrument_id")
-                op_name = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
-                names[i] = f"{inst_name} {op_name}"
-            i = i+1
-
-        namess = names.copy()
+        namess = titles.copy()
         namess.append('comment')
 
-        namesp = []
-        for name in names:
-            if name == "no." or name == "datetime" or name == "runtime":
-                namesp.append(name)
-            else:
-                namesp.append(f"m{name}")
-        for name in names:
-            if name == "no." or name == "datetime" or name == "runtime":
+        namesp = titles.copy()
+        for name in titles:
+            if name == "no." or name == "time.datetime" or name == "time.runtime":
                 pass
             else:
                 namesp.append(f"s{name}")
         namesp.append('window')
         namesp.append('comment')
+        namesp.append('profile')
 
         for i in range(len(datafiles)):
             for datafile in datafiles[i]:
@@ -198,8 +178,8 @@ class Logger(Thread):
                             elif k == "job_notes":
                                 outfile.write(f"Hash: {self.hash}; {v}" + "\n")
                         if i == 0:
-                            writer = csv.writer(outfile, names, lineterminator='\n', delimiter='\t')
-                            writer.writerow(names)
+                            writer = csv.writer(outfile, titles, lineterminator='\n', delimiter='\t')
+                            writer.writerow(titles)
                         elif i == 1:
                             writer = csv.writer(outfile, namess, lineterminator='\n', delimiter='\t')
                             writer.writerow(namess)
@@ -273,27 +253,11 @@ class Logger(Thread):
             self.operations.append((inst_id, op_id))
 
     def log_to_file(self):
-        self.logf(self.raw_dict.values())
         titles = self.job_spec.get("logged_operations", {}).copy()
         for ref in self.job_spec.get("references", {}).keys():
             ref = f"reference.{ref}"
             titles.append(ref)
         titles.insert(0, 'no.')  # Add the no. column title
-        names = titles.copy()
-        i = 0
-        while i < len(titles):
-            inst_id, op_id = titles[i].split('.')
-            if inst_id == "time":
-                names[i] = op_id
-            elif inst_id == "no":
-                names[i] = "no."
-            elif inst_id == "reference":
-                names[i] = f"Reference {op_id}"
-            else:
-                inst_name = self.instruments.get(inst_id).spec.get("instrument_id")
-                op_name = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
-                names[i] = f"{inst_name} {op_name}"
-            i = i + 1
         self.datanum = self.datanum + 1  # Increment the data number
         dataline = self.raw_dict.copy()
         dataline.update(self.ref_dict)
@@ -325,52 +289,41 @@ class Logger(Thread):
                 writer.writerow(dataline)
 
     def point_to_file(self):
+        raw = self.rmeans.copy()
+        trans = self.tmeans.copy()
+        self.storepoints.append((raw, trans))
         titles = self.job_spec.get("logged_operations", {}).copy()
         for ref in self.job_spec.get("references", {}).keys():
             ref = f"reference.{ref}"
             titles.append(ref)
         titles.insert(0, 'no.')
         # Get names from titles
-        names = titles.copy()
-        i = 0
-        while i < len(titles):
-            inst_id, op_id = titles[i].split('.')
-            if inst_id == "time":
-                names[i] = op_id
-            elif inst_id == "no":
-                names[i] = "no."
-            elif inst_id == "reference":
-                names[i] = f"Reference {op_id}"
-            else:
-                inst_name = self.instruments.get(inst_id).spec.get("instrument_id")
-                op_name = self.instruments.get(inst_id).spec.get("operations", {}).get(op_id, {}).get("name", "")
-                names[i] = f"{inst_name} {op_name}"
-            i = i + 1
-        namess = names.copy()
+        namess = titles.copy()
         namess.append('comment')
-        namesp = []
-        for name in names:
-            if name == "no." or name == "datetime" or name == "runtime":
-                namesp.append(name)
-            else:
-                namesp.append(f"m{name}")
-        for name in names:
-            if name == "no." or name == "datetime" or name == "runtime":
+        namesp = titles.copy()
+        for name in titles:
+            if name == "no." or name == "time.datetime" or name == "time.runtime":
                 pass
             else:
                 namesp.append(f"s{name}")
         namesp.append('window')
         namesp.append('comment')
+        namesp.append('profile')
         self.pointsnum = self.pointsnum + 1  # Increment the data number
         dataline = self.raw_dict.copy()  # Add the no. column data
         dataline.update(self.rmeans)
         dataline.update(self.rstds)
         dataline['no.'] = self.pointsnum
-        dataline['datetime'] = dataline.pop('time.datetime')
-        dataline['runtime'] = dataline.pop('time.runtime')
         dataline['window'] = self.window
         dataline['comment'] = self.comment
-        print(namesp, dataline)
+        a = self.job.auto_profile.points_list[self.job.auto_profile.current_point]
+        b = self.job.auto_profile.soak[self.job.auto_profile.current_point]
+        c = self.job.auto_profile.assured[self.job.auto_profile.current_point]
+        d = []
+        for name, op_pts in self.job.auto_profile.operations.items():
+            pts = op_pts[1]
+            d.append(f"{name}: {pts[self.job.auto_profile.current_point]}")
+        dataline['profile'] = f"{a}, {b}, {c}, {d}"
         dataline2 = {name: dataline[name] for name in namesp}
         try:
             with open(self.out_dir + self.rawpointsname, "a") as outfile:
@@ -391,7 +344,7 @@ class Logger(Thread):
                 writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel",
                                         delimiter='\t')
                 rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
-                for i in range(len(self.rsources.get("datetime", {}))):
+                for i in range(len(self.rsources.get("time.datetime", {}))):
                     writer.writerow(rows[i])
         except FileNotFoundError:
             d = time.time()
@@ -399,17 +352,16 @@ class Logger(Thread):
                 writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel",
                                         delimiter='\t')
                 rows = [dict(zip(self.rsources, t)) for t in zip(*self.rsources.values())]
-                for i in range(len(self.rsources.get("datetime", {}))):
+                for i in range(len(self.rsources.get("time.datetime", {}))):
                     writer.writerow(rows[i])
 
         dataline = self.trans_dict.copy()
         dataline.update(self.tmeans)
         dataline.update(self.tstds)
         dataline['no.'] = self.pointsnum
-        dataline['datetime'] = dataline.pop('time.datetime')
-        dataline['runtime'] = dataline.pop('time.runtime')
         dataline['window'] = self.window
         dataline['comment'] = self.comment
+        dataline['profile'] = f"{a}, {b}, {c}, {d}"
         dataline2 = {title: dataline[title] for title in namesp}
         try:
             with open(self.out_dir + self.transpointsname, "a") as outfile:
@@ -430,7 +382,7 @@ class Logger(Thread):
                 writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel",
                                         delimiter='\t')
                 rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
-                for i in range(len(self.tsources.get("datetime", {}))):
+                for i in range(len(self.tsources.get("time.datetime", {}))):
                     writer.writerow(rows[i])
         except FileNotFoundError:
             d = time.time()
@@ -438,7 +390,7 @@ class Logger(Thread):
                 writer = csv.DictWriter(outfile, fieldnames=namess, lineterminator='\n', dialect="excel",
                                         delimiter='\t')
                 rows = [dict(zip(self.tsources, t)) for t in zip(*self.tsources.values())]
-                for i in range(len(self.tsources.get("datetime", {}))):
+                for i in range(len(self.tsources.get("time.datetime", {}))):
                     writer.writerow(rows[i])
 
         self.job.frame.comment_input.Clear()
@@ -462,9 +414,6 @@ class Logger(Thread):
 
     def stop(self):
         self.stopped = True
-
-    def logf(self, text):
-        self.f_log.write(text)
 
 
 class Timer(object):

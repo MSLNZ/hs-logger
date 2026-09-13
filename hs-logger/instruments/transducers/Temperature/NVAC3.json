@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "NVAC3",
+    "details": "3mmx70mm",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 3.91938E-03, -5.932E-07, -2.784E-12, 99.9680298702],
+    "check_date": "15/07/2026",
+    "cal_date": "17/12/2025",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "Temperature/2025/488, 17 December 2025",
+    "uncertainty": 4.3E-03,
+    "range": "-90 °C to 30 °C"
+}

@@ -175,10 +175,29 @@
             "name": "Ox MSL473_SH2",
             "id": "read_Ox",
             "command": "Ox?",
+            "transducer": "instruments/transducers/temperature/473-Tx0374.json"
+        },
+        "read_ff": {
+            "type": "read_single",
+            "name": "Force Frost MSL473_SH2",
+            "id": "read_ff",
+            "command": "ForceFrost.on?",
             "transform_eq":["V",0,1,0,0],
-            "data_type": "float",
-            "unit": "Ohms",
-            "details": "External PRT Resistance"
+            "details": "Is force frost on?"
+        },
+        "set_ff": {
+            "type": "write",
+            "name": "Force Frost Set MSL473_SH2",
+            "id": "set_ff",
+            "command": "ForceFrost.on={}",
+            "details": "Set force frost (0 is off, 1 is on)"
+        },
+        "set_amc": {
+            "type": "write",
+            "name": "Automatic Mirror Control Set MSL473_SH2",
+            "id": "set_amc",
+            "command": "AMC.on={}",
+            "details": "Set automatic mirror control (0 is off, 1 is on)"
         }
     }
 }

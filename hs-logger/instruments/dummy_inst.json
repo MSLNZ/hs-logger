@@ -3,6 +3,7 @@
     "instrument_name": "dummy_inst",
     "driver": "dummy_driver",
     "notes": "comment",
+    "emr_id": "MSLE.H.003",
     "operations": {
         "read_test":{
             "type": "read",

@@ -1,0 +1,34 @@
+{
+    "instrument_id": "CPT9000_410023T4",
+    "instrument_name": "Mensor 23T4",
+    "driver": "generic_driver_py_serial",
+    "interface": "visa",            
+    "port": "COM26",
+    "baudrate":57600,
+    "parity": "NONE",
+    "stopbits": "1",
+    "timeout": 3,
+    "write_termination": "\r\n",
+    "read_termination": "\r\n",
+    "notes": "",
+    "range": "0 to 11 bara",
+    "doOpen": false,
+    "operations": {
+        "read_pressure": {
+            "type": "read_single",
+            "name": "Mensor 23T4 P",
+            "id": "read_pressure",
+            "details": "",
+            "data_type": "float",
+            "unit": "",
+            "command": "PRESS?",
+            "transform_eq": ["P", 0, 1, 0, 0],
+            "check_date": "",
+            "cal_date": "",
+            "check_freq": 0.25,
+            "cal_freq": 5,
+            "rep_num": "",
+            "uncertainty": []
+        }
+    }
+}
