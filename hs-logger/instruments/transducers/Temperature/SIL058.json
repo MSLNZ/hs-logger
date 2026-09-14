@@ -1,10 +1,10 @@
 {
     "t_name": "",
     "t_id": "SIL058",
-    "details": "3mmx150mm",
+    "details": "3mmx150mm - Shifted: RECALIBRATE",
     "data_type": "float",
     "unit": "",
-    "transform_eq":["T", 3.90372E-03,5.934E-07,-4.799E-12,99.9994],
+    "transform_eq":["T", 3.90372E-03,5.934E-07,-4.799E-12,99.9873446491999],
     "check_date": "16/12/2025",
     "cal_date": "11/11/2024",
     "check_freq": 0.5,

@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "473-2192",
+    "details": "",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 99.9331, 3.91507E-03, -6.28830E-07, -6.13220E-11],
+    "check_date": "09/09/2021",
+    "cal_date": "09/09/2021",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "RHS210909B",
+    "uncertainty": 0.02,
+    "range": "-20 °C to 85 °C"
+}

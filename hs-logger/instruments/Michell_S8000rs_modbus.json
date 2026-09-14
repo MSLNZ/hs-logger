@@ -153,16 +153,18 @@
             "id": "read_hp_drive",
             "register":17,
             "data_type": "uint",
+            "num_reg":1,
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
         "read_status":{
             "type": "read",
-            "name": "heat pump Drive",
+            "name": "S8000 Status",
             "details":"",
-            "id": "read_hp_drive",
+            "id": "read_status",
             "register":18,
             "data_type": "bits",
+            "num_reg":1,
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
@@ -173,6 +175,7 @@
             "id": "read_dcc_hold_time",
             "register":19,
             "data_type": "bcd",
+            "num_reg":1,
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
@@ -183,6 +186,7 @@
             "id": "write_dcc_hold_time",
             "register":19,
             "data_type": "bcd",
+            "num_reg":1,
             "unit": ""
         },
         "read_measure_time":{
@@ -195,6 +199,16 @@
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
+        "write_measure_time":{
+            "type": "write",
+            "name": "Set DCC interval Hours + Minutes",
+            "details":"",
+            "id": "write_measure_time",
+            "register":20,
+            "data_type": "bcd",
+            "num_reg":1,
+            "unit": "hrs,mmin"
+        },
         "read_phase_time_hrs":{
             "type": "read",
             "name": "Phase Time hours",
@@ -202,6 +216,7 @@
             "id": "read_phase_time_hrs",
             "register":21,
             "data_type": "uint",
+            "num_reg":1,
             "unit": "hrs",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
@@ -212,59 +227,40 @@
             "id": "read_phase_time_min_sec",
             "register":22,
             "data_type": "bcd",
+            "num_reg":1,
             "unit": "min,sec",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "write_measure_time":{
-            "type": "write",
-            "name": "Set DCC interval Hours + Minutes",
-            "details":"",
-            "id": "write_measure_time",
-            "register":20,
-            "data_type": "bcd",
-            "unit": "hrs,mmin"
-        },
-        "write_set_temp":{
-            "type": "write",
-            "name": "set_temp",
-            "details":"",
-            "id": "write_set_temp",
-            "register":2,
-            "data_type": "int",
-            "unit": ""
-        },
-        "read_sensor_temp":{
+        "read_flm_thk_set":{
             "type": "read",
-            "name": "Read Sensor Temperature",
+            "name": "Film thickness setting",
             "details":"",
-            "id": "read_sensor_temp",
-            "register":20,
-            "data_type": "int",
-            "decimals":1,
-            "unit": "",
+            "id": "read_flm_thk_set",
+            "register":23,
+            "data_type": "",
             "num_reg":1,
-            "transform_eq": ["V", 0, 1, 0, 0]
-        },
-        "read_sensor_temp_g1":{
-            "type": "read_g1",
-            "name": "Read Sensor Temperature",
-            "details":"",
-            "id": "read_sensor_temp",
-            "register":20,
-            "data_type": "int",
-            "decimals":1,
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         },
-        "read_group_1":{
-            "type": "read_multiple",
-            "name": "Read bulk test",
+        "write_flm_thk_set":{
+            "type": "write",
+            "name": "Film thickness setting",
             "details":"",
-            "id": "read_group_1",
-            "register":0,
-            "num_reg":120,
-            "data_type": "none",
-            "decimals":0,
+            "id": "write_flm_thk_set",
+            "register":23,
+            "data_type": "",
+            "num_reg":1,
+            "unit": "",
+            "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_flm_thk":{
+            "type": "read",
+            "name": "Live film thickness value",
+            "details":"",
+            "id": "read_flm_thk",
+            "register":24,
+            "data_type": "",
+            "num_reg":1,
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
         }

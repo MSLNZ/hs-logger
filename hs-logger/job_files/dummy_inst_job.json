@@ -34,7 +34,7 @@
             "df2": -1,
             "type": "ms"
         },
-        "additive average": {
+        "additive_average": {
             "hum": "dummy_inst.read_test",
             "p1": "dummy_inst.read_test",
             "p2": "dummy_inst.read_test",
@@ -54,7 +54,7 @@
             "df2": -1,
             "type": "mp"
         },
-        "multiplicative average": {
+        "multiplicative_average": {
             "hum": "dummy_inst.read_test",
             "p1": "dummy_inst.read_test",
             "p2": "dummy_inst.read_test",

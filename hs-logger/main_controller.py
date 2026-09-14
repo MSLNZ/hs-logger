@@ -8,6 +8,7 @@ from wx_gui import ctrl_frame, job_frame, add_graph_dialog, append_graph_dialog,
 from job import Job
 import refcalc
 import datetime
+import xml.etree.ElementTree as ET
 
 import matplotlib as mpl
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
@@ -270,7 +271,7 @@ class myjobframe(job_frame):
         try:
             self.job.auto_profile.a_dif = float(self.assured_error_input.GetValue())
         except ValueError:
-            self.job.auto_profile.a_std = 0.1
+            self.job.auto_profile.a_dif = 0.1
         try:
             self.job.auto_profile.a_std = float(self.assured_stdev_input.GetValue())
         except ValueError:
@@ -280,14 +281,30 @@ class myjobframe(job_frame):
             if r == "time.datetime":
                 raw = np.array([d[0].get(r) for d in data])
                 trans = np.array([d[1].get(r) for d in data])
-                rsource = {}
-                tsource = {}
                 if self.job.logger.window < len(raw):
                     rsource = raw[-self.job.logger.window:]
                     tsource = trans[-self.job.logger.window:]
                 else:
                     rsource = raw
                     tsource = trans
+                self.job.logger.rsources[f"{rows[r]}"] = rsource
+                self.job.logger.tsources[f"{rows[r]}"] = tsource
+            elif r == "time.runtime":
+                raw = np.array([d[0].get(r) for d in data])
+                trans = np.array([d[1].get(r) for d in data])
+                if self.job.logger.window < len(raw):
+                    rsource = raw[-self.job.logger.window:]
+                    tsource = trans[-self.job.logger.window:]
+                else:
+                    rsource = raw
+                    tsource = trans
+                mean = float(raw[-1])
+                std = float(0)
+                points.append([rows[r], raw[-1], mean, std])
+                self.job.logger.rmeans[f"{r}"] = mean
+                self.job.logger.rstds[f"s{r}"] = std
+                self.job.logger.tmeans[f"{r}"] = mean
+                self.job.logger.tstds[f"s{r}"] = std
                 self.job.logger.rsources[f"{rows[r]}"] = rsource
                 self.job.logger.tsources[f"{rows[r]}"] = tsource
             else:
@@ -317,12 +334,12 @@ class myjobframe(job_frame):
                     points.append([rows[r], trans[-1], tmean, tstd])
                 else:
                     points.append([rows[r], raw[-1], rmean, rstd])
-                self.job.logger.rmeans[f"m{rows[r]}"] = rmean
-                self.job.logger.rstds[f"s{rows[r]}"] = rstd
-                self.job.logger.rsources[f"{rows[r]}"] = rsource
-                self.job.logger.tmeans[f"m{rows[r]}"] = tmean
-                self.job.logger.tstds[f"s{rows[r]}"] = tstd
-                self.job.logger.tsources[f"{rows[r]}"] = tsource
+                self.job.logger.rmeans[f"{r}"] = rmean
+                self.job.logger.rstds[f"s{r}"] = rstd
+                self.job.logger.rsources[f"{r}"] = rsource
+                self.job.logger.tmeans[f"{r}"] = tmean
+                self.job.logger.tstds[f"s{r}"] = tstd
+                self.job.logger.tsources[f"{r}"] = tsource
 
         references = self.job.spec.get("references", {})
         self.job.logger.ref_dict = {}
@@ -435,12 +452,12 @@ class myjobframe(job_frame):
                 std = np.std(refdata)
                 source = refdata
             name = f"Reference {ref}"
-            self.job.logger.rmeans[f"m{name}"] = mean
-            self.job.logger.rstds[f"s{name}"] = std
-            self.job.logger.rsources[f"{name}"] = source
-            self.job.logger.tmeans[f"m{name}"] = mean
-            self.job.logger.tstds[f"s{name}"] = std
-            self.job.logger.tsources[f"{name}"] = source
+            self.job.logger.rmeans[f"{title}"] = mean
+            self.job.logger.rstds[f"s{title}"] = std
+            self.job.logger.rsources[f"{title}"] = source
+            self.job.logger.tmeans[f"{title}"] = mean
+            self.job.logger.tstds[f"s{title}"] = std
+            self.job.logger.tsources[f"{title}"] = source
             points.append([name, value, mean, std])
 
         if len(self.job.logger.store)-len(self.job.logger.storeref) != 0:
@@ -448,6 +465,7 @@ class myjobframe(job_frame):
 
         num = int(self.reading_number.GetLabel()) + 1
         self.reading_number.SetLabel(f"{num}")  # Was u""
+        self.lpt_datetime.SetLabel(f"{datetime.datetime.now().replace(microsecond=0)}")
         self.next_point_time.SetLabel(self.job.auto_profile.transtime)
         if self.countdown > -1:
             if self.countdown - num < 1:
@@ -724,6 +742,7 @@ class Controller(object):
         self.iframes = {}
         self.app = wx.App()
         self.frame = Main_Frame(self)
+        self.emr = {}
 
         self.frame.Show()
         self.check_procedure("MSLT.H.001")
@@ -781,8 +800,43 @@ class Controller(object):
         self.frame.update_inst_list(self.instruments.keys())
         self.iframes = {k: MyInstPannel(self, v) for k, v in self.instruments.items()}
 
+    def load_emr(self):
+        # Loads the equipment maintenance register into a dictionary indexed by ID for ease of searching.
+        tree = ET.parse('humidity.xml')
+        root = tree.getroot()
+        for equipment in root:
+            eq_id = equipment.find('{https://measurement.govt.nz/equipment-register}id').text
+            self.emr[eq_id] = equipment
+
+    def load_from_emr(self, instrument):
+        # Overwrites details in an instrument that are contained within the equipment maintenance register.
+        # Ultimate goal is that many details will ONLY be contained in the EMR.
+        emr_id = instrument.get("emr_id", "")
+        if emr_id == "":
+            print(f"load_from_emr was called incorrectly.")
+            return instrument
+        try:
+            inst = self.emr[emr_id]
+        except (OSError, ValueError) as e:
+            sys.stderr.write(f"Equipment maintenance register does not contain {emr_id}: {e}")
+            sys.exit(1)
+
+        link = '{https://measurement.govt.nz/equipment-register}'
+        if "cal_freq" in instrument:
+            instrument["cal_freq"] = int(inst.find(f'{link}calibrations').find(f'{link}measurand').attrib["calibrationInterval"])
+        #         Figure out which calibration is the most recent one.
+        #             instrument["rep_num"] = <report>
+        #                instrument["cal_date"] = <reportIssueDate>
+        #                instrument["transform_eq"] = <cvdCoefficients>
+        #                    instrument["uncertainty"] = <uncertainty>
+        #                    instrument["unit"] = <uncertainty>
+        #                        instrument["range"] = <range>
+
+        return instrument
+
     def load_instruments(self, inst_spec):
         instruments = {}
+        self.load_emr()
         for inst_id, instrument in inst_spec.items():
             if inst_id in self.instruments:
                 instruments[inst_id] = self.instruments[inst_id]
@@ -795,15 +849,26 @@ class Controller(object):
                         sys.exit(1)
                 # inst_id = instrument["instrument_id"]
                 driver_name = instrument.get("driver", "")
+                if instrument.get("emr_id", "") != "":
+                    instrument = self.load_from_emr(instrument)
+
                 self.check_instrument(instrument, inst_id)
 
                 itr = instrument.get("operations", {}).copy()
                 for operation in itr:
                     if "transducer" in instrument["operations"].get(operation, {}):
-                        td = json.load(open(instrument["operations"][operation]["transducer"]))
-                        t_id = td.get("t_id", "")
-                        self.check_instrument(td, t_id)
-                        instrument["operations"][operation].update(td)
+                        td = instrument["operations"][operation]["transducer"]
+                        try:
+                            transducer = json.load(open(td))
+                        except (OSError, ValueError) as e:
+                            sys.stderr.write(f"Error Loading Transducer {td}: {e}")
+                            sys.exit(1)
+                        if transducer.get("emr_id", "") != "":
+                            instrument = self.load_from_emr(transducer)
+
+                        t_id = transducer.get("t_id", "")
+                        self.check_instrument(transducer, t_id)
+                        instrument["operations"][operation].update(transducer)
                         names = []
                         if instrument["operations"][operation].get("t_name", "") != "":
                             names.append(instrument["operations"][operation]["t_name"])

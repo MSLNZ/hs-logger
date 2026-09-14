@@ -1,0 +1,15 @@
+{
+    "t_name": "",
+    "t_id": "473-Tx0309",
+    "details": "",
+    "data_type": "float",
+    "unit": "",
+    "transform_eq":["T", 99.9220, 3.90963E-03, -5.47110E-07, -5.00140E-11],
+    "check_date": "09/09/2021",
+    "cal_date": "09/09/2021",
+    "check_freq": 0.5,
+    "cal_freq": 5,
+    "rep_num": "RHS210909A",
+    "uncertainty": 0.02,
+    "range": "-20 °C to 85 °C"
+}
