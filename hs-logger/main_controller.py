@@ -816,21 +816,18 @@ class Controller(object):
             print(f"load_from_emr was called incorrectly.")
             return instrument
         try:
-            inst = self.emr[emr_id]
+            # Connect to register
+            pass
         except (OSError, ValueError) as e:
-            sys.stderr.write(f"Equipment maintenance register does not contain {emr_id}: {e}")
-            sys.exit(1)
+            pass
 
-        link = '{https://measurement.govt.nz/equipment-register}'
-        if "cal_freq" in instrument:
-            instrument["cal_freq"] = int(inst.find(f'{link}calibrations').find(f'{link}measurand').attrib["calibrationInterval"])
-        #         Figure out which calibration is the most recent one.
-        #             instrument["rep_num"] = <report>
-        #                instrument["cal_date"] = <reportIssueDate>
-        #                instrument["transform_eq"] = <cvdCoefficients>
-        #                    instrument["uncertainty"] = <uncertainty>
-        #                    instrument["unit"] = <uncertainty>
-        #                        instrument["range"] = <range>
+        # Figure out which calibration is the most recent one.
+        #     instrument["rep_num"] = <report>
+        #        instrument["cal_date"] = <reportIssueDate>
+        #        instrument["transform_eq"] = <cvdCoefficients>
+        #            instrument["uncertainty"] = <uncertainty>
+        #            instrument["unit"] = <uncertainty>
+        #                instrument["range"] = <range>
 
         return instrument
 

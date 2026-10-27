@@ -260,7 +260,8 @@
             "id":   "set_q1",
             "command": "Fset1 = {}",
             "check_set": "read_q1_sp",
-            "check_actual": "read_q1"
+            "check_actual": "read_q1",
+            "remember": true
         },
         "read_q2":{
             "type": "read_single",
@@ -288,7 +289,8 @@
             "id":   "set_q2",
             "command": "Fset2 = {}",
             "check_set": "read_q2_sp",
-            "check_actual": "read_q2"
+            "check_actual": "read_q2",
+            "remember": true
         },
         "read_q3":{
             "type": "read_single",
@@ -316,7 +318,8 @@
             "id":   "set_q3",
             "command": "Fset3 = {}",
             "check_set": "read_q3_sp",
-            "check_actual": "read_q3"
+            "check_actual": "read_q3",
+            "remember": true
         },
         "read_pump":{
             "type": "read_single",
@@ -563,6 +566,33 @@
             "data_type": "float",
             "unit": "",
             "transform_eq": ["V", 0, 1, 0, 0]
+        },
+        "read_check_q1":{
+            "type": "read_check",
+            "name": "Check Flow 1",
+            "id": "read_check_q1",
+            "details":"Checks first flow value is correct, and writes again if it's not.",
+            "transform_eq": ["V", 0, 1, 0, 0],
+            "read": "read_q1_sp",
+            "write": "set_q1"
+        },
+        "read_check_q2":{
+            "type": "read_check",
+            "name": "Check Flow 2",
+            "id": "read_check_q2",
+            "details":"Checks second flow value is correct, and writes again if it's not.",
+            "transform_eq": ["V", 0, 1, 0, 0],
+            "read": "read_q2_sp",
+            "write": "set_q2"
+        },
+        "read_check_q3":{
+            "type": "read_check",
+            "name": "Check Flow 3",
+            "id": "read_check_q3",
+            "details":"Checks third flow value is correct, and writes again if it's not.",
+            "transform_eq": ["V", 0, 1, 0, 0],
+            "read": "read_q3_sp",
+            "write": "set_q3"
         }
     }
 }
