@@ -211,11 +211,14 @@ class Job(object):
                     plt.plot(x_val, y_val, ".-", label=y_name)
                     plt.plot(x_point, y_point, "x", label='', zorder=2)  # Label removes from legend, zorder draws above
             # Use a colormap to ensure that each point is the same colour as its corresponding line.
-            colormap = cm.get_cmap("viridis")
+            colormap = cm.get_cmap("tab20")
             lines = plt.lines
             N = len(lines)
             for n in range(0, N, 2):
-                color = colormap(n / N)
+                if N > 2:
+                    color = colormap(n / (N-2))
+                else:
+                    color = colormap(0)
                 lines[n].set_color(color)
                 lines[n + 1].set_color(color)
             plt.legend()
@@ -259,7 +262,7 @@ class AutoProfile(object):
         self.soak = [1]
         self.assured = [0]
         self.operations = {}
-        self.job.frame.job_book.SetPageText(2, "Profile")
+        self.job.frame.job_book.SetPageText(1, "Profile")
         self.grid_refresh()
 
     def load_file(self, direc, fn):
@@ -272,7 +275,7 @@ class AutoProfile(object):
                 self.title = titles[0]
                 while self.title[0] != 'a':  # Remove "ï»¿" from first item
                     self.title = self.title[1:]
-                self.job.frame.job_book.SetPageText(2, self.title)
+                self.job.frame.job_book.SetPageText(1, self.title)
                 self.h_name = file.readline().strip().split(',')
                 self.profile_header = self.h_name.copy()
                 self.h_set = file.readline().strip().split(',')

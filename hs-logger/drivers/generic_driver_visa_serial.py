@@ -26,6 +26,7 @@ class generic_driver_visa_serial(object):
         doOpen = spec.get("doOpen", True)
         rm = visa.ResourceManager()
         self.store = {}
+        self.memory = {}
         self.timeout = spec.get("store_timeout", 2)
         self.instrument = rm.open_resource(port,
                                            baud_rate=baud,
@@ -51,7 +52,7 @@ class generic_driver_visa_serial(object):
 
     def read_instrument(self, operation_id):
         """
-        read instrument 
+        read instrument
         """
         try:
             operation = self.operations[operation_id]
@@ -73,6 +74,28 @@ class generic_driver_visa_serial(object):
                     return -1, -1
                 data, data_trans = stored[0]
                 return data, data_trans
+            elif dtype == 'read_check':
+                if operation.get("write", "") not in self.memory:
+                    # There is no value to check, return 1s to confirm fine
+                    return 1, 1
+                else:
+                    read = operation.get('read', "")
+                    instruct = self.operations[read]
+                    self.instrument.write(instruct.get('command', ""))
+                    checkset = float("NaN")
+                    try:
+                        while True:
+                            checkset = float(self.instrument.read())
+                    except visa.errors.VisaIOError:
+                        pass
+                    checkprof = float(self.memory[operation.get("write", "")][0])
+                    if checkset == checkprof:
+                        # Check has passed, return 1s to confirm
+                        return 1, 1
+                    else:
+                        # Check has failed, write the value again and return 0s to indicate
+                        self.write_instrument(operation.get('write', ""), self.memory[operation.get("write", "")])
+                        return 0, 0
             elif dtype == 'read_multiple':
                 with self.lock:
                     # print("locK")
@@ -156,6 +179,11 @@ class generic_driver_visa_serial(object):
             command = command.format(*values)
             # response = self.instrument.query(command)
             response = ""
+            if op.get("remember", False):
+                if operation_id not in self.memory:
+                    self.memory[operation_id] = values
+                elif self.memory[operation_id] != values:
+                    self.memory[operation_id] = values
 
             if op.get("type") == "write_action":  # This allows the autoprofile to control actions using a list
                 if command in op.get("operations"):
